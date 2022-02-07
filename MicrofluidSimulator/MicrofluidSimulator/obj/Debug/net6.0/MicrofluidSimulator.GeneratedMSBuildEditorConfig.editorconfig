@@ -11,45 +11,45 @@ build_property.EnableTrimAnalyzer = true
 build_property.IncludeAllContentForSelfExtract = 
 build_property.RootNamespace = MicrofluidSimulator
 build_property.RootNamespace = MicrofluidSimulator
-build_property.ProjectDir = C:\Users\alexa\Documents\GitHub\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\MicrofluidSimulator\MicrofluidSimulator\
+build_property.ProjectDir = D:\GitHub\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\MicrofluidSimulator\MicrofluidSimulator\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\alexa\Documents\GitHub\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\MicrofluidSimulator\MicrofluidSimulator
+build_property.MSBuildProjectDirectory = D:\GitHub\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\MicrofluidSimulator\MicrofluidSimulator
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/alexa/Documents/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/App.razor]
+[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexa/Documents/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/Counter.razor]
+[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexa/Documents/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/FetchData.razor]
+[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexa/Documents/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/Index.razor]
+[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexa/Documents/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/JoelsPage.razor]
+[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/JoelsPage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSm9lbHNQYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexa/Documents/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/SurveyPrompt.razor]
+[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexa/Documents/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/_Imports.razor]
+[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alexa/Documents/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/MainLayout.razor]
+[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-f6y74xj1ea
 
-[C:/Users/alexa/Documents/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/NavMenu.razor]
+[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-lkyxe0aehn

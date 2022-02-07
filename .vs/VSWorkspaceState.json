@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\MicrofluidSimulator",
+    "\\MicrofluidSimulator\\MicrofluidSimulator"
   ],
   "PreviewInSolutionExplorer": false
 }

@@ -1546,19 +1546,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alexa\\.nuget\\packages\\": {}
+    "C:\\Users\\Joel\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alexa\\Documents\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
+      "projectUniqueName": "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
       "projectName": "MicrofluidSimulator",
-      "projectPath": "C:\\Users\\alexa\\Documents\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
-      "packagesPath": "C:\\Users\\alexa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alexa\\Documents\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\obj\\",
+      "projectPath": "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
+      "packagesPath": "C:\\Users\\Joel\\.nuget\\packages\\",
+      "outputPath": "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\alexa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Joel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

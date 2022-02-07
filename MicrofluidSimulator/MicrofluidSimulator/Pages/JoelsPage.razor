@@ -5,13 +5,9 @@
 
 <h1>Hey, im Jon!</h1>
 
-<h3>Run the js</h3>
+<h3>Welcome to the simulator</h3>
 
-
-
-<button class="btn btn-primary" @onclick="setP5">Click me</button>
-
-<div id='container' @onload="setP5"></div>
+<div id='container'></div>
 
 @functions{
  
@@ -20,6 +16,12 @@
     {
         await JsRuntime.InvokeAsync<object>("setp5");
     }
- 
- 
+}
+
+@code {
+    protected override void OnAfterRender(bool firstRender) {
+        if(firstRender) {
+            setP5();
+        }
+    }
 }
