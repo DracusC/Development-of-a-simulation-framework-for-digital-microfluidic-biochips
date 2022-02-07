@@ -1,0 +1,40 @@
+INDEX:
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<div class="frame_container">
+			<iframe scrolling="no" src="frame.html" width="401px" height="401px"></iframe>
+		</div>
+	</body>
+</html>
+
+FRAME (dependcies here!):
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+		<script src="sketch.js"></script>
+		<style>
+			body{margin:0;}
+		</style>
+	</head>
+	<body>
+		<main>
+    	</main>
+	</body>
+</html>
+
+STYLE CSS:
+#frame1 {
+	overflow:none;
+	height:100%;
+	width:100%;
+	border:none;
+}
+.frame_container {
+	width: max-content;
+	margin: auto;
+}
