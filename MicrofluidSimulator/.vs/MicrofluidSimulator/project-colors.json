@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "9d517ff9-1195-43ff-ae24-6ded184126e5": {
+      "ProjectGuid": "9d517ff9-1195-43ff-ae24-6ded184126e5",
+      "DisplayName": "MicrofluidSimulator",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
