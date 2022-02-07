@@ -1,6 +1,25 @@
 ﻿@page "/JoelsPage"
+@using Microsoft.JSInterop
+@inject IJSRuntime JsRuntime
+
+
 <h1>Hey, im Jon!</h1>
 
-@code {
+<h3>Run the js</h3>
 
+
+
+<button class="btn btn-primary" @onclick="setP5">Click me</button>
+
+<div id='container' @onload="setP5"></div>
+
+@functions{
+ 
+ 
+    async void setP5()
+    {
+        await JsRuntime.InvokeAsync<object>("setp5");
+    }
+ 
+ 
 }

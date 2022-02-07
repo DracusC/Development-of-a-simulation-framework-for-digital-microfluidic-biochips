@@ -10,12 +10,12 @@ window.addEventListener('load', (event) => {
 let sketch = function(p){
  
     p.setup = function(){ 
-      canvas = createCanvas(401, 401);
+      canvas = p.createCanvas(401, 401);
     }
  
     p.draw = function(){
-      stroke(0);
-      fill(255,0,0);
-      ellipse(50,50,20,20);
+      p.stroke(0);
+      p.fill(255,0,0);
+      p.ellipse(50,50,20,20);
     }
 };

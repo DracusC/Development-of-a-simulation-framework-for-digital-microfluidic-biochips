@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5F9Qwb8OXrcgxUz/I6YG5vBxKTiMX4dYk/Do30bCrGc=",
+  "Hash": "jczBPtBmVUG+qQivlliQk22w3uz6yRUWEuO3GFfatuc=",
   "Source": "MicrofluidSimulator",
   "BasePath": "/",
   "Mode": "Root",
@@ -7089,6 +7089,23 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
+      "Identity": "C:\\Users\\alexa\\Documents\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\wwwroot\\js\\indexhtml.txt",
+      "SourceId": "MicrofluidSimulator",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\alexa\\Documents\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "js/indexhtml.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\indexhtml.txt"
+    },
+    {
       "Identity": "C:\\Users\\alexa\\Documents\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\wwwroot\\js\\JoelsPlayground.js",
       "SourceId": "MicrofluidSimulator",
       "SourceType": "Discovered",
@@ -7104,6 +7121,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\JoelsPlayground.js"
+    },
+    {
+      "Identity": "C:\\Users\\alexa\\Documents\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\wwwroot\\js\\sketch.js",
+      "SourceId": "MicrofluidSimulator",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\alexa\\Documents\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "js/sketch.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\sketch.js"
     },
     {
       "Identity": "C:\\Users\\alexa\\Documents\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\wwwroot\\sample-data\\weather.json",

@@ -196,13 +196,13 @@
       "mscorlib.dll": "sha256-+5VU+MYaTQMTlRe9QKobEjWZWv6I9teAGdNndWSBqWE=",
       "netstandard.dll": "sha256-E5RFhGIaDH5QM6BEbFUuHU8U9wP6N6jbo5MCttzLOCM=",
       "System.Private.CoreLib.dll": "sha256-9NtEbYixyog7vUmeYXyyqzfBXUYl8wxoVQ26Ji7sNRg=",
-      "MicrofluidSimulator.dll": "sha256-1Udgl13KN1ytBfKPNfne3aurXl7fQtv5zGXdY8UtsVY="
+      "MicrofluidSimulator.dll": "sha256-\/yadcSSPFKRBxknPuy31JPrFlvdx177Mo0OiAtrljBM="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "MicrofluidSimulator.pdb": "sha256-RFLwRZmMiCQS7SUko4xuEcJ0i\/NXCiG1dt7aVeuw97A="
+      "MicrofluidSimulator.pdb": "sha256-dWNsjZCyK0fxEVRqrJHHcSp65XmTHGgRpns3Qw04SfQ="
     },
     "runtime": {
       "dotnet.6.0.1.0iq0se6um4.js": "sha256-awQsJ\/WxYhouHPuE+i3eJqjA4XClQlr2rD6nKvW80ww=",
