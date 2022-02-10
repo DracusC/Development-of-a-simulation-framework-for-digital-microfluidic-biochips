@@ -315,6 +315,15 @@
           "lib/net6.0/Microsoft.JSInterop.WebAssembly.dll": {}
         }
       },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
       "System.Diagnostics.DiagnosticSource/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -704,6 +713,15 @@
         },
         "runtime": {
           "lib/net6.0/Microsoft.JSInterop.WebAssembly.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
       "System.Diagnostics.DiagnosticSource/6.0.0": {
@@ -1382,6 +1400,33 @@
         "microsoft.jsinterop.webassembly.nuspec"
       ]
     },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
     "System.Diagnostics.DiagnosticSource/6.0.0": {
       "sha512": "frQDfv0rl209cKm1lnwTgFPzNigy2EKk1BS3uAvHvlBVKe5cymGyHO+Sj+NLv5VF/AhHsqPIUUwya5oV4CHMUw==",
       "type": "package",
@@ -1542,23 +1587,24 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.AspNetCore.Components.WebAssembly >= 6.0.1",
-      "Microsoft.AspNetCore.Components.WebAssembly.DevServer >= 6.0.1"
+      "Microsoft.AspNetCore.Components.WebAssembly.DevServer >= 6.0.1",
+      "Newtonsoft.Json >= 13.0.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Joel\\.nuget\\packages\\": {}
+    "C:\\Users\\carlj\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
+      "projectUniqueName": "C:\\Users\\carlj\\OneDrive\\Uni\\6. semester\\Bachelor\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
       "projectName": "MicrofluidSimulator",
-      "projectPath": "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
-      "packagesPath": "C:\\Users\\Joel\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\obj\\",
+      "projectPath": "C:\\Users\\carlj\\OneDrive\\Uni\\6. semester\\Bachelor\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
+      "packagesPath": "C:\\Users\\carlj\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\carlj\\OneDrive\\Uni\\6. semester\\Bachelor\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Joel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\carlj\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1592,6 +1638,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[6.0.1, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.1, )"
           }
         },
         "imports": [

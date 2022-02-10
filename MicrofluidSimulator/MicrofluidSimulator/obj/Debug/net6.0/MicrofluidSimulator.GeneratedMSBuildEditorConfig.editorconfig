@@ -11,45 +11,45 @@ build_property.EnableTrimAnalyzer = true
 build_property.IncludeAllContentForSelfExtract = 
 build_property.RootNamespace = MicrofluidSimulator
 build_property.RootNamespace = MicrofluidSimulator
-build_property.ProjectDir = D:\GitHub\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\MicrofluidSimulator\MicrofluidSimulator\
+build_property.ProjectDir = C:\Users\carlj\OneDrive\Uni\6. semester\Bachelor\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\MicrofluidSimulator\MicrofluidSimulator\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\GitHub\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\MicrofluidSimulator\MicrofluidSimulator
+build_property.MSBuildProjectDirectory = C:\Users\carlj\OneDrive\Uni\6. semester\Bachelor\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\MicrofluidSimulator\MicrofluidSimulator
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/App.razor]
+[C:/Users/carlj/OneDrive/Uni/6. semester/Bachelor/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/Counter.razor]
+[C:/Users/carlj/OneDrive/Uni/6. semester/Bachelor/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/FetchData.razor]
+[C:/Users/carlj/OneDrive/Uni/6. semester/Bachelor/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/Index.razor]
+[C:/Users/carlj/OneDrive/Uni/6. semester/Bachelor/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/JoelsPage.razor]
+[C:/Users/carlj/OneDrive/Uni/6. semester/Bachelor/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Pages/JoelsPage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSm9lbHNQYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/SurveyPrompt.razor]
+[C:/Users/carlj/OneDrive/Uni/6. semester/Bachelor/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/_Imports.razor]
+[C:/Users/carlj/OneDrive/Uni/6. semester/Bachelor/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/MainLayout.razor]
+[C:/Users/carlj/OneDrive/Uni/6. semester/Bachelor/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-f6y74xj1ea
 
-[D:/GitHub/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/NavMenu.razor]
+[C:/Users/carlj/OneDrive/Uni/6. semester/Bachelor/Development-of-a-simulation-framework-for-digital-microfluidic-biochips/MicrofluidSimulator/MicrofluidSimulator/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-lkyxe0aehn

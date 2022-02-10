@@ -402,3 +402,8 @@ MicrofluidSimulator/.vs/MicrofluidSimulator/v17/.suo
 *.dll
 *.pdb
 *.gz
+*.sqlite
+*.json
+*.v2
+*.v1
+*.js

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj": {}
+    "C:\\Users\\carlj\\OneDrive\\Uni\\6. semester\\Bachelor\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj": {
+    "C:\\Users\\carlj\\OneDrive\\Uni\\6. semester\\Bachelor\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
+        "projectUniqueName": "C:\\Users\\carlj\\OneDrive\\Uni\\6. semester\\Bachelor\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
         "projectName": "MicrofluidSimulator",
-        "projectPath": "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
-        "packagesPath": "C:\\Users\\Joel\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\obj\\",
+        "projectPath": "C:\\Users\\carlj\\OneDrive\\Uni\\6. semester\\Bachelor\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\MicrofluidSimulator.csproj",
+        "packagesPath": "C:\\Users\\carlj\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\carlj\\OneDrive\\Uni\\6. semester\\Bachelor\\Development-of-a-simulation-framework-for-digital-microfluidic-biochips\\MicrofluidSimulator\\MicrofluidSimulator\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Joel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\carlj\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -48,6 +48,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             }
           },
           "imports": [
