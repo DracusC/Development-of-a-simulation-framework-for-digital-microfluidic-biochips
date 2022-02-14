@@ -23,7 +23,6 @@ namespace MicrofluidSimulator.SimulatorCode
             this.status = status;
             this.corners = corners;
             this.subscriptions = subscriptions;
-           
         }
 
         public Electrodes()

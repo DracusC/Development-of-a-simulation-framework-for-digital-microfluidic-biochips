@@ -2,7 +2,7 @@
 {
     public class SubscriptionModels
     {
-        public void dropletSubscriptions(Electrodes[,] electrodeBoard, Droplets[] droplets, Droplets caller)
+        public static void dropletSubscriptions(Electrodes[,] electrodeBoard, Droplets[] droplets, Droplets caller)
         {
             int posX = caller.PositionX / 20;
             int posY = caller.PositionY / 20;
