@@ -4,10 +4,13 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
     
     public class Initialize
     {
-        
 
+        public Initialize()
+        {
 
-        public object initialize()
+        }
+
+        public object[] initialize()
         {
             //JSONReader FILE = blabla;
             // electrodes = file.splitElectrodes;
@@ -19,8 +22,10 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
             initializeDroplets(droplets);
             initializeSubscriptions(electrodeBoard, droplets);
-
-            return null;
+            object[] ret = new object[2];
+            ret[0] = electrodeBoard;
+            ret[1] = droplets;
+            return ret;
         }
 
         private Electrodes[,] initializeBoard(Electrodes[] electrodes)

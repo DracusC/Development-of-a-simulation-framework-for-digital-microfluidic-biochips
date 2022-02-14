@@ -6,7 +6,6 @@
         {
             int posX = caller.PositionX / 20;
             int posY = caller.PositionY / 20;
-            electrodeBoard[posX, posY].Subscriptions.Add(caller.ID1);
             for(int y = -1; y < 2; y++)
             {
                 for (int x = -1; x < 2; x++)
