@@ -1,0 +1,21 @@
+﻿namespace MicrofluidSimulator.SimulatorCode.Models
+{
+    public class SubscriptionModels
+    {
+        public void dropletSubscriptions(Electrodes[,] electrodeBoard, Droplets[] droplets, Droplets caller)
+        {
+            int posX = caller.PositionX / 20;
+            int posY = caller.PositionY / 20;
+            electrodeBoard[posX, posY].Subscriptions.Add(caller.ID1);
+            for(int y = -1; y < 2; y++)
+            {
+                for (int x = -1; x < 2; x++)
+                {
+                    if( x>=0 && x<32 && y>= 0 && y < 32){
+                        electrodeBoard[posX+x, posY+y].Subscriptions.Add(caller.ID1);
+                    }
+                }
+            }
+        }
+    }
+}
