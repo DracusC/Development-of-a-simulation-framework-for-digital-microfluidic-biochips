@@ -1,5 +1,5 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
-
+using System.Collections;
 namespace MicrofluidSimulator.SimulatorCode
 {
     public class Electrodes
@@ -7,9 +7,9 @@ namespace MicrofluidSimulator.SimulatorCode
         string name;
         int ID, electrodeID, driverID, shape, positionX, positionY, sizeX, sizeY, status;
         int[,] corners;
-        MicrofluidSimulator.SimulatorCode.DataTypes.Subscriptions[] subscriptions;
+        ArrayList subscriptions;
 
-        public Electrodes(string name, int ID, int electrodeID, int driverID, int shape, int positionX, int positionY, int sizeX, int sizeY, int status, int[,] corners, MicrofluidSimulator.SimulatorCode.DataTypes.Subscriptions[] subscriptions)
+        public Electrodes(string name, int ID, int electrodeID, int driverID, int shape, int positionX, int positionY, int sizeX, int sizeY, int status, int[,] corners, ArrayList subscriptions)
         {
             this.name = name;
             this.ID = ID;
@@ -42,6 +42,6 @@ namespace MicrofluidSimulator.SimulatorCode
         public int SizeY { get => sizeY; set => sizeY = value; }
         public int Status { get => status; set => status = value; }
         public int[,] Corners { get => corners; set => corners = value; }
-        public Subscriptions[] Subscriptions { get => subscriptions; set => subscriptions = value; }
+        public ArrayList Subscriptions { get => subscriptions; set => subscriptions = value; }
     }
 }
