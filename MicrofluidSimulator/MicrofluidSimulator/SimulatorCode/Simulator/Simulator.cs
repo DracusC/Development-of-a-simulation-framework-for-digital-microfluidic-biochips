@@ -27,10 +27,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             }
         }
 
-        private void executeElectrodeAction(ActionQueueItem action, object[] values)
+        private void executeElectrodeAction(ActionQueueItem actionQueueItem, object[] values)
         {
-            Electrodes[,] electrodeBoard = (Electrodes[,])initValues[0];
-            ArrayList electrodeOnOff = electrodeOnOff(values, );
+            Electrodes[] electrodeBoard = (Electrodes[])values[0];
+            DataTypes.Action action = actionQueueItem.Action;
+            int electrodeId = action.ActionOnID;
+            ArrayList subscribers = Models.ElectrodeModels.electrodeOnOff(values, electrodeBoard[electrodeId],action);
+
 
         }
     }

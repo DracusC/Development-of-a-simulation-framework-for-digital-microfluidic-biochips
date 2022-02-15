@@ -2,8 +2,11 @@
 {
     public class DropletModels
     {
-        public static void dropletMovement(Electrodes[,] electrodeBoard, Droplets[] droplets, Droplets caller)
+        public static void dropletMovement(object[] values, Droplets caller)
         {
+            Electrodes[] electrodeBoard = (Electrodes[])values[0];
+            Droplets[] droplets = (Droplets[])values[1];
+
             int posX = caller.PositionX / 20;
             int posY = caller.PositionY / 20;
             double max= 0;
@@ -14,13 +17,13 @@
                 {
                     if (x >= 0 && x < 32 && y >= 0 && y < 32)
                     {
-                        int electrodeCenterX = electrodeBoard[posX + x, posY + y].PositionX + 10;
-                        int electrodeCenterY = electrodeBoard[posX + x, posY + y].PositionY + 10;
+                        int electrodeCenterX = electrodeBoard[(posX + x) + (posY + y) * 32].PositionX + 10;
+                        int electrodeCenterY = electrodeBoard[(posX + x) + (posY + y) * 32].PositionY + 10;
                         double dist = electrodeDistance(electrodeCenterX, electrodeCenterY, caller.PositionX, caller.PositionY);
                         if (dist > max)
                         {
                             max = dist;
-                            electrode = electrodeBoard[posX + x, posY + y];
+                            electrode = electrodeBoard[(posX + x) + (posY + y) * 32];
                         }
                     }
                 }
