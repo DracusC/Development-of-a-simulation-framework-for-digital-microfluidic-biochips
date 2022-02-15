@@ -2,7 +2,7 @@
 {
     public class SubscriptionModels
     {
-        public static void dropletSubscriptions(Electrodes[,] electrodeBoard, Droplets[] droplets, Droplets caller)
+        public static void dropletSubscriptions(Electrodes[] electrodeBoard, Droplets[] droplets, Droplets caller)
         {
             int posX = caller.PositionX / 20;
             int posY = caller.PositionY / 20;
@@ -11,7 +11,7 @@
                 for (int x = -1; x < 2; x++)
                 {
                     if( x>=0 && x<32 && y>= 0 && y < 32){
-                        electrodeBoard[posX+x, posY+y].Subscriptions.Add(caller.ID1);
+                        //electrodeBoard[posX+x, posY+y].Subscriptions.Add(caller.ID1);
                     }
                 }
             }

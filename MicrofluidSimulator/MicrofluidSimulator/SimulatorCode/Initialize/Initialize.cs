@@ -17,7 +17,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             // droplets = file.splitDroplets
             Electrodes[] electrodes = new Electrodes[640];
             Droplets[] droplets = new Droplets[1];
-            Electrodes[,] electrodeBoard = initializeBoard(electrodes);
+            Electrodes[] electrodeBoard = initializeBoard(electrodes);
 
 
             initializeDroplets(droplets);
@@ -28,20 +28,19 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return ret;
         }
 
-        private Electrodes[,] initializeBoard(Electrodes[] electrodes)
+        private Electrodes[] initializeBoard(Electrodes[] electrodes)
         {
-            Electrodes[,] electrodeBoard = new Electrodes[32, 20];
-            for (int i = 0; i < electrodeBoard.GetLength(0); i++)
+            Electrodes[] electrodeBoard = new Electrodes[640];
+            for (int i = 0; i < electrodeBoard.Length; i++)
             {
-                for (int j = 0; j < electrodeBoard.GetLength(1); j++)
-                {
-                    electrodeBoard[i, j].Subscriptions = null;
-                    electrodeBoard[i, j].PositionX = i * 20;
-                    electrodeBoard[i, j].PositionY = j * 20;
-                    electrodeBoard[i, j].SizeX = 20;
-                    electrodeBoard[i, j].SizeY = 20;
-                    electrodeBoard[i, j].Status = 0;
-                }
+                electrodeBoard[i].ID1 = i;
+                electrodeBoard[i].Subscriptions = null;
+                electrodeBoard[i].PositionX = (i%32) * 20;
+                electrodeBoard[i].PositionY = (i/32) * 20;
+                electrodeBoard[i].SizeX = 20;
+                electrodeBoard[i].SizeY = 20;
+                electrodeBoard[i].Status = 0;
+                
             }
             return electrodeBoard;
 
@@ -56,7 +55,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return droplets;
         }
 
-        private void initializeSubscriptions(Electrodes[,] electrodeBoard, Droplets[] droplets)
+        private void initializeSubscriptions(Electrodes[] electrodeBoard, Droplets[] droplets)
         {
             foreach(Droplets droplet in droplets)
                 {
