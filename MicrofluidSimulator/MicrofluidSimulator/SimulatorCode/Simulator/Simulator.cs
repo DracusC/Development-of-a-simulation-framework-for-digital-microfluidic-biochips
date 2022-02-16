@@ -7,32 +7,33 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
     {
         public void simulatorRun(DataTypes.ActionQueueItem[] actionQueue)
         {
-            Initialize.Initialize init = new Initialize.Initialize();
-            object[] initValues = init.initialize();
-            Droplets[] droplets = (Droplets[]) initValues[1];
-            Electrodes[,] electrodeBoard = (Electrodes[,])initValues[0];
 
-            DataTypes.ActionQueueItem action = actionQueue[0];
-            executeAction(action, initValues);
+            Initialize.Initialize init = new Initialize.Initialize();
+            Container initValues = init.initialize();
+            Droplets[] droplets = initValues.Droplets;
+            Electrodes[] electrodeBoard = initValues.Electrodes;
+
+            //DataTypes.ActionQueueItem action = actionQueue[0];
+            //executeAction(action, initValues);
         }
 
-        private void executeAction(ActionQueueItem action, object[] values)
+        private void executeAction(ActionQueueItem action, Container container)
         {
             String actionName = action.Action.ActionName;
             switch (actionName)
             {
                 case "electrode":
-                    executeElectrodeAction(action, values);
+                    executeElectrodeAction(action, container);
                     break;
             }
         }
 
-        private void executeElectrodeAction(ActionQueueItem actionQueueItem, object[] values)
+        private void executeElectrodeAction(ActionQueueItem actionQueueItem, Container container)
         {
-            Electrodes[] electrodeBoard = (Electrodes[])values[0];
+            Electrodes[] electrodeBoard = container.Electrodes;
             DataTypes.Action action = actionQueueItem.Action;
             int electrodeId = action.ActionOnID;
-            ArrayList subscribers = Models.ElectrodeModels.electrodeOnOff(values, electrodeBoard[electrodeId],action);
+            ArrayList subscribers = Models.ElectrodeModels.electrodeOnOff(container, electrodeBoard[electrodeId],action);
 
 
         }

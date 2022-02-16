@@ -1,9 +1,11 @@
-﻿namespace MicrofluidSimulator.SimulatorCode.Models
+﻿using System.Collections;
+namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class SubscriptionModels
     {
         public static void dropletSubscriptions(Electrodes[] electrodeBoard, Droplets[] droplets, Droplets caller)
         {
+
             int posX = caller.PositionX / 20;
             int posY = caller.PositionY / 20;
             for(int y = -1; y < 2; y++)
