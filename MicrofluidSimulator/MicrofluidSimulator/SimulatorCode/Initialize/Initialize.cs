@@ -56,6 +56,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         private Droplets[] initializeDroplets(Droplets[] droplets)
         {
             droplets[0] = new Droplets();
+            droplets[0].ID1 = 0;
             droplets[0].PositionX = 10;
             droplets[0].PositionY = 10;
             

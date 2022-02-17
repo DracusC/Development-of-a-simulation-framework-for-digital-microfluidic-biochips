@@ -1,11 +1,11 @@
 ﻿namespace MicrofluidSimulator.SimulatorCode.DataTypes
 {
-    public class Action
+    public class SimulatorAction
     {
         String actionName;
         int actionOnID, actionChange;
 
-        public Action(string actionName, int actionOnID, int actionChange)
+        public SimulatorAction(string actionName, int actionOnID, int actionChange)
         {
             this.actionName = actionName;
             this.actionOnID = actionOnID;

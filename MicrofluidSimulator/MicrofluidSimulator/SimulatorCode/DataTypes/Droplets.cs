@@ -35,9 +35,11 @@
         public int SizeY { get => sizeY; set => sizeY = value; }
         public float Temperature { get => temperature; set => temperature = value; }
 
-        public override string? ToString()
+        public override string ToString()
         {
-            return base.ToString();
+            String concat = "Name: " + Name + "\nID: " + ID1.ToString() + "\nPositionX: " + PositionX.ToString() + "\nPositionY: "
+                + PositionY.ToString() + "\nSizeX: " + SizeX.ToString() + "\nSizeY: " + SizeY.ToString();
+            return concat;
         }
 
     }

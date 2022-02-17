@@ -1,12 +1,13 @@
-﻿namespace MicrofluidSimulator.SimulatorCode.Models
+﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
+namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class DropletModels
     {
-        public static void dropletMovement(object[] values, Droplets caller)
+        public static void dropletMovement(Container container, Droplets caller)
         {
-            Electrodes[] electrodeBoard = (Electrodes[])values[0];
-            Droplets[] droplets = (Droplets[])values[1];
 
+            Droplets[] droplets = container.Droplets;
+            Electrodes[] electrodeBoard = container.Electrodes;
             int posX = caller.PositionX / 20;
             int posY = caller.PositionY / 20;
             double max= 0;
@@ -20,9 +21,10 @@
                         int electrodeCenterX = electrodeBoard[(posX + x) + (posY + y) * 32].PositionX + 10;
                         int electrodeCenterY = electrodeBoard[(posX + x) + (posY + y) * 32].PositionY + 10;
                         double dist = electrodeDistance(electrodeCenterX, electrodeCenterY, caller.PositionX, caller.PositionY);
-                        if (dist > max)
+                        double attraction = electrodeBoard[(posX + x) + (posY + y) * 32].Status / (dist + 0.001);
+                        if (attraction > max)
                         {
-                            max = dist;
+                            max = attraction;
                             electrode = electrodeBoard[(posX + x) + (posY + y) * 32];
                         }
                     }
