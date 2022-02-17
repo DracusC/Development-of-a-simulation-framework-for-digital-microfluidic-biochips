@@ -23,6 +23,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             initializeDroplets(droplets);
             initializeSubscriptions(electrodeBoard, droplets);
             Container container = new Container(electrodeBoard, droplets);
+            findNeighbours(container);
             return container;
         }
 
@@ -32,6 +33,11 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             for (int i = 0; i < electrodeBoard.Length; i++)
             {
                 electrodeBoard[i] = new Electrodes("arrel", i, i, i, 0, (i % 32) * 20, (i / 32) * 20, 20, 20, 0, null);
+                if(i == 0)
+                {
+                    Console.WriteLine(electrodeBoard[i]);
+                }
+                
                 /*electrodeBoard[i].ID1 = i;
                 //electrodeBoard[i].Subscriptions = null;
                 electrodeBoard[i].PositionX = (i%32) * 20;
@@ -41,6 +47,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 electrodeBoard[i].Status = 0;*/
                 
             }
+
             return electrodeBoard;
 
             
@@ -67,7 +74,6 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         {
             for(int i = 0; i < container.Electrodes.Length; i++)
             {
-                
                 container.Electrodes[i].Neighbours = findNeighboursByElectrode(container.Electrodes, container.Electrodes[i]);
             }
             return container;
@@ -88,14 +94,13 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 int maxMarginX = electrodeBoard[i].PositionX + electrodeBoard[i].SizeX;
                 int maxMarginY = electrodeBoard[i].PositionY + electrodeBoard[i].SizeY;
 
-                
                 if (searchTopPosX > minMarginX && searchTopPosX < maxMarginX && searchTopPosY > minMarginY && searchTopPosY < maxMarginY)
                 {
                     neighbours.Add(electrodeBoard[i].ID1);
                     int accumulativeSizeX = -electrodeBoard[i].SizeX - 1;
                     int accumulativeSizeY = - 1;
                     neighbours.AddRange(findTopRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, electrode.SizeX+1));
-                    neighbours.AddRange(findDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[(int) neighbours[neighbours.Count]], accumulativeSizeY, electrode.SizeY + 1));
+                    neighbours.AddRange(findDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[(int)neighbours[neighbours.Count-1]], accumulativeSizeY, electrode.SizeY + 1));
                     neighbours.AddRange(findDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeY, electrode.SizeY+1));
                 }
                 if(searchBottomPosX > minMarginX && searchBottomPosX < maxMarginX && searchBottomPosY > minMarginY && searchBottomPosY < maxMarginY)
@@ -103,6 +108,14 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                     int accumulativeSizeX = -electrodeBoard[i].SizeX - 1;
                     neighbours.Add(electrodeBoard[i].ID1);
                     neighbours.AddRange(findBottomRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, electrode.SizeX+1));
+                }
+            }
+            if(electrode.ID1 == 100)
+            {
+                for(int i = 0; i < neighbours.Count; i++)
+                {
+                    Console.WriteLine(neighbours.Count);
+                    Console.WriteLine(neighbours[i]);
                 }
             }
             return neighbours;

@@ -7,6 +7,7 @@
         float temperature;
 
         
+
         public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature)
         {
             this.name = name;
@@ -33,6 +34,11 @@
         public int SizeX { get => sizeX; set => sizeX = value; }
         public int SizeY { get => sizeY; set => sizeY = value; }
         public float Temperature { get => temperature; set => temperature = value; }
+
+        public override string? ToString()
+        {
+            return base.ToString();
+        }
 
     }
 }

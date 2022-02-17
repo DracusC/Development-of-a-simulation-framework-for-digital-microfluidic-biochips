@@ -7,7 +7,9 @@ namespace MicrofluidSimulator.SimulatorCode
         string name;
         int ID, electrodeID, driverID, shape, positionX, positionY, sizeX, sizeY, status;
         int[,] corners;
+
         
+
         ArrayList subscriptions;
         ArrayList neighbours;
 
@@ -49,5 +51,12 @@ namespace MicrofluidSimulator.SimulatorCode
 
         public ArrayList Subscriptions { get => subscriptions; set => subscriptions = value; }
         public ArrayList Neighbours { get => neighbours; set => neighbours = value; }
+
+        public override string ToString()
+        {
+            String concat = "Name: " + Name + "\nID: " + ID1.ToString() + "\nPositionX: " + PositionX.ToString() + "\nPositionY: "
+                + PositionY.ToString() + "\nSizeX: " + SizeX.ToString() + "\nSizeY: " + SizeY.ToString();
+            return concat;
+        }
     }
 }
