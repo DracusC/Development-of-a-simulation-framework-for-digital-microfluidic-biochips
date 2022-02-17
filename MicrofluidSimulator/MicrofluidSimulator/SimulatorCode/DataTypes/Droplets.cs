@@ -5,6 +5,7 @@
         string name, substance_name, color;
         int ID, positionX, positionY, sizeX, sizeY;
         float temperature;
+        int electrodeID;
 
         
 
@@ -34,6 +35,7 @@
         public int SizeX { get => sizeX; set => sizeX = value; }
         public int SizeY { get => sizeY; set => sizeY = value; }
         public float Temperature { get => temperature; set => temperature = value; }
+        public int ElectrodeID { get => electrodeID; set => electrodeID = value; }
 
         public override string? ToString()
         {
