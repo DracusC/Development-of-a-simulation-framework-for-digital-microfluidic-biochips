@@ -2,16 +2,16 @@
 {
     public class ActionQueueItem
     {
-        DataTypes.Action action;
+        DataTypes.SimulatorAction action;
         float time;
 
-        public ActionQueueItem(DataTypes.Action action, float time)
+        public ActionQueueItem(DataTypes.SimulatorAction action, float time)
         {
             this.action = action;
             this.time = time;
         }
 
-        public DataTypes.Action Action { get => action; set => action = value; }
+        public DataTypes.SimulatorAction Action { get => action; set => action = value; }
         public float Time { get => time; set => time = value; }
     }
 }
