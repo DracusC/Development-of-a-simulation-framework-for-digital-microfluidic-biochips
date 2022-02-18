@@ -144,7 +144,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                     {
 
                         neighbours.Add(electrodeBoard[i].ID1);
-                        
+                        leftCase = false;
                         int accumulativeSizeY = 0;
                         neighbours.AddRange(findDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeY, electrode.SizeY));
                     }

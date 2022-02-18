@@ -20,27 +20,21 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 Console.WriteLine("action number " + i);
 
                 ArrayList subscribers = executeAction(action, initValues);
-                //foreach(int subscriber in subscribers)
-                //{
+                ArrayList subscribersCopy = new ArrayList();
+                foreach (int subscriber in subscribers)
+                {
+                    subscribersCopy.Add(subscriber);
+                }
+
+                foreach (int subscriber in subscribersCopy)
+                {
                     Droplets droplet = droplets[0];
                     MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement(initValues, droplet);
                     Models.SubscriptionModels.dropletSubscriptions(initValues, droplet);
                     Console.WriteLine(droplet.ToString());
-                ArrayList dropletSubscritions = droplet.Subscriptions;
-                Console.WriteLine("subs");
-                foreach (int u in dropletSubscritions)
-                    {
-                    Console.WriteLine(u);
-                    }
-                Console.WriteLine("neigh");
-                ArrayList electroneibou = electrodeBoard[droplet.ElectrodeID].Neighbours;
-                foreach (int u in electroneibou)
-                {
-                    Console.WriteLine(u);
+                    ArrayList dropletSubscritions = droplet.Subscriptions;
+                    Console.WriteLine("Hello" +  action.Time);
                 }
-                Console.WriteLine("end");
-                Console.WriteLine("Hello" +  action.Time);
-                //}
                 i++;
             }
             //DataTypes.ActionQueueItem action = actionQueue[0];

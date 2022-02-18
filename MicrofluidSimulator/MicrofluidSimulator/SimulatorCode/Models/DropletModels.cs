@@ -10,26 +10,45 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             Electrodes[] electrodeBoard = container.Electrodes;
             int posX = caller.PositionX / 20;
             int posY = caller.PositionY / 20;
-            double max= 0;
+
+
+            
+
+            //get index of electrode we are on and get the electrode
+            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
+            Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
+
+            // init values for finding the electrode with highest attraction
+            double max = 0;
             Electrodes electrode = null;
-            for (int y = -1; y < 2; y++)
+
+            // Find the attraction for the electrode we are on
+            // Attraction is definded by status/distance
+            int electrodeCenterX = dropletElectrode.PositionX + 10;
+            int electrodeCenterY = dropletElectrode.PositionY + 10;
+            double dist = electrodeDistance(electrodeCenterX, electrodeCenterY, caller.PositionX, caller.PositionY);
+            double attraction = dropletElectrode.Status / (dist + 0.1);
+            //If the attraction is higher than the previous highest, this is now the highest
+            if (attraction > max)
             {
-                for (int x = -1; x < 2; x++)
+                max = attraction;
+                electrode = dropletElectrode;
+            }
+
+            // Find the attraction for all the neighbouring electrodes
+            foreach (int neighbour in dropletElectrode.Neighbours)
+            {
+                electrodeCenterX = electrodeBoard[neighbour].PositionX + 10;
+                electrodeCenterY = electrodeBoard[neighbour].PositionY + 10;
+                dist = electrodeDistance(electrodeCenterX, electrodeCenterY, caller.PositionX, caller.PositionY);
+                attraction = electrodeBoard[neighbour].Status / (dist + 0.1);
+                if (attraction > max)
                 {
-                    if (x >= 0 && x < 32 && y >= 0 && y < 32)
-                    {
-                        int electrodeCenterX = electrodeBoard[(posX + x) + (posY + y) * 32].PositionX + 10;
-                        int electrodeCenterY = electrodeBoard[(posX + x) + (posY + y) * 32].PositionY + 10;
-                        double dist = electrodeDistance(electrodeCenterX, electrodeCenterY, caller.PositionX, caller.PositionY);
-                        double attraction = electrodeBoard[(posX + x) + (posY + y) * 32].Status / (dist + 0.001);
-                        if (attraction > max)
-                        {
-                            max = attraction;
-                            electrode = electrodeBoard[(posX + x) + (posY + y) * 32];
-                        }
-                    }
+                    max = attraction;
+                    electrode = electrodeBoard[neighbour];
                 }
             }
+            // move the droplet to the electrode with the highest attraction
             if(electrode != null)
             {
                 caller.PositionX = electrode.PositionX + 10;
