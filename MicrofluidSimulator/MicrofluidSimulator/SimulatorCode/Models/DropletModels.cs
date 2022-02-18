@@ -34,6 +34,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             {
                 caller.PositionX = electrode.PositionX + 10;
                 caller.PositionY = electrode.PositionY + 10;
+                caller.ElectrodeID = electrode.ID1;
             }
         }
 

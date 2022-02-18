@@ -1,21 +1,31 @@
-﻿using System.Collections;
+﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
+using System.Collections;
 namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class SubscriptionModels
     {
-        public static void dropletSubscriptions(Electrodes[] electrodeBoard, Droplets[] droplets, Droplets caller)
-        {
+        public static void dropletSubscriptions(Container container, Droplets caller)
+        {   
 
-            int posX = caller.PositionX / 20;
-            int posY = caller.PositionY / 20;
-            for(int y = -1; y < 2; y++)
+            Droplets[] droplets = container.Droplets;
+            Electrodes[] electrodeBoard = container.Electrodes;
+            // Clear all previous subscriptions
+            ArrayList dropletSubscritions = caller.Subscriptions;
+            foreach(int n in dropletSubscritions)
             {
-                for (int x = -1; x < 2; x++)
-                {
-                    if( x>=0 && x<32 && y>= 0 && y < 32){
-                        electrodeBoard[(posX+x)+(posY+y)*32].Subscriptions.Add(caller.ID1);
-                    }
-                }
+                electrodeBoard[n].Subscriptions.Remove(caller.ID1);
+            }
+            caller.Subscriptions = new ArrayList();
+            //Add the new subscriptions
+            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID,container);
+            Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
+            dropletElectrode.Subscriptions.Add(caller.ID1);
+            caller.Subscriptions.Add(dropletElectrodeIndex);
+            foreach (int neighbour in dropletElectrode.Neighbours)
+            {
+                int index = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
+                electrodeBoard[index].Subscriptions.Add(caller.ID1);
+                caller.Subscriptions.Add(index);
             }
         }
     }

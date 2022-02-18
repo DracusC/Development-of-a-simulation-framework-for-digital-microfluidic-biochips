@@ -1,4 +1,5 @@
-﻿namespace MicrofluidSimulator.SimulatorCode
+﻿using System.Collections;
+namespace MicrofluidSimulator.SimulatorCode
 {
     public class Droplets
     {
@@ -7,7 +8,9 @@
         float temperature;
         int electrodeID;
 
-        
+        ArrayList subscriptions;
+
+
 
         public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature)
         {
@@ -20,6 +23,7 @@
             this.sizeX = sizeX;
             this.sizeY = sizeY;
             this.temperature = temperature;
+            this.subscriptions = new ArrayList();
         }
 
         public Droplets()
@@ -36,6 +40,7 @@
         public int SizeY { get => sizeY; set => sizeY = value; }
         public float Temperature { get => temperature; set => temperature = value; }
         public int ElectrodeID { get => electrodeID; set => electrodeID = value; }
+        public ArrayList Subscriptions { get => subscriptions; set => subscriptions = value; }
 
         public override string ToString()
         {

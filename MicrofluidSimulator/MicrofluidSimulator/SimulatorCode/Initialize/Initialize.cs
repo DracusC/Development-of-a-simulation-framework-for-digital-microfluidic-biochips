@@ -21,8 +21,9 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
 
             initializeDroplets(droplets);
-            initializeSubscriptions(electrodeBoard, droplets);
+            
             Container container = new Container(electrodeBoard, droplets);
+            initializeSubscriptions(container);
             findNeighbours(container);
             return container;
         }
@@ -33,10 +34,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             for (int i = 0; i < electrodeBoard.Length; i++)
             {
                 electrodeBoard[i] = new Electrodes("arrel", i, i, i, 0, (i % 32) * 20, (i / 32) * 20, 20, 20, 0, null);
-                if(i == 0)
-                {
-                    Console.WriteLine(electrodeBoard[i]);
-                }
+                
                 
                 /*electrodeBoard[i].ID1 = i;
                 //electrodeBoard[i].Subscriptions = null;
@@ -55,20 +53,17 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         private Droplets[] initializeDroplets(Droplets[] droplets)
         {
-            droplets[0] = new Droplets();
-            droplets[0].ID1 = 0;
-            droplets[0].PositionX = 10;
-            droplets[0].PositionY = 10;
-            droplets[0].ElectrodeID = 0;
+            droplets[0] = new Droplets("test droplet", 0, "h20", 10, 10, 10, 10, "blue", 20);
             
             return droplets;
         }
 
-        private void initializeSubscriptions(Electrodes[] electrodeBoard, Droplets[] droplets)
+        private void initializeSubscriptions(Container container)
         {
-            foreach(Droplets droplet in droplets)
+            Droplets[] droplets = container.Droplets;
+            foreach (Droplets droplet in droplets)
                 {
-                Models.SubscriptionModels.dropletSubscriptions(electrodeBoard, droplets, droplet);
+                Models.SubscriptionModels.dropletSubscriptions(container, droplet);
                 }
         }
 
@@ -200,16 +195,8 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             }
             
             neighbours.Remove(electrode.ID1);
-            if (electrode.ID1 == 100 || electrode.ID1 == 608 || electrode.ID1 == 383 || electrode.ID1 == 31 || electrode.ID1 == 320)
-            {
-                Console.WriteLine("electrodeID: " + electrode.ID1);
-                Console.WriteLine(neighbours.Count);
-                for (int i = 0; i < neighbours.Count; i++)
-                {
+          
 
-                    Console.WriteLine(neighbours[i]);
-                }
-            }
             return neighbours;
         }
 

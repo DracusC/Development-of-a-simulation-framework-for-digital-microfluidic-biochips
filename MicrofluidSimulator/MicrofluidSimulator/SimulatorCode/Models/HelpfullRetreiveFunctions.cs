@@ -1,4 +1,4 @@
-﻿using MicrofluidSimulator.SimulatorCode.DataTypes
+﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
 namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class HelpfullRetreiveFunctions
