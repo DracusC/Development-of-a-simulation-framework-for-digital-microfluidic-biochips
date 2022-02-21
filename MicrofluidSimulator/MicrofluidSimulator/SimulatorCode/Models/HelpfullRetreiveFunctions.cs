@@ -3,6 +3,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class HelpfullRetreiveFunctions
     {
+        /* Function that is used when a id of an electrode is known and the index 
+         * in the electrode array i needed
+         * It first tries the id as index, if this dosent work it does a binary search*/
+
         public static int getIndexOfElectrodeByID(int ID, Container container)
         {
 

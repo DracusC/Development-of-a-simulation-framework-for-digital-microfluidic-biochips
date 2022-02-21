@@ -7,22 +7,21 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
     {
         public void simulatorRun(Queue<ActionQueueItem> actionQueue)
         {
+            //test queue
             actionQueue = generateTestQueue();
 
+            //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
             Container container = init.initialize();
             Droplets[] droplets = container.Droplets;
-            Electrodes[] electrodeBoard = container.Electrodes;
+            Electrodes[] electrodeBoard = container.Electrodes;   
 
-            Console.WriteLine(droplets[0].ToString());
-            Console.WriteLine(droplets[1].ToString());
-           
-
-            int i = 1;
+            //Loop that runs for all actions in the actionQueue
             foreach(ActionQueueItem action in actionQueue)
             {
-                Console.WriteLine("action number " + i);
+                Console.WriteLine("action number " + action.Time);
 
+                //Get the first action execute and get back the list of subscribers to the specific action
                 ArrayList subscribers = executeAction(action, container);
                 ArrayList subscribersCopy = new ArrayList();
                 foreach (int subscriber in subscribers)
@@ -37,7 +36,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     Models.SubscriptionModels.dropletSubscriptions(container, droplet);
                     Console.WriteLine(droplet.ToString());
                     ArrayList dropletSubscritions = droplet.Subscriptions;
-                    Console.WriteLine("Hello" +  action.Time);
                 }
                 i++;
             }
@@ -45,6 +43,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             //executeAction(action, initValues);
         }
 
+        /* Switch that reads the action and determines what needs to be calles*/
         private ArrayList executeAction(ActionQueueItem action, Container container)
         {
             String actionName = action.Action.ActionName;
