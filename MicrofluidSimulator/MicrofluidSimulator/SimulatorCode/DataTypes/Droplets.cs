@@ -23,6 +23,7 @@ namespace MicrofluidSimulator.SimulatorCode
             this.sizeX = sizeX;
             this.sizeY = sizeY;
             this.temperature = temperature;
+            this.electrodeID = 0;
             this.subscriptions = new ArrayList();
         }
 

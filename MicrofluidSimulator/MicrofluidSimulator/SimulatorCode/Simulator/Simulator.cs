@@ -10,16 +10,20 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             actionQueue = generateTestQueue();
 
             Initialize.Initialize init = new Initialize.Initialize();
-            Container initValues = init.initialize();
-            Droplets[] droplets = initValues.Droplets;
-            Electrodes[] electrodeBoard = initValues.Electrodes;
+            Container container = init.initialize();
+            Droplets[] droplets = container.Droplets;
+            Electrodes[] electrodeBoard = container.Electrodes;
+
+            Console.WriteLine(droplets[0].ToString());
+            Console.WriteLine(droplets[1].ToString());
+           
 
             int i = 1;
             foreach(ActionQueueItem action in actionQueue)
             {
                 Console.WriteLine("action number " + i);
 
-                ArrayList subscribers = executeAction(action, initValues);
+                ArrayList subscribers = executeAction(action, container);
                 ArrayList subscribersCopy = new ArrayList();
                 foreach (int subscriber in subscribers)
                 {
@@ -28,9 +32,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                 foreach (int subscriber in subscribersCopy)
                 {
-                    Droplets droplet = droplets[0];
-                    MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement(initValues, droplet);
-                    Models.SubscriptionModels.dropletSubscriptions(initValues, droplet);
+                    Droplets droplet = droplets[subscriber];
+                    MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement(container, droplet);
+                    Models.SubscriptionModels.dropletSubscriptions(container, droplet);
                     Console.WriteLine(droplet.ToString());
                     ArrayList dropletSubscritions = droplet.Subscriptions;
                     Console.WriteLine("Hello" +  action.Time);

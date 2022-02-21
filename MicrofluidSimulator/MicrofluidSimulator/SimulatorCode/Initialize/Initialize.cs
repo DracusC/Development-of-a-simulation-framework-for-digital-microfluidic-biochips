@@ -16,15 +16,15 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         {
             
             Electrodes[] electrodes = new Electrodes[640];
-            Droplets[] droplets = new Droplets[1];
+            Droplets[] droplets = new Droplets[2];
             Electrodes[] electrodeBoard = initializeBoard(electrodes);
 
 
             initializeDroplets(droplets);
             
             Container container = new Container(electrodeBoard, droplets);
-            initializeSubscriptions(container);
             findNeighbours(container);
+            initializeSubscriptions(container);
             return container;
         }
 
@@ -54,7 +54,9 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         private Droplets[] initializeDroplets(Droplets[] droplets)
         {
             droplets[0] = new Droplets("test droplet", 0, "h20", 10, 10, 10, 10, "blue", 20);
-            
+            droplets[0].ElectrodeID = 0;
+            droplets[1] = new Droplets("test droplet2", 1, "h20", 50, 50, 50, 50, "blue", 20);
+            droplets[1].ElectrodeID = 66;
             return droplets;
         }
 

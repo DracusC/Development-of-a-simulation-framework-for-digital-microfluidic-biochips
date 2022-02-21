@@ -5,7 +5,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     public class SubscriptionModels
     {
         public static void dropletSubscriptions(Container container, Droplets caller)
-        {   
+        {
             // Gets the needed data out of the container
             Droplets[] droplets = container.Droplets;
             Electrodes[] electrodeBoard = container.Electrodes;
@@ -27,6 +27,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             // add the droplet to the sublist of the electrode it is on then run for all neighbours
             dropletElectrode.Subscriptions.Add(caller.ID1);
             caller.Subscriptions.Add(dropletElectrodeIndex);
+
             foreach (int neighbour in dropletElectrode.Neighbours)
             {
                 int index = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
