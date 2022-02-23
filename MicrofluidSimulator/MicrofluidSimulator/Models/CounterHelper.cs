@@ -5,8 +5,8 @@ namespace MicrofluidSimulator.Models
     {
         public int incrementer(int num)
         {
-            Simulator simulator = new Simulator();
-            simulator.simulatorRun(null);
+            //Simulator simulator = new Simulator();
+            //simulator.simulatorRun(null);
             // potentially use namespace to get rid of the complete path to information and other classes from different folders?
             //MicrofluidSimulator.SimulatorCode.Information information = new MicrofluidSimulator.SimulatorCode.Information();
             //information.Platform_name = "platformNameTest";

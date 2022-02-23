@@ -20,13 +20,19 @@ namespace MicrofluidSimulator.SimulatorCode.View
         /*
          * JSRuntime is used to run javascript code within c#
          */
-        private readonly IJSRuntime _jSRuntime;
+        private IJSRuntime _jSRuntime;
+
         public GUIBroker(IJSRuntime jSRuntime)
         {
             _jSRuntime = jSRuntime;
         }
 
         public GUIBroker() { }
+
+        public void set_jsruntime(IJSRuntime jSRuntime) {
+            _jSRuntime = jSRuntime;
+        }
+        
 
         //[Inject]
         //public IJSRuntime JSRuntime { get; set; }

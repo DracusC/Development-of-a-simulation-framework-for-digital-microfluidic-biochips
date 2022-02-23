@@ -53,9 +53,9 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         private Droplets[] initializeDroplets(Droplets[] droplets)
         {
-            droplets[0] = new Droplets("test droplet", 0, "h20", 10, 10, 10, 10, "blue", 20);
+            droplets[0] = new Droplets("test droplet", 0, "h20", 10, 10, 20, 20, "blue", 20);
             droplets[0].ElectrodeID = 0;
-            droplets[1] = new Droplets("test droplet2", 1, "h20", 50, 50, 50, 50, "blue", 20);
+            droplets[1] = new Droplets("test droplet2", 1, "h20", 50, 50, 20, 20, "red", 20);
             droplets[1].ElectrodeID = 66;
             return droplets;
         }

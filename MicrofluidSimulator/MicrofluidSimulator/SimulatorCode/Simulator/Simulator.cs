@@ -12,7 +12,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         Queue<ActionQueueItem> actionQueue;
         public Simulator(Queue<ActionQueueItem> actionQueue)
         {
-            actionQueue = generateTestQueue();
+            this.actionQueue = generateTestQueue();
 
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
