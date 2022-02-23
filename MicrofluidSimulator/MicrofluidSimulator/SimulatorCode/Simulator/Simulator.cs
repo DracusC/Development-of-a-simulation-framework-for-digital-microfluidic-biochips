@@ -3,22 +3,71 @@ using System.Collections;
 
 namespace MicrofluidSimulator.SimulatorCode.Simulator
 {
+
+
     public class Simulator
     {
-        public void simulatorRun(Queue<ActionQueueItem> actionQueue)
+        Container container;
+        Droplets[] droplets;
+        Queue<ActionQueueItem> actionQueue;
+        public Simulator(Queue<ActionQueueItem> actionQueue)
         {
-            //test queue
             actionQueue = generateTestQueue();
 
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
-            Container container = init.initialize();
-            Droplets[] droplets = container.Droplets;
-            Electrodes[] electrodeBoard = container.Electrodes;   
+            container = init.initialize();
+            droplets = container.Droplets;
+            Electrodes[] electrodeBoard = container.Electrodes;
+        }
 
-            //Loop that runs for all actions in the actionQueue
-            foreach(ActionQueueItem action in actionQueue)
+        public Container Container { get => container; set => container = value; }
+        public Droplets[] Droplets { get => droplets; set => droplets = value; }
+        public Queue<ActionQueueItem> ActionQueue { get => actionQueue; set => actionQueue = value; }
+
+        //public void simulatorRun(Queue<ActionQueueItem> actionQueue)
+        //{
+        //    //test queue
+        //    actionQueue = generateTestQueue();
+
+        //    //Initialize all data, board of electrodes, droplets etc.
+        //    Initialize.Initialize init = new Initialize.Initialize();
+        //    Container container = init.initialize();
+        //    Droplets[] droplets = container.Droplets;
+        //    Electrodes[] electrodeBoard = container.Electrodes;   
+
+        //    //Loop that runs for all actions in the actionQueue
+        //    foreach(ActionQueueItem action in actionQueue)
+        //    {
+        //        Console.WriteLine("action number " + action.Time);
+
+        //        //Get the first action execute and get back the list of subscribers to the specific action
+        //        ArrayList subscribers = executeAction(action, container);
+        //        ArrayList subscribersCopy = new ArrayList();
+        //        foreach (int subscriber in subscribers)
+        //        {
+        //            subscribersCopy.Add(subscriber);
+        //        }
+
+        //        foreach (int subscriber in subscribersCopy)
+        //        {
+        //            Droplets droplet = droplets[subscriber];
+        //            MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement(container, droplet);
+        //            Models.SubscriptionModels.dropletSubscriptions(container, droplet);
+        //            Console.WriteLine(droplet.ToString());
+        //            ArrayList dropletSubscritions = droplet.Subscriptions;
+        //        }
+        //    }
+        //    //DataTypes.ActionQueueItem action = actionQueue[0];
+        //    //executeAction(action, initValues);
+        //}
+
+        public void simulatorStep()
+        {
+            if(actionQueue.Count != 0)
             {
+                ActionQueueItem action = actionQueue.Dequeue();
+
                 Console.WriteLine("action number " + action.Time);
 
                 //Get the first action execute and get back the list of subscribers to the specific action
@@ -37,9 +86,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     Console.WriteLine(droplet.ToString());
                     ArrayList dropletSubscritions = droplet.Subscriptions;
                 }
-            }
-            //DataTypes.ActionQueueItem action = actionQueue[0];
-            //executeAction(action, initValues);
+            }    
+            
+            
         }
 
         /* Switch that reads the action and determines what needs to be calles*/
