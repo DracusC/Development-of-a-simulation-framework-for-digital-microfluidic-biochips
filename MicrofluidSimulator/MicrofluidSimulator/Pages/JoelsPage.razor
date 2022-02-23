@@ -1,27 +1,49 @@
 ﻿@page "/JoelsPage"
 @using Microsoft.JSInterop
+@using SimulatorCode
+@using System.Text.Json.Serialization
 @inject IJSRuntime JsRuntime
+@using MicrofluidSimulator.SimulatorCode.View
 
-
-<h1>Hey, im Jon!</h1>
 
 <h3>Welcome to the simulator</h3>
 
 <div id='container'></div>
 
 @functions{
- 
- 
-    async void setP5()
-    {
+    async void setP5() {
         await JsRuntime.InvokeAsync<object>("setp5");
     }
 }
 
 @code {
-    protected override void OnAfterRender(bool firstRender) {
+    protected override async void OnAfterRender(bool firstRender) {
         if(firstRender) {
             setP5();
+
+            Droplets droplet = new Droplets("test droplet", 0, "h20", 10, 10, 20, 20, "blue", 20);
+            Droplets droplet2 = new Droplets("droplet2", 1, "h20", 10, 10, 20, 20, "red", 20);
+            Console.WriteLine(droplet.ToString());
+
+            GUIBroker guibroker = new GUIBroker(JsRuntime);
+            Droplets[] droplet_arr = new Droplets[] { droplet, droplet2 };
+            Console.WriteLine("HERE");
+
+            bool isValid = await guibroker.get_gui_status();
+
+            if (isValid)
+            {
+                guibroker.update_droplets(droplet_arr);
+            }
+            Console.WriteLine(isValid);
+
+            /*
+             * Simulator sends container object to gui, gui updates based on it
+             * gui_broker.send_board_data(container);
+             * 
+             * Simulator can get the status of the gui
+             * gui_broker.get_status() -> 
+             */
         }
     }
 }
