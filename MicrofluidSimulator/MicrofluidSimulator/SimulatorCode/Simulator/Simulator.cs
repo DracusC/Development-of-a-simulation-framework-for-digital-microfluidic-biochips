@@ -37,7 +37,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     Console.WriteLine(droplet.ToString());
                     ArrayList dropletSubscritions = droplet.Subscriptions;
                 }
-                i++;
             }
             //DataTypes.ActionQueueItem action = actionQueue[0];
             //executeAction(action, initValues);
