@@ -83,7 +83,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     Droplets droplet = droplets[subscriber];
                     MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement(container, droplet);
                     Models.SubscriptionModels.dropletSubscriptions(container, droplet);
-                    Console.WriteLine(droplet.ToString());
+                    //Console.WriteLine(droplet.ToString());
                     ArrayList dropletSubscritions = droplet.Subscriptions;
                 }
             }    

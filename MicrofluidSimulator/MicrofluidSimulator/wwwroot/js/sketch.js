@@ -32,15 +32,23 @@ window.update_electrodes = (electrodes) => {
 }
 window.update_board = (container_string) => {
     var board = JSON.parse(container_string);
-    gui_broker.droplets = board.droplets;
-    gui_broker.electrodes = board.electrodes;
+    gui_broker.droplets = board.Droplets;
+    gui_broker.electrodes = board.Electrodes;
+
+    droplet_info.old = droplet_info.new;
+    droplet_info.new = gui_broker.droplets;
+
+    amount = 0;
+    animate = true;
+    step++;
 }
 
 
 // Declare global variables
 let arr = [];
 let d_info = [];
-let t = "";
+let step = 0;
+let animate = false;
 
 // Store simulator board info
 let simulator_droplets = [];
@@ -59,7 +67,6 @@ let droplet_info = {
 };
 
 
-
 let simulator_data = {
     changet: (nt) => {
         t = nt;
@@ -68,69 +75,83 @@ let simulator_data = {
 
 window.simulator_data = simulator_data;
 window.gui_broker = gui_broker;
+
+let amount = 0;
  
 let sketch = function (p) {
     
 
     p.setup = function(){ 
         canvas = p.createCanvas(401, 401);
-        console.log(gui_broker);
         arr = [];
-        //Testing
-        t = "BEFORE";
+
+        DotNet.invokeMethodAsync('MicrofluidSimulator', 'Play');
     }
 
-    let step = 0.02;
-    let amount = 0;
-    var count = 0
+    let step = 0.04;
+    
 
     p.draw = function(){
         p.background(240);
-        amount += step;
 
-        // Draw grid
-        for (let i = 0; i < p.width; i += 20) {
-            p.line(i, 0, i, p.height);
-            p.line(0, i, p.width, i);
-        }
+        if (amount < 1) { amount += step; }
 
-        // Draw droplets
-        for (let i = 0; i < d_info.length; i++) {
-            arr = d_info[i].pos
-            p.fill(d_info[i].color.r, d_info[i].color.g, d_info[i].color.b, 127);
-            anim_move();
-        }
+        draw_electrodes();
+        draw_droplet();
 
-        //console.log(gui_broker.droplets);
-
-        for (let i = 0; i < gui_broker.droplets.length; i++) {
+        /*for (let i = 0; i < gui_broker.droplets.length; i++) {
             let droplet = gui_broker.droplets[i];
             p.fill(droplet.Color);
             p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
-        }
+        }*/
 
     }
 
-    function anim_move() {
-        // Reset count
-        if (count == (arr.length - 1)) {
-            count = 0;
-        }
 
-        if (amount > 1 || amount < 0) {
-            amount = 0;
-            count++;
-        }
+    function draw_electrodes() {
+        for (let i = 0; i < gui_broker.electrodes.length; i++) {
+            let electrode = gui_broker.electrodes[i];
+            if (electrode.shape) { console.log(electrode.ID, "POLYGON!"); return; }
 
-        let d1x = p.lerp(arr[count].x, arr[(count + 1) % arr.length].x, amount);
-        let d1y = p.lerp(arr[count].y, arr[(count + 1) % arr.length].y, amount);
+            p.stroke("black");
+            p.fill("white");
+            if (electrode.Status != 0) { p.fill("red");}
+            p.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
+
+        }
+    }
+
+
+    function draw_droplet() {
         
-        p.ellipse(d1x, d1y, 20, 20);
+        for (let i = 0; i < gui_broker.droplets.length; i++) {
+            let droplet = gui_broker.droplets[i];
+
+            //p.fill(droplet.Color);
+            //p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
+            anim_move(droplet, i);
+            //anim_move(droplet, i);
+        }
     }
 
+    function anim_move(droplet, i) {
+        
+        /*if (amount > 1) {
+            amount = 0;
+            animate = false;
+        }*/
 
-    function custom_input() {
-        console.log("INPUT");
+        p.fill(droplet.Color);
+        //p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
+
+        if (droplet_info.old.length == 0) {
+            p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
+        } else {
+            let d1x = p.lerp(droplet_info.old[i].PositionX, droplet_info.new[i].PositionX, amount);
+            let d1y = p.lerp(droplet_info.old[i].PositionY, droplet_info.new[i].PositionY, amount);
+            //console.log(d1x, d1y);
+            p.ellipse(d1x, d1y, droplet.SizeX, droplet.SizeY);
+        }        
     }
 };
 

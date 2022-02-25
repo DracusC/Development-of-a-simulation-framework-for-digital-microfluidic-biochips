@@ -12,6 +12,7 @@
 <div id='container'></div>
 
 <button class="btn btn-primary" @onclick="NextStep">Next Step</button>
+<button class="btn btn-primary" @onclick="Play">Play</button>
 
 @functions{
     async void setP5() {
@@ -23,48 +24,23 @@
     Simulator simulator = new Simulator(null);
     GUIBroker guibroker = new GUIBroker();
 
-
     private void NextStep() {
         //currentCount++;
         simulator.simulatorStep();
-        guibroker.update_droplets(simulator.Droplets);
+        guibroker.update_board(simulator.Container);
+    }
+
+    [JSInvokable]
+    public static void Play() {
+        Console.WriteLine("Play called");
     }
 
     protected override async void OnAfterRender(bool firstRender) {
         if(firstRender) {
             setP5();
 
-            //guibroker = new GUIBroker(JsRuntime);
             guibroker.set_jsruntime(JsRuntime);
-
-            // Call the simulator code
-            //Simulator simulator = new Simulator();
-            //simulator.simulatorRun(null, guibroker);
-
-
-            /*Droplets droplet = new Droplets("test droplet", 0, "h20", 10, 10, 20, 20, "blue", 20);
-            Droplets droplet2 = new Droplets("droplet2", 1, "h20", 10, 10, 20, 20, "red", 20);
-            Console.WriteLine(droplet.ToString());
-
-            
-            Droplets[] droplet_arr = new Droplets[] { droplet, droplet2 };
-            Console.WriteLine("HERE");
-
-            bool isValid = await guibroker.get_gui_status();
-
-            if (isValid)
-            {
-                guibroker.update_droplets(droplet_arr);
-            }
-            Console.WriteLine(isValid);*/
-
-            /*
-             * Simulator sends container object to gui, gui updates based on it
-             * gui_broker.send_board_data(container);
-             * 
-             * Simulator can get the status of the gui
-             * gui_broker.get_status() -> 
-             */
+            guibroker.update_board(simulator.Container);
         }
     }
 }

@@ -3,6 +3,7 @@
  */
 using Microsoft.JSInterop;
 using System.Text.Json;
+using MicrofluidSimulator.SimulatorCode.DataTypes;
 
 //inject IJSRuntime JsRuntime;
 
@@ -22,8 +23,7 @@ namespace MicrofluidSimulator.SimulatorCode.View
          */
         private IJSRuntime _jSRuntime;
 
-        public GUIBroker(IJSRuntime jSRuntime)
-        {
+        public GUIBroker(IJSRuntime jSRuntime) {
             _jSRuntime = jSRuntime;
         }
 
@@ -34,20 +34,14 @@ namespace MicrofluidSimulator.SimulatorCode.View
         }
         
 
-        //[Inject]
-        //public IJSRuntime JSRuntime { get; set; }
-        //private IJSObjectReference _jsModule;
-
-        /*public async void get_gui_broker(bool sim_data, Droplets[] droplets) {
-            var data = await _jSRuntime.InvokeAsync<object>("get_gui_broker", sim_data, droplets);
-            Console.WriteLine(data);
-            var string_data = data.ToString();
-            Console.WriteLine(string_data);
-        }*/
-
         public async void update_droplets(Droplets[] droplets) {
             var json_droplets = Newtonsoft.Json.JsonConvert.SerializeObject(droplets);
             var data = await _jSRuntime.InvokeAsync<object>("update_droplets", json_droplets);
+        }
+
+        public async void update_board(Container container) {
+            var json_container = Newtonsoft.Json.JsonConvert.SerializeObject(container);
+            var data = await _jSRuntime.InvokeAsync<object>("update_board", json_container);
         }
 
         public async Task<bool> get_gui_status() {
