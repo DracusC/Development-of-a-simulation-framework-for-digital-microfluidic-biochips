@@ -84,8 +84,6 @@ let sketch = function (p) {
     p.setup = function(){ 
         canvas = p.createCanvas(401, 401);
         arr = [];
-
-        DotNet.invokeMethodAsync('MicrofluidSimulator', 'Play');
     }
 
     let step = 0.04;
@@ -94,11 +92,12 @@ let sketch = function (p) {
     p.draw = function(){
         p.background(240);
 
-        if (amount < 1) { amount += step; }
+
+        
+        if (amount < 1) { amount += step; console.log(step);} else { DotNet.invokeMethodAsync('MicrofluidSimulator', 'JSSimulatorNextStep');}
 
         draw_electrodes();
         draw_droplet();
-
         /*for (let i = 0; i < gui_broker.droplets.length; i++) {
             let droplet = gui_broker.droplets[i];
             p.fill(droplet.Color);

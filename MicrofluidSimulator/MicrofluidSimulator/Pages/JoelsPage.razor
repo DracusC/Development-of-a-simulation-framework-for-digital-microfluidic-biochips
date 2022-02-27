@@ -35,6 +35,29 @@
         Console.WriteLine("Play called");
     }
 
+
+    private static Func<Task> CallPlaceHolder;
+
+    private async Task RunNextSimulatorStep()
+    {
+        if (simulator.ActionQueue.Count != 0)
+        {
+            Console.WriteLine(simulator.ActionQueue.Count);
+            NextStep();
+        }
+    }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        CallPlaceHolder = RunNextSimulatorStep;
+    }
+    [JSInvokable]
+    public static async Task JSSimulatorNextStep()
+    {
+        await CallPlaceHolder.Invoke();
+    }
+
+
     protected override async void OnAfterRender(bool firstRender) {
         if(firstRender) {
             setP5();
