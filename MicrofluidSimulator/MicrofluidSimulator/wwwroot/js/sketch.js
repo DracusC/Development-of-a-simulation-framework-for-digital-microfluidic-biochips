@@ -2,7 +2,6 @@
  * Written by Joel A. V. Madsen
  */
 
-
 // Setup the p5js instance
 window.setp5 = () => {
     new p5(sketch, window.document.getElementById('container'));
@@ -39,16 +38,15 @@ window.update_board = (container_string) => {
     droplet_info.new = gui_broker.droplets;
 
     amount = 0;
-    animate = true;
-    step++;
 }
+window.change_play_status = (status) => {
+    gui_broker.play_status = !gui_broker.play_status;
+};
 
 
 // Declare global variables
 let arr = [];
 let d_info = [];
-let step = 0;
-let animate = false;
 
 // Store simulator board info
 let simulator_droplets = [];
@@ -58,6 +56,7 @@ let simulator_electrodes = [];
 // gui_broker acts as a connection between the simulator and gui
 let gui_broker = {
     gui_status: true, // Ready for a new update (true/false)
+    play_status: false,
     droplets: [],
     electrodes: []
 };
@@ -80,21 +79,26 @@ let amount = 0;
  
 let sketch = function (p) {
     
-
+    let step;
     p.setup = function(){ 
-        canvas = p.createCanvas(401, 401);
-        arr = [];
+        canvas = p.createCanvas(700, 640);
+        //p.frameRate(10);
+        //arr = [];
+        step = 0.05;
     }
 
-    let step = 0.04;
+    
     
 
     p.draw = function(){
         p.background(240);
 
-
-        
-        if (amount < 1) { amount += step; console.log(step);} else { DotNet.invokeMethodAsync('MicrofluidSimulator', 'JSSimulatorNextStep');}
+        // Check for next step
+        if (amount < 1) {
+            amount += step; //console.log(step, amount);
+        } else if (gui_broker.play_status) {
+            DotNet.invokeMethodAsync('MicrofluidSimulator', 'JSSimulatorNextStep');
+        }
 
         draw_electrodes();
         draw_droplet();
@@ -117,6 +121,10 @@ let sketch = function (p) {
             if (electrode.Status != 0) { p.fill("red");}
             p.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
 
+            // TEXT FOR DEBUGGING
+            p.textSize(8);
+            //p.textAlign(p.LEFT, p.BOTTOM);
+            p.text(electrode.ID1, electrode.PositionX, electrode.PositionY + electrode.SizeY / 2);
         }
     }
 

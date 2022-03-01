@@ -5,6 +5,7 @@
 @using MicrofluidSimulator.SimulatorCode.Simulator
 @inject IJSRuntime JsRuntime
 @using MicrofluidSimulator.SimulatorCode.View
+@using System.Diagnostics
 
 
 <h3>Welcome to the simulator</h3>
@@ -24,44 +25,44 @@
     Simulator simulator = new Simulator(null);
     GUIBroker guibroker = new GUIBroker();
 
+    bool test = true;
+    Stopwatch stopwatch = new Stopwatch();
+
     private void NextStep() {
-        //currentCount++;
+        if(test) { stopwatch.Start(); test = false; } else {stopwatch.Stop(); Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds); stopwatch.Reset(); test = true; }
         simulator.simulatorStep();
         guibroker.update_board(simulator.Container);
     }
 
-    [JSInvokable]
-    public static void Play() {
+    public void Play() {
         Console.WriteLine("Play called");
+        guibroker.change_play_status();
     }
 
-
-    private static Func<Task> CallPlaceHolder;
-
-    private async Task RunNextSimulatorStep()
-    {
-        if (simulator.ActionQueue.Count != 0)
-        {
+    private async Task RunNextSimulatorStep() {
+        if (simulator.ActionQueue.Count != 0) {
             Console.WriteLine(simulator.ActionQueue.Count);
             NextStep();
         }
     }
-    protected override void OnInitialized()
-    {
+
+    // Used to call C# code from JS
+    private static Func<Task> CallPlaceHolder;
+    protected override void OnInitialized() {
         base.OnInitialized();
         CallPlaceHolder = RunNextSimulatorStep;
     }
     [JSInvokable]
-    public static async Task JSSimulatorNextStep()
-    {
+    public static async Task JSSimulatorNextStep() {
         await CallPlaceHolder.Invoke();
     }
 
 
     protected override async void OnAfterRender(bool firstRender) {
+        Console.WriteLine("FIRST == " + firstRender);
         if(firstRender) {
+            Console.WriteLine("TEST");
             setP5();
-
             guibroker.set_jsruntime(JsRuntime);
             guibroker.update_board(simulator.Container);
         }
