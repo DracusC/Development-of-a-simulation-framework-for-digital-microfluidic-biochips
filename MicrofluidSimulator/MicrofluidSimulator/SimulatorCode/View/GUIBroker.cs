@@ -34,9 +34,9 @@ namespace MicrofluidSimulator.SimulatorCode.View
         }
         
 
-        public async void update_droplets(Droplets[] droplets) {
-            var json_droplets = Newtonsoft.Json.JsonConvert.SerializeObject(droplets);
-            var data = await _jSRuntime.InvokeAsync<object>("update_droplets", json_droplets);
+        public async void initialize_board(MicrofluidSimulator.SimulatorCode.DataTypes.Information container) {
+            var json_string = Newtonsoft.Json.JsonConvert.SerializeObject(container);
+            var data = await _jSRuntime.InvokeAsync<object>("initialize_board", json_string);
         }
 
         public async void update_board(Container container) {
