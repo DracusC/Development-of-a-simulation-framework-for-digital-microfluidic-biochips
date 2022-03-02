@@ -22,7 +22,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             //Add the new subscriptions
 
             //find the index of the electrode we are on
+            
             int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID,container);
+            
             Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
             // add the droplet to the sublist of the electrode it is on then run for all neighbours
             dropletElectrode.Subscriptions.Add(caller.ID1);

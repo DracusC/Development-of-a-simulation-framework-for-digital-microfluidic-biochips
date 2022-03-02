@@ -12,30 +12,35 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         }
 
-        public Container initialize()
+        public Container initialize(JsonContainer jsonContainer)
         {
             
-            Electrodes[] electrodes = new Electrodes[640];
+            //Electrodes[] electrodes = new Electrodes[jsonContainer.electrodes.Count];
             Droplets[] droplets = new Droplets[2];
-            Electrodes[] electrodeBoard = initializeBoard(electrodes);
+            Electrodes[] electrodeBoard = initializeBoard(jsonContainer.electrodes);
+            
 
 
             initializeDroplets(droplets);
             
             Container container = new Container(electrodeBoard, droplets);
+            Console.WriteLine("electrodeBoard.Length "+ electrodeBoard.Length);
             findNeighbours(container);
             initializeSubscriptions(container);
             return container;
         }
 
-        private Electrodes[] initializeBoard(Electrodes[] electrodes)
+        private Electrodes[] initializeBoard(List<Electrode> electrodes)
         {
-            Electrodes[] electrodeBoard = new Electrodes[640];
-            for (int i = 0; i < electrodeBoard.Length; i++)
+            Electrodes[] electrodeBoard = new Electrodes[electrodes.Count];
+            for (int i = 0; i < electrodes.Count; i++)
             {
-                electrodeBoard[i] = new Electrodes("arrel", i, i, i, 0, (i % 32) * 20, (i / 32) * 20, 20, 20, 0, null);
+                //electrodeBoard[i] = new Electrodes("arrel", i, i, i, 0, (i % 32) * 20, (i / 32) * 20, 20, 20, 0, null);
                 
-                
+                electrodeBoard[i] = new Electrodes(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
+                    electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, null);
+
+
                 /*electrodeBoard[i].ID1 = i;
                 //electrodeBoard[i].Subscriptions = null;
                 electrodeBoard[i].PositionX = (i%32) * 20;
@@ -43,7 +48,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 electrodeBoard[i].SizeX = 20;
                 electrodeBoard[i].SizeY = 20;
                 electrodeBoard[i].Status = 0;*/
-                
+
             }
 
             return electrodeBoard;
@@ -53,9 +58,9 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         private Droplets[] initializeDroplets(Droplets[] droplets)
         {
-            droplets[0] = new Droplets("test droplet", 0, "h20", 10, 10, 15, 15, "blue", 20);
-            droplets[0].ElectrodeID = 0;
-            droplets[1] = new Droplets("test droplet2", 1, "h20", 50, 50, 15, 15, "yellow", 20);
+            droplets[0] = new Droplets("test droplet", 0, "h20", 120, 10, 15, 15, "blue", 20);
+            droplets[0].ElectrodeID = 1;
+            droplets[1] = new Droplets("test droplet2", 1, "h20", 140, 50, 15, 15, "yellow", 20);
             droplets[1].ElectrodeID = 66;
             return droplets;
         }
@@ -63,9 +68,10 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         private void initializeSubscriptions(Container container)
         {
             Droplets[] droplets = container.Droplets;
+            
             foreach (Droplets droplet in droplets)
                 {
-                Models.SubscriptionModels.dropletSubscriptions(container, droplet);
+                    Models.SubscriptionModels.dropletSubscriptions(container, droplet);
                 }
         }
 
@@ -73,16 +79,14 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         {
             for(int i = 0; i < container.Electrodes.Length; i++)
             {
-                container.Electrodes[i].Neighbours = findNeighboursByElectrode(container.Electrodes, container.Electrodes[i]);
-                /*if(container.Electrodes[i].ID1 == 34)
+                
+                if(container.Electrodes[i].Shape == 0)
                 {
-                    Console.WriteLine("electrode id is : " + container.Electrodes[i].ID1);
-                    foreach(int neighbour in container.Electrodes[i].Neighbours)
-                    {
-                        Console.WriteLine(neighbour);
-                    }
+                    container.Electrodes[i].Neighbours = findNeighboursByElectrode(container.Electrodes, container.Electrodes[i]);
                     
-                }*/
+                }
+
+
             }
             return container;
         }
@@ -122,7 +126,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 {
                     // if there is a neighbour in the top left corner of the electrode we are no longer in an edge or corner case, therefore we set false
                     topCase = false;
-                    leftCase = false;
+                    
                     // add the top left neighbour found
                     neighbours.Add(electrodeBoard[i].ID1);
 
@@ -133,21 +137,28 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
                     // find all the neighbours along the topside of the search electrode
                     neighbours.AddRange(findTopRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, electrode.SizeX));
-                    
+
                     // take the last found neighbour from the previous found neighbours (this would be the one in the top right corner of our search electrode) and find all 
                     // the neighbours along the right side (downwards) of the search electrode
-                    neighbours.AddRange(findLeftSideDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[(int)neighbours[neighbours.Count - 1]], accumulativeSizeY, electrode.SizeY));
+                    
+                    
+                        
+                    
+                    neighbours.AddRange(findLeftSideDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[(int)neighbours[neighbours.Count - 1]-1], accumulativeSizeY, electrode.SizeY));
 
                     // start from the top left neighbour and find all the neighbours along the left side (downwards) of the search electrode 
+                    
+                    
                     neighbours.AddRange(findRightSideDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeY, electrode.SizeY));
                 }
 
                 // check bottom left coordinate 
                 if (searchBottomPosX > minMarginX && searchBottomPosX < maxMarginX && searchBottomPosY > minMarginY && searchBottomPosY < maxMarginY)
                 {
+                    leftCase = false;
                     // define an accumulative size so when the neighbourfinder recursively runs, it won't find any neighbours that are further away than +/- 1 of the 
                     // electrode we are currently looking at
-                    
+
                     int accumulativeSizeX = -electrodeBoard[i].SizeX-1;
 
                     // add the bottom left neighbour found
@@ -251,17 +262,21 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                     }
 
                     // check top side coordinate for matches
-                    if (searchStraightTopPosX > minMarginX && searchStraightTopPosX < maxMarginX && searchStraightTopPosY > minMarginY && searchStraightTopPosY < maxMarginY)
+                    if(topCase == true)
                     {
-                        // we're working to the right, therefore we define an accumulator for the x size
-                        int accumulativeSizeX = -electrodeBoard[i].SizeX;
+                        if (searchStraightTopPosX > minMarginX && searchStraightTopPosX < maxMarginX && searchStraightTopPosY > minMarginY && searchStraightTopPosY < maxMarginY)
+                        {
+                            // we're working to the right, therefore we define an accumulator for the x size
+                            int accumulativeSizeX = -electrodeBoard[i].SizeX;
 
-                        // start by adding the neighbour straight above the given electrode
-                        neighbours.Add(electrodeBoard[i].ID1);
+                            // start by adding the neighbour straight above the given electrode
+                            neighbours.Add(electrodeBoard[i].ID1);
 
-                        // start from the previously added neighbour and find the neighbours to the right of it
-                        neighbours.AddRange(findBottomRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, electrode.SizeX));
+                            // start from the previously added neighbour and find the neighbours to the right of it
+                            neighbours.AddRange(findBottomRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, electrode.SizeX));
+                        }
                     }
+                    
                 }
             }
             

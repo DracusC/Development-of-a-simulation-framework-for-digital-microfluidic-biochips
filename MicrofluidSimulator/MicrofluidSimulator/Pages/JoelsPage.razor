@@ -4,6 +4,8 @@
 @using System.Text.Json.Serialization
 @using MicrofluidSimulator.SimulatorCode.Simulator
 @inject IJSRuntime JsRuntime
+@inject HttpClient Http
+@using MicrofluidSimulator.SimulatorCode.DataTypes
 @using MicrofluidSimulator.SimulatorCode.View
 @using System.Diagnostics
 
@@ -22,7 +24,6 @@
 }
 
 @code {
-    Simulator simulator = new Simulator(null);
     GUIBroker guibroker = new GUIBroker();
 
     bool test = true;
@@ -57,12 +58,15 @@
         await CallPlaceHolder.Invoke();
     }
 
-
+    private JsonContainer? container;
+    private Simulator? simulator;
     protected override async void OnAfterRender(bool firstRender) {
         Console.WriteLine("FIRST == " + firstRender);
         if(firstRender) {
             Console.WriteLine("TEST");
             setP5();
+            container = await Http.GetFromJsonAsync<JsonContainer>("sample-data/platform640v1.json");
+            simulator = new Simulator(null, container);
             guibroker.set_jsruntime(JsRuntime);
             guibroker.update_board(simulator.Container);
         }

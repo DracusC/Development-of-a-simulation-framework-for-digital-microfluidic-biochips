@@ -81,7 +81,7 @@ let sketch = function (p) {
     
     let step;
     p.setup = function(){ 
-        canvas = p.createCanvas(700, 640);
+        canvas = p.createCanvas(900, 421);
         //p.frameRate(10);
         //arr = [];
         step = 0.05;
@@ -116,6 +116,7 @@ let sketch = function (p) {
             let electrode = gui_broker.electrodes[i];
             if (electrode.shape) { console.log(electrode.ID, "POLYGON!"); return; }
 
+            p.strokeWeight(1);
             p.stroke("black");
             p.fill("white");
             if (electrode.Status != 0) { p.fill("red");}
@@ -123,6 +124,8 @@ let sketch = function (p) {
 
             // TEXT FOR DEBUGGING
             p.textSize(8);
+            p.fill(255, 120, 2);
+            p.noStroke();
             //p.textAlign(p.LEFT, p.BOTTOM);
             p.text(electrode.ID1, electrode.PositionX, electrode.PositionY + electrode.SizeY / 2);
         }
