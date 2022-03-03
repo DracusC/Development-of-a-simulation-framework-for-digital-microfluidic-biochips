@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using MicrofluidSimulator.SimulatorCode.DataTypes;
 using System.Linq;
+
 namespace MicrofluidSimulator.SimulatorCode.Initialize
 {
     
@@ -37,8 +38,14 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             {
                 //electrodeBoard[i] = new Electrodes("arrel", i, i, i, 0, (i % 32) * 20, (i / 32) * 20, 20, 20, 0, null);
                 
-                electrodeBoard[i] = new Electrodes(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
-                    electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, null);
+
+
+                
+
+                
+
+               electrodeBoard[i] = new Electrodes(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
+                    electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, electrodes[i].corners);
 
 
                 /*electrodeBoard[i].ID1 = i;
@@ -83,12 +90,49 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 if(container.Electrodes[i].Shape == 0)
                 {
                     container.Electrodes[i].Neighbours = findNeighboursByElectrode(container.Electrodes, container.Electrodes[i]);
-                    
+
                 }
+                /*else
+                {
+                    container.Electrodes[i].Neighbours = findNeighboursByElectrodePolygon(container.Electrodes, container.Electrodes[i]);
+                }*/
 
 
             }
+
+
             return container;
+        }
+
+        //WORK IN PROGRESS
+        private ArrayList findNeighboursByElectrodePolygon(Electrodes[] electrodeBoard, Electrodes electrode)
+        {
+            ArrayList neighbours = new ArrayList();
+
+           
+            int searchPosX = electrode.PositionX - 1;
+            int searchPosY = electrode.PositionY - 1;
+
+            for (int i = 0; i <= electrode.Corners.Count; i++)
+            {
+
+
+                //getAngle();
+                //getCoordinates();
+
+                for (int j = 0; j < electrodeBoard.Length; j++)
+                {
+
+                    // for each electrode calculate the margin of coordinates that it holds
+                    int minMarginX = electrodeBoard[i].PositionX;
+                    int minMarginY = electrodeBoard[i].PositionY;
+                    int maxMarginX = electrodeBoard[i].PositionX + electrodeBoard[i].SizeX;
+                    int maxMarginY = electrodeBoard[i].PositionY + electrodeBoard[i].SizeY;
+                }
+            }
+            
+
+            return neighbours;
         }
 
         private ArrayList findNeighboursByElectrode(Electrodes[] electrodeBoard, Electrodes electrode)
