@@ -6,14 +6,14 @@ namespace MicrofluidSimulator.SimulatorCode
     {
         string name;
         int ID, electrodeID, driverID, shape, positionX, positionY, sizeX, sizeY, status;
-        List<object> corners;
+        int[,] corners;
 
         
 
         ArrayList subscriptions;
         ArrayList neighbours;
 
-        public Electrodes(string name, int ID, int electrodeID, int driverID, int shape, int positionX, int positionY, int sizeX, int sizeY, int status, List<object> corners)
+        public Electrodes(string name, int ID, int electrodeID, int driverID, int shape, int positionX, int positionY, int sizeX, int sizeY, int status, int[,] corners)
         {
             this.name = name;
             this.ID = ID;
@@ -47,7 +47,7 @@ namespace MicrofluidSimulator.SimulatorCode
         public int SizeX { get => sizeX; set => sizeX = value; }
         public int SizeY { get => sizeY; set => sizeY = value; }
         public int Status { get => status; set => status = value; }
-        public List<object> Corners { get => corners; set => corners = value; }
+        public int[,] Corners { get => corners; set => corners = value; }
 
         public ArrayList Subscriptions { get => subscriptions; set => subscriptions = value; }
         public ArrayList Neighbours { get => neighbours; set => neighbours = value; }

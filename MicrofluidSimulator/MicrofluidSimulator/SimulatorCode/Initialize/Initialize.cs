@@ -45,21 +45,29 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             for (int i = 0; i < electrodes.Count; i++)
             {
                 //electrodeBoard[i] = new Electrodes("arrel", i, i, i, 0, (i % 32) * 20, (i / 32) * 20, 20, 20, 0, null);
-                
+
+
 
 
                 
-                // JOEL MADE THIS
-                var res = JsonSerializer.Deserialize<List<int>>(electrodes[640].corners[1].ToString());
-
-                foreach(var c in res)
+                
+                int[,] cornersGetter = new int[electrodes[i].corners.Count, 2];
+                for(int j = 0; j < electrodes[i].corners.Count; j++)
                 {
-                    Console.WriteLine(c);
+
+                    var res = JsonSerializer.Deserialize<List<int>>(electrodes[i].corners[j].ToString());
+                    for(int k = 0; k < 2; k++)
+                    {
+                        cornersGetter[j,k] = res[k];
+                    }
                 }
+                
+                
+                
  
 
                 electrodeBoard[i] = new Electrodes(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
-                electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, electrodes[i].corners);
+                electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, cornersGetter);
 
 
                 /*electrodeBoard[i].ID1 = i;
@@ -119,7 +127,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         }
 
         //WORK IN PROGRESS
-        private ArrayList findNeighboursByElectrodePolygon(Electrodes[] electrodeBoard, Electrodes electrode)
+        /*private ArrayList findNeighboursByElectrodePolygon(Electrodes[] electrodeBoard, Electrodes electrode)
         {
             ArrayList neighbours = new ArrayList();
 
@@ -147,7 +155,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             
 
             return neighbours;
-        }
+        }*/
 
         private ArrayList findNeighboursByElectrode(Electrodes[] electrodeBoard, Electrodes electrode)
         {
