@@ -47,7 +47,7 @@ namespace MicrofluidSimulator.SimulatorCode
         public int SizeX { get => sizeX; set => sizeX = value; }
         public int SizeY { get => sizeY; set => sizeY = value; }
         public int Status { get => status; set => status = value; }
-        public List<object> Corners { get; set; }
+        public List<object> Corners { get => corners; set => corners = value; }
 
         public ArrayList Subscriptions { get => subscriptions; set => subscriptions = value; }
         public ArrayList Neighbours { get => neighbours; set => neighbours = value; }

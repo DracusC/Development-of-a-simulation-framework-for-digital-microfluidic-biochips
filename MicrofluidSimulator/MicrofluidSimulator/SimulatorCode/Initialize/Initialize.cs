@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using MicrofluidSimulator.SimulatorCode.DataTypes;
 using System.Linq;
+using System.Text.Json;
 
 namespace MicrofluidSimulator.SimulatorCode.Initialize
 {
@@ -31,8 +32,15 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return container;
         }
 
+        public class Corner
+        {
+            List<int> Coords { get; set; }
+        }
+
         private Electrodes[] initializeBoard(List<Electrode> electrodes)
         {
+            
+
             Electrodes[] electrodeBoard = new Electrodes[electrodes.Count];
             for (int i = 0; i < electrodes.Count; i++)
             {
@@ -41,11 +49,17 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
 
                 
+                // JOEL MADE THIS
+                var res = JsonSerializer.Deserialize<List<int>>(electrodes[640].corners[1].ToString());
 
-                
+                foreach(var c in res)
+                {
+                    Console.WriteLine(c);
+                }
+ 
 
-               electrodeBoard[i] = new Electrodes(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
-                    electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, electrodes[i].corners);
+                electrodeBoard[i] = new Electrodes(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
+                electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, electrodes[i].corners);
 
 
                 /*electrodeBoard[i].ID1 = i;
