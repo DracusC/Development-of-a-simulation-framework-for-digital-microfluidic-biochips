@@ -14,7 +14,7 @@
 
 <div id='container'></div>
 
-<button class="btn btn-primary" @onclick="NextStep">Next Step</button>
+<button id="nextStep" class="btn btn-primary" @onclick="NextStep">Next Step</button>
 <button class="btn btn-primary" @onclick="Play">Play</button>
 
 @functions{
@@ -67,8 +67,10 @@
             setP5();
             container = await Http.GetFromJsonAsync<JsonContainer>("sample-data/platform640v1.json");
             simulator = new Simulator(null, container);
+
             guibroker.set_jsruntime(JsRuntime);
             guibroker.update_board(simulator.Container);
+            guibroker.initialize_board(container.information);
         }
     }
 }

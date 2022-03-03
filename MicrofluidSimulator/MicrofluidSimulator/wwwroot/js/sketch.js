@@ -9,26 +9,6 @@ window.setp5 = () => {
 };
 
 // Global methods called by c#
-window.get_gui_status = () => {
-    return gui_broker.gui_status;
-};
-window.update_droplets = (droplet_arr) => {
-    gui_broker.gui_status = false;
-
-    var droplets = JSON.parse(droplet_arr);
-    console.log(droplets);
-    gui_broker.droplets = droplets;
-
-
-    droplet_info.old = droplet_info.new;
-    droplet_info.new = droplets;
-
-    return gui_broker;
-}
-window.update_electrodes = (electrodes) => {
-    gui_broker.electrodes = electrodes;
-    return gui_broker;
-}
 window.update_board = (container_string) => {
     var board = JSON.parse(container_string);
     gui_broker.droplets = board.Droplets;
@@ -42,11 +22,17 @@ window.update_board = (container_string) => {
 window.change_play_status = (status) => {
     gui_broker.play_status = !gui_broker.play_status;
 };
+window.initialize_board = (information) => {
+    console.log(information);
+    var JSONinformation = JSON.parse(information);
+    gui_broker.window_resize(JSONinformation.sizeX, JSONinformation.sizeY + 1);
+}
 
 
 // Declare global variables
 let arr = [];
 let d_info = [];
+
 
 // Store simulator board info
 let simulator_droplets = [];
@@ -58,74 +44,80 @@ let gui_broker = {
     gui_status: true, // Ready for a new update (true/false)
     play_status: false,
     droplets: [],
-    electrodes: []
+    electrodes: [],
+    next_simulator_step: () => {
+        DotNet.invokeMethodAsync('MicrofluidSimulator', 'JSSimulatorNextStep');
+    },
+    window_resize: () => {}
 };
 let droplet_info = {
     old: [],
     new: []
 };
 
-
-let simulator_data = {
-    changet: (nt) => {
-        t = nt;
-    }
-};
-
-window.simulator_data = simulator_data;
 window.gui_broker = gui_broker;
 
 let amount = 0;
- 
+
 let sketch = function (p) {
-    
+
     let step;
-    p.setup = function(){ 
-        canvas = p.createCanvas(900, 421);
+    p.setup = function () {
+        canvas = p.createCanvas(1, 1);
+        console.log(canvas.position());
         //p.frameRate(10);
         //arr = [];
         step = 0.05;
+
+        //let slider = p.createSlider(0, 100, 10, 10);
+
+        let button = p.select("#nextStep");
+        button.mousePressed(() => { console.log("HI FROM SKETCH"); });
+        //let checkbox = p.createCheckbox("test", false);
+        //let button = p.createButton("Next Step");
+        //button.mousePressed(() => { gui_broker.next_simulator_step(); });
     }
 
-    
-    
 
-    p.draw = function(){
+
+
+    p.draw = function () {
         p.background(240);
 
         // Check for next step
         if (amount < 1) {
             amount += step; //console.log(step, amount);
         } else if (gui_broker.play_status) {
-            DotNet.invokeMethodAsync('MicrofluidSimulator', 'JSSimulatorNextStep');
+            gui_broker.next_simulator_step();
         }
 
+        // Draw calls
         draw_electrodes();
         draw_droplet();
-        /*for (let i = 0; i < gui_broker.droplets.length; i++) {
-            let droplet = gui_broker.droplets[i];
-            p.fill(droplet.Color);
-            p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
-        }*/
 
     }
 
+    
+    function window_resize(sizeX, sizeY) {
+        p.resizeCanvas(sizeX, sizeY);
+    }
+    gui_broker.window_resize = window_resize;
 
     function draw_electrodes() {
         for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
-            if (electrode.shape) { console.log(electrode.ID, "POLYGON!"); return; }
 
-            p.strokeWeight(1);
+
+            if (electrode.shape == 1) { console.log(electrode.ID, "POLYGON!"); return; }
+
             p.stroke("black");
             p.fill("white");
-            if (electrode.Status != 0) { p.fill("red");}
+            if (electrode.Status != 0) { p.fill("red"); }
             p.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
 
             // TEXT FOR DEBUGGING
+            p.fill(0, 255, 0);
             p.textSize(8);
-            p.fill(255, 120, 2);
-            p.noStroke();
             //p.textAlign(p.LEFT, p.BOTTOM);
             p.text(electrode.ID1, electrode.PositionX, electrode.PositionY + electrode.SizeY / 2);
         }
@@ -133,7 +125,7 @@ let sketch = function (p) {
 
 
     function draw_droplet() {
-        
+
         for (let i = 0; i < gui_broker.droplets.length; i++) {
             let droplet = gui_broker.droplets[i];
 
@@ -145,7 +137,7 @@ let sketch = function (p) {
     }
 
     function anim_move(droplet, i) {
-        
+
         /*if (amount > 1) {
             amount = 0;
             animate = false;
@@ -159,9 +151,13 @@ let sketch = function (p) {
         } else {
             let d1x = p.lerp(droplet_info.old[i].PositionX, droplet_info.new[i].PositionX, amount);
             let d1y = p.lerp(droplet_info.old[i].PositionY, droplet_info.new[i].PositionY, amount);
-            //console.log(d1x, d1y);
+
             p.ellipse(d1x, d1y, droplet.SizeX, droplet.SizeY);
-        }        
+        }
+    }
+
+    function debug_layer() {
+        
     }
 };
 
