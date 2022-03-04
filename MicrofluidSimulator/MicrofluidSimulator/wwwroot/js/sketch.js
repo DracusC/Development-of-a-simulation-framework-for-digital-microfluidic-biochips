@@ -99,7 +99,7 @@ let sketch = function (p) {
 
     
     function window_resize(sizeX, sizeY) {
-        p.resizeCanvas(sizeX, sizeY);
+        p.resizeCanvas(sizeX + 1, sizeY);
     }
     gui_broker.window_resize = window_resize;
 
@@ -107,13 +107,19 @@ let sketch = function (p) {
         for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
 
-
-            if (electrode.shape == 1) { console.log(electrode.ID, "POLYGON!"); return; }
-
             p.stroke("black");
             p.fill("white");
             if (electrode.Status != 0) { p.fill("red"); }
-            p.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
+
+            // Check the electrode shape
+            if (electrode.Shape == 1) {
+                //console.log(electrode.ID1, "POLYGON!", electrode.Corners);
+                draw_polygon_electrodes(electrode.PositionX, electrode.PositionY, electrode.Corners);
+            } else {
+                p.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
+            }
+
+            
 
             // TEXT FOR DEBUGGING
             p.fill(0, 255, 0);
@@ -121,6 +127,14 @@ let sketch = function (p) {
             //p.textAlign(p.LEFT, p.BOTTOM);
             p.text(electrode.ID1, electrode.PositionX, electrode.PositionY + electrode.SizeY / 2);
         }
+    }
+
+    function draw_polygon_electrodes(posX, posY, corners) {
+        p.beginShape();
+        for (let i = 0; i < corners.length; i++) {
+            p.vertex(posX + corners[i][0] + 0.5, posY + corners[i][1] + 0.5);
+        }
+        p.endShape(p.CLOSE);
     }
 
 
@@ -137,11 +151,6 @@ let sketch = function (p) {
     }
 
     function anim_move(droplet, i) {
-
-        /*if (amount > 1) {
-            amount = 0;
-            animate = false;
-        }*/
 
         p.fill(droplet.Color);
         //p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
