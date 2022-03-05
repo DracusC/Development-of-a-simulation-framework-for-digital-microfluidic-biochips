@@ -23,9 +23,9 @@ window.change_play_status = (status) => {
     gui_broker.play_status = !gui_broker.play_status;
 };
 window.initialize_board = (information) => {
-    console.log(information);
     var JSONinformation = JSON.parse(information);
-    gui_broker.window_resize(JSONinformation.sizeX, JSONinformation.sizeY + 1);
+    console.log(JSONinformation);
+    gui_broker.init_board(JSONinformation.sizeX, JSONinformation.sizeY + 1);
 }
 
 
@@ -48,7 +48,7 @@ let gui_broker = {
     next_simulator_step: () => {
         DotNet.invokeMethodAsync('MicrofluidSimulator', 'JSSimulatorNextStep');
     },
-    window_resize: () => {}
+    init_board: () => {}
 };
 let droplet_info = {
     old: [],
@@ -58,6 +58,7 @@ let droplet_info = {
 window.gui_broker = gui_broker;
 
 let amount = 0;
+let debug_layer;
 
 let sketch = function (p) {
 
@@ -65,6 +66,10 @@ let sketch = function (p) {
     p.setup = function () {
         canvas = p.createCanvas(1, 1);
         console.log(canvas.position());
+
+        debug_layer = p.createGraphics(1, 1);
+        console.log("setup");
+
         //p.frameRate(10);
         //arr = [];
         step = 0.05;
@@ -73,6 +78,9 @@ let sketch = function (p) {
 
         let button = p.select("#nextStep");
         button.mousePressed(() => { console.log("HI FROM SKETCH"); });
+
+        
+
         //let checkbox = p.createCheckbox("test", false);
         //let button = p.createButton("Next Step");
         //button.mousePressed(() => { gui_broker.next_simulator_step(); });
@@ -91,17 +99,30 @@ let sketch = function (p) {
             gui_broker.next_simulator_step();
         }
 
+        
+
         // Draw calls
         draw_electrodes();
+        p.image(debug_layer, 0, 0);
         draw_droplet();
-
+        
     }
 
-    
-    function window_resize(sizeX, sizeY) {
+
+    // Initialize board values
+    function init_board(sizeX, sizeY) {
         p.resizeCanvas(sizeX + 1, sizeY);
+
+        debug_layer = p.createGraphics(sizeX + 1, sizeY);
+        debug_layer.clear();
+
+        for (let i = 0; i < gui_broker.electrodes.length; i++) {
+            let electrode = gui_broker.electrodes[i];
+            debug_electrode_text(electrode);
+        }
     }
-    gui_broker.window_resize = window_resize;
+    gui_broker.init_board = init_board;
+
 
     function draw_electrodes() {
         for (let i = 0; i < gui_broker.electrodes.length; i++) {
@@ -120,12 +141,8 @@ let sketch = function (p) {
             }
 
             
-
-            // TEXT FOR DEBUGGING
-            p.fill(0, 255, 0);
-            p.textSize(8);
-            //p.textAlign(p.LEFT, p.BOTTOM);
-            p.text(electrode.ID1, electrode.PositionX, electrode.PositionY + electrode.SizeY / 2);
+            //debug_electrode_text(electrode);
+            
         }
     }
 
@@ -143,10 +160,7 @@ let sketch = function (p) {
         for (let i = 0; i < gui_broker.droplets.length; i++) {
             let droplet = gui_broker.droplets[i];
 
-            //p.fill(droplet.Color);
-            //p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
             anim_move(droplet, i);
-            //anim_move(droplet, i);
         }
     }
 
@@ -165,9 +179,38 @@ let sketch = function (p) {
         }
     }
 
+
+    function debug_electrode_text(electrode) {
+        let pos_x = 0;
+        let pos_y = 0;
+
+        if (electrode.Shape == 1) {
+            p.fill(255, 0, 0);
+            let corner_sum_x = 0;
+            let corner_sum_y = 0;
+
+            
+            for (let i = 0; i < electrode.Corners.length; i++) {
+                corner_sum_x = parseInt(corner_sum_x) + (parseInt(electrode.PositionX) + parseInt(electrode.Corners[i][0]));
+                corner_sum_y = parseInt(corner_sum_y) + (parseInt(electrode.PositionY) + parseInt(electrode.Corners[i][1]));
+            }
+
+            pos_x = (corner_sum_x) / (electrode.Corners.length) - debug_layer.textWidth(electrode.ID1) / 2;
+            pos_y = (corner_sum_y) / (electrode.Corners.length) + debug_layer.textAscent(electrode.ID1) / 2;
+
+            //console.log(electrode.ID1);
+            
+        } else {
+            debug_layer.fill(0, 255, 0);
+            pos_x = electrode.PositionX + electrode.SizeX / 2 - debug_layer.textWidth(electrode.ID1)/2;
+            pos_y = electrode.PositionY + electrode.SizeY / 2 + debug_layer.textAscent(electrode.ID1)/2;
+        }
+
+        debug_layer.textSize(6);
+        debug_layer.text(electrode.ID1, pos_x, pos_y);
+    }
+
     function debug_layer() {
         
     }
 };
-
-
