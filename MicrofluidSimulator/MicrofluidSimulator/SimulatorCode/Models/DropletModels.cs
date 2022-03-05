@@ -38,14 +38,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             // Find the attraction for all the neighbouring electrodes
             foreach (int neighbour in dropletElectrode.Neighbours)
             {
-                electrodeCenterX = electrodeBoard[neighbour].PositionX + 10;
-                electrodeCenterY = electrodeBoard[neighbour].PositionY + 10;
+                int index = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
+                electrodeCenterX = electrodeBoard[index].PositionX + 10;
+                electrodeCenterY = electrodeBoard[index].PositionY + 10;
                 dist = electrodeDistance(electrodeCenterX, electrodeCenterY, caller.PositionX, caller.PositionY);
-                attraction = electrodeBoard[neighbour].Status / (dist + 0.1);
+                attraction = electrodeBoard[index].Status / (dist + 0.1);
                 if (attraction > max)
                 {
                     max = attraction;
-                    electrode = electrodeBoard[neighbour];
+                    electrode = electrodeBoard[index];
                 }
             }
             // move the droplet to the electrode with the highest attraction
