@@ -5,6 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>MicrofluidSimulator</title>
+
+    <!-- The script below is used to delete cahched files (mostly for development) -->
+    <script type="text/javascript">
+        caches.delete("blazor-resources-/").then(function (e) {
+            console.log("'blazor-resources-/' cache deleted");
+        });
+    </script>
+
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
@@ -12,6 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.min.js"></script>
+    
 </head>
 
 <body>
