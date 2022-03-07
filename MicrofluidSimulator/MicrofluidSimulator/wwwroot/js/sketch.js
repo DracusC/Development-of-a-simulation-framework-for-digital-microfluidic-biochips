@@ -2,13 +2,13 @@
  * Written by Joel A. V. Madsen
  */
 
-// Setup the p5js instance
+// Global function to setup the p5js instance
 window.setp5 = () => {
     new p5(sketch, window.document.getElementById('container'));
     return true;
 };
 
-// Global methods called by c#
+// Global methods that can be called by C# scripts
 window.update_board = (container_string) => {
     var board = JSON.parse(container_string);
     gui_broker.droplets = board.Droplets;
@@ -29,19 +29,24 @@ window.initialize_board = (information) => {
 }
 
 
-// Declare global variables
-let arr = [];
-let d_info = [];
-
-
-// Store simulator board info
+/* 
+ * Declaration of script "global" variables.
+ * These variables are used by both the global functions but also by the p5js script.
+ */
 let simulator_droplets = [];
 let simulator_electrodes = [];
+let amount = 0;     // Used to interpolate between droplet positions.
 
+// TODO: Refrator into a layer array, that will automatically create them
+let layer_electrode_id;
+let layer_electrode_shape;
 
-// gui_broker acts as a connection between the simulator and gui
+/* 
+ * gui_broker object 
+ * This object is used to store data from the simulator. 
+ * It basically acts as the broker between the GUI and simulation.
+ */
 let gui_broker = {
-    gui_status: true, // Ready for a new update (true/false)
     play_status: false,
     droplets: [],
     electrodes: [],
@@ -50,111 +55,144 @@ let gui_broker = {
     },
     init_board: () => {}
 };
+
+/*
+ * Droplet_info is used by the animation function, 
+ * and stores the data from the old position of all droplets, and the new positions.
+ */
 let droplet_info = {
     old: [],
     new: []
 };
-
+/* Attach the GUI broker to the window, so it can be "seen" by C# scripts */
 window.gui_broker = gui_broker;
 
-let amount = 0;
-let debug_layer;
-
+/*
+ * P5JS Sketch
+ * The sketch function uses the p5js framework to create GUI elements within a Canvas
+ */
 let sketch = function (p) {
 
-    let step;
+    let step; // Used to increment the interpolation between droplet positions.
+
+    /*
+     * Setup is called once on start of the sketch.
+     */
     p.setup = function () {
+        // Create main canvas
         canvas = p.createCanvas(1, 1);
         console.log(canvas.position());
 
-        debug_layer = p.createGraphics(1, 1);
+        // Create layers
+        layer_electrode_id = p.createGraphics(1, 1);
+        layer_electrode_shape = p.createGraphics(1, 1);
         console.log("setup");
 
         //p.frameRate(10);
-        //arr = [];
         step = 0.05;
-
-        //let slider = p.createSlider(0, 100, 10, 10);
 
         let button = p.select("#nextStep");
         button.mousePressed(() => { console.log("HI FROM SKETCH"); });
-
-        
-
-        //let checkbox = p.createCheckbox("test", false);
-        //let button = p.createButton("Next Step");
-        //button.mousePressed(() => { gui_broker.next_simulator_step(); });
     }
 
 
 
-
+    /*
+     * Draw is called every frame of the sketch.
+     */
     p.draw = function () {
         p.background(240);
 
-        // Check for next step
+        // Increment the step used for position animation
         if (amount < 1) {
-            amount += step; //console.log(step, amount);
+            amount += step;
         } else if (gui_broker.play_status) {
-            gui_broker.next_simulator_step();
+            gui_broker.next_simulator_step(); // Calls for the next "step" of the simulation
         }
 
-        
+        /* Draw calls */
+        //draw_electrodes();
+        p.image(layer_electrode_shape, 0, 0);
+        draw_active_electrodes();
+        p.image(layer_electrode_id, 0, 0);
 
-        // Draw calls
-        draw_electrodes();
-        p.image(debug_layer, 0, 0);
         draw_droplet();
-        
     }
 
 
-    // Initialize board values
+
+
+
+    /* Initialize board values */
     function init_board(sizeX, sizeY) {
         p.resizeCanvas(sizeX + 1, sizeY);
 
-        debug_layer = p.createGraphics(sizeX + 1, sizeY);
-        debug_layer.clear();
+        layer_electrode_id = p.createGraphics(sizeX + 1, sizeY);
+        layer_electrode_shape = p.createGraphics(sizeX + 1, sizeY);
+        layer_electrode_id.clear();
+        layer_electrode_id.clear();
 
         for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
             debug_electrode_text(electrode);
         }
+
+        draw_electrodes_shapes();
     }
-    gui_broker.init_board = init_board;
+    gui_broker.init_board = init_board; // Attach the function to the GUI broker.
 
 
-    function draw_electrodes() {
+
+    /* Call to draw active electrodes */
+    function draw_active_electrodes() {
+        /* TODO: Maybe send information of which electrode is active from the simulator */
         for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
 
-            p.stroke("black");
-            p.fill("white");
-            if (electrode.Status != 0) { p.fill("red"); }
-
+            if (electrode.Status == 0) { continue; }
+            p.fill("red");
+            
             // Check the electrode shape
             if (electrode.Shape == 1) {
-                //console.log(electrode.ID1, "POLYGON!", electrode.Corners);
-                draw_polygon_electrodes(electrode.PositionX, electrode.PositionY, electrode.Corners);
+                p.beginShape();
+                for (let i = 0; i < electrode.Corners.length; i++) {
+                    p.vertex(electrode.PositionX + electrode.Corners[i][0] + 0.5, electrode.PositionY + electrode.Corners[i][1] + 0.5);
+                }
+                p.endShape(p.CLOSE);
             } else {
                 p.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
             }
-
-            
-            //debug_electrode_text(electrode);
-            
         }
     }
 
-    function draw_polygon_electrodes(posX, posY, corners) {
-        p.beginShape();
+    /* Call to draw electrode shapes */
+    function draw_electrodes_shapes() {
+        for (let i = 0; i < gui_broker.electrodes.length; i++) {
+            let electrode = gui_broker.electrodes[i];
+
+            layer_electrode_shape.stroke("black");
+            layer_electrode_shape.fill("white");
+            //if (electrode.Status != 0) { layer_electrode_shape.fill("red"); }
+
+            // Check the electrode shape
+            if (electrode.Shape == 1) {
+                draw_polygon_electrode_shapes(electrode.PositionX, electrode.PositionY, electrode.Corners);
+            } else {
+                layer_electrode_shape.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
+            }
+        }
+    }
+
+    /* Call to draw polygonal shaped electrode shapes */
+    function draw_polygon_electrode_shapes(posX, posY, corners) {
+        layer_electrode_shape.beginShape();
         for (let i = 0; i < corners.length; i++) {
-            p.vertex(posX + corners[i][0] + 0.5, posY + corners[i][1] + 0.5);
+            layer_electrode_shape.vertex(posX + corners[i][0] + 0.5, posY + corners[i][1] + 0.5);
         }
-        p.endShape(p.CLOSE);
+        layer_electrode_shape.endShape(layer_electrode_shape.CLOSE);
     }
 
-
+    /* Call to draw droplets */
     function draw_droplet() {
 
         for (let i = 0; i < gui_broker.droplets.length; i++) {
@@ -164,10 +202,10 @@ let sketch = function (p) {
         }
     }
 
+    /* Position (movement) animation */
     function anim_move(droplet, i) {
 
         p.fill(droplet.Color);
-        //p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
 
         if (droplet_info.old.length == 0) {
             p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
@@ -180,12 +218,15 @@ let sketch = function (p) {
     }
 
 
+    /*
+     * Call to draw ID's of all electrodes (used for debugging)
+     */
     function debug_electrode_text(electrode) {
         let pos_x = 0;
         let pos_y = 0;
 
         if (electrode.Shape == 1) {
-            p.fill(255, 0, 0);
+            layer_electrode_id.fill(0, 255, 0);
             let corner_sum_x = 0;
             let corner_sum_y = 0;
 
@@ -195,22 +236,17 @@ let sketch = function (p) {
                 corner_sum_y = parseInt(corner_sum_y) + (parseInt(electrode.PositionY) + parseInt(electrode.Corners[i][1]));
             }
 
-            pos_x = (corner_sum_x) / (electrode.Corners.length) - debug_layer.textWidth(electrode.ID1) / 2;
-            pos_y = (corner_sum_y) / (electrode.Corners.length) + debug_layer.textAscent(electrode.ID1) / 2;
-
-            //console.log(electrode.ID1);
+            pos_x = (corner_sum_x) / (electrode.Corners.length) - layer_electrode_id.textWidth(electrode.ID1) / 2;
+            pos_y = (corner_sum_y) / (electrode.Corners.length) + layer_electrode_id.textAscent(electrode.ID1) / 2;
             
         } else {
-            debug_layer.fill(0, 255, 0);
-            pos_x = electrode.PositionX + electrode.SizeX / 2 - debug_layer.textWidth(electrode.ID1)/2;
-            pos_y = electrode.PositionY + electrode.SizeY / 2 + debug_layer.textAscent(electrode.ID1)/2;
+            layer_electrode_id.fill(255, 200, 0);
+            pos_x = electrode.PositionX + electrode.SizeX / 2 - layer_electrode_id.textWidth(electrode.ID1)/2;
+            pos_y = electrode.PositionY + electrode.SizeY / 2 + layer_electrode_id.textAscent(electrode.ID1)/2;
         }
 
-        debug_layer.textSize(6);
-        debug_layer.text(electrode.ID1, pos_x, pos_y);
+        layer_electrode_id.textSize(6);
+        layer_electrode_id.text(electrode.ID1, pos_x, pos_y);
     }
 
-    function debug_layer() {
-        
-    }
 };
