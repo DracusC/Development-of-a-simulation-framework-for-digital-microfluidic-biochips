@@ -36,8 +36,7 @@ window.initialize_board = (information) => {
             checkList.classList.add('visible');
     }
 
-    console.log(checkList);
-    console.log(document.getElementById("debug1"));
+    // Get the debug
     debug1 = document.getElementById("debug1");
 }
 

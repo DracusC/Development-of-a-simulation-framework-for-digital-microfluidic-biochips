@@ -12,7 +12,46 @@
 
 <h3>Welcome to the simulator</h3>
 
-<div id='container'></div>
+<div id="mainContent">
+    <div id='container'></div>
+
+    <div id="layerPanel">
+      <span>Layer Panel</span>
+      <form name="test">
+        <div>
+          <input type="checkbox" name="colors" value="red"/>
+          <label for="red">debug1</label>
+        </div>
+    
+        <div>
+          <input type="checkbox" name="colors" value="red"/>
+          <label for="red">debug2</label>
+        </div>
+    
+        <div>
+          <input type="checkbox" name="colors" value="red"/>
+          <label for="red">debug3</label>
+        </div>
+
+        <div>
+          <input type="checkbox" name="colors" value="red"/>
+          <label for="red">debug4</label>
+        </div>
+
+        <div>
+          <input type="checkbox" name="colors" value="red"/>
+          <label for="red">debug5</label>
+        </div>
+
+        <div>
+          <input type="checkbox" name="colors" value="red"/>
+          <label for="red">debug6</label>
+        </div>
+    
+      </form>
+    </div>
+</div>
+
 
 <button id="nextStep" class="btn btn-primary" @onclick="NextStep">Next Step</button>
 <button class="btn btn-primary" @onclick="Play">Play</button>
@@ -25,6 +64,11 @@
     <li><input id="debug2" type="checkbox" />Debug2</li>
   </ul>
 </div>
+
+
+
+
+
 
 
 

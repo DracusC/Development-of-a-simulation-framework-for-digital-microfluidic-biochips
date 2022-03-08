@@ -49,3 +49,27 @@
 .dropdown-check-list.visible .items {
     display: block;
 }
+
+
+#mainContent {
+    display: flex;
+    flex-direction: row;
+}
+
+
+#layerPanel form {
+    width: 200px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    background-color: lightgrey;
+    border-style: solid;
+    border-width: 2px;
+}
+
+
+#layerPanel form div {
+    border-bottom-style: solid;
+    border-width: 2px;
+}
