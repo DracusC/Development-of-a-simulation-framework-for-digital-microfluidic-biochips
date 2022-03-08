@@ -1,0 +1,122 @@
+{
+  "information": {
+    "platform_name": "Platform 640 V1",
+    "platform_type": "platform_640_v1",
+    "platform_ID": 6401,
+    "sizeX": 860,
+    "sizeY": 400
+  },
+  "electrodes": [
+    {
+      "name": "arrel1",
+      "ID": 1,
+      "electrodeID": 360,
+      "driverID": 0,
+      "shape": 0,
+      "positionX": 110,
+      "positionY": 0,
+      "sizeX": 20,
+      "sizeY": 20,
+      "status": 0,
+      "corners": []
+    },
+    {
+      "name": "arrel2",
+      "ID": 2,
+      "electrodeID": 370,
+      "driverID": 0,
+      "shape": 0,
+      "positionX": 130,
+      "positionY": 0,
+      "sizeX": 20,
+      "sizeY": 20,
+      "status": 0,
+      "corners": []
+    },
+    {
+      "name": "arrel3",
+      "ID": 3,
+      "electrodeID": 380,
+      "driverID": 0,
+      "shape": 0,
+      "positionX": 150,
+      "positionY": 0,
+      "sizeX": 20,
+      "sizeY": 20,
+      "status": 0,
+      "corners": []
+    },
+    {
+      "name": "arrel4",
+      "ID": 4,
+      "electrodeID": 262,
+      "driverID": 0,
+      "shape": 0,
+      "positionX": 170,
+      "positionY": 0,
+      "sizeX": 20,
+      "sizeY": 20,
+      "status": 0,
+      "corners": []
+    },
+    {
+      "name": "res10el723",
+      "ID": 5,
+      "electrodeID": -1,
+      "driverID": -1,
+      "shape": 1,
+      "positionX": 190,
+      "positionY": 0,
+      "sizeX": -1,
+      "sizeY": -1,
+      "status": 0,
+      "corners": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          20
+        ],
+        [
+          20,
+          20
+        ]
+      ]
+    },
+    {
+      "name": "arrel6",
+      "ID": 6,
+      "electrodeID": -1,
+      "driverID": -1,
+      "shape": 1,
+      "positionX": 190,
+      "positionY": 20,
+      "sizeX": -1,
+      "sizeY": -1,
+      "status": 0,
+      "corners": [
+        [
+          0,
+          0
+        ],
+        [
+          20,
+          0
+        ],
+        [
+          20,
+          20
+        ]
+      ]
+    }
+  ],
+  "actuators": [],
+  "sensors": [],
+  "inputs": [],
+  "outputs": [],
+  "droplets": [],
+  "bubbles": [],
+  "unclassified": []
+}

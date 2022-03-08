@@ -2,10 +2,11 @@
 using MicrofluidSimulator.SimulatorCode.DataTypes;
 using System.Linq;
 using System.Text.Json;
+using System.Numerics;
 
 namespace MicrofluidSimulator.SimulatorCode.Initialize
 {
-    
+
     public class Initialize
     {
 
@@ -16,17 +17,17 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         public Container initialize(JsonContainer jsonContainer)
         {
-            
+
             //Electrodes[] electrodes = new Electrodes[jsonContainer.electrodes.Count];
             Droplets[] droplets = new Droplets[2];
             Electrodes[] electrodeBoard = initializeBoard(jsonContainer.electrodes);
-            
+
 
 
             initializeDroplets(droplets);
-            
+
             Container container = new Container(electrodeBoard, droplets);
-            Console.WriteLine("electrodeBoard.Length "+ electrodeBoard.Length);
+            
             findNeighbours(container);
             initializeSubscriptions(container);
             return container;
@@ -39,7 +40,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         private Electrodes[] initializeBoard(List<Electrode> electrodes)
         {
-            
+
 
             Electrodes[] electrodeBoard = new Electrodes[electrodes.Count];
             for (int i = 0; i < electrodes.Count; i++)
@@ -49,40 +50,34 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
 
 
-                
-                
+
+
                 int[,] cornersGetter = new int[electrodes[i].corners.Count, 2];
-                for(int j = 0; j < electrodes[i].corners.Count; j++)
+                for (int j = 0; j < electrodes[i].corners.Count; j++)
                 {
 
                     var res = JsonSerializer.Deserialize<List<int>>(electrodes[i].corners[j].ToString());
-                    for(int k = 0; k < 2; k++)
+                    for (int k = 0; k < 2; k++)
                     {
-                        cornersGetter[j,k] = res[k];
+                        cornersGetter[j, k] = res[k];
                     }
                 }
-                
-                
-                
- 
+
+
+
+
 
                 electrodeBoard[i] = new Electrodes(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
                 electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, cornersGetter);
 
 
-                /*electrodeBoard[i].ID1 = i;
-                //electrodeBoard[i].Subscriptions = null;
-                electrodeBoard[i].PositionX = (i%32) * 20;
-                electrodeBoard[i].PositionY = (i/32) * 20;
-                electrodeBoard[i].SizeX = 20;
-                electrodeBoard[i].SizeY = 20;
-                electrodeBoard[i].Status = 0;*/
+                
 
             }
 
             return electrodeBoard;
 
-            
+
         }
 
         private Droplets[] initializeDroplets(Droplets[] droplets)
@@ -90,167 +85,213 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             droplets[0] = new Droplets("test droplet", 0, "h20", 120, 10, 15, 15, "blue", 20);
             droplets[0].ElectrodeID = 1;
             droplets[1] = new Droplets("test droplet2", 1, "h20", 140, 50, 15, 15, "yellow", 20);
-            droplets[1].ElectrodeID = 66;
+            droplets[1].ElectrodeID = 3;
             return droplets;
         }
 
         private void initializeSubscriptions(Container container)
         {
             Droplets[] droplets = container.Droplets;
-            
+
             foreach (Droplets droplet in droplets)
+            {
+                Models.SubscriptionModels.dropletSubscriptions(container, droplet);
+                foreach(int sub in droplet.Subscriptions)
                 {
-                    Models.SubscriptionModels.dropletSubscriptions(container, droplet);
+                    Console.WriteLine("droplet subs id: " + droplet.ID1 + " subs: " + sub);
                 }
+                
+            }
+
+
         }
 
         private Container findNeighbours(Container container)
         {
-            for(int i = 0; i < container.Electrodes.Length; i++)
+            for (int i = 0; i < container.Electrodes.Length; i++)
             {
-                
-                if(container.Electrodes[i].Shape == 0)
+
+                if (container.Electrodes[i].Shape == 0)
                 {
                     container.Electrodes[i].Neighbours = findNeighboursByElectrode(container.Electrodes, container.Electrodes[i]);
 
                 }
-                /*else
+                else
                 {
+                    
                     container.Electrodes[i].Neighbours = findNeighboursByElectrodePolygon(container.Electrodes, container.Electrodes[i]);
-                }*/
+                }
+
+                
 
 
-            }
+
+
+
+
+                }
+            //for (int i = 0; i < container.Electrodes.Length; i++)
+            //{
+            //    if(container.Electrodes[i].ID1 == 66)
+            //    {
+            //        for (int j = 0; j < container.Electrodes[i].Neighbours.Count; j++)
+            //        {
+            //            Console.WriteLine("neighbours for  " + container.Electrodes[i].ID1 + " : " + container.Electrodes[i].Neighbours[j]);
+            //        }
+            //    }
+                
+
+            //}
 
 
             return container;
         }
 
-        //WORK IN PROGRESS
-        /*private ArrayList findNeighboursByElectrodePolygon(Electrodes[] electrodeBoard, Electrodes electrode)
+        
+        private ArrayList findNeighboursByElectrodePolygon(Electrodes[] electrodeBoard, Electrodes electrode)
         {
-            ArrayList neighbours = new ArrayList();
+            ArrayList neighbours = electrode.Neighbours;
 
-           
-            int searchPosX = electrode.PositionX - 1;
-            int searchPosY = electrode.PositionY - 1;
 
-            for (int i = 0; i <= electrode.Corners.Count; i++)
+            int currentPointX = electrode.Corners[0, 0] + electrode.PositionX;
+            int currentPointY = electrode.Corners[0, 1] + electrode.PositionY;
+
+            for (int i = 0; i < electrode.Corners.GetLength(0); i++)
             {
+                int vecX = electrode.Corners[(i + 1) % electrode.Corners.GetLength(0), 0] - electrode.Corners[i, 0];
+                int vecY = electrode.Corners[(i + 1) % electrode.Corners.GetLength(0), 1] - electrode.Corners[i, 1];
+                int tempVecX = vecX;
+                int tempVecY = vecY;
+                int divisor = gcd(Math.Abs(vecX), Math.Abs(vecY));
+                vecX /= divisor;
+                vecY /= divisor;
+
+                int tempCurrentPointX = currentPointX;
+                int tempCurrentPointY = currentPointY;
+
+               
+                
+                while ((currentPointX != (tempCurrentPointX + tempVecX)) || ((currentPointY != (tempCurrentPointY + tempVecY)))){
 
 
-                //getAngle();
-                //getCoordinates();
+                    
+                    for (int j = 0; j < electrodeBoard.Length; j++)
+                    {
 
-                for (int j = 0; j < electrodeBoard.Length; j++)
-                {
+                        if (electrodeBoard[j].Shape == 0)
+                        {
+                            
+                            // for each electrode calculate the margin of coordinates that it holds
+                            int minMarginX = electrodeBoard[j].PositionX;
+                            int minMarginY = electrodeBoard[j].PositionY;
+                            int maxMarginX = electrodeBoard[j].PositionX + electrodeBoard[j].SizeX;
+                            int maxMarginY = electrodeBoard[j].PositionY + electrodeBoard[j].SizeY;
 
-                    // for each electrode calculate the margin of coordinates that it holds
-                    int minMarginX = electrodeBoard[i].PositionX;
-                    int minMarginY = electrodeBoard[i].PositionY;
-                    int maxMarginX = electrodeBoard[i].PositionX + electrodeBoard[i].SizeX;
-                    int maxMarginY = electrodeBoard[i].PositionY + electrodeBoard[i].SizeY;
+
+
+
+
+                            // check if the i'th electrode matches the coordinate of the electrode we're finding neighbours of
+
+                            // check top left coordinate 
+                            if ((currentPointX == minMarginX && currentPointY == minMarginY) || (currentPointX == maxMarginX && currentPointY == maxMarginY
+                                || currentPointX == minMarginX && currentPointY == maxMarginY || currentPointX == maxMarginX && currentPointY == minMarginY)
+                                && !neighbours.Contains(electrodeBoard[j].ID1) && electrodeBoard[j] != electrode)
+                            {
+
+
+                                // add neighbour found if it isnt in the array already
+                                neighbours.Add(electrodeBoard[j].ID1);
+                                if (!electrodeBoard[j].Neighbours.Contains(electrode.ID1))
+                                {
+                                    electrodeBoard[j].Neighbours.Add(electrode.ID1);
+                                }
+                                
+
+
+
+
+
+                            }
+                        }
+                        else if (electrodeBoard[j].Shape == 1 && electrodeBoard[j] != electrode)
+                        {
+                            int checkPointX = electrodeBoard[j].Corners[0, 0] + electrodeBoard[j].PositionX;
+                            int checkPointY = electrodeBoard[j].Corners[0, 1] + electrodeBoard[j].PositionY;
+
+                            for (int k = 0; k < electrodeBoard[j].Corners.GetLength(0); k++)
+                            {
+
+                                int vecCheckX = electrodeBoard[j].Corners[(k + 1) % electrodeBoard[j].Corners.GetLength(0), 0] - electrodeBoard[j].Corners[k, 0];
+                                int vecCheckY = electrodeBoard[j].Corners[(k + 1) % electrodeBoard[j].Corners.GetLength(0), 1] - electrodeBoard[j].Corners[k, 1];
+                                int tempVecCheckX = vecCheckX;
+                                int tempVecCheckY = vecCheckY;
+
+                                int checkDivisor = gcd(Math.Abs(vecCheckX), Math.Abs(vecCheckY));
+                                vecCheckX /= checkDivisor;
+                                vecCheckY /= checkDivisor;
+                                
+                                int tempCheckPointX = checkPointX;
+                                int tempCheckPointY = checkPointY;
+
+                                
+                                while ((checkPointX != (tempCheckPointX+ tempVecCheckX)) || (checkPointY != (tempCheckPointY+ tempVecCheckY)))
+                                {
+                                    //Console.WriteLine("Infinity");
+                                    if ((currentPointX == checkPointX && currentPointY == checkPointY)
+                                    && !neighbours.Contains(electrodeBoard[j].ID1) && electrodeBoard[j] != electrode)
+                                    {
+
+
+                                        // add neighbour found if it isnt in the array already
+                                        neighbours.Add(electrodeBoard[j].ID1);
+
+
+
+
+
+                                    }
+                                    checkPointX += vecCheckX;
+                                    checkPointY += vecCheckY;
+                                }
+                            }
+                        }
+                        
+
+                    }
+                    currentPointX += vecX;
+                    currentPointY += vecY;
+                   
                 }
+
             }
-            
 
             return neighbours;
-        }*/
+        }
 
         private ArrayList findNeighboursByElectrode(Electrodes[] electrodeBoard, Electrodes electrode)
         {
-            // used to check wether the electrode in question is along the top border, left border or in the top left corner
-            bool topCase = true;
-            bool leftCase = true;
 
             // initialize neighbour array
-            ArrayList neighbours = new ArrayList();
+            ArrayList neighbours = electrode.Neighbours;
 
-            // define pixel coordinate in the top left corner of the given electrode 
-            int searchTopPosX = electrode.PositionX - 1;
-            int searchTopPosY = electrode.PositionY - 1;
-
-            // define pixel coordinate in the bottom left corner of the given electrode 
-            int searchBottomPosX = electrode.PositionX - 1;
-            int searchBottomPosY = electrode.PositionY + electrode.SizeY + 1;
+            
 
             // loop through all electrodes to find a matching elecrode to the given coordinates
-            for(int i = 0; i < electrodeBoard.Length; i++)
+
+            for (int i = 0; i < electrodeBoard.Length; i++)
             {
-                
-                // for each electrode calculate the margin of coordinates that it holds
-                int minMarginX = electrodeBoard[i].PositionX;
-                int minMarginY = electrodeBoard[i].PositionY;
-                int maxMarginX = electrodeBoard[i].PositionX + electrodeBoard[i].SizeX;
-                int maxMarginY = electrodeBoard[i].PositionY + electrodeBoard[i].SizeY;
 
+                // define pixel coordinate in the top left corner of the given electrode 
+                int currentTopLeftPosX = electrode.PositionX;
+                int currentTopLeftPosY = electrode.PositionY;
 
-                // check if the i'th electrode matches the coordinate of the electrode we're finding neighbours of
-
-                // check top left coordinate 
-                if (searchTopPosX > minMarginX && searchTopPosX < maxMarginX && searchTopPosY > minMarginY && searchTopPosY < maxMarginY)
+                // define pixel coordinate in the bottom left corner of the given electrode 
+                int currentBottomRightPosX = electrode.PositionX + electrode.SizeX;
+                int currentBottomRightPosY = electrode.PositionY + electrode.SizeY;
+                if (electrodeBoard[i].Shape == 0)
                 {
-                    // if there is a neighbour in the top left corner of the electrode we are no longer in an edge or corner case, therefore we set false
-                    topCase = false;
-                    
-                    // add the top left neighbour found
-                    neighbours.Add(electrodeBoard[i].ID1);
 
-                    // define an accumulative size so when the neighbourfinder recursively runs, it won't find any neighbours that are further away than +/- 1 of the 
-                    // electrode we are currently looking at
-                    int accumulativeSizeX = -electrodeBoard[i].SizeX-1;
-                    int accumulativeSizeY = -1;
-
-                    // find all the neighbours along the topside of the search electrode
-                    neighbours.AddRange(findTopRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, electrode.SizeX));
-
-                    // take the last found neighbour from the previous found neighbours (this would be the one in the top right corner of our search electrode) and find all 
-                    // the neighbours along the right side (downwards) of the search electrode
-                    
-                    
-                        
-                    
-                    neighbours.AddRange(findLeftSideDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[(int)neighbours[neighbours.Count - 1]-1], accumulativeSizeY, electrode.SizeY));
-
-                    // start from the top left neighbour and find all the neighbours along the left side (downwards) of the search electrode 
-                    
-                    
-                    neighbours.AddRange(findRightSideDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeY, electrode.SizeY));
-                }
-
-                // check bottom left coordinate 
-                if (searchBottomPosX > minMarginX && searchBottomPosX < maxMarginX && searchBottomPosY > minMarginY && searchBottomPosY < maxMarginY)
-                {
-                    leftCase = false;
-                    // define an accumulative size so when the neighbourfinder recursively runs, it won't find any neighbours that are further away than +/- 1 of the 
-                    // electrode we are currently looking at
-
-                    int accumulativeSizeX = -electrodeBoard[i].SizeX-1;
-
-                    // add the bottom left neighbour found
-                    neighbours.Add(electrodeBoard[i].ID1);
-
-                    // start from the bottom left neighbour and find all the neighbours along the bottom side of the search electrode
-                    neighbours.AddRange(findBottomRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, electrode.SizeX));
-                }
-
-
-            
-            }
-
-            // special case for electrodes that lie on the top border of the grid
-            if (topCase == true)
-            {
-                // loop through all electrodes to find a matching elecrode to the given coordinates defined previously searchTopPosX and searchTopPosY
-                for (int i = 0; i < electrodeBoard.Length; i++)
-                {
-                    // searchTopPos is now the coordinate on the left side of the search electrode 
-                    searchTopPosX = electrode.PositionX - 1;
-                    searchTopPosY = electrode.PositionY + 1;
-
-                    // searchRightTopPos is the coordinate on the right side of the search electrode
-                    int searchRightTopPosX = electrode.PositionX + electrode.SizeX + 1;
-                    int searchRightTopPosY = electrode.PositionY + 1;
 
                     // for each electrode calculate the margin of coordinates that it holds
                     int minMarginX = electrodeBoard[i].PositionX;
@@ -258,277 +299,116 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                     int maxMarginX = electrodeBoard[i].PositionX + electrodeBoard[i].SizeX;
                     int maxMarginY = electrodeBoard[i].PositionY + electrodeBoard[i].SizeY;
 
-                    
-                    // check left side coordinate for matches
-                    if (searchTopPosX > minMarginX && searchTopPosX < maxMarginX && searchTopPosY > minMarginY && searchTopPosY < maxMarginY)
+                    // check if the i'th electrode matches the coordinate of the electrode we're finding neighbours of
+                    // traverse topside of electrode
+                    while (currentTopLeftPosX <= electrode.PositionX + electrode.SizeX)
                     {
-                        // add the left neighbour first
-                        neighbours.Add(electrodeBoard[i].ID1);
-
-                        // since we found a left neighbour, we now know that we are not in a corner case, but just in a top case (along the top border of the grid)
-                        leftCase = false;
-
-                        // we're working downwards, therefore we define the accumulator for the y size.
-                        int accumulativeSizeY = 0;
                         
-                        // find all the neighbours along the left side of our electrode, but stop before finding the neighbour in the bottom left corner 
-                        neighbours.AddRange(findRightSideDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeY, electrode.SizeY));
-                    }
-                    
-                    // check right side coordinate for matches
-                    if (searchRightTopPosX > minMarginX && searchRightTopPosX < maxMarginX && searchRightTopPosY > minMarginY && searchRightTopPosY < maxMarginY)
-                    {
-                        // add the right neighbour first
-                        neighbours.Add(electrodeBoard[i].ID1);
+                        
 
-                        // we're working downwards, therefore we define the accumulator for the y size.
-                        int accumulativeSizeY = 0;
-
-                        // find all the neighbours along the right side of our electrode, but stop before finding the neighbour in the bottom right corner 
-                        neighbours.AddRange(findLeftSideDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeY, electrode.SizeY));
-                    }
-
-                }
-                
-            }
-
-            // special case for electrodes that lie on the left border of the grid
-            if (leftCase == true)
-            {
-
-                // searchBottomPos is now the coordinates of the neighbour straight under the given electrode 
-                searchBottomPosX = electrode.PositionX + 1;
-                searchBottomPosY = electrode.PositionY + electrode.SizeY + 1;
-
-                // searchStraightTopPos is the coordinates of the neighbour straight above the given electrode
-                int searchStraightTopPosX = electrode.PositionX + 1;
-                int searchStraightTopPosY = electrode.PositionY - 1;
-
-                // traverse the array for matching electrodes
-                for (int i = 0; i < electrodeBoard.Length; i++)
-                {
-
-                    // for each electrode calculate the margin of coordinates that it holds
-                    int minMarginX = electrodeBoard[i].PositionX;
-                    int minMarginY = electrodeBoard[i].PositionY;
-                    int maxMarginX = electrodeBoard[i].PositionX + electrodeBoard[i].SizeX;
-                    int maxMarginY = electrodeBoard[i].PositionY + electrodeBoard[i].SizeY;
-
-                    // check bottom side coordinate for matches
-                    if (searchBottomPosX > minMarginX && searchBottomPosX < maxMarginX && searchBottomPosY > minMarginY && searchBottomPosY < maxMarginY)
-                    {
-                        // we're working to the right, therefore we define an accumulator for the x size
-                        int accumulativeSizeX = -electrodeBoard[i].SizeX;
-
-                        // start by adding the neighbour straight below the given electrode
-                        neighbours.Add(electrodeBoard[i].ID1);
-
-                        // start from the previously added neighbour and find the neighbours to the right of it
-                        neighbours.AddRange(findBottomRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, electrode.SizeX));
-                    }
-
-                    // check top side coordinate for matches
-                    if(topCase == true)
-                    {
-                        if (searchStraightTopPosX > minMarginX && searchStraightTopPosX < maxMarginX && searchStraightTopPosY > minMarginY && searchStraightTopPosY < maxMarginY)
+                        if ((currentTopLeftPosX == minMarginX && currentTopLeftPosY == minMarginY || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == maxMarginY
+                            || currentTopLeftPosX == minMarginX && currentTopLeftPosY == maxMarginY || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == minMarginY)
+                            && !neighbours.Contains(electrodeBoard[i].ID1) && electrodeBoard[i] != electrode)
                         {
-                            // we're working to the right, therefore we define an accumulator for the x size
-                            int accumulativeSizeX = -electrodeBoard[i].SizeX;
-
-                            // start by adding the neighbour straight above the given electrode
                             neighbours.Add(electrodeBoard[i].ID1);
+                            currentTopLeftPosX += (maxMarginX - currentTopLeftPosX);
+                        }
+                        else
+                        {
+                            currentTopLeftPosX++;
+                        }
 
-                            // start from the previously added neighbour and find the neighbours to the right of it
-                            neighbours.AddRange(findBottomRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, electrode.SizeX));
+                    }
+
+                    //reset
+                    currentTopLeftPosX = electrode.PositionX;
+
+                    //traverse leftside of electrode
+                    while (currentTopLeftPosY <= electrode.PositionY + electrode.SizeY)
+                    {
+                        if ((currentTopLeftPosX == minMarginX && currentTopLeftPosY == minMarginY || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == maxMarginY
+                            || currentTopLeftPosX == minMarginX && currentTopLeftPosY == maxMarginY || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == minMarginY)
+                            && !neighbours.Contains(electrodeBoard[i].ID1) && electrodeBoard[i] != electrode)
+                        {
+                            neighbours.Add(electrodeBoard[i].ID1);
+                            currentTopLeftPosY += (maxMarginY - currentTopLeftPosY);
+                        }
+                        else
+                        {
+                            currentTopLeftPosY++;
                         }
                     }
-                    
+                    //reset
+                    currentTopLeftPosY = electrode.PositionY;
+                    //traverse bottomside of electrode
+                    while (currentBottomRightPosX >= electrode.PositionX)
+                    {
+                        //if(electrode.ID1 == 642 && electrodeBoard[i].ID1 == 643)
+                        //{
+                        //    Console.WriteLine("search pos (x,y) : " + currentBottomRightPosX + ", " + currentBottomRightPosX);
+                        //    Console.WriteLine("x to x: " + minMarginX + ", " + maxMarginX);
+                        //    Console.WriteLine("y to y: " + minMarginY + ", " + maxMarginY);
+                        //}
+                        if ((currentBottomRightPosX == minMarginX && currentBottomRightPosY == minMarginY || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == maxMarginY
+                            || currentBottomRightPosX == minMarginX && currentBottomRightPosY == maxMarginY || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == minMarginY)
+                            && !neighbours.Contains(electrodeBoard[i].ID1) && electrodeBoard[i] != electrode)
+                        {
+                            neighbours.Add(electrodeBoard[i].ID1);
+                            currentBottomRightPosX += (minMarginX - currentBottomRightPosX);
+                        }
+                        else
+                        {
+                            currentBottomRightPosX--;
+                        }
+                    }
+                    //reset
+                    currentBottomRightPosX = electrode.PositionX + electrode.SizeX;
+                    //traverse rightside of electrode
+                    while (currentBottomRightPosY >= electrode.PositionY)
+                    {
+                        if ((currentBottomRightPosX == minMarginX && currentBottomRightPosY == minMarginY || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == maxMarginY
+                            || currentBottomRightPosX == minMarginX && currentBottomRightPosY == maxMarginY || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == minMarginY)
+                            && !neighbours.Contains(electrodeBoard[i].ID1) && electrodeBoard[i] != electrode)
+                        {
+                            neighbours.Add(electrodeBoard[i].ID1);
+                            currentBottomRightPosY += (minMarginY - currentBottomRightPosY);
+                        }
+                        else
+                        {
+                            currentBottomRightPosY--;
+                        }
+                    }
+                    //reset
+                    currentBottomRightPosY = electrode.PositionX + electrode.SizeX;
+
                 }
-            }
-            
-            // remove the electrode itself, since it will be found when looking for neighbours downwards from the electrode just above it
-            neighbours.Remove(electrode.ID1);
-          
 
-            return neighbours;
-        }
-
-        private ArrayList findTopRightNeighbourByElectrode(Electrodes[] electrodeBoard, Electrodes electrode, int accumulativeSizeX, int mainSizeX)
-        {
-            // initialize neighbour array
-            ArrayList neighbours = new ArrayList();
-
-            // define the coordinates of the bottom right corner of electrode in question
-            int searchRightPosX = electrode.PositionX + electrode.SizeX + 1;
-            int searchRightPosY = electrode.PositionY + electrode.SizeY - 1;
-
-            // add the size of previously found neighbour, to check that we haven't run past the border of our original electrode
-            accumulativeSizeX += electrode.SizeX;
-
-            // return if we are now past the border of our original electrode
-            if (accumulativeSizeX >= mainSizeX)
-            {
                 
-                return neighbours;
+
             }
-
-            // traverse the electrode array
-            for (int i = 0; i < electrodeBoard.Length; i++)
-            {
-
-                // for each electrode calculate the margin of coordinates that it holds
-                int minMarginX = electrodeBoard[i].PositionX;
-                int minMarginY = electrodeBoard[i].PositionY;
-                int maxMarginX = electrodeBoard[i].PositionX + electrodeBoard[i].SizeX;
-                int maxMarginY = electrodeBoard[i].PositionY + electrodeBoard[i].SizeY;
-
-                // check right side coordinate for matches
-                if (searchRightPosX > minMarginX && searchRightPosX < maxMarginX && searchRightPosY > minMarginY && searchRightPosY < maxMarginY)
-                {
-                    // add the neighbour found
-                    neighbours.Add(electrodeBoard[i].ID1);
-
-                    // recursively check right side neighbours of the newly found neighbour until the accumulative size surpasses the size of the original electrode
-                    neighbours.AddRange(findTopRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, mainSizeX));
-                }
-                
-            }
-            
             return neighbours;
         }
 
-        private ArrayList findBottomRightNeighbourByElectrode(Electrodes[] electrodeBoard, Electrodes electrode, int accumulativeSizeX, int mainSizeX)
+        private int gcd(int x, int y)
         {
-
-            // initialize neighbour array
-            ArrayList neighbours = new ArrayList();
-
-            // define the coordinates of the top right corner of electrode in question
-            int searchRightPosX = electrode.PositionX + electrode.SizeX + 1;
-            int searchRightPosY = electrode.PositionY + 1;
-
-            // add the size of previously found neighbour, to check that we haven't run past the border of our original electrode
-            accumulativeSizeX += electrode.SizeX;
-
-            // return if we are now past the border of our original electrode
-            if (accumulativeSizeX >= mainSizeX)
+            int gcd = 1;
+            for (int i = 1; i <= x && i <= y; i++)
             {
-                return neighbours;
+                if (x % i == 0 && y % i == 0)
+                    gcd = i;
+            }
+            if(x==0)
+            {
+                gcd = y;
+            }else if (y == 0)
+            {
+                gcd = x;
+            }else if(x == y)
+            {
+                gcd = x;
             }
 
-            // traverse the electrode array
-            for (int i = 0; i < electrodeBoard.Length; i++)
-            {
-                // for each electrode calculate the margin of coordinates that it holds
-                int minMarginX = electrodeBoard[i].PositionX;
-                int minMarginY = electrodeBoard[i].PositionY;
-                int maxMarginX = electrodeBoard[i].PositionX + electrodeBoard[i].SizeX;
-                int maxMarginY = electrodeBoard[i].PositionY + electrodeBoard[i].SizeY;
-
-
-                // check right side coordinate for matches
-                if (searchRightPosX > minMarginX && searchRightPosX < maxMarginX && searchRightPosY > minMarginY && searchRightPosY < maxMarginY)
-                {
-                    // add the neighbour found
-                    neighbours.Add(electrodeBoard[i].ID1);
-
-                    // recursively check right side neighbours of the newly found neighbour until the accumulative size surpasses the size of the original electrode
-                    neighbours.AddRange(findTopRightNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeX, mainSizeX));
-                }
-
-            }
-
-            return neighbours;
-        }
-
-        private ArrayList findRightSideDownwardsNeighbourByElectrode(Electrodes[] electrodeBoard, Electrodes electrode, int accumulativeSizeY, int mainSizeY)
-        {
-            // initialize neighbour array
-            ArrayList neighbours = new ArrayList();
-
-            // define the coordinates of the bottom right corner of electrode in question
-            int searchBottomPosX = electrode.PositionX + electrode.SizeX - 1;
-            int searchBottomPosY = electrode.PositionY + electrode.SizeY + 1;
-
-            // add the size of previously found neighbour, to check that we haven't run past the border of our original electrode
-            accumulativeSizeY += electrode.SizeY;
-
-            // return if we are now past the border of our original electrode
-            if (accumulativeSizeY >= mainSizeY)
-            {
-                return neighbours;
-            }
-
-            // traverse the electrode array
-            for (int i = 0; i < electrodeBoard.Length; i++)
-            {
-
-                // for each electrode calculate the margin of coordinates that it holds
-                int minMarginX = electrodeBoard[i].PositionX;
-                int minMarginY = electrodeBoard[i].PositionY;
-                int maxMarginX = electrodeBoard[i].PositionX + electrodeBoard[i].SizeX;
-                int maxMarginY = electrodeBoard[i].PositionY + electrodeBoard[i].SizeY;
-
-
-
-                // check bottom right side coordinate for matches
-                if (searchBottomPosX > minMarginX && searchBottomPosX < maxMarginX && searchBottomPosY > minMarginY && searchBottomPosY < maxMarginY)
-                {
-                    // add the neighbour found
-                    neighbours.Add(electrodeBoard[i].ID1);
-
-                    // recursively check bottom right side neighbours of the newly found neighbour until the accumulative size surpasses the size of the original electrode
-                    neighbours.AddRange(findRightSideDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeY, mainSizeY));
-                }
-
-            }
-
-            return neighbours;
-        }
-
-        private ArrayList findLeftSideDownwardsNeighbourByElectrode(Electrodes[] electrodeBoard, Electrodes electrode, int accumulativeSizeY, int mainSizeY)
-        {
-            // initialize neighbour array
-            ArrayList neighbours = new ArrayList();
-
-            // define the coordinates of the bottom left corner of electrode in question
-            int searchBottomPosX = electrode.PositionX + electrode.SizeX - 1;
-            int searchBottomPosY = electrode.PositionY + electrode.SizeY + 1;
-
-            // add the size of previously found neighbour, to check that we haven't run past the border of our original electrode
-            accumulativeSizeY += electrode.SizeY;
-
-            // return if we are now past the border of our original electrode
-            if (accumulativeSizeY >= mainSizeY)
-            {
-                return neighbours;
-            }
-
-            // traverse the electrode array
-            for (int i = 0; i < electrodeBoard.Length; i++)
-            {
-
-                // for each electrode calculate the margin of coordinates that it holds
-                int minMarginX = electrodeBoard[i].PositionX;
-                int minMarginY = electrodeBoard[i].PositionY;
-                int maxMarginX = electrodeBoard[i].PositionX + electrodeBoard[i].SizeX;
-                int maxMarginY = electrodeBoard[i].PositionY + electrodeBoard[i].SizeY;
-
-
-
-                // check bottom left side coordinate for matches
-                if (searchBottomPosX > minMarginX && searchBottomPosX < maxMarginX && searchBottomPosY > minMarginY && searchBottomPosY < maxMarginY)
-                {
-                    // add the neighbour found
-                    neighbours.Add(electrodeBoard[i].ID1);
-
-                    // recursively check bottom left side neighbours of the newly found neighbour until the accumulative size surpasses the size of the original electrode
-                    neighbours.AddRange(findLeftSideDownwardsNeighbourByElectrode(electrodeBoard, electrodeBoard[i], accumulativeSizeY, mainSizeY));
-                }
-
-            }
-
-            return neighbours;
+            return gcd;
         }
 
 
