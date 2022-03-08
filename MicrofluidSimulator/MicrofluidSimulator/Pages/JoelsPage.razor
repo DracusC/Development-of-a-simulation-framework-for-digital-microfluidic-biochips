@@ -83,13 +83,15 @@
 
     private JsonContainer? container;
     private Simulator? simulator;
+    private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
     protected override async void OnAfterRender(bool firstRender) {
         Console.WriteLine("FIRST == " + firstRender);
         if(firstRender) {
             Console.WriteLine("TEST");
             setP5();
             container = await Http.GetFromJsonAsync<JsonContainer>("sample-data/platform640v1.json");
-            simulator = new Simulator(null, container);
+            electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v1neighbours.json");
+            simulator = new Simulator(null, container, electrodesWithNeighbours);
 
             guibroker.set_jsruntime(JsRuntime);
             guibroker.update_board(simulator.Container);

@@ -3,6 +3,9 @@ using MicrofluidSimulator.SimulatorCode.DataTypes;
 using System.Linq;
 using System.Text.Json;
 using System.Numerics;
+using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace MicrofluidSimulator.SimulatorCode.Initialize
 {
@@ -15,20 +18,23 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         }
 
-        public Container initialize(JsonContainer jsonContainer)
+        public Container initialize(JsonContainer jsonContainer, ElectrodesWithNeighbours[] electrodesWithNeighbours)
         {
 
             //Electrodes[] electrodes = new Electrodes[jsonContainer.electrodes.Count];
             ArrayList droplets = new ArrayList();
-            Electrodes[] electrodeBoard = initializeBoard(jsonContainer.electrodes);
+            Electrodes[] electrodeBoard = initializeBoard(jsonContainer.electrodes, electrodesWithNeighbours);
 
 
 
             initializeDroplets(droplets);
 
             Container container = new Container(electrodeBoard, droplets);
+            if(electrodesWithNeighbours == null)
+            {
+                findNeighbours(container);
+            }
             
-            findNeighbours(container);
             initializeSubscriptions(container);
             return container;
         }
@@ -38,7 +44,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             List<int> Coords { get; set; }
         }
 
-        private Electrodes[] initializeBoard(List<Electrode> electrodes)
+        private Electrodes[] initializeBoard(List<Electrode> electrodes, ElectrodesWithNeighbours[] electrodesWithNeighbours)
         {
 
 
@@ -56,7 +62,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 for (int j = 0; j < electrodes[i].corners.Count; j++)
                 {
 
-                    var res = JsonSerializer.Deserialize<List<int>>(electrodes[i].corners[j].ToString());
+                    var res = System.Text.Json.JsonSerializer.Deserialize<List<int>>(electrodes[i].corners[j].ToString());
                     for (int k = 0; k < 2; k++)
                     {
                         cornersGetter[j, k] = res[k];
@@ -70,8 +76,35 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 electrodeBoard[i] = new Electrodes(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
                 electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, cornersGetter);
 
+                if(electrodesWithNeighbours != null)
+                {
+                    
+                    for(int j = 0; j < electrodesWithNeighbours[i].Neighbours.Count; j++)
+                    {
+                        electrodeBoard[i].Neighbours.Add(electrodesWithNeighbours[i].Neighbours[j]);
+                    }
+                    
+                    //int[] neighboursGetter = new int[electrodesWithNeighbours[i].Neighbours.Count];
+                    //for (int j = 0; j < electrodesWithNeighbours[i].Neighbours.Count; j++)
+                    //{
 
+                    //    var res = System.Text.Json.JsonSerializer.Deserialize<List<int>>(electrodesWithNeighbours[i].Neighbours[j].ToString());
+
+                    //    for(int k = 0; k < res.Count; k++)
+                    //    {
+                    //        neighboursGetter[k] = res[k];
+                    //    }
+
+                    //    electrodeBoard[i].Neighbours.Add(neighboursGetter[j]);
+
+                    //}
+
+                }
                 
+
+
+
+
 
             }
 
@@ -135,7 +168,9 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
 
 
-                }
+            }
+            string electrodesWithNeighbours = JsonConvert.SerializeObject(container.Electrodes);
+            Console.WriteLine(electrodesWithNeighbours);
             //for (int i = 0; i < container.Electrodes.Length; i++)
             //{
             //    if(container.Electrodes[i].ID1 == 66)
@@ -145,7 +180,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             //            Console.WriteLine("neighbours for  " + container.Electrodes[i].ID1 + " : " + container.Electrodes[i].Neighbours[j]);
             //        }
             //    }
-                
+
 
             //}
 

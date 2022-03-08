@@ -10,13 +10,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         Container container;
         ArrayList droplets;
         Queue<ActionQueueItem> actionQueue;
-        public Simulator(Queue<ActionQueueItem> actionQueue, JsonContainer jsonContainer)
+        public Simulator(Queue<ActionQueueItem> actionQueue, JsonContainer jsonContainer, ElectrodesWithNeighbours[] electrodesWithNeighbours)
         {
             this.actionQueue = generateTestQueue();
 
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
-            container = init.initialize(jsonContainer);
+            container = init.initialize(jsonContainer, electrodesWithNeighbours);
             droplets = container.Droplets;
             Electrodes[] electrodeBoard = container.Electrodes;
         }
