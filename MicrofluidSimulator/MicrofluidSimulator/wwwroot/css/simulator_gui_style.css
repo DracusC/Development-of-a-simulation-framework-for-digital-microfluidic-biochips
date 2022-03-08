@@ -51,25 +51,85 @@
 }
 
 
+
+
+
+/* GUI sketch panel + layer panel */
+#simulatorGUI {
+    visibility:hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#simulatorContainer {
+    max-width: min-content;
+}
+
+#simulatorView {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#simulatorView span {
+    text-align: center;
+}
+
 #mainContent {
     display: flex;
     flex-direction: row;
+    max-height: min-content;
 }
 
+#container {
+    display: flex;
+}
+
+#layerPanel {
+    display: flex;
+    flex-flow: column;
+    margin:0;
+    padding:0;
+}
 
 #layerPanel form {
     width: 200px;
-    height: 100px;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    box-sizing: border-box;
     background-color: lightgrey;
     border-style: solid;
+    border-width: 2px;
+    flex-grow: 1;
+}
+#layerPanel form div {
+    border-bottom-style: solid;
     border-width: 2px;
 }
 
 
-#layerPanel form div {
-    border-bottom-style: solid;
+/* GUI informationpanel */
+#informationPanelContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#informationPanel {
+    flex-grow: 1;
+}
+
+#information {
+    height: 23rem;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#selectionPanel {
+    width: 200px;
+    height: 23rem;
+    border-style: solid;
+    border-left-style: none;
     border-width: 2px;
 }

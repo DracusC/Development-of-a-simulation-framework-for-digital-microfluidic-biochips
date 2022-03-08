@@ -27,17 +27,14 @@ window.initialize_board = (information) => {
     console.log(JSONinformation);
     gui_broker.init_board(JSONinformation.sizeX, JSONinformation.sizeY + 1);
 
-    // TEST
-    var checkList = document.getElementById('list1');
-    checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
-        if (checkList.classList.contains('visible'))
-            checkList.classList.remove('visible');
-        else
-            checkList.classList.add('visible');
-    }
-
     // Get the debug
     debug1 = document.getElementById("debug1");
+    document.querySelector("#simulatorGUI").style.visibility = "visible";
+}
+
+
+let layer_controller = {
+
 }
 
 
