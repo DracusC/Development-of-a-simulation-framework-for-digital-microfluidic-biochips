@@ -36,6 +36,8 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             }
             
             initializeSubscriptions(container);
+
+
             return container;
         }
 

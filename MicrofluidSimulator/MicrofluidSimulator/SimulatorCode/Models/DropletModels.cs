@@ -14,7 +14,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             //get index of electrode we are on and get the electrode
             int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
             Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
-
+            //Console.WriteLine("CHeck split for " + caller.ID1);
             //int onNeighbours = countOnNeigbours(electrodeBoard, dropletElectrode);
             //if(onNeighbours  != 0)
             //{
@@ -23,17 +23,18 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             //        onNeighbours++;
             //    }
 
-                if (minimalSplitVolume != 0)
+            if (minimalSplitVolume != 0)
                 {
 
                 }
                 int cur = 0;
-                for (int i = 0; i < dropletElectrode.Neighbours.Count; i++)
+                foreach (int n in dropletElectrode.Neighbours)
                 {
                     //for (int j = cur; cur < dropletElectrode.Neighbours.Count; j++)
-                    Electrodes tempElectrode = electrodeBoard[(int)dropletElectrode.Neighbours[i]];
-                    //{
-
+                    int indexForElectrode  = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(n, container);
+                    Electrodes tempElectrode = electrodeBoard[indexForElectrode];
+                //{
+                
                     if (tempElectrode.Status > 0 && !ElectrodeModels.electrodeHasDroplet(tempElectrode,container))
                     {
                         int electrodeCenterX = tempElectrode.PositionX + 10;
@@ -46,12 +47,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                         int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(id,container);
                         ((Droplets)droplets[index]).ElectrodeID = tempElectrode.ID1;
                         SubscriptionModels.dropletSubscriptions(container, newDroplet);
-                        Console.WriteLine(newDroplet.ID1);
-                        Console.WriteLine("electrode  " + newDroplet.ElectrodeID + " spawn  " + electrodeCenterX + " , " + electrodeCenterY);
-                        foreach (int sub in newDroplet.Subscriptions)
-                        {
-                            Console.WriteLine(sub);
-                        }
+                        //Console.WriteLine(newDroplet.ID1);
+                        //Console.WriteLine("electrode  " + newDroplet.ElectrodeID + " spawn  " + electrodeCenterX + " , " + electrodeCenterY);
+
                     }
 
                     //}

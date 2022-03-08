@@ -84,6 +84,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     if(index != -1)
                     {
                         Droplets droplet = (Droplets)droplets[index];
+
                         int actionChange = action.Action.ActionChange;
                         if (actionChange != 0)
                         {
@@ -132,7 +133,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         private Queue<ActionQueueItem> generateTestQueue()
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
-            SimulatorAction action1 = new SimulatorAction("electrode", 1, 1);
+            SimulatorAction action1 = new SimulatorAction("electrode", 0, 1);
             ActionQueueItem item1 = new ActionQueueItem(action1, 1);
             actionQueueInstructions.Enqueue(item1);
 
