@@ -29,12 +29,19 @@ window.initialize_board = (information) => {
 
     // Get the debug
     debug1 = document.getElementById("debug1");
-    document.querySelector("#simulatorGUI").style.visibility = "visible";
+
+    gui_controller.showGUI();
+    gui_controller.changeBoardName(JSONinformation.platform_name);
+    console.log(gui_controller.getInputNodes());
 }
 
 
-let layer_controller = {
-
+let gui_controller = {
+    simulatorGUI: document.querySelector("#simulatorGUI"),
+    getLayerPanel: () => { return this.simulatorGUI.querySelector("#layerPanel") },
+    getInputNodes: () => { return this.simulatorGUI.querySelector("#layerPanel").getElementsByTagName('INPUT'); },
+    changeBoardName: (name) => { this.simulatorGUI.querySelector("#simulatorView span").innerHTML = name; },
+    showGUI: () => { simulatorGUI.style.visibility = "visible"; }
 }
 
 
