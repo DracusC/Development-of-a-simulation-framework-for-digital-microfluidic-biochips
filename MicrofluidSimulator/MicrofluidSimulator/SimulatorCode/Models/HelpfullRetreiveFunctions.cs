@@ -1,4 +1,5 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
+using System.Collections;
 namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class HelpfullRetreiveFunctions
@@ -7,21 +8,46 @@ namespace MicrofluidSimulator.SimulatorCode.Models
          * in the electrode array i needed
          * It first tries the id as index, if this dosent work it does a binary search*/
 
+        public static int getIndexOfDropletByID(int ID, Container container)
+        {
+            ArrayList droplets = container.Droplets;
+            int i = 0;
+            foreach(Droplets droplet in droplets)
+            {
+               if(droplet.ID1 == ID)
+               {
+                    return i;
+               }
+               i++;
+            }
+            return -1;
+
+        }
+
+
+
         public static int getIndexOfElectrodeByID(int ID, Container container)
         {
 
             Electrodes[] electrodes = container.Electrodes;
-            if(ID < electrodes.Count())
-            {
-                if(electrodes[ID].ID1 == ID)
+            //if (ID < electrodes.Count())
+            //{
+                if (electrodes[ID].ID1 == ID)
                 {
                     return ID;
                 }
+                //for (int i = 0; i < electrodes.Count(); i++)
+                //{
+                //    if (electrodes[i].ID1 == ID)
+                //    {
+                //        return i;
+                //    }
+                //}
 
-                
 
-
-            }
+            //}
+            //Console.WriteLine("WFT!" + ID);
+            //return 0; 
             return binarySearchElectrode(ID, container);
         }
 

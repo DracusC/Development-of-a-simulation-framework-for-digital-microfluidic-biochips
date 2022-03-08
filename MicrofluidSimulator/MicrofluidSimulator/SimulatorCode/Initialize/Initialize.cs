@@ -19,7 +19,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         {
 
             //Electrodes[] electrodes = new Electrodes[jsonContainer.electrodes.Count];
-            Droplets[] droplets = new Droplets[2];
+            ArrayList droplets = new ArrayList();
             Electrodes[] electrodeBoard = initializeBoard(jsonContainer.electrodes);
 
 
@@ -80,19 +80,25 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         }
 
-        private Droplets[] initializeDroplets(Droplets[] droplets)
+        private ArrayList initializeDroplets(ArrayList droplets)
         {
-            droplets[0] = new Droplets("test droplet", 0, "h20", 120, 10, 15, 15, "blue", 20);
-            droplets[0].ElectrodeID = 1;
-            droplets[1] = new Droplets("test droplet2", 1, "h20", 140, 50, 15, 15, "yellow", 20);
-            droplets[1].ElectrodeID = 3;
+            droplets.Add(new Droplets("test droplet", 0, "h20", 120, 10, 15, 15, "blue", 20));
+            ((Droplets)droplets[0]).ElectrodeID = 1;
+
+            //droplets.Add(new Droplets("test droplet", 1, "h20", 30, 10, 15, 15, "blue", 20));
+            //((Droplets)droplets[0]).ElectrodeID = 1;
+
+            //droplets.Add(new Droplets("test droplet", 2, "h20", 50, 10, 15, 15, "blue", 20));
+            //((Droplets)droplets[0]).ElectrodeID = 2;
+
+            droplets.Add(new Droplets("test droplet2", 3, "h20", 160, 50, 15, 15, "yellow", 20));
+            ((Droplets) droplets[1]).ElectrodeID = 67;
             return droplets;
         }
 
         private void initializeSubscriptions(Container container)
         {
-            Droplets[] droplets = container.Droplets;
-
+            ArrayList droplets = container.Droplets;
             foreach (Droplets droplet in droplets)
             {
                 Models.SubscriptionModels.dropletSubscriptions(container, droplet);
@@ -414,4 +420,3 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
     }
 }
-// Carl

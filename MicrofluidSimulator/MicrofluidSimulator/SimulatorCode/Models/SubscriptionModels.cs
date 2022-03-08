@@ -7,7 +7,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static void dropletSubscriptions(Container container, Droplets caller)
         {
             // Gets the needed data out of the container
-            Droplets[] droplets = container.Droplets;
+            ArrayList droplets = container.Droplets;
             Electrodes[] electrodeBoard = container.Electrodes;
 
             // Clear all previous subscriptions before adding new to avoid duplicates

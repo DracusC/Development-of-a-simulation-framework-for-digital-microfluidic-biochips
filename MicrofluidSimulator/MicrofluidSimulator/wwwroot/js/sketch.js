@@ -232,7 +232,7 @@ let sketch = function (p) {
 
         p.fill(droplet.Color);
 
-        if (droplet_info.old.length == 0) {
+        if (droplet_info.old.length == 0 || typeof droplet_info.old[i] == "undefined") {
             p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
         } else {
             let d1x = p.lerp(droplet_info.old[i].PositionX, droplet_info.new[i].PositionX, amount);
