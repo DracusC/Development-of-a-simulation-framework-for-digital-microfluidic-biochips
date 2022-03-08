@@ -16,6 +16,17 @@
 
 <button id="nextStep" class="btn btn-primary" @onclick="NextStep">Next Step</button>
 <button class="btn btn-primary" @onclick="Play">Play</button>
+<RadzenSlider TValue="int" Min="-100" Max="100"></RadzenSlider>
+
+<div id="list1" class="dropdown-check-list" tabindex="100">
+  <span class="anchor">Debug Panel</span>
+  <ul class="items">
+    <li><input id="debug1" type="checkbox" />Debug1 </li>
+    <li><input id="debug2" type="checkbox" />Debug2</li>
+  </ul>
+</div>
+
+
 
 @functions{
     async void setP5() {
@@ -24,6 +35,18 @@
 }
 
 @code {
+
+
+    public string[] selected { get; set; } = new String[] { };
+    private void selectedItems(ChangeEventArgs e) {
+        selected = (string[])e.Value;
+
+        foreach(var s in selected) {
+            Console.WriteLine(s);
+        }
+    }
+
+    // ACTUAL CODE BELOW
     GUIBroker guibroker = new GUIBroker();
 
     bool test = true;

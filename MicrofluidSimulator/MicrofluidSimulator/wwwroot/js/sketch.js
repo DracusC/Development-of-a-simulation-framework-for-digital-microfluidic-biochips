@@ -26,6 +26,19 @@ window.initialize_board = (information) => {
     var JSONinformation = JSON.parse(information);
     console.log(JSONinformation);
     gui_broker.init_board(JSONinformation.sizeX, JSONinformation.sizeY + 1);
+
+    // TEST
+    var checkList = document.getElementById('list1');
+    checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+        if (checkList.classList.contains('visible'))
+            checkList.classList.remove('visible');
+        else
+            checkList.classList.add('visible');
+    }
+
+    console.log(checkList);
+    console.log(document.getElementById("debug1"));
+    debug1 = document.getElementById("debug1");
 }
 
 
@@ -37,9 +50,11 @@ let simulator_droplets = [];
 let simulator_electrodes = [];
 let amount = 0;     // Used to interpolate between droplet positions.
 
+
 // TODO: Refrator into a layer array, that will automatically create them
 let layer_electrode_id;
 let layer_electrode_shape;
+let debug1 = document.getElementById("debug1"); // CHANGE to debug_checklist
 
 /* 
  * gui_broker object 
@@ -92,7 +107,14 @@ let sketch = function (p) {
         step = 0.05;
 
         let button = p.select("#nextStep");
-        button.mousePressed(() => { console.log("HI FROM SKETCH"); });
+        button.mousePressed(() => {
+            console.log("HI FROM SKETCH");
+            // Below is a test for resize
+            //let container = document.getElementById("container");
+            //console.log(window.innerWidth);
+            //document.getElementById("defaultCanvas0").style.width = (window.innerWidth * 0.8) + "px";
+            //document.getElementById("defaultCanvas0").style.height = ((window.innerWidth * 0.8) * (400/860)) + "px";
+        });
     }
 
 
@@ -114,7 +136,10 @@ let sketch = function (p) {
         //draw_electrodes();
         p.image(layer_electrode_shape, 0, 0);
         draw_active_electrodes();
-        p.image(layer_electrode_id, 0, 0);
+
+        if (debug1 != null && debug1.checked) {
+            p.image(layer_electrode_id, 0, 0);
+        }
 
         draw_droplet();
     }
