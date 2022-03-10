@@ -6,13 +6,15 @@ namespace MicrofluidSimulator.SimulatorCode
         string name, substance_name, color;
         int ID, positionX, positionY, sizeX, sizeY;
         float temperature;
+        float volume;
+        int group;
         int electrodeID;
 
         ArrayList subscriptions;
 
 
 
-        public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature)
+        public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature, float volume, int group)
         {
             this.name = name;
             this.substance_name = substance_name;
@@ -23,6 +25,8 @@ namespace MicrofluidSimulator.SimulatorCode
             this.sizeX = sizeX;
             this.sizeY = sizeY;
             this.temperature = temperature;
+            this.volume = volume;
+            this.group = group;
             this.electrodeID = 0;
             this.subscriptions = new ArrayList();
         }
@@ -42,6 +46,8 @@ namespace MicrofluidSimulator.SimulatorCode
         public float Temperature { get => temperature; set => temperature = value; }
         public int ElectrodeID { get => electrodeID; set => electrodeID = value; }
         public ArrayList Subscriptions { get => subscriptions; set => subscriptions = value; }
+        public float Volume { get => volume; set => volume = value; }
+        public int Group { get => group; set => group = value; }
 
         public override string ToString()
         {

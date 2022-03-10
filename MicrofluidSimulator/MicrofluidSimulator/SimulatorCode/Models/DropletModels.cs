@@ -15,7 +15,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
             Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
             //Console.WriteLine("CHeck split for " + caller.ID1);
-            //int onNeighbours = countOnNeigbours(electrodeBoard, dropletElectrode);
+            int onNeighbours = countOnNeigbours(electrodeBoard, dropletElectrode);
             //if(onNeighbours  != 0)
             //{
             //    if (dropletElectrode.Status > 0)
@@ -37,12 +37,13 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 
                     if (tempElectrode.Status > 0 && !ElectrodeModels.electrodeHasDroplet(tempElectrode,container))
                     {
+                        
                         int electrodeCenterX = tempElectrode.PositionX + 10;
                         int electrodeCenterY = tempElectrode.PositionY + 10;
                         Random rnd = new Random();
                         int id = rnd.Next(10000000);
                         string color = caller.Color;
-                        Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 15, 15, color, 20);
+                        Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 15, 15, color, 20, getVolumeOfDroplet(15,1), caller.Group);
                         droplets.Add(newDroplet);
                         int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(id,container);
                         ((Droplets)droplets[index]).ElectrodeID = tempElectrode.ID1;
@@ -175,6 +176,18 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             double y = Math.Pow(dropletY - electrodeCenterY,2);
 
             return Math.Sqrt(x+y);
+        }
+
+        public static float getVolumeOfDroplet(float diameter, float height)
+        {
+            float pi = (float)Math.PI;
+            return ((float)pi) * ((float)Math.Pow((diameter / 2), 2)) * height;
+        }
+
+        public static float getDiameterOfDroplet(float volume, float height)
+        {
+            float pi = (float)Math.PI;
+            return 2 * (float)(Math.Sqrt(volume / (pi * height)));
         }
     }
 }

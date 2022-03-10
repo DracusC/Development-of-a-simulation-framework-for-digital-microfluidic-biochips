@@ -6,6 +6,7 @@ using System.Numerics;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using MicrofluidSimulator.SimulatorCode.Models;
 
 namespace MicrofluidSimulator.SimulatorCode.Initialize
 {
@@ -117,7 +118,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         private ArrayList initializeDroplets(ArrayList droplets)
         {
-            droplets.Add(new Droplets("test droplet", 0, "h20", 120, 10, 15, 15, "blue", 20));
+            droplets.Add(new Droplets("test droplet", 0, "h20", 120, 10, 15, 15, "blue", 20, DropletModels.getVolumeOfDroplet(15, 1), 0));
             ((Droplets)droplets[0]).ElectrodeID = 1;
 
             //droplets.Add(new Droplets("test droplet", 1, "h20", 30, 10, 15, 15, "blue", 20));
@@ -126,10 +127,12 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             //droplets.Add(new Droplets("test droplet", 2, "h20", 50, 10, 15, 15, "blue", 20));
             //((Droplets)droplets[0]).ElectrodeID = 2;
 
-            droplets.Add(new Droplets("test droplet2", 3, "h20", 160, 50, 15, 15, "yellow", 20));
+            droplets.Add(new Droplets("test droplet2", 3, "h20", 160, 50, 15, 15, "yellow", 20, DropletModels.getVolumeOfDroplet(15, 1), 1));
             ((Droplets) droplets[1]).ElectrodeID = 67;
             return droplets;
         }
+
+        
 
         private void initializeSubscriptions(Container container)
         {
