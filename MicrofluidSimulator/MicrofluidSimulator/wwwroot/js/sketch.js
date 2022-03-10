@@ -20,6 +20,9 @@ window.update_board = (container_string) => {
     droplet_info.old = droplet_info.new;
     droplet_info.new = gui_broker.droplets;
 
+    //console.log("TESTUNBgn", board.Electrodes[0]);
+    //information_panel_manager.draw_information(board.Droplets[0]);
+
     amount = 0;
 }
 window.change_play_status = (status) => {
@@ -45,8 +48,21 @@ let gui_controller = {
     simulatorGUI: document.querySelector("#simulatorGUI"),
     getLayerPanel: () => { return this.simulatorGUI.querySelector("#layerPanel") },
     getInputNodes: () => { return this.simulatorGUI.querySelector("#layerPanel").getElementsByTagName('INPUT'); },
+    getInformaitonPanel: () => { return this.simulatorGUI.querySelector("#information"); },
     changeBoardName: (name) => { this.simulatorGUI.querySelector("#simulatorView span").innerHTML = name; },
     showGUI: () => { simulatorGUI.style.visibility = "visible"; }
+}
+
+
+
+let information_panel_manager = {
+    //information_panel: gui_controller.getInformaitonPanel(),
+    draw_information: (element) => {
+        let div = document.createElement("div");
+        div.innerHTML = JSON.stringify(element);
+        console.log(JSON.stringify(element));
+        gui_controller.getInformaitonPanel().append(div);
+    }
 }
 
 
@@ -310,8 +326,9 @@ let sketch = function (p) {
 
         for (let i = 0; i < gui_broker.droplets.length; i++) {
             let droplet = gui_broker.droplets[i];
-
-            anim_move(droplet, i);
+            p.fill(droplet.Color);
+            p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
+            //anim_move(droplet, i);
         }
     }
 
