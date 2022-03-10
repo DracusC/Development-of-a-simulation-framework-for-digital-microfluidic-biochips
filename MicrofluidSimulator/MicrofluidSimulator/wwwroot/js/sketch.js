@@ -2,12 +2,16 @@
  * Written by Joel A. V. Madsen
  */
 
+
+
 // Global function to setup the p5js instance
 window.setp5 = () => {
     new p5(sketch, window.document.getElementById('container'));
     return true;
 };
 
+
+// TODO: Look into reflections
 // Global methods that can be called by C# scripts
 window.update_board = (container_string) => {
     var board = JSON.parse(container_string);
@@ -32,7 +36,9 @@ window.initialize_board = (information) => {
 
     gui_controller.showGUI();
     gui_controller.changeBoardName(JSONinformation.platform_name);
-    console.log(gui_controller.getInputNodes());
+    //console.log(gui_controller.getInputNodes());
+    console.log("UNDER");
+    layer_manager.initialize_layers();
 }
 
 
@@ -42,6 +48,68 @@ let gui_controller = {
     getInputNodes: () => { return this.simulatorGUI.querySelector("#layerPanel").getElementsByTagName('INPUT'); },
     changeBoardName: (name) => { this.simulatorGUI.querySelector("#simulatorView span").innerHTML = name; },
     showGUI: () => { simulatorGUI.style.visibility = "visible"; }
+}
+
+
+let layer_manager = {
+
+
+    layers: {
+        draw_droplets: {
+            name: "droplet_draw_call",
+            value: "droplet_draw_call",
+            id: "draw_droplet",
+            text: "Draw Droplets", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: true
+            //layer: "insert"         // Reference - pass to functions
+        },
+        draw_active_electrodes: {
+            name: "draw_active_electrodes",
+            value: "draw_active_electrodes",
+            id: "draw_active_electrodes",
+            text: "Draw Active Electrodes", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: true
+            //layer: "insert"         // Reference - pass to functions
+        },
+        debug_electrode_text: {
+            name: "debug_electrode_text",
+            value: "debug_electrode_text",
+            id: "db_e_text",
+            text: "Electrode IDs", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: false,
+            layer: "insert"         // Reference - pass to functions
+        }
+        
+    },
+
+    initialize_layers: function () {
+
+        for (let layer in this.layers) {
+            var div = document.createElement('div');
+            div.innerHTML = `<input type='checkbox' name='${this.layers[layer].name}' value='${this.layers[layer].value}' id='${this.layers[layer].id}'/>
+                             <label for='${this.layers[layer].name}'>${this.layers[layer].text}</label>`;
+            this.layers[layer].element = div;
+            this.layers[layer].checkbox = div.querySelector('input');
+            this.layers[layer].checkbox.checked = this.layers[layer].checked;
+
+            gui_controller.getLayerPanel().querySelector('form').append(div);
+        }
+    },
+
+    draw_layers: function (sketch) {
+        for (let layer in this.layers) {
+            if (this.layers[layer].hasOwnProperty("layer") && this.layers[layer].checkbox.checked) {
+                // Draw
+                sketch.image(this.layers[layer].layer, 0, 0);
+            }
+        }
+    }
 }
 
 
@@ -138,13 +206,15 @@ let sketch = function (p) {
         /* Draw calls */
         //draw_electrodes();
         p.image(layer_electrode_shape, 0, 0);
-        draw_active_electrodes();
 
-        if (debug1 != null && debug1.checked) {
-            p.image(layer_electrode_id, 0, 0);
-        }
 
-        draw_droplet();
+
+        if (layer_manager.layers.draw_active_electrodes.checkbox.checked) { draw_active_electrodes(); }
+
+        // Draw all direct layers
+        layer_manager.draw_layers(p);
+
+        if (layer_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
     }
 
 
@@ -156,14 +226,30 @@ let sketch = function (p) {
         p.resizeCanvas(sizeX + 1, sizeY);
 
         layer_electrode_id = p.createGraphics(sizeX + 1, sizeY);
+
+        console.log("check this too", layer_manager.layers.debug_electrode_text);
+        /*for (let layer in layer_manager.layers) {
+            console.log(layers);//[layer].layer = p.createGraphics(sizeX + 1, sizeY);
+        }*/
+
+        for (let layer in layer_manager.layers) {
+            if (layer_manager.layers[layer].hasOwnProperty("layer")) {
+                layer_manager.layers[layer].layer = p.createGraphics(sizeX + 1, sizeY);
+            }
+        }
+        for (let i = 0; i < gui_broker.electrodes.length; i++) {
+            let electrode = gui_broker.electrodes[i];
+            debug_electrode_text(layer_manager.layers.debug_electrode_text.layer, electrode);
+        }
+
         layer_electrode_shape = p.createGraphics(sizeX + 1, sizeY);
         layer_electrode_id.clear();
         layer_electrode_id.clear();
 
-        for (let i = 0; i < gui_broker.electrodes.length; i++) {
+        /*for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
-            debug_electrode_text(electrode);
-        }
+            debug_electrode_text(layer_electrode_id, electrode);
+        }*/
 
         draw_electrodes_shapes();
     }
@@ -249,12 +335,12 @@ let sketch = function (p) {
     /*
      * Call to draw ID's of all electrodes (used for debugging)
      */
-    function debug_electrode_text(electrode) {
+    function debug_electrode_text(layer, electrode) {
         let pos_x = 0;
         let pos_y = 0;
 
         if (electrode.Shape == 1) {
-            layer_electrode_id.fill(0, 255, 0);
+            layer.fill(0, 255, 0);
             let corner_sum_x = 0;
             let corner_sum_y = 0;
 
@@ -264,17 +350,17 @@ let sketch = function (p) {
                 corner_sum_y = parseInt(corner_sum_y) + (parseInt(electrode.PositionY) + parseInt(electrode.Corners[i][1]));
             }
 
-            pos_x = (corner_sum_x) / (electrode.Corners.length) - layer_electrode_id.textWidth(electrode.ID1) / 2;
-            pos_y = (corner_sum_y) / (electrode.Corners.length) + layer_electrode_id.textAscent(electrode.ID1) / 2;
+            pos_x = (corner_sum_x) / (electrode.Corners.length) - layer.textWidth(electrode.ID1) / 2;
+            pos_y = (corner_sum_y) / (electrode.Corners.length) + layer.textAscent(electrode.ID1) / 2;
             
         } else {
-            layer_electrode_id.fill(255, 200, 0);
-            pos_x = electrode.PositionX + electrode.SizeX / 2 - layer_electrode_id.textWidth(electrode.ID1)/2;
-            pos_y = electrode.PositionY + electrode.SizeY / 2 + layer_electrode_id.textAscent(electrode.ID1)/2;
+            layer.fill(255, 200, 0);
+            pos_x = electrode.PositionX + electrode.SizeX / 2 - layer.textWidth(electrode.ID1)/2;
+            pos_y = electrode.PositionY + electrode.SizeY / 2 + layer.textAscent(electrode.ID1)/2;
         }
 
-        layer_electrode_id.textSize(6);
-        layer_electrode_id.text(electrode.ID1, pos_x, pos_y);
+        layer.textSize(6);
+        layer.text(electrode.ID1, pos_x, pos_y);
     }
 
 };
