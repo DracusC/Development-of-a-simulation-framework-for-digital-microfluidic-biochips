@@ -20,8 +20,7 @@ window.update_board = (container_string) => {
     droplet_info.old = droplet_info.new;
     droplet_info.new = gui_broker.droplets;
 
-    //console.log("TESTUNBgn", board.Electrodes[0]);
-    //information_panel_manager.draw_information(board.Droplets[0]);
+    information_panel_manager.draw_information(board.Electrodes[130]);
 
     amount = 0;
 }
@@ -58,9 +57,22 @@ let gui_controller = {
 let information_panel_manager = {
     //information_panel: gui_controller.getInformaitonPanel(),
     draw_information: (element) => {
+        gui_controller.getInformaitonPanel().innerHTML = "";
+
         let div = document.createElement("div");
-        div.innerHTML = JSON.stringify(element);
-        console.log(JSON.stringify(element));
+        
+        for (let key in element) {
+            let innerDiv = document.createElement("div");
+            let innerSpan = document.createElement("span");
+            innerDiv.innerHTML = key + ": ";
+            innerSpan.innerHTML = element[key];
+            innerDiv.append(innerSpan);
+            div.append(innerDiv);
+        }
+
+        
+        //div.innerHTML = JSON.stringify(element);
+        //console.log(JSON.stringify(element));
         gui_controller.getInformaitonPanel().append(div);
     }
 }
