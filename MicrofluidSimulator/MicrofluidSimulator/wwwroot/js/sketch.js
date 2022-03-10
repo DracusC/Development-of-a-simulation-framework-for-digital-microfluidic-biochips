@@ -3,7 +3,6 @@
  */
 
 
-
 // Global function to setup the p5js instance
 window.setp5 = () => {
     new p5(sketch, window.document.getElementById('container'));
