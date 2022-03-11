@@ -85,22 +85,57 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     {
                         Droplets droplet = (Droplets)droplets[index];
 
-                        int actionChange = action.Action.ActionChange;
-                        if (actionChange != 0)
-                        {
-                            MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement2(container, droplet);
+                        //int actionChange = action.Action.ActionChange;
+                        //if (actionChange != 0)
+                        //{
+                            MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletSplit(container, droplet);
 
-                        }
-                        else
-                        {
-                            MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
+                        //}
+                        //else
+                        //{
+                           // MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
 
-                        }
+                        //}
                         Models.SubscriptionModels.dropletSubscriptions(container, droplet);
                         //Console.WriteLine(droplet.ToString());
                         ArrayList dropletSubscritions = droplet.Subscriptions;
                     }
+
+
                     
+                }
+
+                foreach (int subscriber in subscribersCopy)
+                {
+                    int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+                    if (index != -1)
+                    {
+                        Droplets droplet = (Droplets)droplets[index];
+
+                        //int actionChange = action.Action.ActionChange;
+                        //if (actionChange != 0)
+                        //{
+                        //MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement2(container, droplet);
+
+                        //}
+                        //else
+                        //{
+                        MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
+                        
+                        Electrodes[] electrodes = container.Electrodes;
+                        Console.WriteLine("!!sub remove!!" + "33" + "for sub " + subscriber);
+                        foreach (int i in electrodes[33].Subscriptions)
+                        {
+                            Console.WriteLine("contain " + i);
+                        }
+                        //}
+                        //.SubscriptionModels.dropletSubscriptions(container, droplet);
+                        //Console.WriteLine(droplet.ToString());
+                        //ArrayList dropletSubscritions = droplet.Subscriptions;
+                    }
+
+
+
                 }
             }    
             
@@ -145,11 +180,11 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             ActionQueueItem item3 = new ActionQueueItem(action3, 3);
             actionQueueInstructions.Enqueue(item3);
 
-            SimulatorAction action4 = new SimulatorAction("electrode", 2, 1);
+            SimulatorAction action4 = new SimulatorAction("electrode", 33, 1);
             ActionQueueItem item4 = new ActionQueueItem(action4, 4);
             actionQueueInstructions.Enqueue(item4);
 
-            SimulatorAction action5 = new SimulatorAction("electrode", 66, 1);
+            SimulatorAction action5 = new SimulatorAction("electrode", 0, 0);
             ActionQueueItem item5 = new ActionQueueItem(action5, 5);
             actionQueueInstructions.Enqueue(item5);
 
@@ -157,7 +192,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             ActionQueueItem item6 = new ActionQueueItem(action6, 6);
             actionQueueInstructions.Enqueue(item6);
 
-            SimulatorAction action7 = new SimulatorAction("electrode", 98, 1);
+            SimulatorAction action7 = new SimulatorAction("electrode", 32, 0);
             ActionQueueItem item7 = new ActionQueueItem(action7, 7);
             actionQueueInstructions.Enqueue(item7);
 

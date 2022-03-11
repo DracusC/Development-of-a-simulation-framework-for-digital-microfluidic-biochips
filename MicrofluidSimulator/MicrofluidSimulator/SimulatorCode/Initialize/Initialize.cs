@@ -127,8 +127,8 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             //droplets.Add(new Droplets("test droplet", 2, "h20", 50, 10, 15, 15, "blue", 20));
             //((Droplets)droplets[0]).ElectrodeID = 2;
 
-            droplets.Add(new Droplets("test droplet2", 3, "h20", 160, 50, 15, 15, "yellow", 20, DropletModels.getVolumeOfDroplet(15, 1), 1));
-            ((Droplets) droplets[1]).ElectrodeID = 67;
+            droplets.Add(new Droplets("test droplet2", 3, "h20", 160, 70, 15, 15, "yellow", 20, DropletModels.getVolumeOfDroplet(15, 1), 1));
+            ((Droplets) droplets[1]).ElectrodeID = 99;
             return droplets;
         }
 

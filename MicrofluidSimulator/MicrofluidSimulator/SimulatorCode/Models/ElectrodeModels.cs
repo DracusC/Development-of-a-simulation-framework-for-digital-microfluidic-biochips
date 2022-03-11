@@ -27,9 +27,27 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return false;
         }
+        public static int[] getCenterOfElectrode(Electrodes electrode)
+        {
+            int[] centre = new int[2];
+            if (electrode.Shape == 0)
+            {
+                centre[0] = electrode.PositionX + (electrode.SizeX / 2);
+                centre[1] = electrode.PositionY + (electrode.SizeY / 2);
+            }
+            else
+            {
+                centre[0] = electrode.PositionX + 5;
+                centre[1] = electrode.PositionY + 5;
+            }
+
+            return centre;
+
+        }
 
 
     }
+
 
     
 }
