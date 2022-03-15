@@ -32,13 +32,12 @@ window.initialize_board = (information) => {
     console.log(JSONinformation);
     gui_broker.init_board(JSONinformation.sizeX, JSONinformation.sizeY + 1);
 
-    // Get the debug
-    debug1 = document.getElementById("debug1");
+    
 
     gui_controller.showGUI();
     gui_controller.changeBoardName(JSONinformation.platform_name);
     //console.log(gui_controller.getInputNodes());
-    console.log("UNDER");
+
     layer_manager.initialize_layers();
 }
 
@@ -56,6 +55,7 @@ let gui_controller = {
 
 let information_panel_manager = {
     //information_panel: gui_controller.getInformaitonPanel(),
+    selected_element: null,
     draw_information: (element) => {
         gui_controller.getInformaitonPanel().innerHTML = "";
 
@@ -110,6 +110,16 @@ let layer_manager = {
             element: "insert",      // Reference - get toggled from here
             checkbox: "insert",
             checked: false,
+            layer: "insert"         // Reference - pass to functions
+        },
+        draw_selected_element: {
+            name: "draw_selected_element",
+            value: "draw_selected_element",
+            id: "drdraw_selected_element",
+            text: "Draw Selected", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: true,
             layer: "insert"         // Reference - pass to functions
         }
         
@@ -177,6 +187,7 @@ let droplet_info = {
     old: [],
     new: []
 };
+
 /* Attach the GUI broker to the window, so it can be "seen" by C# scripts */
 window.gui_broker = gui_broker;
 
@@ -193,7 +204,8 @@ let sketch = function (p) {
      */
     p.setup = function () {
         // Create main canvas
-        canvas = p.createCanvas(1, 1);
+        let canvas = p.createCanvas(1, 1);
+        canvas.mouseClicked(onMouseClicked);
         console.log(canvas.position());
 
         // Create layers
@@ -213,6 +225,66 @@ let sketch = function (p) {
             //document.getElementById("defaultCanvas0").style.width = (window.innerWidth * 0.8) + "px";
             //document.getElementById("defaultCanvas0").style.height = ((window.innerWidth * 0.8) * (400/860)) + "px";
         });
+    }
+
+    function onMouseClicked() {
+        console.log("logging: " + p.mouseX + ", " + p.mouseY);
+
+        
+
+
+        for (let i in gui_broker.droplets) {
+            let droplet = gui_broker.droplets[i];
+
+            // Check mouse over droplet
+            if (p.dist(p.mouseX, p.mouseY, droplet.PositionX, droplet.PositionY) < droplet.SizeX/2) {
+                information_panel_manager.selected_element = droplet;
+                console.log(typeof droplet);
+                information_panel_manager.draw_information(droplet);
+                return;
+            }
+        }
+
+        for (let i in gui_broker.electrodes) {
+            if (electrodeContains(gui_broker.electrodes[i], p.mouseX, p.mouseY)) {
+                information_panel_manager.selected_element = gui_broker.electrodes[i];
+                console.log(typeof gui_broker.electrodes[i]);
+                information_panel_manager.draw_information(gui_broker.electrodes[i]);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Checks whether a point (x, y) is contained within an electrode.
+     * @param {any} electrode
+     * @param {any} x
+     * @param {any} y
+     */
+    function electrodeContains(electrode, x, y) {
+        let vertexes = [];
+        if (electrode.Shape == 0) {
+            vertexes = [[0, 0], [electrode.SizeX, 0], [electrode.SizeX, electrode.SizeY], [0, electrode.SizeY]];
+        } else {
+            vertexes = electrode.Corners;
+        }
+
+        let i;
+        let j;
+        let result = false;
+        for (i = 0, j = vertexes.length - 1; i < vertexes.length; j = i++) {
+            let ivertX = vertexes[i][0] + electrode.PositionX;
+            let ivertY = vertexes[i][1] + electrode.PositionY;
+            let jvertX = vertexes[j][0] + electrode.PositionX;
+            let jvertY = vertexes[j][1] + electrode.PositionY;
+
+            if ((ivertY > y) != (jvertY > y) && (x < (jvertX - ivertX)
+                * (y - ivertY) / (jvertY - ivertY) + ivertX)) {
+                result = !result;
+            }
+        }
+
+        return result;
     }
 
 
@@ -242,10 +314,10 @@ let sketch = function (p) {
         layer_manager.draw_layers(p);
 
         if (layer_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
+
+        if (layer_manager.layers.draw_selected_element.checkbox.checked) { draw_selected_element(layer_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
+
     }
-
-
-
 
 
     /* Initialize board values */
@@ -254,10 +326,6 @@ let sketch = function (p) {
 
         layer_electrode_id = p.createGraphics(sizeX + 1, sizeY);
 
-        console.log("check this too", layer_manager.layers.debug_electrode_text);
-        /*for (let layer in layer_manager.layers) {
-            console.log(layers);//[layer].layer = p.createGraphics(sizeX + 1, sizeY);
-        }*/
 
         for (let layer in layer_manager.layers) {
             if (layer_manager.layers[layer].hasOwnProperty("layer")) {
@@ -283,6 +351,37 @@ let sketch = function (p) {
     gui_broker.init_board = init_board; // Attach the function to the GUI broker.
 
 
+
+    function draw_selected_element(layer, element) {
+        layer.clear();
+        if (element == null) { return; }
+        
+        if (element.Status != "undefined") {
+            // Electrode
+            for (let i = 0; i < gui_broker.electrodes.length; i++) {
+                let electrode = gui_broker.electrodes[i];
+
+                if (electrode != element) { continue; }
+
+                layer.noFill();
+                layer.stroke("blue");
+                layer.strokeWeight(3);
+
+                // Check the electrode shape
+                if (electrode.Shape == 1) {
+                    layer.beginShape();
+                    for (let i = 0; i < electrode.Corners.length; i++) {
+                        layer.vertex(electrode.PositionX + electrode.Corners[i][0] + 0.5, electrode.PositionY + electrode.Corners[i][1] + 0.5);
+                    }
+                    layer.endShape(layer.CLOSE);
+                } else {
+                    layer.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
+                }
+            }
+        } else {
+
+        }
+    }
 
     /* Call to draw active electrodes */
     function draw_active_electrodes() {
@@ -360,8 +459,10 @@ let sketch = function (p) {
     }
 
 
-    /*
+    /**
      * Call to draw ID's of all electrodes (used for debugging)
+     * @param {any} layer
+     * @param {any} electrode
      */
     function debug_electrode_text(layer, electrode) {
         let pos_x = 0;
