@@ -202,6 +202,8 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             int currentPointX = electrode.Corners[0, 0] + electrode.PositionX;
             int currentPointY = electrode.Corners[0, 1] + electrode.PositionY;
 
+            
+
             for (int i = 0; i < electrode.Corners.GetLength(0); i++)
             {
                 int vecX = electrode.Corners[(i + 1) % electrode.Corners.GetLength(0), 0] - electrode.Corners[i, 0];
@@ -236,15 +238,17 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
 
 
-
+                            
                             // check if the i'th electrode matches the coordinate of the electrode we're finding neighbours of
-
+                            
                             // check top left coordinate 
-                            if ((currentPointX == minMarginX && currentPointY == minMarginY) || (currentPointX == maxMarginX && currentPointY == maxMarginY
-                                || currentPointX == minMarginX && currentPointY == maxMarginY || currentPointX == maxMarginX && currentPointY == minMarginY)
+                            if ((currentPointX == minMarginX + 1 && currentPointY == minMarginY || currentPointX == maxMarginX - 1 && currentPointY == maxMarginY
+                            || currentPointX == minMarginX && currentPointY == maxMarginY - 1 || currentPointX == maxMarginX && currentPointY == minMarginY + 1
+                            || currentPointX == minMarginX && currentPointY == minMarginY + 1 || currentPointX == maxMarginX && currentPointY == maxMarginY - 1
+                            || currentPointX == minMarginX + 1 && currentPointY == maxMarginY || currentPointX == maxMarginX - 1 && currentPointY == minMarginY)
                                 && !neighbours.Contains(electrodeBoard[j].ID1) && electrodeBoard[j] != electrode)
                             {
-
+                                
 
                                 // add neighbour found if it isnt in the array already
                                 neighbours.Add(electrodeBoard[j].ID1);
@@ -284,8 +288,8 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                                 while ((checkPointX != (tempCheckPointX+ tempVecCheckX)) || (checkPointY != (tempCheckPointY+ tempVecCheckY)))
                                 {
                                     //Console.WriteLine("Infinity");
-                                    if ((currentPointX == checkPointX && currentPointY == checkPointY)
-                                    && !neighbours.Contains(electrodeBoard[j].ID1) && electrodeBoard[j] != electrode)
+                                    if (((currentPointX == checkPointX && currentPointY == checkPointY)
+                                    && !neighbours.Contains(electrodeBoard[j].ID1) && electrodeBoard[j] != electrode) && !isCorner(electrode, currentPointX, currentPointY))
                                     {
 
 
@@ -314,6 +318,8 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
             return neighbours;
         }
+
+        
 
         private ArrayList findNeighboursByElectrode(Electrodes[] electrodeBoard, Electrodes electrode)
         {
@@ -347,13 +353,15 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
                     // check if the i'th electrode matches the coordinate of the electrode we're finding neighbours of
                     // traverse topside of electrode
-                    while (currentTopLeftPosX <= electrode.PositionX + electrode.SizeX)
+                    while (currentTopLeftPosX <= electrode.PositionX + electrode.SizeX - 1)
                     {
                         
-                        
 
-                        if ((currentTopLeftPosX == minMarginX && currentTopLeftPosY == minMarginY || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == maxMarginY
-                            || currentTopLeftPosX == minMarginX && currentTopLeftPosY == maxMarginY || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == minMarginY)
+
+                        if ((currentTopLeftPosX == minMarginX +1 && currentTopLeftPosY == minMarginY || currentTopLeftPosX == maxMarginX - 1 && currentTopLeftPosY == maxMarginY
+                            || currentTopLeftPosX == minMarginX && currentTopLeftPosY == maxMarginY - 1|| currentTopLeftPosX == maxMarginX && currentTopLeftPosY == minMarginY + 1
+                            || currentTopLeftPosX == minMarginX && currentTopLeftPosY == minMarginY + 1 || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == maxMarginY - 1
+                            || currentTopLeftPosX == minMarginX + 1 && currentTopLeftPosY == maxMarginY || currentTopLeftPosX == maxMarginX - 1 && currentTopLeftPosY == minMarginY)
                             && !neighbours.Contains(electrodeBoard[i].ID1) && electrodeBoard[i] != electrode)
                         {
                             neighbours.Add(electrodeBoard[i].ID1);
@@ -370,10 +378,14 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                     currentTopLeftPosX = electrode.PositionX;
 
                     //traverse leftside of electrode
-                    while (currentTopLeftPosY <= electrode.PositionY + electrode.SizeY)
+                    while (currentTopLeftPosY <= electrode.PositionY + electrode.SizeY - 1)
                     {
-                        if ((currentTopLeftPosX == minMarginX && currentTopLeftPosY == minMarginY || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == maxMarginY
-                            || currentTopLeftPosX == minMarginX && currentTopLeftPosY == maxMarginY || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == minMarginY)
+
+                        
+                        if ((currentTopLeftPosX == minMarginX + 1 && currentTopLeftPosY == minMarginY || currentTopLeftPosX == maxMarginX - 1 && currentTopLeftPosY == maxMarginY
+                            || currentTopLeftPosX == minMarginX && currentTopLeftPosY == maxMarginY - 1 || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == minMarginY + 1
+                            || currentTopLeftPosX == minMarginX && currentTopLeftPosY == minMarginY + 1 || currentTopLeftPosX == maxMarginX && currentTopLeftPosY == maxMarginY - 1
+                            || currentTopLeftPosX == minMarginX + 1 && currentTopLeftPosY == maxMarginY || currentTopLeftPosX == maxMarginX - 1 && currentTopLeftPosY == minMarginY)
                             && !neighbours.Contains(electrodeBoard[i].ID1) && electrodeBoard[i] != electrode)
                         {
                             neighbours.Add(electrodeBoard[i].ID1);
@@ -387,16 +399,15 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                     //reset
                     currentTopLeftPosY = electrode.PositionY;
                     //traverse bottomside of electrode
-                    while (currentBottomRightPosX >= electrode.PositionX)
+                    while (currentBottomRightPosX >= electrode.PositionX + 1)
                     {
-                        //if(electrode.ID1 == 642 && electrodeBoard[i].ID1 == 643)
-                        //{
-                        //    Console.WriteLine("search pos (x,y) : " + currentBottomRightPosX + ", " + currentBottomRightPosX);
-                        //    Console.WriteLine("x to x: " + minMarginX + ", " + maxMarginX);
-                        //    Console.WriteLine("y to y: " + minMarginY + ", " + maxMarginY);
-                        //}
-                        if ((currentBottomRightPosX == minMarginX && currentBottomRightPosY == minMarginY || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == maxMarginY
-                            || currentBottomRightPosX == minMarginX && currentBottomRightPosY == maxMarginY || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == minMarginY)
+                        
+                        
+                        
+                        if ((currentBottomRightPosX == minMarginX + 1 && currentBottomRightPosY == minMarginY || currentBottomRightPosX == maxMarginX - 1 && currentBottomRightPosY == maxMarginY
+                            || currentBottomRightPosX == minMarginX && currentBottomRightPosY == maxMarginY - 1 || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == minMarginY + 1
+                            || currentBottomRightPosX == minMarginX && currentBottomRightPosY == minMarginY + 1 || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == maxMarginY - 1
+                            || currentBottomRightPosX == minMarginX + 1 && currentBottomRightPosY == maxMarginY || currentBottomRightPosX == maxMarginX - 1 && currentBottomRightPosY == minMarginY)
                             && !neighbours.Contains(electrodeBoard[i].ID1) && electrodeBoard[i] != electrode)
                         {
                             neighbours.Add(electrodeBoard[i].ID1);
@@ -410,10 +421,13 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                     //reset
                     currentBottomRightPosX = electrode.PositionX + electrode.SizeX;
                     //traverse rightside of electrode
-                    while (currentBottomRightPosY >= electrode.PositionY)
+                    while (currentBottomRightPosY >= electrode.PositionY + 1)
                     {
-                        if ((currentBottomRightPosX == minMarginX && currentBottomRightPosY == minMarginY || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == maxMarginY
-                            || currentBottomRightPosX == minMarginX && currentBottomRightPosY == maxMarginY || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == minMarginY)
+                        
+                        if ((currentBottomRightPosX == minMarginX + 1 && currentBottomRightPosY == minMarginY || currentBottomRightPosX == maxMarginX - 1 && currentBottomRightPosY == maxMarginY
+                            || currentBottomRightPosX == minMarginX && currentBottomRightPosY == maxMarginY - 1 || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == minMarginY + 1
+                            || currentBottomRightPosX == minMarginX && currentBottomRightPosY == minMarginY + 1 || currentBottomRightPosX == maxMarginX && currentBottomRightPosY == maxMarginY - 1
+                            || currentBottomRightPosX == minMarginX + 1 && currentBottomRightPosY == maxMarginY || currentBottomRightPosX == maxMarginX - 1 && currentBottomRightPosY == minMarginY)
                             && !neighbours.Contains(electrodeBoard[i].ID1) && electrodeBoard[i] != electrode)
                         {
                             neighbours.Add(electrodeBoard[i].ID1);
@@ -425,7 +439,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                         }
                     }
                     //reset
-                    currentBottomRightPosY = electrode.PositionX + electrode.SizeX;
+                    currentBottomRightPosY = electrode.PositionY + electrode.SizeY;
 
                 }
 
@@ -455,6 +469,19 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             }
 
             return gcd;
+        }
+
+        private bool isCorner(Electrodes electrode, int currentPointX, int currentPointY)
+        {
+            for(int i = 0; i < electrode.Corners.GetLength(0); i++)
+            {
+                if(electrode.Corners[i, 0] + electrode.PositionX == currentPointX && electrode.Corners[i, 1] + electrode.PositionY == currentPointY)
+                {
+                    
+                    return true;
+                }
+            }
+            return false;
         }
 
 

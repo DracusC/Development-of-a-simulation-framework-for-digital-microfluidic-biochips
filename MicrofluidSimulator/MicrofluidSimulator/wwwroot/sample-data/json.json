@@ -110,6 +110,70 @@
           20
         ]
       ]
+    },
+    {
+      "name": "res5el672",
+      "ID": 672,
+      "electrodeID": -1,
+      "driverID": -1,
+      "shape": 1,
+      "positionX": 0,
+      "positionY": 320,
+      "sizeX": -1,
+      "sizeY": -1,
+      "status": 0,
+      "corners": [
+        [
+          0,
+          0
+        ],
+        [
+          60,
+          0
+        ],
+        [
+          40,
+          20
+        ],
+        [
+          40,
+          40
+        ],
+        [
+          60,
+          60
+        ],
+        [
+          0,
+          60
+        ]
+      ]
+    },
+    {
+      "name": "res5el682",
+      "ID": 682,
+      "electrodeID": -1,
+      "driverID": -1,
+      "shape": 0,
+      "positionX": 60,
+      "positionY": 360,
+      "sizeX": 20,
+      "sizeY": 20,
+      "status": 0,
+      "corners": []
+    },
+    {
+      "name": "res5el682",
+      "ID": 689,
+      "electrodeID": -1,
+      "driverID": -1,
+      "shape": 0,
+      "positionX": 60,
+      "positionY": 320,
+      "sizeX": 20,
+      "sizeY": 20,
+      "status": 0,
+      "corners": []
     }
   ],
   "actuators": [],
