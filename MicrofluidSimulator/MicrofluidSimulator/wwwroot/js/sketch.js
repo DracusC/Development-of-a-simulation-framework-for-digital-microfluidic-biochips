@@ -20,7 +20,8 @@ window.update_board = (container_string) => {
     droplet_info.old = droplet_info.new;
     droplet_info.new = gui_broker.droplets;
 
-    information_panel_manager.draw_information(board.Electrodes[130]);
+    //information_panel_manager.draw_information(board.Electrodes[130]);
+    gui_broker.get_droplet_groups();
 
     amount = 0;
 }
@@ -173,10 +174,22 @@ let gui_broker = {
     play_status: false,
     droplets: [],
     electrodes: [],
+    droplet_groups: { },
     next_simulator_step: () => {
         DotNet.invokeMethodAsync('MicrofluidSimulator', 'JSSimulatorNextStep');
     },
-    init_board: () => {}
+    init_board: () => { },
+    get_droplet_groups: function () {
+        this.droplet_groups = {};
+
+        for (let i = 0; i < this.droplets.length; i++) {
+            if (typeof this.droplet_groups[this.droplets[i].Group] == "undefined") {
+                this.droplet_groups[this.droplets[i].Group] = [(this.droplets[i])];
+            } else {
+                this.droplet_groups[this.droplets[i].Group].push(this.droplets[i]);
+            }
+        }
+    }
 };
 
 /*
@@ -230,16 +243,12 @@ let sketch = function (p) {
     function onMouseClicked() {
         console.log("logging: " + p.mouseX + ", " + p.mouseY);
 
-        
-
-
         for (let i in gui_broker.droplets) {
             let droplet = gui_broker.droplets[i];
 
             // Check mouse over droplet
             if (p.dist(p.mouseX, p.mouseY, droplet.PositionX, droplet.PositionY) < droplet.SizeX/2) {
                 information_panel_manager.selected_element = droplet;
-                console.log(typeof droplet);
                 information_panel_manager.draw_information(droplet);
                 return;
             }
@@ -248,7 +257,6 @@ let sketch = function (p) {
         for (let i in gui_broker.electrodes) {
             if (electrodeContains(gui_broker.electrodes[i], p.mouseX, p.mouseY)) {
                 information_panel_manager.selected_element = gui_broker.electrodes[i];
-                console.log(typeof gui_broker.electrodes[i]);
                 information_panel_manager.draw_information(gui_broker.electrodes[i]);
                 return;
             }
@@ -317,6 +325,193 @@ let sketch = function (p) {
 
         if (layer_manager.layers.draw_selected_element.checkbox.checked) { draw_selected_element(layer_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
 
+
+
+
+
+        // TESTING
+        for (let i in gui_broker.droplet_groups) {
+            let size = gui_broker.electrodes[0].SizeX/2;
+            let current_droplet = gui_broker.droplet_groups[i][0];
+            let current_droplet_point = [current_droplet.PositionX - size, current_droplet.PositionY - size];
+
+            // Change so case where theres no path from current point is valid
+            let points_to_draw = [];
+
+            while (JSON.stringify(points_to_draw).indexOf(JSON.stringify(current_droplet_point)) == -1) {
+            //for (let c = 0; c < 14; c++) {
+                let top_left = null
+                let top_right = null;
+                let bottom_left = null;
+                let bottom_right = null;
+
+                //console.log(JSON.stringify(points_to_draw).indexOf(JSON.stringify(current_droplet_point)));
+
+                for (let j in gui_broker.droplet_groups[i]) {
+                    let other_droplet = gui_broker.droplet_groups[i][j];
+                    //if (current_droplet == other_droplet) { continue; }
+                    //console.log(other_droplet.ID1);
+                    // Check cases
+                    if (other_droplet.PositionX == current_droplet_point[0] + size && other_droplet.PositionY == current_droplet_point[1] - size) {
+                        top_right = other_droplet;
+                    } else if (other_droplet.PositionX == current_droplet_point[0] - size && other_droplet.PositionY == current_droplet_point[1] + size) {
+                        bottom_left = other_droplet;
+                    } else if (other_droplet.PositionX == current_droplet_point[0] - size && other_droplet.PositionY == current_droplet_point[1] - size) {
+                        top_left = other_droplet;
+                    } else if (other_droplet.PositionX == current_droplet_point[0] + size && other_droplet.PositionY == current_droplet_point[1] + size) {
+                        bottom_right = other_droplet;
+                    }
+                }
+                //console.log(top_left, top_right, bottom_left, bottom_right);
+
+                if (top_right == null && bottom_right != null) {
+                    points_to_draw.push(current_droplet_point);
+                    current_droplet_point = [current_droplet_point[0] + size * 2, current_droplet_point[1]];
+                } else if (bottom_right == null && bottom_left != null) {
+                    points_to_draw.push(current_droplet_point);
+                    current_droplet_point = [current_droplet_point[0], current_droplet_point[1] + size * 2];
+                    //points_to_draw.push(current_droplet_point);
+                } else if (bottom_left == null && top_left != null) {
+                    points_to_draw.push(current_droplet_point);
+                    current_droplet_point = [current_droplet_point[0] - size * 2, current_droplet_point[1]];
+                    //points_to_draw.push(current_droplet_point);
+                } else if (top_left == null && top_right != null) {
+                    points_to_draw.push(current_droplet_point);
+                    current_droplet_point = [current_droplet_point[0], current_droplet_point[1] - size * 2];
+                    //points_to_draw.push(current_droplet_point);
+                }
+            }
+            //}
+
+
+            //console.log(points_to_draw);
+
+
+
+            /*for (let j = 0; j < points_to_draw.length - 1; j++) {
+                p.stroke("green");
+                p.line(points_to_draw[j][0], points_to_draw[j][1], points_to_draw[j + 1][0], points_to_draw[j + 1][1]);
+                p.fill("green");
+                p.ellipse(points_to_draw[j][0], points_to_draw[j][1], 3, 3);
+                p.ellipse(points_to_draw[j+1][0], points_to_draw[j+1][1], 3, 3);
+            }*/
+            p.fill(current_droplet.Color);
+            p.beginShape();
+            for (let j = 0; j < points_to_draw.length; j++) {
+                p.vertex(points_to_draw[j][0], points_to_draw[j][1]);
+            }
+            p.endShape(p.CLOSE);
+
+        }
+        
+        
+
+
+
+        // DRAW DROPLET GROUPS (WIP)
+        // For each group
+        /*for (let i in gui_broker.droplet_groups) {
+            let points = [];
+
+            // For each droplet in group
+            for (let j in gui_broker.droplet_groups[i]) {
+
+                let droplet = gui_broker.droplet_groups[i][j];
+                //let top, bottom, left, right = null;
+                let top = null;
+                let bottom = null;
+                let left = null;
+                let right = null;
+                // For all other droplets in that group
+                for (let k in gui_broker.droplet_groups[i]) {
+                    let other_droplet = gui_broker.droplet_groups[i][k];
+
+                    if (other_droplet == droplet) { continue; }
+                    
+
+                    if (p.dist(droplet.PositionX, droplet.PositionY,
+                        other_droplet.PositionX, other_droplet.PositionY) <= gui_broker.electrodes[0].SizeX) {
+
+                        if (other_droplet.PositionY < droplet.PositionY) { top = other_droplet; }
+                        else if (other_droplet.PositionY > droplet.PositionY) { bottom = other_droplet; }
+                        else if (other_droplet.PositionX < droplet.PositionX) { left = other_droplet; }
+                        else if (other_droplet.PositionX > droplet.PositionX) { right = other_droplet; }
+                    }
+
+                    
+                }
+
+
+                if (top == null) {
+                    points.push([droplet.PositionX - droplet.SizeX / 2, droplet.PositionY - droplet.SizeY / 2]);
+                    points.push([droplet.PositionX + droplet.SizeX / 2, droplet.PositionY - droplet.SizeY / 2]);
+                }
+                if (right == null) {
+                    points.push([droplet.PositionX + droplet.SizeX / 2, droplet.PositionY - droplet.SizeY / 2]);
+                    points.push([droplet.PositionX + droplet.SizeX / 2, droplet.PositionY + droplet.SizeY / 2]);
+                }
+                if (bottom == null) {
+                    points.push([droplet.PositionX + droplet.SizeX / 2, droplet.PositionY + droplet.SizeY / 2]);
+                    points.push([droplet.PositionX - droplet.SizeX / 2, droplet.PositionY + droplet.SizeY / 2]);
+                }
+                if (left == null) {
+                    points.push([droplet.PositionX - droplet.SizeX / 2, droplet.PositionY + droplet.SizeY / 2]);
+                    points.push([droplet.PositionX - droplet.SizeX / 2, droplet.PositionY - droplet.SizeY / 2]);
+                }
+            }
+
+
+            let current_point = points[0];
+            let points_to_draw = [current_point];
+
+            
+
+
+            /*var sorted_points = points.sort(function (a, b) {
+                if (a[0] == b[0]) {
+                    return a[1] - b[1];
+                }
+                return a[0] - b[0];
+            });
+            
+            
+            var current_point = sorted_points[0];
+            var points_to_draw = [current_point];
+
+            // Find all ascending X values with same Y
+            for (let j in sorted_points) {
+                if (sorted_points[j][0] > current_point[0] && sorted_points[j][1] == current_point[1] &&
+                    JSON.stringify(points_to_draw).indexOf(JSON.stringify(sorted_points[j])) == -1) {
+
+                    points_to_draw.push(sorted_points[j]);
+                }
+            }
+
+            current_point = points_to_draw[points_to_draw.length - 1];
+
+            // Find all ascending Y values with same X
+            for (let j = sorted_points.length - 1; j >= 0; j--) {
+                if (sorted_points[j][0] == current_point[0] && sorted_points[j][1] > current_point[1] &&
+                    JSON.stringify(points_to_draw).indexOf(JSON.stringify(sorted_points[j])) == -1) {
+
+                    points_to_draw.push(sorted_points[j]);
+                }
+            }
+
+            // Find all 
+
+            console.log("psort", sorted_points);
+            console.log("pdraw", points_to_draw);
+            
+            //for (let a = 0; a < points.length - 1; a++) {
+             //   p.line(points[a][0], points[a][1], points[a+1][0], points[a+1][1]);
+            //}
+            
+            for (let a = 0; a < points.length; a++) {
+                p.fill("black");
+                p.ellipse(points[a][0], points[a][1], 2, 2);
+            }
+        }*/
     }
 
 
@@ -351,12 +546,18 @@ let sketch = function (p) {
     gui_broker.init_board = init_board; // Attach the function to the GUI broker.
 
 
-
+    /**
+     * Draws the selected element
+     * @param {any} layer
+     * @param {any} element
+     */
     function draw_selected_element(layer, element) {
         layer.clear();
         if (element == null) { return; }
+
         
         if (element.Status != "undefined") {
+
             // Electrode
             for (let i = 0; i < gui_broker.electrodes.length; i++) {
                 let electrode = gui_broker.electrodes[i];
@@ -379,7 +580,7 @@ let sketch = function (p) {
                 }
             }
         } else {
-
+            
         }
     }
 
