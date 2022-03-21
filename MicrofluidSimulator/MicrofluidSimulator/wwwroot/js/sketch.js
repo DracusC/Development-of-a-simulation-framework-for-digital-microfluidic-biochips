@@ -37,7 +37,8 @@ window.initialize_board = (information) => {
 
     gui_controller.showGUI();
     gui_controller.changeBoardName(JSONinformation.platform_name);
-    //console.log(gui_controller.getInputNodes());
+
+    //document.querySelector("#defaultCanvas0").style.width = "1000px";
 
     layer_manager.initialize_layers();
 }
@@ -88,6 +89,16 @@ let layer_manager = {
             value: "droplet_draw_call",
             id: "draw_droplet",
             text: "Draw Droplets", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: true
+            //layer: "insert"         // Reference - pass to functions
+        },
+        draw_droplet_groups: {
+            name: "droplet_group_draw_call",
+            value: "droplet_group_draw_call",
+            id: "draw_droplet_group",
+            text: "Draw Droplet Groups", // Will be shown in layer panel list
             element: "insert",      // Reference - get toggled from here
             checkbox: "insert",
             checked: true
@@ -221,6 +232,9 @@ let sketch = function (p) {
         canvas.mouseClicked(onMouseClicked);
         console.log(canvas.position());
 
+        // Used to get sharper edges in sketch
+        p.pixelDensity(4);
+
         // Create layers
         layer_electrode_id = p.createGraphics(1, 1);
         layer_electrode_shape = p.createGraphics(1, 1);
@@ -240,20 +254,70 @@ let sketch = function (p) {
         });
     }
 
-    function onMouseClicked() {
-        console.log("logging: " + p.mouseX + ", " + p.mouseY);
 
+    /*
+     * Draw is called every frame of the sketch.
+     */
+    p.draw = function () {
+        p.background(240);
+
+        // Increment the step used for position animation
+        if (amount < 1) {
+            amount += step;
+        } else if (gui_broker.play_status) {
+            gui_broker.next_simulator_step(); // Calls for the next "step" of the simulation
+        }
+
+        /* Draw calls */
+        //draw_electrodes();
+        p.image(layer_electrode_shape, 0, 0);
+
+
+
+        if (layer_manager.layers.draw_active_electrodes.checkbox.checked) { draw_active_electrodes(); }
+
+        // Draw all direct layers
+        layer_manager.draw_layers(p);
+
+        if (layer_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
+
+        if (layer_manager.layers.draw_selected_element.checkbox.checked) { draw_selected_element(layer_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
+
+        if (layer_manager.layers.draw_droplet_groups.checkbox.checked) { draw_grouped_droplets(); }
+
+    }
+
+    /** Handle single mouse clicks */
+    function onMouseClicked() {
+
+        // Handle click on droplet group
+        if (layer_manager.layers.draw_droplet_groups.checkbox.checked) {
+            for (let i in gui_broker.droplet_groups) {
+                if (polygon_contains(gui_broker.droplet_groups[i].vertices, p.mouseX, p.mouseY)) {
+                    console.log("GRP " + i + " CLICKED");
+
+                    // Calculate group average values
+                    information_panel_manager.selected_element = droplet_group_information_filter(i, gui_broker.droplet_groups[i]);
+                    information_panel_manager.draw_information(information_panel_manager.selected_element);
+
+                    return;
+                }
+            }
+        }
+
+        // Handle click on droplet
         for (let i in gui_broker.droplets) {
             let droplet = gui_broker.droplets[i];
 
             // Check mouse over droplet
-            if (p.dist(p.mouseX, p.mouseY, droplet.PositionX, droplet.PositionY) < droplet.SizeX/2) {
+            if (p.dist(p.mouseX, p.mouseY, droplet.PositionX, droplet.PositionY) < droplet.SizeX / 2) {
                 information_panel_manager.selected_element = droplet;
                 information_panel_manager.draw_information(droplet);
                 return;
             }
         }
 
+        // Handle click on electrode
         for (let i in gui_broker.electrodes) {
             if (electrodeContains(gui_broker.electrodes[i], p.mouseX, p.mouseY)) {
                 information_panel_manager.selected_element = gui_broker.electrodes[i];
@@ -261,6 +325,43 @@ let sketch = function (p) {
                 return;
             }
         }
+    }
+
+
+    function droplet_group_information_filter(id, group) {
+        let group_info = {
+            Group_ID: id,
+            Substance_name: group[0].Substance_name,
+            Color: group[0].Color,
+            Temperature: 0,
+            Volume: 0,
+            Droplets: []
+        };
+        //console.log(group);
+
+        // WIP
+        for (let i = 0; i < group.length; i++) {
+            //console.log(group[i]);
+            let droplet = group[i];
+            group_info.Droplets.push(droplet.ID1);
+            for (let key in droplet) {
+                if (key == "Volume") { group_info.Volume += droplet[key] }
+                if (key == "Temperature") { group_info.Temperature += droplet[key] }
+            }
+        }
+
+        group_info.Temperature = group_info.Temperature / group.length;
+        /*for (let key in droplet) {
+            let innerDiv = document.createElement("div");
+            let innerSpan = document.createElement("span");
+            innerDiv.innerHTML = key + ": ";
+            innerSpan.innerHTML = element[key];
+            innerDiv.append(innerSpan);
+            div.append(innerDiv);
+        }*/
+
+
+        return group_info;
     }
 
     /**
@@ -295,43 +396,29 @@ let sketch = function (p) {
         return result;
     }
 
+    function polygon_contains(vertexes, x, y) {
+        let i;
+        let j;
+        let result = false;
+        for (i = 0, j = vertexes.length - 1; i < vertexes.length; j = i++) {
+            let ivertX = vertexes[i][0];
+            let ivertY = vertexes[i][1];
+            let jvertX = vertexes[j][0];
+            let jvertY = vertexes[j][1];
 
-
-    /*
-     * Draw is called every frame of the sketch.
-     */
-    p.draw = function () {
-        p.background(240);
-
-        // Increment the step used for position animation
-        if (amount < 1) {
-            amount += step;
-        } else if (gui_broker.play_status) {
-            gui_broker.next_simulator_step(); // Calls for the next "step" of the simulation
+            if ((ivertY > y) != (jvertY > y) && (x < (jvertX - ivertX)
+                * (y - ivertY) / (jvertY - ivertY) + ivertX)) {
+                result = !result;
+            }
         }
-
-        /* Draw calls */
-        //draw_electrodes();
-        p.image(layer_electrode_shape, 0, 0);
+        return result;
+    }
 
 
-
-        if (layer_manager.layers.draw_active_electrodes.checkbox.checked) { draw_active_electrodes(); }
-
-        // Draw all direct layers
-        layer_manager.draw_layers(p);
-
-        if (layer_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
-
-        if (layer_manager.layers.draw_selected_element.checkbox.checked) { draw_selected_element(layer_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
-
-
-
-
-
-        // TESTING
+    function draw_grouped_droplets() {
+        // TESTING GROUPED DROPLETS
         for (let i in gui_broker.droplet_groups) {
-            let size = gui_broker.electrodes[0].SizeX/2;
+            let size = gui_broker.electrodes[0].SizeX / 2;
             let current_droplet = gui_broker.droplet_groups[i][0];
             let current_droplet_point = [current_droplet.PositionX - size, current_droplet.PositionY - size];
 
@@ -339,7 +426,7 @@ let sketch = function (p) {
             let points_to_draw = [];
 
             while (JSON.stringify(points_to_draw).indexOf(JSON.stringify(current_droplet_point)) == -1) {
-            //for (let c = 0; c < 14; c++) {
+                //for (let c = 0; c < 14; c++) {
                 let top_left = null
                 let top_right = null;
                 let bottom_left = null;
@@ -367,25 +454,20 @@ let sketch = function (p) {
                 if (top_right == null && bottom_right != null) {
                     points_to_draw.push(current_droplet_point);
                     current_droplet_point = [current_droplet_point[0] + size * 2, current_droplet_point[1]];
+
                 } else if (bottom_right == null && bottom_left != null) {
                     points_to_draw.push(current_droplet_point);
                     current_droplet_point = [current_droplet_point[0], current_droplet_point[1] + size * 2];
-                    //points_to_draw.push(current_droplet_point);
+
                 } else if (bottom_left == null && top_left != null) {
                     points_to_draw.push(current_droplet_point);
                     current_droplet_point = [current_droplet_point[0] - size * 2, current_droplet_point[1]];
-                    //points_to_draw.push(current_droplet_point);
+
                 } else if (top_left == null && top_right != null) {
                     points_to_draw.push(current_droplet_point);
                     current_droplet_point = [current_droplet_point[0], current_droplet_point[1] - size * 2];
-                    //points_to_draw.push(current_droplet_point);
                 }
             }
-            //}
-
-
-            //console.log(points_to_draw);
-
 
 
             /*for (let j = 0; j < points_to_draw.length - 1; j++) {
@@ -396,123 +478,73 @@ let sketch = function (p) {
                 p.ellipse(points_to_draw[j+1][0], points_to_draw[j+1][1], 3, 3);
             }*/
             p.fill(current_droplet.Color);
-            p.beginShape();
+            /*p.beginShape();
             for (let j = 0; j < points_to_draw.length; j++) {
                 p.vertex(points_to_draw[j][0], points_to_draw[j][1]);
             }
-            p.endShape(p.CLOSE);
+            p.endShape(p.CLOSE);*/
+
+            let points_vector = [];
+            for (let j = 0; j < points_to_draw.length; j++) {
+                points_vector.push(p.createVector(points_to_draw[j][0], points_to_draw[j][1]));
+            }
+
+            gui_broker.droplet_groups[current_droplet.Group].vertices = points_to_draw;
+
+            drawRounded(p, points_vector, 25);
 
         }
-        
-        
-
-
-
-        // DRAW DROPLET GROUPS (WIP)
-        // For each group
-        /*for (let i in gui_broker.droplet_groups) {
-            let points = [];
-
-            // For each droplet in group
-            for (let j in gui_broker.droplet_groups[i]) {
-
-                let droplet = gui_broker.droplet_groups[i][j];
-                //let top, bottom, left, right = null;
-                let top = null;
-                let bottom = null;
-                let left = null;
-                let right = null;
-                // For all other droplets in that group
-                for (let k in gui_broker.droplet_groups[i]) {
-                    let other_droplet = gui_broker.droplet_groups[i][k];
-
-                    if (other_droplet == droplet) { continue; }
-                    
-
-                    if (p.dist(droplet.PositionX, droplet.PositionY,
-                        other_droplet.PositionX, other_droplet.PositionY) <= gui_broker.electrodes[0].SizeX) {
-
-                        if (other_droplet.PositionY < droplet.PositionY) { top = other_droplet; }
-                        else if (other_droplet.PositionY > droplet.PositionY) { bottom = other_droplet; }
-                        else if (other_droplet.PositionX < droplet.PositionX) { left = other_droplet; }
-                        else if (other_droplet.PositionX > droplet.PositionX) { right = other_droplet; }
-                    }
-
-                    
-                }
-
-
-                if (top == null) {
-                    points.push([droplet.PositionX - droplet.SizeX / 2, droplet.PositionY - droplet.SizeY / 2]);
-                    points.push([droplet.PositionX + droplet.SizeX / 2, droplet.PositionY - droplet.SizeY / 2]);
-                }
-                if (right == null) {
-                    points.push([droplet.PositionX + droplet.SizeX / 2, droplet.PositionY - droplet.SizeY / 2]);
-                    points.push([droplet.PositionX + droplet.SizeX / 2, droplet.PositionY + droplet.SizeY / 2]);
-                }
-                if (bottom == null) {
-                    points.push([droplet.PositionX + droplet.SizeX / 2, droplet.PositionY + droplet.SizeY / 2]);
-                    points.push([droplet.PositionX - droplet.SizeX / 2, droplet.PositionY + droplet.SizeY / 2]);
-                }
-                if (left == null) {
-                    points.push([droplet.PositionX - droplet.SizeX / 2, droplet.PositionY + droplet.SizeY / 2]);
-                    points.push([droplet.PositionX - droplet.SizeX / 2, droplet.PositionY - droplet.SizeY / 2]);
-                }
-            }
-
-
-            let current_point = points[0];
-            let points_to_draw = [current_point];
-
-            
-
-
-            /*var sorted_points = points.sort(function (a, b) {
-                if (a[0] == b[0]) {
-                    return a[1] - b[1];
-                }
-                return a[0] - b[0];
-            });
-            
-            
-            var current_point = sorted_points[0];
-            var points_to_draw = [current_point];
-
-            // Find all ascending X values with same Y
-            for (let j in sorted_points) {
-                if (sorted_points[j][0] > current_point[0] && sorted_points[j][1] == current_point[1] &&
-                    JSON.stringify(points_to_draw).indexOf(JSON.stringify(sorted_points[j])) == -1) {
-
-                    points_to_draw.push(sorted_points[j]);
-                }
-            }
-
-            current_point = points_to_draw[points_to_draw.length - 1];
-
-            // Find all ascending Y values with same X
-            for (let j = sorted_points.length - 1; j >= 0; j--) {
-                if (sorted_points[j][0] == current_point[0] && sorted_points[j][1] > current_point[1] &&
-                    JSON.stringify(points_to_draw).indexOf(JSON.stringify(sorted_points[j])) == -1) {
-
-                    points_to_draw.push(sorted_points[j]);
-                }
-            }
-
-            // Find all 
-
-            console.log("psort", sorted_points);
-            console.log("pdraw", points_to_draw);
-            
-            //for (let a = 0; a < points.length - 1; a++) {
-             //   p.line(points[a][0], points[a][1], points[a+1][0], points[a+1][1]);
-            //}
-            
-            for (let a = 0; a < points.length; a++) {
-                p.fill("black");
-                p.ellipse(points[a][0], points[a][1], 2, 2);
-            }
-        }*/
     }
+
+    /**
+     * Will round the corners of a set of vertices.
+     * From https://gorillasun.de/blog/An-algorithm-for-polygons-with-rounded-corners
+     * @param {any} sketch
+     * @param {any} points
+     * @param {any} r
+     */
+    function drawRounded(sketch, points, r) {
+        sketch.beginShape()
+        for (let i = 0; i < points.length; i++) {
+            const a = points[i]
+            const b = points[(i + 1) % points.length]
+            const c = points[(i + 2) % points.length]
+            const ba = a.copy().sub(b).normalize()
+            const bc = c.copy().sub(b).normalize()
+
+            // Points in the direction the corner is accelerating towards
+            const normal = ba.copy().add(bc).normalize()
+
+            // Shortest angle between the two edges
+            const theta = ba.angleBetween(bc)
+
+            // Find the circle radius that would cause us to round off half
+            // of the shortest edge. We leave the other half for neighbouring
+            // corners to potentially cut.
+            const maxR = sketch.min(a.dist(b), c.dist(b)) / 2 * sketch.abs(sketch.sin(theta / 2))
+            const cornerR = sketch.min(r, maxR)
+            // Find the distance away from the corner that has a distance of
+            // 2*cornerR between the edges
+            const distance = sketch.abs(cornerR / sketch.sin(theta / 2))
+
+            // Approximate an arc using a cubic bezier
+            const c1 = b.copy().add(ba.copy().mult(distance))
+            const c2 = b.copy().add(bc.copy().mult(distance))
+            const bezierDist = 0.5523 // https://stackoverflow.com/a/27863181
+            const p1 = c1.copy().sub(ba.copy().mult(2 * cornerR * bezierDist))
+            const p2 = c2.copy().sub(bc.copy().mult(2 * cornerR * bezierDist))
+            sketch.vertex(c1.x, c1.y)
+            sketch.bezierVertex(
+                p1.x, p1.y,
+                p2.x, p2.y,
+                c2.x, c2.y
+            )
+        }
+        sketch.endShape(sketch.CLOSE)
+    }
+
+
+
 
 
     /* Initialize board values */
