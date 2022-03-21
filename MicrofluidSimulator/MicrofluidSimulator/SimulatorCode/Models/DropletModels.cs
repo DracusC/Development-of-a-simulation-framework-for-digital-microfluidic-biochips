@@ -85,10 +85,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 //int diam = getDiameterOfDroplet(vol / 2, 1);
                 //origin.SizeX = diam;
                 //origin.SizeY = diam;
-                Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, 20, 0, origin.Group);
+                Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, 20, 0, tempElectrode.ID1, origin.Group);
                 droplets.Add(newDroplet);
                 int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(id, container);
-                ((Droplets)droplets[index]).ElectrodeID = tempElectrode.ID1;
+                //((Droplets)droplets[index]).ElectrodeID = tempElectrode.ID1;
                 SubscriptionModels.dropletSubscriptions(container, newDroplet);
             }
             updateGroupVolume( container, origin.Group,0);

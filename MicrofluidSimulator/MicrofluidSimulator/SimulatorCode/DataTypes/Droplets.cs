@@ -14,7 +14,7 @@ namespace MicrofluidSimulator.SimulatorCode
 
 
 
-        public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature, float volume, int group)
+        public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature, float volume, int electrodeID, int group)
         {
             this.name = name;
             this.substance_name = substance_name;
@@ -27,7 +27,7 @@ namespace MicrofluidSimulator.SimulatorCode
             this.temperature = temperature;
             this.volume = volume;
             this.group = group;
-            this.electrodeID = 0;
+            this.electrodeID = electrodeID;
             this.subscriptions = new ArrayList();
         }
 

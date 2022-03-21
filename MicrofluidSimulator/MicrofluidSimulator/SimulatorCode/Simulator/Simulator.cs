@@ -1,4 +1,5 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
+using MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes;
 using System.Collections;
 
 namespace MicrofluidSimulator.SimulatorCode.Simulator
@@ -156,8 +157,23 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 case "electrode":
                     return executeElectrodeAction(action, container);
                     break;
+                case "heater":
+                    return executeHeaterAction(action, container);
+                    break;
             }
             return null;
+        }
+
+        private ArrayList executeHeaterAction(ActionQueueItem actionQueueItem, Container container)
+        {
+            // get the electrodes
+            Electrodes[] electrodeBoard = container.Electrodes;
+            // initialize action
+            DataTypes.SimulatorAction action = actionQueueItem.Action;
+            int electrodeId = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(action.ActionOnID, container);
+            // get the subscribers for the electrode flip
+            ArrayList subscribers = Models.ElectrodeModels.electrodeOnOff(container, electrodeBoard[electrodeId], action);
+            return subscribers;
         }
 
         private ArrayList executeElectrodeAction(ActionQueueItem actionQueueItem, Container container)
