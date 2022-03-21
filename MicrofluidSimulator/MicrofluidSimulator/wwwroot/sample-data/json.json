@@ -176,7 +176,25 @@
       "corners": []
     }
   ],
-  "actuators": [],
+  "actuators": [
+    {
+      "name": "heater1",
+      "ID": "900",
+      "actuatorID": 30,
+      "type": "heater",
+      "positionX": 270,
+      "positionY": 0,
+      "sizeX": 80,
+      "sizeY": 400,
+      "actualTemperature": 0,
+      "desiredTemperature": 0,
+      "status": false,
+      "nextDesiredTemperature": 0,
+      "nextStatus": false,
+      "corners": null
+
+    }
+  ],
   "sensors": [],
   "inputs": [],
   "outputs": [],

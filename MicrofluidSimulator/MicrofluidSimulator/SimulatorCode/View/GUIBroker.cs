@@ -33,7 +33,7 @@ namespace MicrofluidSimulator.SimulatorCode.View
             _jSRuntime = jSRuntime;
         }
         
-        public async void initialize_board(MicrofluidSimulator.SimulatorCode.DataTypes.Information container) {
+        public async void initialize_board(MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Information container) {
             var json_string = Newtonsoft.Json.JsonConvert.SerializeObject(container);
             var data = await _jSRuntime.InvokeAsync<object>("initialize_board", json_string);
         }

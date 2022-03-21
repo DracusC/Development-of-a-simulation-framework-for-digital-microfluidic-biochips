@@ -1,9 +1,9 @@
-﻿namespace MicrofluidSimulator.SimulatorCode
+﻿namespace MicrofluidSimulator.SimulatorCode.DataTypes
 {
     public class Actuators
     {
-        string name, type;
-        int ID, actuatorID = -1, positionX, positionY, sizeX, sizeY;
+        protected string name, type;
+        protected int ID, actuatorID = -1, positionX, positionY, sizeX, sizeY;
 
         
 

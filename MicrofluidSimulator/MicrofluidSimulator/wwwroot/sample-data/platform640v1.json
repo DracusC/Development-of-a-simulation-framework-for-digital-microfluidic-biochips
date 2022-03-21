@@ -9822,11 +9822,54 @@
       "corners": []
     }
   ],
-  "actuators": [],
+  "actuators": [
+    {
+      "name": "heater1",
+      "ID": "900",
+      "actuatorID": 30,
+      "type": "heater",
+      "positionX": 270,
+      "positionY": 0,
+      "sizeX": 80,
+      "sizeY": 400,
+      "actualTemperature": 0,
+      "desiredTemperature": 0,
+      "status": false,
+      "nextDesiredTemperature": 0,
+      "nextStatus": false,
+      "corners": null
+
+    }
+  ],
   "sensors": [],
   "inputs": [],
   "outputs": [],
-  "droplets": [],
+  "droplets": [
+    {
+      "name": "test droplet",
+      "ID": 0,
+      "substance_name": "h20",
+      "positionX": 120,
+      "positionY": 10,
+      "sizeX": 15,
+      "sizeY": 15,
+      "color": "blue",
+      "temperature": 20,
+      "electrodeID":  1
+    },
+    {
+      "name": "test droplet2",
+      "ID": 3,
+      "substance_name": "h20",
+      "positionX": 160,
+      "positionY": 70,
+      "sizeX": 15,
+      "sizeY": 15,
+      "color": "yellow",
+      "temperature": 20,
+      "electrodeID": 99
+    }
+  ],
   "bubbles": [],
   "unclassified": []
 }
