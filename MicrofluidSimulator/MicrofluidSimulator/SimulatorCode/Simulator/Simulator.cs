@@ -167,12 +167,12 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         private ArrayList executeHeaterAction(ActionQueueItem actionQueueItem, Container container)
         {
             // get the electrodes
-            Electrodes[] electrodeBoard = container.Electrodes;
+            MicrofluidSimulator.SimulatorCode.DataTypes.Actuators[] actuators = container.Actuators;
             // initialize action
             DataTypes.SimulatorAction action = actionQueueItem.Action;
-            int electrodeId = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(action.ActionOnID, container);
+            int actuatorId = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.ActionOnID, container);
             // get the subscribers for the electrode flip
-            ArrayList subscribers = Models.ElectrodeModels.electrodeOnOff(container, electrodeBoard[electrodeId], action);
+            ArrayList subscribers = Models.ActuatorModels.heaterTemperatureChange(container, (Heater) actuators[actuatorId], action);
             return subscribers;
         }
 

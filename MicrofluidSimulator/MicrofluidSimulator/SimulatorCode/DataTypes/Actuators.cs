@@ -1,11 +1,12 @@
-﻿namespace MicrofluidSimulator.SimulatorCode.DataTypes
+﻿using System.Collections;
+namespace MicrofluidSimulator.SimulatorCode.DataTypes
 {
     public class Actuators
     {
         protected string name, type;
         protected int ID, actuatorID = -1, positionX, positionY, sizeX, sizeY;
+        ArrayList subscriptions;
 
-        
 
         public Actuators(string name, int ID, int actuatorID, string type, int positionX, int positionY, int sizeX, int sizeY)
         {
@@ -17,6 +18,8 @@
             this.positionY = positionY;
             this.sizeX = sizeX;
             this.sizeY = sizeY;
+
+            this.subscriptions = new ArrayList();
         }
 
         public Actuators()
@@ -31,5 +34,6 @@
         public int PositionY { get => positionY; set => positionY = value; }
         public int SizeX { get => sizeX; set => sizeX = value; }
         public int SizeY { get => sizeY; set => sizeY = value; }
+        public ArrayList Subscriptions { get => subscriptions; set => subscriptions = value; }
     }
 }

@@ -9,6 +9,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             // Gets the needed data out of the container
             ArrayList droplets = container.Droplets;
             Electrodes[] electrodeBoard = container.Electrodes;
+            Actuators[] actuators = container.Actuators;
 
             // Clear all previous subscriptions before adding new to avoid duplicates
             // and deprecated subscriptions
@@ -16,6 +17,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             foreach(int n in dropletSubscritions)
             {
                 electrodeBoard[n].Subscriptions.Remove(caller.ID1);
+                actuators[n].Subscriptions.Remove(caller.ID1);
             }
             caller.Subscriptions = new ArrayList();
 

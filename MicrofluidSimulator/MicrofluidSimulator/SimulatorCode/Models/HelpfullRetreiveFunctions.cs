@@ -51,6 +51,19 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return binarySearchElectrode(ID, container);
         }
 
+        public static int getIndexOfActuatorByID(int ID, Container container)
+        {
+
+            Actuators[] actuators = container.Actuators;
+            
+            if (actuators[ID].ID1 == ID)
+            {
+                return ID;
+            }
+            
+            return binarySearchActuators(ID, container);
+        }
+
         public static int binarySearchElectrode(int ID, Container container)
         {
             Electrodes[] electrodes = container.Electrodes;
@@ -65,6 +78,31 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     return mid;
                 }
                 else if (ID < electrodes[mid].ID1)
+                {
+                    max = mid - 1;
+                }
+                else
+                {
+                    min = mid + 1;
+                }
+            }
+            return -1;
+        }
+
+        public static int binarySearchActuators(int ID, Container container)
+        {
+            Actuators[] actuators = container.Actuators;
+            int min = 0;
+            int max = actuators.Count() - 1;
+
+            while (min <= max)
+            {
+                int mid = (min + max) / 2;
+                if (ID == actuators[mid].ID1)
+                {
+                    return mid;
+                }
+                else if (ID < actuators[mid].ID1)
                 {
                     max = mid - 1;
                 }
