@@ -243,9 +243,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             ArrayList groupMembers = findGroupMembers(container, caller.Group);
             ArrayList groupTemperatures = new ArrayList();
 
-            double heatCapacity = 0;
-            double mass = 0;
-            double resultingTemperature = 0;
+            float heatCapacity = 0;
+            float mass = 0;
+            float resultingTemperature = 0;
 
             // Loop through all droplets in a group
             foreach (Droplets droplet in groupMembers)
@@ -254,8 +254,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 switch (droplet.Substance_name)
                 {
                     case "H20":
-                        heatCapacity = 4.2;
-                        mass = 1000 * (droplet.Volume/Math.Pow(10, 9)); // mass = density * volume
+                        heatCapacity = 4.2f;
+                        mass = (float)(1000 * (droplet.Volume/Math.Pow(10, 9))); // mass = density * volume
                     break;
 
                     // Add cases for other substances
@@ -267,8 +267,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                 resultingTemperature += (heatCapacity * mass * droplet.Temperature)/(heatCapacity * mass);
             }
-        }
 
+            foreach (Droplets droplet in groupMembers)
+            {
+                droplet.Temperature = resultingTemperature;
+            }
+        }
 
 
 
