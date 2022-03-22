@@ -223,7 +223,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             g /= groupColors.Count;
             b /= groupColors.Count;
 
-            return $"#{r:X2}{g:X2}{b:X2}";
+            
+            return ColorTranslator.ToHtml(Color.FromArgb(r, g, b));
         }
 
 

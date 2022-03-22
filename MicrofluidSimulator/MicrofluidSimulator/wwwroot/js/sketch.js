@@ -91,7 +91,7 @@ let layer_manager = {
             text: "Draw Droplets", // Will be shown in layer panel list
             element: "insert",      // Reference - get toggled from here
             checkbox: "insert",
-            checked: true
+            checked: false
             //layer: "insert"         // Reference - pass to functions
         },
         draw_droplet_groups: {
