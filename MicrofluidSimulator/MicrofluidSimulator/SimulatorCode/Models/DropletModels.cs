@@ -1,6 +1,8 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
 using MicrofluidSimulator.SimulatorCode.Models;
 using System.Collections;
+using System.Drawing;
+
 namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class DropletModels
@@ -91,40 +93,38 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 //((Droplets)droplets[index]).ElectrodeID = tempElectrode.ID1;
                 SubscriptionModels.dropletSubscriptions(container, newDroplet);
             }
-            updateGroupVolume( container, origin.Group,0);
+            updateGroupVolume( container, origin.Group, 0);
         }
 
-        public static void updateGroupVolume(Container container, int id, float extraVolume)
+        public static void updateGroupVolume(Container container, int groupID, float extraVolume)
         {
             ArrayList droplets = container.Droplets;
-            ArrayList groupMembers = findGroupMembers(container, id);
+            ArrayList groupMembers = findGroupMembers(container, groupID);
             float volume = getGroupVolume(container, groupMembers) + extraVolume;
             float newVolume = volume/groupMembers.Count;
             int diam = getDiameterOfDroplet(newVolume, 1);
-            foreach (int n in groupMembers)
+            foreach (Droplets droplet in groupMembers)
             {
-                Droplets tempDroplet = (Droplets)droplets[n];
-                tempDroplet.Volume = newVolume;
-                tempDroplet.SizeX = diam;
-                tempDroplet.SizeY = diam;
+                droplet.Volume = newVolume;
+                droplet.SizeX = diam;
+                droplet.SizeY = diam;
             }
 
         }
 
-        public static ArrayList findGroupMembers(Container container, int id)
+        static ArrayList findGroupMembers(Container container, int groupID)
         {
-            ArrayList droplets = container.Droplets;
             ArrayList groupMembers = new ArrayList();
-            int i = 0;
-            foreach(Droplets droplet in droplets)
-            {
-                if(droplet.Group == id)
-                {
-                    groupMembers.Add(i);
+            ArrayList droplets = container.Droplets;
+            foreach (Droplets droplet in droplets)
+            {   
+                if(droplet.Group == groupID)
+                { 
+                    groupMembers.Add(droplet);
                 }
-                i++;
             }
             return groupMembers;
+
         }
 
         public static float getGroupVolume(Container container, ArrayList groupMembers)
@@ -132,10 +132,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             ArrayList droplets = container.Droplets;
 
             float volume = 0;
-            foreach (int n in groupMembers)
+            foreach (Droplets droplet in groupMembers)
             {
-                Droplets tempDroplet = (Droplets)droplets[n];
-                volume = volume + tempDroplet.Volume;
+                volume = volume + droplet.Volume;
             }
             return volume;
         }
@@ -180,7 +179,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     float volume = caller.Volume;
                     int groupId = caller.Group;
                     droplets.Remove(caller);
-                    updateGroupVolume(container,groupId,volume);
+                    updateGroupVolume(container, groupId, volume);
 
                 }
             }
@@ -201,7 +200,31 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
 
 
+        public static string dropletColorChange(Container container, Droplets caller)
+        {
+            ArrayList groupColors = new ArrayList();
+            ArrayList groupMembers = findGroupMembers(container, caller.Group);
 
+            foreach (Droplets droplet in groupMembers)
+            {   
+                groupColors.Add(ColorTranslator.FromHtml(droplet.Color));
+            }
+
+            int r = 0;
+            int g = 0;
+            int b = 0;
+            foreach (Color c in groupColors)
+            {
+                r += c.R;
+                g += c.G;
+                b += c.B;
+            }
+            r /= groupColors.Count;
+            g /= groupColors.Count;
+            b /= groupColors.Count;
+
+            return $"#{r:X2}{g:X2}{b:X2}";
+        }
 
 
 
