@@ -17,7 +17,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             foreach(int n in dropletSubscritions)
             {
                 electrodeBoard[n].Subscriptions.Remove(caller.ID1);
-                actuators[n].Subscriptions.Remove(caller.ID1);
+                //actuators[n].Subscriptions.Remove(caller.ID1); // Carl this is not correct
             }
             caller.Subscriptions = new ArrayList();
 

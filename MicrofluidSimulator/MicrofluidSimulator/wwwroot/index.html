@@ -8,6 +8,9 @@
 
     <!-- The script below is used to delete cahched files (mostly for development) -->
     <script type="text/javascript">
+        /*caches.delete("sketch.js").then(e => {
+            console.log("Sketch cache deleted");
+        });*/
         caches.delete("blazor-resources-/").then(function (e) {
             console.log("'blazor-resources-/' cache deleted");
         });

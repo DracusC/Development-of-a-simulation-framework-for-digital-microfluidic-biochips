@@ -418,80 +418,104 @@ let sketch = function (p) {
     function draw_grouped_droplets() {
         // TESTING GROUPED DROPLETS
         for (let i in gui_broker.droplet_groups) {
-            let size = gui_broker.electrodes[0].SizeX / 2;
+            let check_size = gui_broker.electrodes[0].SizeX / 2;
             let current_droplet = gui_broker.droplet_groups[i][0];
-            let current_droplet_point = [current_droplet.PositionX - size, current_droplet.PositionY - size];
+            let current_droplet_point = [current_droplet.PositionX - check_size, current_droplet.PositionY - check_size];
+
+            //let draw_size = current_droplet.SizeX / 2;
+            let droplet_draw_point = [current_droplet.PositionX - current_droplet.SizeX / 2, current_droplet.PositionY - current_droplet.SizeX / 2];
 
             // Change so case where theres no path from current point is valid
             let points_to_draw = [];
 
-            while (JSON.stringify(points_to_draw).indexOf(JSON.stringify(current_droplet_point)) == -1) {
-                //for (let c = 0; c < 14; c++) {
+            while (JSON.stringify(points_to_draw).indexOf(JSON.stringify(droplet_draw_point)) == -1) {
+            //for (let ab = 0; ab < 4; ab++) {
                 let top_left = null
                 let top_right = null;
                 let bottom_left = null;
                 let bottom_right = null;
 
-                //console.log(JSON.stringify(points_to_draw).indexOf(JSON.stringify(current_droplet_point)));
-
                 for (let j in gui_broker.droplet_groups[i]) {
                     let other_droplet = gui_broker.droplet_groups[i][j];
-                    //if (current_droplet == other_droplet) { continue; }
-                    //console.log(other_droplet.ID1);
+
                     // Check cases
-                    if (other_droplet.PositionX == current_droplet_point[0] + size && other_droplet.PositionY == current_droplet_point[1] - size) {
+                    if (other_droplet.PositionX == current_droplet_point[0] + check_size && other_droplet.PositionY == current_droplet_point[1] - check_size) {
                         top_right = other_droplet;
-                    } else if (other_droplet.PositionX == current_droplet_point[0] - size && other_droplet.PositionY == current_droplet_point[1] + size) {
+                    } else if (other_droplet.PositionX == current_droplet_point[0] - check_size && other_droplet.PositionY == current_droplet_point[1] + check_size) {
                         bottom_left = other_droplet;
-                    } else if (other_droplet.PositionX == current_droplet_point[0] - size && other_droplet.PositionY == current_droplet_point[1] - size) {
+                    } else if (other_droplet.PositionX == current_droplet_point[0] - check_size && other_droplet.PositionY == current_droplet_point[1] - check_size) {
                         top_left = other_droplet;
-                    } else if (other_droplet.PositionX == current_droplet_point[0] + size && other_droplet.PositionY == current_droplet_point[1] + size) {
+                    } else if (other_droplet.PositionX == current_droplet_point[0] + check_size && other_droplet.PositionY == current_droplet_point[1] + check_size) {
                         bottom_right = other_droplet;
                     }
                 }
-                //console.log(top_left, top_right, bottom_left, bottom_right);
 
                 if (top_right == null && bottom_right != null) {
-                    points_to_draw.push(current_droplet_point);
-                    current_droplet_point = [current_droplet_point[0] + size * 2, current_droplet_point[1]];
+                    points_to_draw.push(droplet_draw_point);
+
+                    if (JSON.stringify(points_to_draw).indexOf(
+                        JSON.stringify([bottom_right.PositionX - bottom_right.SizeX / 2,
+                            bottom_right.PositionY - bottom_right.SizeY / 2])) == -1) {
+                        points_to_draw.push([bottom_right.PositionX - bottom_right.SizeX / 2, bottom_right.PositionY - bottom_right.SizeY / 2]);
+                    }
+
+                    droplet_draw_point = [bottom_right.PositionX + bottom_right.SizeX / 2, bottom_right.PositionY - bottom_right.SizeY / 2];
+                    current_droplet_point = [current_droplet_point[0] + check_size * 2, current_droplet_point[1]];
 
                 } else if (bottom_right == null && bottom_left != null) {
-                    points_to_draw.push(current_droplet_point);
-                    current_droplet_point = [current_droplet_point[0], current_droplet_point[1] + size * 2];
+                    points_to_draw.push(droplet_draw_point);
 
+                    if (JSON.stringify(points_to_draw).indexOf(
+                        JSON.stringify([bottom_left.PositionX + bottom_left.SizeX / 2,
+                            bottom_left.PositionY - bottom_left.SizeY / 2])) == -1) {
+                        points_to_draw.push([bottom_left.PositionX + bottom_left.SizeX / 2, bottom_left.PositionY - bottom_left.SizeY / 2]);
+                    }
+
+                    droplet_draw_point = [bottom_left.PositionX + bottom_left.SizeX / 2, bottom_left.PositionY + bottom_left.SizeY / 2];
+                    current_droplet_point = [current_droplet_point[0], current_droplet_point[1] + check_size * 2];
+                    
                 } else if (bottom_left == null && top_left != null) {
-                    points_to_draw.push(current_droplet_point);
-                    current_droplet_point = [current_droplet_point[0] - size * 2, current_droplet_point[1]];
+                    points_to_draw.push(droplet_draw_point);
+
+                    if (JSON.stringify(points_to_draw).indexOf(
+                        JSON.stringify([top_left.PositionX + top_left.SizeX / 2,
+                            top_left.PositionY + top_left.SizeY / 2])) == -1) {
+                        points_to_draw.push([top_left.PositionX + top_left.SizeX / 2, top_left.PositionY + top_left.SizeY / 2]);
+                    }
+
+                    droplet_draw_point = [top_left.PositionX - top_left.SizeX / 2, top_left.PositionY + top_left.SizeY / 2];
+                    current_droplet_point = [current_droplet_point[0] - check_size * 2, current_droplet_point[1]];
 
                 } else if (top_left == null && top_right != null) {
-                    points_to_draw.push(current_droplet_point);
-                    current_droplet_point = [current_droplet_point[0], current_droplet_point[1] - size * 2];
+                    points_to_draw.push(droplet_draw_point);
+
+                    if (JSON.stringify(points_to_draw).indexOf(
+                        JSON.stringify([top_right.PositionX - top_right.SizeX / 2,
+                            top_right.PositionY + top_right.SizeY / 2])) == -1) {
+                        points_to_draw.push([top_right.PositionX - top_right.SizeX / 2, top_right.PositionY + top_right.SizeY / 2]);
+                    }
+
+                    droplet_draw_point = [top_right.PositionX - top_right.SizeX / 2, top_right.PositionY - top_right.SizeY / 2];
+                    current_droplet_point = [current_droplet_point[0], current_droplet_point[1] - check_size * 2];
                 }
             }
 
-
-            /*for (let j = 0; j < points_to_draw.length - 1; j++) {
-                p.stroke("green");
-                p.line(points_to_draw[j][0], points_to_draw[j][1], points_to_draw[j + 1][0], points_to_draw[j + 1][1]);
-                p.fill("green");
-                p.ellipse(points_to_draw[j][0], points_to_draw[j][1], 3, 3);
-                p.ellipse(points_to_draw[j+1][0], points_to_draw[j+1][1], 3, 3);
-            }*/
             p.fill(current_droplet.Color);
-            /*p.beginShape();
-            for (let j = 0; j < points_to_draw.length; j++) {
-                p.vertex(points_to_draw[j][0], points_to_draw[j][1]);
-            }
-            p.endShape(p.CLOSE);*/
 
             let points_vector = [];
             for (let j = 0; j < points_to_draw.length; j++) {
-                points_vector.push(p.createVector(points_to_draw[j][0], points_to_draw[j][1]));
+                points_vector.push(p.createVector(p.round(points_to_draw[j][0],2), p.round(points_to_draw[j][1],2)));
             }
 
+            //console.log(points_vector);
             gui_broker.droplet_groups[current_droplet.Group].vertices = points_to_draw;
 
-            drawRounded(p, points_vector, 25);
+            drawRounded(p, points_vector, 50);
+            //p.beginShape();
+            /*for (let j = 0; j < points_to_draw.length; j++) {
+                p.ellipse(points_to_draw[j][0], points_to_draw[j][1],5,5);
+            }*/
+            //p.endShape(p.CLOSE);
 
         }
     }
@@ -504,47 +528,49 @@ let sketch = function (p) {
      * @param {any} r
      */
     function drawRounded(sketch, points, r) {
-        sketch.beginShape()
+        sketch.beginShape();
         for (let i = 0; i < points.length; i++) {
-            const a = points[i]
-            const b = points[(i + 1) % points.length]
-            const c = points[(i + 2) % points.length]
-            const ba = a.copy().sub(b).normalize()
-            const bc = c.copy().sub(b).normalize()
+            const a = points[i];
+            const b = points[(i + 1) % points.length];
+            const c = points[(i + 2) % points.length];
+            const ba = a.copy().sub(b).normalize();
+            const bc = c.copy().sub(b).normalize();
 
             // Points in the direction the corner is accelerating towards
-            const normal = ba.copy().add(bc).normalize()
+            const normal = ba.copy().add(bc).normalize();
 
             // Shortest angle between the two edges
-            const theta = ba.angleBetween(bc)
+            const theta = ba.angleBetween(bc);
+
+            // If theta is 0, theres no change in the angle, and we can continue
+            if (theta == 0) { continue; }
 
             // Find the circle radius that would cause us to round off half
             // of the shortest edge. We leave the other half for neighbouring
             // corners to potentially cut.
-            const maxR = sketch.min(a.dist(b), c.dist(b)) / 2 * sketch.abs(sketch.sin(theta / 2))
-            const cornerR = sketch.min(r, maxR)
+            const maxR = sketch.min(a.dist(b), c.dist(b)) / 2 * sketch.abs(sketch.sin(theta / 2));
+            const cornerR = sketch.min(r, maxR);
             // Find the distance away from the corner that has a distance of
             // 2*cornerR between the edges
-            const distance = sketch.abs(cornerR / sketch.sin(theta / 2))
+            const distance = sketch.abs(cornerR / sketch.sin(theta / 2));
 
             // Approximate an arc using a cubic bezier
-            const c1 = b.copy().add(ba.copy().mult(distance))
-            const c2 = b.copy().add(bc.copy().mult(distance))
-            const bezierDist = 0.5523 // https://stackoverflow.com/a/27863181
-            const p1 = c1.copy().sub(ba.copy().mult(2 * cornerR * bezierDist))
-            const p2 = c2.copy().sub(bc.copy().mult(2 * cornerR * bezierDist))
-            sketch.vertex(c1.x, c1.y)
+            const c1 = b.copy().add(ba.copy().mult(distance));
+            const c2 = b.copy().add(bc.copy().mult(distance));
+            const bezierDist = 0.5523; // https://stackoverflow.com/a/27863181
+            const p1 = c1.copy().sub(ba.copy().mult(2 * cornerR * bezierDist));
+            const p2 = c2.copy().sub(bc.copy().mult(2 * cornerR * bezierDist));
+            sketch.vertex(c1.x, c1.y);
             sketch.bezierVertex(
                 p1.x, p1.y,
                 p2.x, p2.y,
                 c2.x, c2.y
             )
+
+            //console.log(p1, p2);
         }
-        sketch.endShape(sketch.CLOSE)
+        sketch.endShape(sketch.CLOSE);
     }
-
-
-
 
 
     /* Initialize board values */
