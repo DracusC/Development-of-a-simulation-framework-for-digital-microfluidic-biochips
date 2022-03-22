@@ -199,7 +199,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         }
 
 
-
+        /// <summary>
+        /// Will calculate the average color in a group of droplets
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <returns></returns>
         public static string dropletColorChange(Container container, Droplets caller)
         {
             ArrayList groupColors = new ArrayList();
@@ -227,7 +232,42 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return ColorTranslator.ToHtml(Color.FromArgb(r, g, b));
         }
 
+        /// <summary>
+        /// Will calculate the average temperature in a droplet group.
+        /// Right now the model only considers H2O.
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        public static void dropletGroupTemperatureChange(Container container, Droplets caller)
+        {
+            ArrayList groupMembers = findGroupMembers(container, caller.Group);
+            ArrayList groupTemperatures = new ArrayList();
 
+            double heatCapacity = 0;
+            double mass = 0;
+            double resultingTemperature = 0;
+
+            // Loop through all droplets in a group
+            foreach (Droplets droplet in groupMembers)
+            {
+                //groupTemperatures.Add(droplet.Temperature);
+                switch (droplet.Substance_name)
+                {
+                    case "H20":
+                        heatCapacity = 4.2;
+                        mass = 1000 * (droplet.Volume/Math.Pow(10, 9)); // mass = density * volume
+                    break;
+
+                    // Add cases for other substances
+
+                    default:
+                        continue; // We skip substances we dont know
+                    break;
+                }
+
+                resultingTemperature += (heatCapacity * mass * droplet.Temperature)/(heatCapacity * mass);
+            }
+        }
 
 
 
