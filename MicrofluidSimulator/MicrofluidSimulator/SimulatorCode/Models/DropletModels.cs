@@ -38,7 +38,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 Electrodes tempElectrode = electrodeBoard[indexForElectrode];
                 
                 
-                if (tempElectrode.Status > 0 && !ElectrodeModels.electrodeHasDroplet(tempElectrode,container))
+                if (tempElectrode.Status > 0 && (ElectrodeModels.electrodeHasDroplet(tempElectrode,container) == null))
                 {
                     toSplitToo.Add(indexForElectrode);
 
@@ -93,6 +93,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 //((Droplets)droplets[index]).ElectrodeID = tempElectrode.ID1;
                 SubscriptionModels.dropletSubscriptions(container, newDroplet);
             }
+            updateGroupNumber(container, origin, origin.Group);
+            dropletColorChange(container, origin);
             updateGroupVolume( container, origin.Group, 0);
         }
 
@@ -162,24 +164,85 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     ArrayList dropletSubscritions = caller.Subscriptions;
                     foreach (int n in dropletSubscritions)
                     {
-                        //Console.WriteLine("!!sub remove!!"+ n);
-                        //foreach(int i in electrodeBoard[n].Subscriptions)
-                        //{
-                        //    Console.WriteLine("contain " + i);
-                        //}
-                        //Console.WriteLine("ID"+caller.ID1);
+
                         electrodeBoard[n].Subscriptions.Remove(caller.ID1);
-                        //Console.WriteLine("AFTER");
-                        //foreach (int i in electrodeBoard[n].Subscriptions)
-                        //{
-                        //    Console.WriteLine("contain " + i);
-                        //}
                     }
                     //caller.Subscriptions = new ArrayList();
                     float volume = caller.Volume;
                     int groupId = caller.Group;
+                    int removedDropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
+                    Electrodes removedDropletElectrode = electrodeBoard[removedDropletElectrodeIndex];
+
+
                     droplets.Remove(caller);
-                    updateGroupVolume(container, groupId, volume);
+
+
+
+                    ArrayList handeledDroplet = new ArrayList();
+                    ArrayList neighbouringDroplets = new ArrayList();
+
+
+                    foreach (int neigbour in removedDropletElectrode.Neighbours)
+                    {
+                        int tempElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neigbour, container);
+                        Electrodes tempElectrode = electrodeBoard[tempElectrodeIndex];
+
+                        Droplets tempDroplet = ElectrodeModels.electrodeHasDroplet(tempElectrode, container);
+                        if (tempDroplet != null)
+                        {
+                            neighbouringDroplets.Add(tempDroplet);
+                        }
+                    }
+
+                    Droplets firstDroplet = (Droplets) neighbouringDroplets[0];
+
+                    updateGroupNumber(container, firstDroplet, firstDroplet.Group);
+                    handeledDroplet.Add(firstDroplet);
+
+                    ArrayList connectedDroplets = new ArrayList();
+                    findAllConnectedDroplets(container, firstDroplet, connectedDroplets);
+                    foreach (Droplets d in connectedDroplets)
+                    {
+                        if(!handeledDroplet.Contains(d) && neighbouringDroplets.Contains(d))
+                        {
+                            handeledDroplet.Add(d);
+                        }
+                    }
+
+                    foreach(Droplets droplet in neighbouringDroplets)
+                    {
+                        if (!handeledDroplet.Contains(droplet))
+                        {
+                            Random rnd = new Random();
+                            int id = rnd.Next(10000000);
+                            updateGroupNumber(container, droplet, id);
+                            handeledDroplet.Add(droplet);
+
+                            ArrayList connectedDroplets2 = new ArrayList();
+                            findAllConnectedDroplets(container, droplet, connectedDroplets2);
+                            foreach (Droplets d in connectedDroplets2)
+                            {
+                                if (!handeledDroplet.Contains(d) && neighbouringDroplets.Contains(d))
+                                {
+                                    handeledDroplet.Add(d);
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    foreach (Droplets droplet in neighbouringDroplets)
+                    {
+                        updateGroupVolume(container, droplet.Group, volume/neighbouringDroplets.Count);
+                    }
+
+
+
+
+
+
+
 
                 }
             }
@@ -200,7 +263,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
 
 
-        public static string dropletColorChange(Container container, Droplets caller)
+        public static void dropletColorChange(Container container, Droplets caller)
         {
             ArrayList groupColors = new ArrayList();
             ArrayList groupMembers = findGroupMembers(container, caller.Group);
@@ -223,11 +286,50 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             g /= groupColors.Count;
             b /= groupColors.Count;
 
-            return $"#{r:X2}{g:X2}{b:X2}";
+            foreach(Droplets droplet in groupMembers)
+            {
+                droplet.Color = $"#{r:X2}{g:X2}{b:X2}";
+            }
+
+
+            //return $"#{r:X2}{g:X2}{b:X2}";
         }
 
 
 
+        static void updateGroupNumber(Container container, Droplets caller, int newGroupID)
+        {
+            ArrayList connectedDroplets = new ArrayList();
+            findAllConnectedDroplets( container,caller, connectedDroplets);
+            foreach(Droplets droplet in connectedDroplets)
+            {
+                droplet.Group = newGroupID;
+            }
+        }
+
+
+
+
+        static void findAllConnectedDroplets(Container container, Droplets caller, ArrayList members)
+        {
+            ArrayList droplets = container.Droplets;
+            Electrodes[] electrodeBoard = container.Electrodes;
+            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
+            Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
+            members.Add(caller);
+            foreach(int neigbour in dropletElectrode.Neighbours)
+            {   
+
+                int tempElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neigbour, container);
+                Electrodes tempElectrode = electrodeBoard[tempElectrodeIndex];
+
+                Droplets tempDroplet = ElectrodeModels.electrodeHasDroplet(tempElectrode, container);
+                if(tempDroplet != null && !members.Contains(tempDroplet))
+                {
+                    findAllConnectedDroplets(container, tempDroplet, members);         
+                }
+            }
+        }
 
 
 

@@ -17,17 +17,17 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             //ArrayList empty = new ArrayList();
             //return empty;
         }
-        public static bool electrodeHasDroplet(Electrodes Caller, Container container)
+        public static Droplets electrodeHasDroplet(Electrodes Caller, Container container)
         {
             ArrayList droplets = container.Droplets;
             foreach (Droplets droplet in droplets)
             {
                 if (droplet.ElectrodeID == Caller.ID1)
                 {
-                    return true;
+                    return droplet;
                 }
             }
-            return false;
+            return null;
         }
         public static int[] getCenterOfElectrode(Electrodes electrode)
         {

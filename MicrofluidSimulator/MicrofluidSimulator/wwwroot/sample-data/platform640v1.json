@@ -9851,11 +9851,35 @@
       "substance_name": "h20",
       "positionX": 120,
       "positionY": 10,
-      "sizeX": 30,
-      "sizeY": 30,
+      "sizeX": 20,
+      "sizeY": 20,
       "color": "#0000FF",
       "temperature": 20,
       "electrodeID": 1
+    },
+    {
+      "name": "test droplet",
+      "ID": 1,
+      "substance_name": "h20",
+      "positionX": 160,
+      "positionY": 10,
+      "sizeX": 20,
+      "sizeY": 20,
+      "color": "#00FFFF",
+      "temperature": 20,
+      "electrodeID": 3
+    },
+    {
+      "name": "test droplet",
+      "ID": 2,
+      "substance_name": "h20",
+      "positionX": 140,
+      "positionY": 30,
+      "sizeX": 20,
+      "sizeY": 20,
+      "color": "#FF00FF",
+      "temperature": 20,
+      "electrodeID": 34
     }
   ],
   "bubbles": [],

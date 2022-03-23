@@ -129,11 +129,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
                         
                         Electrodes[] electrodes = container.Electrodes;
-                        Console.WriteLine("!!sub remove!!" + "33" + "for sub " + subscriber);
-                        foreach (int i in electrodes[33].Subscriptions)
-                        {
-                            Console.WriteLine("contain " + i);
-                        }
+
                         //}
                         //.SubscriptionModels.dropletSubscriptions(container, droplet);
                         //Console.WriteLine(droplet.ToString());
@@ -197,19 +193,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             ActionQueueItem item1 = new ActionQueueItem(action1, 1);
             actionQueueInstructions.Enqueue(item1);
 
-            SimulatorAction action2 = new SimulatorAction("electrode", 2, 1);
+            SimulatorAction action2 = new SimulatorAction("electrode", 3, 1);
             ActionQueueItem item2 = new ActionQueueItem(action2, 2);
             actionQueueInstructions.Enqueue(item2);
 
-            SimulatorAction action3 = new SimulatorAction("electrode", 33, 1);
+            SimulatorAction action3 = new SimulatorAction("electrode", 34, 1);
             ActionQueueItem item3 = new ActionQueueItem(action3, 3);
             actionQueueInstructions.Enqueue(item3);
 
-            SimulatorAction action4 = new SimulatorAction("electrode", 34, 1);
+            SimulatorAction action4 = new SimulatorAction("electrode", 2, 1);
             ActionQueueItem item4 = new ActionQueueItem(action4, 4);
             actionQueueInstructions.Enqueue(item4);
 
-            SimulatorAction action5 = new SimulatorAction("electrode", 35, 1);
+            SimulatorAction action5 = new SimulatorAction("electrode", 2, 0);
             ActionQueueItem item5 = new ActionQueueItem(action5, 5);
             actionQueueInstructions.Enqueue(item5);
 
