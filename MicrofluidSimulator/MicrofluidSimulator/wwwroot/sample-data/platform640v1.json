@@ -9848,7 +9848,7 @@
     {
       "name": "test droplet",
       "ID": 0,
-      "substance_name": "h20",
+      "substance_name": "H20",
       "positionX": 120,
       "positionY": 10,
       "sizeX": 20,
