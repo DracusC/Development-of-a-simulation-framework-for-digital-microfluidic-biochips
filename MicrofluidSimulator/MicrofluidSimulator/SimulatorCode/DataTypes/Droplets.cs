@@ -11,7 +11,8 @@ namespace MicrofluidSimulator.SimulatorCode
         int electrodeID;
 
         ArrayList subscriptions;
-
+        int nextModel;
+        String[] modelOrder;
 
 
         public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature, float volume, int electrodeID, int group)
@@ -29,6 +30,8 @@ namespace MicrofluidSimulator.SimulatorCode
             this.group = group;
             this.electrodeID = electrodeID;
             this.subscriptions = new ArrayList();
+            NextModel = 0;
+            ModelOrder = new string[] {"split","merge"};
         }
 
         public Droplets()
@@ -48,6 +51,8 @@ namespace MicrofluidSimulator.SimulatorCode
         public ArrayList Subscriptions { get => subscriptions; set => subscriptions = value; }
         public float Volume { get => volume; set => volume = value; }
         public int Group { get => group; set => group = value; }
+        public int NextModel { get => nextModel; set => nextModel = value; }
+        public string[] ModelOrder { get => modelOrder; set => modelOrder = value; }
 
         public override string ToString()
         {
