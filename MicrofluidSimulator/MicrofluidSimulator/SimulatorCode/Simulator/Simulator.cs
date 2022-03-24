@@ -71,6 +71,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             if(actionQueue.Count != 0)
             {
                 // store the first action in the queue and dequeue it
+                bool noMoreActions = false;
                 ActionQueueItem action = actionQueue.Dequeue();
 
                 // print the timestamp of the action we're about to execute
@@ -79,11 +80,37 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 //Get the first action execute and get back the list of subscribers to the specific action
                 ArrayList subscribers = executeAction(action, container);
 
+                while (!noMoreActions)
+                {
+                    ActionQueueItem actionPeek = actionQueue.Peek();
+                    if (action.Time == actionPeek.Time)
+                    {
+                        ActionQueueItem nextAction = actionQueue.Dequeue();
+                        Console.WriteLine("they are at the same time");
+                        ArrayList extraSubscribers = executeAction(nextAction, container);
+                        foreach(int subscriber in extraSubscribers)
+                        {
+                            if (!subscribers.Contains(subscriber))
+                            {
+                                subscribers.Add(subscriber);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        noMoreActions = true;
+                    }
+                }
+
+
+
+
                 Queue<int> subscriberQueue = new Queue<int>();
                 foreach(int subscriber in subscribers)
                 {
                     subscriberQueue.Enqueue(subscriber);
                 }
+
                 Console.WriteLine("subscriber queue " + subscriberQueue.Count());
                 while (subscriberQueue.Count() > 0)
                 {
@@ -259,8 +286,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             ActionQueueItem item1 = new ActionQueueItem(action1, 1);
             actionQueueInstructions.Enqueue(item1);
 
-            SimulatorAction action2 = new SimulatorAction("electrode", 3, 1);
-            ActionQueueItem item2 = new ActionQueueItem(action2, 2);
+            SimulatorAction action2 = new SimulatorAction("electrode", 101, 1);
+            ActionQueueItem item2 = new ActionQueueItem(action2, 1);
             actionQueueInstructions.Enqueue(item2);
 
             SimulatorAction action3 = new SimulatorAction("electrode", 34, 1);
