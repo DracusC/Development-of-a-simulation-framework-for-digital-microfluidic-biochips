@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicrofluidSimulator", "MicrofluidSimulator\MicrofluidSimulator.csproj", "{9D517FF9-1195-43FF-AE24-6DED184126E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{8B056713-5EBE-4493-AE94-4323D4C5160D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9D517FF9-1195-43FF-AE24-6DED184126E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D517FF9-1195-43FF-AE24-6DED184126E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D517FF9-1195-43FF-AE24-6DED184126E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B056713-5EBE-4493-AE94-4323D4C5160D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B056713-5EBE-4493-AE94-4323D4C5160D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B056713-5EBE-4493-AE94-4323D4C5160D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B056713-5EBE-4493-AE94-4323D4C5160D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
