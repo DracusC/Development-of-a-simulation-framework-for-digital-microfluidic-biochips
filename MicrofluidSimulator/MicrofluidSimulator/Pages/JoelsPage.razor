@@ -117,8 +117,8 @@
         if(firstRender) {
             Console.WriteLine("TEST");
             setP5();
-            container = await Http.GetFromJsonAsync<JsonContainer>("sample-data/platform640v1.json");
-            electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v1neighbours.json");
+            container = await Http.GetFromJsonAsync<JsonContainer>("sample-data/platform640v2.json");
+            electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v2neighbours.json");
             simulator = new Simulator(null, container, electrodesWithNeighbours);
 
             guibroker.set_jsruntime(JsRuntime);

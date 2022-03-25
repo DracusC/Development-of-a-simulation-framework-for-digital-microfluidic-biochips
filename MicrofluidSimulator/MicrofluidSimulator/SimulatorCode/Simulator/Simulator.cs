@@ -82,18 +82,25 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                 while (!noMoreActions)
                 {
-                    ActionQueueItem actionPeek = actionQueue.Peek();
-                    if (action.Time == actionPeek.Time)
+                    if(actionQueue.Count > 1)
                     {
-                        ActionQueueItem nextAction = actionQueue.Dequeue();
-                        Console.WriteLine("they are at the same time");
-                        ArrayList extraSubscribers = executeAction(nextAction, container);
-                        foreach(int subscriber in extraSubscribers)
+                        ActionQueueItem actionPeek = actionQueue.Peek();
+                        if (action.Time == actionPeek.Time)
                         {
-                            if (!subscribers.Contains(subscriber))
+                            ActionQueueItem nextAction = actionQueue.Dequeue();
+                            Console.WriteLine("they are at the same time");
+                            ArrayList extraSubscribers = executeAction(nextAction, container);
+                            foreach (int subscriber in extraSubscribers)
                             {
-                                subscribers.Add(subscriber);
+                                if (!subscribers.Contains(subscriber))
+                                {
+                                    subscribers.Add(subscriber);
+                                }
                             }
+                        }
+                        else
+                        {
+                            noMoreActions = true;
                         }
                     }
                     else
