@@ -25,15 +25,15 @@ window.update_board = (container_string) => {
 
     amount = 0;
 }
+
 window.change_play_status = (status) => {
     gui_broker.play_status = !gui_broker.play_status;
 };
+
 window.initialize_board = (information) => {
     var JSONinformation = JSON.parse(information);
     console.log(JSONinformation);
     gui_broker.init_board(JSONinformation.sizeX, JSONinformation.sizeY + 1);
-
-    
 
     gui_controller.showGUI();
     gui_controller.changeBoardName(JSONinformation.platform_name);
@@ -43,6 +43,9 @@ window.initialize_board = (information) => {
     layer_manager.initialize_layers();
 }
 
+window.get_selected_element = () => {
+    return JSON.stringify(information_panel_manager.selected_element);
+}
 
 let gui_controller = {
     simulatorGUI: document.querySelector("#simulatorGUI"),
@@ -65,10 +68,16 @@ let information_panel_manager = {
         
         for (let key in element) {
             let innerDiv = document.createElement("div");
-            let innerSpan = document.createElement("span");
+            let innerInput = document.createElement("input");
+
             innerDiv.innerHTML = key + ": ";
-            innerSpan.innerHTML = element[key];
-            innerDiv.append(innerSpan);
+            innerDiv.classList.add("information_item");
+            innerInput.value = element[key];
+            innerInput.readOnly = false;
+            innerInput.classList.add("input_readonly");
+            
+            //innerInput.innerHTML = element[key];
+            innerDiv.append(innerInput);
             div.append(innerDiv);
         }
 
@@ -202,6 +211,8 @@ let gui_broker = {
         }
     }
 };
+/* Attach the GUI broker to the window, so it can be "seen" by C# scripts */
+window.gui_broker = gui_broker;
 
 /*
  * Droplet_info is used by the animation function, 
@@ -211,9 +222,6 @@ let droplet_info = {
     old: [],
     new: []
 };
-
-/* Attach the GUI broker to the window, so it can be "seen" by C# scripts */
-window.gui_broker = gui_broker;
 
 /*
  * P5JS Sketch
@@ -245,7 +253,7 @@ let sketch = function (p) {
 
         let button = p.select("#nextStep");
         button.mousePressed(() => {
-            console.log("HI FROM SKETCH");
+            //console.log("HI FROM SKETCH");
             // Below is a test for resize
             //let container = document.getElementById("container");
             //console.log(window.innerWidth);

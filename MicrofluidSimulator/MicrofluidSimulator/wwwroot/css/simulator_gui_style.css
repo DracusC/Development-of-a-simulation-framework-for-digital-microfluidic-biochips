@@ -64,6 +64,9 @@
 #informationPanel {
     flex-grow: 1;
 }
+#infomrationTitle {
+    display: inline-block;
+}
 
 #information {
     background-color: lightgrey;
@@ -73,6 +76,21 @@
     overflow-y: scroll;
 }
 
+#informationPanel img {
+    height: 15px;
+}
+
+#information .information_item .input_readonly {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+#information .information_item .input_readwrite {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
 #selectionPanel {
     background-color: lightgrey;
     width: 200px;
@@ -80,4 +98,40 @@
     border-style: solid;
     border-left-style: none;
     border-width: 2px;
+}
+
+
+/* Tooltip styling from W3Schools https://www.w3schools.com/css/tryit.asp?filename=trycss_tooltip_arrow_left */
+.customtooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.customtooltip .customtooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 150%;
+}
+
+.customtooltip .customtooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+}
+
+.customtooltip:hover .customtooltiptext {
+    visibility: visible;
 }

@@ -11,6 +11,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         Container container;
         ArrayList droplets;
         Queue<ActionQueueItem> actionQueue;
+        //Queue<ActionQueueItem> oldActionQueue;
         public Simulator(Queue<ActionQueueItem> actionQueue, JsonContainer jsonContainer, ElectrodesWithNeighbours[] electrodesWithNeighbours)
         {
             this.actionQueue = generateTestQueue();
@@ -189,7 +190,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         private Queue<ActionQueueItem> generateTestQueue()
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
-            SimulatorAction action1 = new SimulatorAction("electrode", 1, 1);
+            SimulatorAction action1 = new SimulatorAction("electrode", 100, 1);
             ActionQueueItem item1 = new ActionQueueItem(action1, 1);
             actionQueueInstructions.Enqueue(item1);
 
@@ -209,19 +210,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             ActionQueueItem item5 = new ActionQueueItem(action5, 5);
             actionQueueInstructions.Enqueue(item5);
 
-            SimulatorAction action6 = new SimulatorAction("electrode", 36, 1);
+            SimulatorAction action6 = new SimulatorAction("electrode", 134, 1);
             ActionQueueItem item6 = new ActionQueueItem(action6, 6);
             actionQueueInstructions.Enqueue(item6);
 
-            SimulatorAction action7 = new SimulatorAction("electrode", 37, 1);
+            SimulatorAction action7 = new SimulatorAction("electrode", 133, 0);
             ActionQueueItem item7 = new ActionQueueItem(action7, 7);
             actionQueueInstructions.Enqueue(item7);
 
-            SimulatorAction action8 = new SimulatorAction("electrode", 3, 0);
+            SimulatorAction action8 = new SimulatorAction("electrode", 134, 0);
             ActionQueueItem item8 = new ActionQueueItem(action8, 8);
             actionQueueInstructions.Enqueue(item8);
 
-            SimulatorAction action9 = new SimulatorAction("electrode", 131, 1);
+            SimulatorAction action9 = new SimulatorAction("electrode", 641, 0);
             ActionQueueItem item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
@@ -229,7 +230,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             ActionQueueItem item10 = new ActionQueueItem(action10, 10);
             actionQueueInstructions.Enqueue(item10);
 
-            action9 = new SimulatorAction("electrode", 132, 1);
+            action9 = new SimulatorAction("electrode", 132, 0);
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
@@ -237,23 +238,11 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
-            action9 = new SimulatorAction("electrode", 100, 1);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 99, 1);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
             action9 = new SimulatorAction("electrode", 100, 0);
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
-            action9 = new SimulatorAction("electrode", 131, 1);
+            action9 = new SimulatorAction("electrode", 132, 0);
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
@@ -261,31 +250,11 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
-            action9 = new SimulatorAction("electrode", 132, 1);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 100, 1);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 99, 1);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
             action9 = new SimulatorAction("electrode", 100, 0);
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
-            action9 = new SimulatorAction("electrode", 131, 1);
+            action9 = new SimulatorAction("electrode", 131, 0);
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
@@ -293,7 +262,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
-            action9 = new SimulatorAction("electrode", 132, 1);
+            action9 = new SimulatorAction("electrode", 132, 0);
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
@@ -301,7 +270,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
-            action9 = new SimulatorAction("electrode", 100, 1);
+            action9 = new SimulatorAction("electrode", 100, 0);
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
@@ -309,7 +278,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
-            action9 = new SimulatorAction("electrode", 99, 1);
+            action9 = new SimulatorAction("electrode", 99, 0);
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
@@ -317,7 +286,39 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
-            action9 = new SimulatorAction("electrode", 131, 1);
+            action9 = new SimulatorAction("electrode", 131, 0);
+            item9 = new ActionQueueItem(action9, 9);
+            actionQueueInstructions.Enqueue(item9);
+
+            action9 = new SimulatorAction("electrode", 99, 0);
+            item9 = new ActionQueueItem(action9, 9);
+            actionQueueInstructions.Enqueue(item9);
+
+            action9 = new SimulatorAction("electrode", 132, 0);
+            item9 = new ActionQueueItem(action9, 9);
+            actionQueueInstructions.Enqueue(item9);
+
+            action9 = new SimulatorAction("electrode", 131, 0);
+            item9 = new ActionQueueItem(action9, 9);
+            actionQueueInstructions.Enqueue(item9);
+
+            action9 = new SimulatorAction("electrode", 100, 0);
+            item9 = new ActionQueueItem(action9, 9);
+            actionQueueInstructions.Enqueue(item9);
+
+            action9 = new SimulatorAction("electrode", 132, 0);
+            item9 = new ActionQueueItem(action9, 9);
+            actionQueueInstructions.Enqueue(item9);
+
+            action9 = new SimulatorAction("electrode", 99, 0);
+            item9 = new ActionQueueItem(action9, 9);
+            actionQueueInstructions.Enqueue(item9);
+
+            action9 = new SimulatorAction("electrode", 100, 0);
+            item9 = new ActionQueueItem(action9, 9);
+            actionQueueInstructions.Enqueue(item9);
+
+            action9 = new SimulatorAction("electrode", 131, 0);
             item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 

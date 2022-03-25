@@ -1,5 +1,6 @@
 ﻿@page "/"
 @page "/JoelsPage"
+@using MicrofluidSimulator.Components
 @using Microsoft.JSInterop
 @using SimulatorCode
 @using System.Text.Json.Serialization
@@ -9,7 +10,11 @@
 @using MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes
 @using MicrofluidSimulator.SimulatorCode.View
 @using System.Diagnostics
+@using System.Text.Json
 
+@if(ModalOpen){
+    <ModalDialog  @ref=editorModal Title="Information editor" Text = "INSERT" OnClose="@CloseModal" OnSubmit="@SubmitModal"/>
+}
 
 <h3>Welcome to the simulator</h3>
 
@@ -32,9 +37,15 @@
 
         <div id="informationPanelContainer">
             <div id="informationPanel">
-                <span>Information Panel</span>
+                <div id="informationTitle">
+                    <span>Information Panel</span>
+                    <div class="customtooltip">
+                        <img src="assets/edit_icon.png" />
+                        <span class="customtooltiptext">Edit information</span>
+                    </div>
+                </div>
                 <div id="information">
-
+                    
                 </div>
             </div>
 
@@ -56,14 +67,7 @@
 
 <RadzenSlider TValue="int" Min="-100" Max="100"></RadzenSlider>
 
-
-
-
-
-
-
-
-
+<button class="btn btn-primary" @onclick="OpenModal">MODAL</button>
 
 @functions{
     async void setP5() {
@@ -72,7 +76,6 @@
 }
 
 @code {
-
 
     // ACTUAL CODE BELOW
     GUIBroker guibroker = new GUIBroker();
@@ -126,4 +129,37 @@
             guibroker.initialize_board(container.information);
         }
     }
+
+
+
+    // MODAL CODE
+    ModalDialog editorModal;
+    public bool ModalOpen { get; set; }
+    private async Task CloseModal(bool accepted)
+    {
+        ModalOpen = false;
+        StateHasChanged();
+    }
+    private async void OpenModal()
+    {
+        ModalOpen = true;
+        StateHasChanged();
+    }
+    private async Task SubmitModal(bool accepted)
+    {
+        KeyValuePair<string, Dictionary<string, string>> result = editorModal.getElementOnSumbit();
+
+        string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(result.Value);
+        Console.WriteLine(jsonString);
+        Electrodes el = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrodes>(jsonString);
+
+        foreach (var property in el.GetType().GetProperties())
+            {
+                Console.WriteLine(property.Name + ": " + property.GetValue(el, null));
+            }
+
+        ModalOpen = false;
+        StateHasChanged();
+    }
+
 }

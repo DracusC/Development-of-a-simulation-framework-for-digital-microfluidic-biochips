@@ -51,5 +51,11 @@ namespace MicrofluidSimulator.SimulatorCode.View
         public async void change_play_status() {
             var data = await _jSRuntime.InvokeAsync<object>("change_play_status");
         }
+
+        public async Task<string> get_selected_element()
+        {
+            var result = await _jSRuntime.InvokeAsync<string>("get_selected_element");
+            return result;
+        }
     }
 }
