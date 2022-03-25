@@ -3,174 +3,6 @@
  */
 
 
-// Global function to setup the p5js instance
-window.setp5 = () => {
-    new p5(sketch, window.document.getElementById('container'));
-    return true;
-};
-
-
-// TODO: Look into reflections
-// Global methods that can be called by C# scripts
-window.update_board = (container_string) => {
-    var board = JSON.parse(container_string);
-    gui_broker.droplets = board.Droplets;
-    gui_broker.electrodes = board.Electrodes;
-
-    droplet_info.old = droplet_info.new;
-    droplet_info.new = gui_broker.droplets;
-
-    //information_panel_manager.draw_information(board.Electrodes[130]);
-    gui_broker.get_droplet_groups();
-
-    amount = 0;
-}
-
-window.change_play_status = (status) => {
-    gui_broker.play_status = !gui_broker.play_status;
-};
-
-window.initialize_board = (information) => {
-    var JSONinformation = JSON.parse(information);
-    console.log(JSONinformation);
-    gui_broker.init_board(JSONinformation.sizeX, JSONinformation.sizeY + 1);
-
-    gui_controller.showGUI();
-    gui_controller.changeBoardName(JSONinformation.platform_name);
-
-    //document.querySelector("#defaultCanvas0").style.width = "1000px";
-
-    layer_manager.initialize_layers();
-}
-
-window.get_selected_element = () => {
-    return JSON.stringify(information_panel_manager.selected_element);
-}
-
-let gui_controller = {
-    simulatorGUI: document.querySelector("#simulatorGUI"),
-    getLayerPanel: () => { return this.simulatorGUI.querySelector("#layerPanel") },
-    getInputNodes: () => { return this.simulatorGUI.querySelector("#layerPanel").getElementsByTagName('INPUT'); },
-    getInformaitonPanel: () => { return this.simulatorGUI.querySelector("#information"); },
-    changeBoardName: (name) => { this.simulatorGUI.querySelector("#simulatorView span").innerHTML = name; },
-    showGUI: () => { simulatorGUI.style.visibility = "visible"; }
-}
-
-
-
-let information_panel_manager = {
-    //information_panel: gui_controller.getInformaitonPanel(),
-    selected_element: null,
-    draw_information: (element) => {
-        gui_controller.getInformaitonPanel().innerHTML = "";
-
-        let div = document.createElement("div");
-        
-        for (let key in element) {
-            let innerDiv = document.createElement("div");
-            let innerInput = document.createElement("input");
-
-            innerDiv.innerHTML = key + ": ";
-            innerDiv.classList.add("information_item");
-            innerInput.value = element[key];
-            innerInput.readOnly = false;
-            innerInput.classList.add("input_readonly");
-            
-            //innerInput.innerHTML = element[key];
-            innerDiv.append(innerInput);
-            div.append(innerDiv);
-        }
-
-        
-        //div.innerHTML = JSON.stringify(element);
-        //console.log(JSON.stringify(element));
-        gui_controller.getInformaitonPanel().append(div);
-    }
-}
-
-
-let layer_manager = {
-
-
-    layers: {
-        draw_droplets: {
-            name: "droplet_draw_call",
-            value: "droplet_draw_call",
-            id: "draw_droplet",
-            text: "Draw Droplets", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
-            checkbox: "insert",
-            checked: false
-            //layer: "insert"         // Reference - pass to functions
-        },
-        draw_droplet_groups: {
-            name: "droplet_group_draw_call",
-            value: "droplet_group_draw_call",
-            id: "draw_droplet_group",
-            text: "Draw Droplet Groups", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
-            checkbox: "insert",
-            checked: true
-            //layer: "insert"         // Reference - pass to functions
-        },
-        draw_active_electrodes: {
-            name: "draw_active_electrodes",
-            value: "draw_active_electrodes",
-            id: "draw_active_electrodes",
-            text: "Draw Active Electrodes", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
-            checkbox: "insert",
-            checked: true
-            //layer: "insert"         // Reference - pass to functions
-        },
-        debug_electrode_text: {
-            name: "debug_electrode_text",
-            value: "debug_electrode_text",
-            id: "db_e_text",
-            text: "Electrode IDs", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
-            checkbox: "insert",
-            checked: false,
-            layer: "insert"         // Reference - pass to functions
-        },
-        draw_selected_element: {
-            name: "draw_selected_element",
-            value: "draw_selected_element",
-            id: "drdraw_selected_element",
-            text: "Draw Selected", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
-            checkbox: "insert",
-            checked: true,
-            layer: "insert"         // Reference - pass to functions
-        }
-        
-    },
-
-    initialize_layers: function () {
-
-        for (let layer in this.layers) {
-            var div = document.createElement('div');
-            div.innerHTML = `<input type='checkbox' name='${this.layers[layer].name}' value='${this.layers[layer].value}' id='${this.layers[layer].id}'/>
-                             <label for='${this.layers[layer].name}'>${this.layers[layer].text}</label>`;
-            this.layers[layer].element = div;
-            this.layers[layer].checkbox = div.querySelector('input');
-            this.layers[layer].checkbox.checked = this.layers[layer].checked;
-
-            gui_controller.getLayerPanel().querySelector('form').append(div);
-        }
-    },
-
-    draw_layers: function (sketch) {
-        for (let layer in this.layers) {
-            if (this.layers[layer].hasOwnProperty("layer") && this.layers[layer].checkbox.checked) {
-                // Draw
-                sketch.image(this.layers[layer].layer, 0, 0);
-            }
-        }
-    }
-}
-
-
 /* 
  * Declaration of script "global" variables.
  * These variables are used by both the global functions but also by the p5js script.
@@ -181,47 +13,9 @@ let amount = 0;     // Used to interpolate between droplet positions.
 
 
 // TODO: Refrator into a layer array, that will automatically create them
-let layer_electrode_id;
+//let layer_electrode_id;
 let layer_electrode_shape;
-let debug1 = document.getElementById("debug1"); // CHANGE to debug_checklist
 
-/* 
- * gui_broker object 
- * This object is used to store data from the simulator. 
- * It basically acts as the broker between the GUI and simulation.
- */
-let gui_broker = {
-    play_status: false,
-    droplets: [],
-    electrodes: [],
-    droplet_groups: { },
-    next_simulator_step: () => {
-        DotNet.invokeMethodAsync('MicrofluidSimulator', 'JSSimulatorNextStep');
-    },
-    init_board: () => { },
-    get_droplet_groups: function () {
-        this.droplet_groups = {};
-
-        for (let i = 0; i < this.droplets.length; i++) {
-            if (typeof this.droplet_groups[this.droplets[i].Group] == "undefined") {
-                this.droplet_groups[this.droplets[i].Group] = [(this.droplets[i])];
-            } else {
-                this.droplet_groups[this.droplets[i].Group].push(this.droplets[i]);
-            }
-        }
-    }
-};
-/* Attach the GUI broker to the window, so it can be "seen" by C# scripts */
-window.gui_broker = gui_broker;
-
-/*
- * Droplet_info is used by the animation function, 
- * and stores the data from the old position of all droplets, and the new positions.
- */
-let droplet_info = {
-    old: [],
-    new: []
-};
 
 /*
  * P5JS Sketch
@@ -244,7 +38,7 @@ let sketch = function (p) {
         p.pixelDensity(4);
 
         // Create layers
-        layer_electrode_id = p.createGraphics(1, 1);
+        //layer_electrode_id = p.createGraphics(1, 1);
         layer_electrode_shape = p.createGraphics(1, 1);
         console.log("setup");
 
@@ -359,15 +153,6 @@ let sketch = function (p) {
         }
 
         group_info.Temperature = group_info.Temperature / group.length;
-        /*for (let key in droplet) {
-            let innerDiv = document.createElement("div");
-            let innerSpan = document.createElement("span");
-            innerDiv.innerHTML = key + ": ";
-            innerSpan.innerHTML = element[key];
-            innerDiv.append(innerSpan);
-            div.append(innerDiv);
-        }*/
-
 
         return group_info;
     }
@@ -585,7 +370,7 @@ let sketch = function (p) {
     function init_board(sizeX, sizeY) {
         p.resizeCanvas(sizeX + 1, sizeY);
 
-        layer_electrode_id = p.createGraphics(sizeX + 1, sizeY);
+        //layer_electrode_id = p.createGraphics(sizeX + 1, sizeY);
 
 
         for (let layer in layer_manager.layers) {
@@ -599,8 +384,8 @@ let sketch = function (p) {
         }
 
         layer_electrode_shape = p.createGraphics(sizeX + 1, sizeY);
-        layer_electrode_id.clear();
-        layer_electrode_id.clear();
+        //layer_electrode_id.clear();
+        //layer_electrode_id.clear();
 
         /*for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
@@ -707,21 +492,6 @@ let sketch = function (p) {
             p.fill(droplet.Color);
             p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
             //anim_move(droplet, i);
-        }
-    }
-
-    /* Position (movement) animation */
-    function anim_move(droplet, i) {
-
-        p.fill(droplet.Color);
-
-        if (droplet_info.old.length == 0 || typeof droplet_info.old[i] == "undefined") {
-            p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
-        } else {
-            let d1x = p.lerp(droplet_info.old[i].PositionX, droplet_info.new[i].PositionX, amount);
-            let d1y = p.lerp(droplet_info.old[i].PositionY, droplet_info.new[i].PositionY, amount);
-
-            p.ellipse(d1x, d1y, droplet.SizeX, droplet.SizeY);
         }
     }
 

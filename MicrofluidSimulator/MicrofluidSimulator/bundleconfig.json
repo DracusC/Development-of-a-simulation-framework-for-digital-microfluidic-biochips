@@ -1,0 +1,18 @@
+[
+  {
+    "outputFileName": "wwwroot/js/sketch.bundle.min.js",
+    "inputFiles": [
+      "wwwroot/js/ViewModels/GUIBroker.js",
+      "wwwroot/js/ViewModels/GUIController.js",
+      "wwwroot/js/ViewModels/LayerManager.js",
+      "wwwroot/js/ViewModels/InformationPanelManager.js",
+      "wwwroot/js/Sketch/sketch.js",
+      "wwwroot/js/ViewModels/Global.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+] 

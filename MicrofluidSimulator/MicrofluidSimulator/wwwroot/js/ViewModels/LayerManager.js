@@ -1,5 +1,4 @@
-﻿
-let layer_manager = {
+﻿let layer_manager = {
 
 
     layers: {
@@ -8,6 +7,16 @@ let layer_manager = {
             value: "droplet_draw_call",
             id: "draw_droplet",
             text: "Draw Droplets", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: false
+            //layer: "insert"         // Reference - pass to functions
+        },
+        draw_droplet_groups: {
+            name: "droplet_group_draw_call",
+            value: "droplet_group_draw_call",
+            id: "draw_droplet_group",
+            text: "Draw Droplet Groups", // Will be shown in layer panel list
             element: "insert",      // Reference - get toggled from here
             checkbox: "insert",
             checked: true
@@ -31,6 +40,16 @@ let layer_manager = {
             element: "insert",      // Reference - get toggled from here
             checkbox: "insert",
             checked: false,
+            layer: "insert"         // Reference - pass to functions
+        },
+        draw_selected_element: {
+            name: "draw_selected_element",
+            value: "draw_selected_element",
+            id: "drdraw_selected_element",
+            text: "Draw Selected", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: true,
             layer: "insert"         // Reference - pass to functions
         }
 
@@ -59,7 +78,3 @@ let layer_manager = {
         }
     }
 }
-
-export { layer_manager as layer_manager };
-
-//module.exports.layer_manager = layer_manager;
