@@ -62,12 +62,10 @@
         public int positionY { get; set; }
         public int sizeX { get; set; }
         public int sizeY { get; set; }
-        public int actualTemperature { get; set; }
-        public int desiredTemperature { get; set; }
-        public bool status { get; set; }
-        public int nextDesiredTemperature { get; set; }
-        public bool nextStatus { get; set; }
-        public List<object> corners { get; set; }
+        public int valueActualTemperature { get; set; }
+        public int valueDesiredTemperature { get; set; }
+        public int valuePowerStatus { get; set; }
+        
     }
 
     public class Droplets

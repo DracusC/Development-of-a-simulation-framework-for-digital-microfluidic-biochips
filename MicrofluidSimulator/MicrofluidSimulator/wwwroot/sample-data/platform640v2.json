@@ -9824,7 +9824,7 @@
   ],
   "actuators": [
     {
-      "valueActuaTemperature": 0,
+      "valueActualTemperature": 0,
       "valueDesiredTemperature": 0,
       "valuePowerStatus": 0,
       "name": "heatactuator1",
@@ -9837,7 +9837,7 @@
       "sizeY": 400
     },
     {
-      "valueActuaTemperature": 0,
+      "valueActualTemperature": 0,
       "valueDesiredTemperature": 0,
       "valuePowerStatus": 0,
       "name": "heatactuator2",
@@ -9850,7 +9850,7 @@
       "sizeY": 400
     },
     {
-      "valueActuaTemperature": 0,
+      "valueActualTemperature": 0,
       "valueDesiredTemperature": 0,
       "valuePowerStatus": 0,
       "name": "heatactuator3",
@@ -9863,7 +9863,7 @@
       "sizeY": 400
     },
     {
-      "valueActuaTemperature": 0,
+      "valueActualTemperature": 0,
       "valueDesiredTemperature": 0,
       "valuePowerStatus": 0,
       "name": "heatactuator4",

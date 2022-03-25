@@ -8,7 +8,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         internal static ArrayList heaterTemperatureChange(Container container, Heater heater, SimulatorAction action)
         {
             
-            heater.ActualTemperature = action.ActionChange;
+            heater.ValueActualTemperature = action.ActionChange;
             
             // give back the subscribers of the heater
             return heater.Subscriptions;

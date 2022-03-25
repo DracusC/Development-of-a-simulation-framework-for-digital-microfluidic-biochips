@@ -58,30 +58,30 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 {
                     case "heater":
                         
-                        int[,] cornersGetter = null;
+                        //int[,] cornersGetter = null;
                         
-                        if (actuators[i].corners != null)
-                        {
-                            cornersGetter = new int[actuators[i].corners.Count, 2];
-                            for (int j = 0; j < actuators[i].corners.Count; j++)
-                            {
+                        //if (actuators[i].corners != null)
+                        //{
+                        //    cornersGetter = new int[actuators[i].corners.Count, 2];
+                        //    for (int j = 0; j < actuators[i].corners.Count; j++)
+                        //    {
 
-                                var res = System.Text.Json.JsonSerializer.Deserialize<List<int>>(actuators[i].corners[j].ToString());
-                                for (int k = 0; k < 2; k++)
-                                {
-                                    cornersGetter[j, k] = res[k];
-                                }
-                            }
+                        //        var res = System.Text.Json.JsonSerializer.Deserialize<List<int>>(actuators[i].corners[j].ToString());
+                        //        for (int k = 0; k < 2; k++)
+                        //        {
+                        //            cornersGetter[j, k] = res[k];
+                        //        }
+                        //    }
 
-                        }
+                        //}
                         
                         //actuatorsInitial.Add(new Heater(actuators[i].name, actuators[i].ID, actuators[i].actuatorID, actuators[i].type, actuators[i].positionX,
                         //    actuators[i].positionY, actuators[i].sizeX, actuators[i].sizeY, actuators[i].actualTemperature, actuators[i].desiredTemperature,
                         //    actuators[i].status, actuators[i].nextDesiredTemperature, actuators[i].nextStatus, cornersGetter));
 
                         actuatorsInitial[i]= (new Heater(actuators[i].name, actuators[i].ID, actuators[i].actuatorID, actuators[i].type, actuators[i].positionX,
-                            actuators[i].positionY, actuators[i].sizeX, actuators[i].sizeY, actuators[i].actualTemperature, actuators[i].desiredTemperature,
-                            actuators[i].status, actuators[i].nextDesiredTemperature, actuators[i].nextStatus, cornersGetter));
+                            actuators[i].positionY, actuators[i].sizeX, actuators[i].sizeY, actuators[i].valueActualTemperature, actuators[i].valueDesiredTemperature,
+                            actuators[i].valuePowerStatus));
 
                         break;
                     

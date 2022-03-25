@@ -9824,21 +9824,17 @@
   ],
   "actuators": [
     {
-      "name": "heater1",
-      "ID": 900,
-      "actuatorID": 30,
+      "valueActualTemperature": 0,
+      "valueDesiredTemperature": 0,
+      "valuePowerStatus": 0,
+      "name": "heatactuator1",
+      "ID": 727,
+      "actuatorID": 1,
       "type": "heater",
-      "positionX": 270,
+      "positionX": 110,
       "positionY": 0,
       "sizeX": 80,
-      "sizeY": 400,
-      "actualTemperature": 0,
-      "desiredTemperature": 0,
-      "status": false,
-      "nextDesiredTemperature": 0,
-      "nextStatus": false,
-      "corners": null
-
+      "sizeY": 400
     }
   ],
   "sensors": [],
