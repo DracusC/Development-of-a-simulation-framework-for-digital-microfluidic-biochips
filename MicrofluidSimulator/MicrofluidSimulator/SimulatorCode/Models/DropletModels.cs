@@ -7,8 +7,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class DropletModels
     {
-        public static void dropletSplit(Container container, Droplets caller)
-        {
+        public static ArrayList dropletSplit(Container container, Droplets caller)
+        {   
+            ArrayList subscribers = new ArrayList();   
+            subscribers.Add(caller.ID1);
+
             int minimalSplitVolume = 0;
             ArrayList droplets = container.Droplets;
             Electrodes[] electrodeBoard = container.Electrodes;
@@ -61,13 +64,19 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     
             }
 
-            splitDroplet(container, toSplitToo,caller);
-
+            ArrayList newSubscribers = splitDroplet(container, toSplitToo, caller);
+            foreach(int subscriber in newSubscribers)
+            {
+                subscribers.Add(subscriber);
+            }
+            return subscribers;
 
         }
 
-        public static void splitDroplet(Container container, ArrayList toSplitToo, Droplets origin)
+        public static ArrayList splitDroplet(Container container, ArrayList toSplitToo, Droplets origin)
         {
+            ArrayList subscribers = new ArrayList();
+
             foreach(int i in toSplitToo)
             {
                 ArrayList droplets = container.Droplets;
@@ -89,6 +98,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 //origin.SizeY = diam;
                 Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, 20, 0, tempElectrode.ID1, origin.Group);
                 droplets.Add(newDroplet);
+                subscribers.Add(newDroplet.ID1);
                 int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(id, container);
                 //((Droplets)droplets[index]).ElectrodeID = tempElectrode.ID1;
                 SubscriptionModels.dropletSubscriptions(container, newDroplet);
@@ -96,6 +106,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             updateGroupNumber(container, origin, origin.Group);
             dropletColorChange(container, origin);
             updateGroupVolume( container, origin.Group, 0);
+            return subscribers;
         }
 
         public static void updateGroupVolume(Container container, int groupID, float extraVolume)
@@ -141,8 +152,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return volume;
         }
 
-        public static void dropletMerge(Container container, Droplets caller)
+        public static ArrayList dropletMerge(Container container, Droplets caller)
         {
+            ArrayList subscribers = new ArrayList();
             ArrayList droplets = container.Droplets;
             Electrodes[] electrodeBoard = container.Electrodes;
             int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
@@ -240,12 +252,13 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
 
 
-
-
+                   
 
 
                 }
             }
+            subscribers.Add(caller.ID1);
+            return subscribers;
         }
 
         static int countOnNeigbours(Electrodes[] electrodeBoard, Electrodes electrode)

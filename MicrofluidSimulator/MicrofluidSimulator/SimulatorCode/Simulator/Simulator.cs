@@ -1,6 +1,7 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
 using MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes;
 using System.Collections;
+using System.Reflection;
 
 namespace MicrofluidSimulator.SimulatorCode.Simulator
 {
@@ -71,6 +72,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             if(actionQueue.Count != 0)
             {
                 // store the first action in the queue and dequeue it
+                bool noMoreActions = false;
                 ActionQueueItem action = actionQueue.Dequeue();
 
                 // print the timestamp of the action we're about to execute
@@ -79,70 +81,168 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 //Get the first action execute and get back the list of subscribers to the specific action
                 ArrayList subscribers = executeAction(action, container);
 
-                // create a copy of the subscribers array
-                ArrayList subscribersCopy = new ArrayList();
-                subscribersCopy = (ArrayList)subscribers.Clone();
-                
-                // split all the droplets that needs to be split
-                foreach (int subscriber in subscribersCopy)
+                while (!noMoreActions)
                 {
-                    int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
-                    if(index != -1)
+                    if(actionQueue.Count > 1)
                     {
-                        Droplets droplet = (Droplets)droplets[index];
-
-                        //int actionChange = action.Action.ActionChange;
-                        //if (actionChange != 0)
-                        //{
-                            MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletSplit(container, droplet);
-
-                        //}
-                        //else
-                        //{
-                           // MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
-
-                        //}
-                        Models.SubscriptionModels.dropletSubscriptions(container, droplet);
-                        //Console.WriteLine(droplet.ToString());
-                        ArrayList dropletSubscritions = droplet.Subscriptions;
+                        ActionQueueItem actionPeek = actionQueue.Peek();
+                        if (action.Time == actionPeek.Time)
+                        {
+                            ActionQueueItem nextAction = actionQueue.Dequeue();
+                            Console.WriteLine("they are at the same time");
+                            ArrayList extraSubscribers = executeAction(nextAction, container);
+                            foreach (int subscriber in extraSubscribers)
+                            {
+                                if (!subscribers.Contains(subscriber))
+                                {
+                                    subscribers.Add(subscriber);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            noMoreActions = true;
+                        }
                     }
-
-
-                    
+                    else
+                    {
+                        noMoreActions = true;
+                    }
                 }
 
-                // merge all the droplets that needs to be merged
-                foreach (int subscriber in subscribersCopy)
+
+
+
+                Queue<int> subscriberQueue = new Queue<int>();
+                foreach(int subscriber in subscribers)
                 {
+                    subscriberQueue.Enqueue(subscriber);
+                }
+
+                Console.WriteLine("subscriber queue " + subscriberQueue.Count());
+                while (subscriberQueue.Count() > 0)
+                {
+                    int subscriber = subscriberQueue.Dequeue();
                     int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
                     if (index != -1)
                     {
                         Droplets droplet = (Droplets)droplets[index];
-
-                        //int actionChange = action.Action.ActionChange;
-                        //if (actionChange != 0)
-                        //{
-                        //MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement2(container, droplet);
-
-                        //}
-                        //else
-                        //{
-                        MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
-                        
-                        Electrodes[] electrodes = container.Electrodes;
-
-                        //}
-                        //.SubscriptionModels.dropletSubscriptions(container, droplet);
-                        //Console.WriteLine(droplet.ToString());
-                        //ArrayList dropletSubscritions = droplet.Subscriptions;
+                        handelSubscriber(container, droplet, subscriberQueue);
                     }
-
-
-
                 }
+
+
+
+                // create a copy of the subscribers array
+                //ArrayList subscribersCopy = new ArrayList();
+                //subscribersCopy = (ArrayList)subscribers.Clone();
+                
+                //// split all the droplets that needs to be split
+                //foreach (int subscriber in subscribersCopy)
+                //{
+                //    int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+                //    if(index != -1)
+                //    {
+                //        Droplets droplet = (Droplets)droplets[index];
+
+                //        //int actionChange = action.Action.ActionChange;
+                //        //if (actionChange != 0)
+                //        //{
+                //            MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletSplit(container, droplet);
+
+                //        //}
+                //        //else
+                //        //{
+                //           // MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
+
+                //        //}
+                //        Models.SubscriptionModels.dropletSubscriptions(container, droplet);
+                //        //Console.WriteLine(droplet.ToString());
+                //        ArrayList dropletSubscritions = droplet.Subscriptions;
+                //    }
+
+
+                    
+                //}
+
+                //// merge all the droplets that needs to be merged
+                //foreach (int subscriber in subscribersCopy)
+                //{
+                //    int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+                //    if (index != -1)
+                //    {
+                //        Droplets droplet = (Droplets)droplets[index];
+
+                //        //int actionChange = action.Action.ActionChange;
+                //        //if (actionChange != 0)
+                //        //{
+                //        //MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement2(container, droplet);
+
+                //        //}
+                //        //else
+                //        //{
+
+                //        Type thisType = this.GetType();
+                //        MethodInfo theMethod = thisType.GetMethod("dropletMerge");
+                //        Object[] arguments = new Object[] { container, droplet };
+                //        theMethod.Invoke(this, arguments);
+
+                //        //MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
+                        
+                //        Electrodes[] electrodes = container.Electrodes;
+
+                //        //}
+                //        //.SubscriptionModels.dropletSubscriptions(container, droplet);
+                //        //Console.WriteLine(droplet.ToString());
+                //        //ArrayList dropletSubscritions = droplet.Subscriptions;
+                //    }
+
+
+
+                //}
             }    
             
             
+        }
+
+        private void handelSubscriber(Container container, Droplets caller, Queue<int> subscriber)
+        {
+            if(caller.NextModel < caller.ModelOrder.Count())
+            {
+                String nextModel = caller.ModelOrder[caller.NextModel];
+                caller.NextModel++;
+                ArrayList newSubscribers = executeModel(container,caller,nextModel);
+                if(newSubscribers != null)
+                {
+                    foreach (int i in newSubscribers)
+                    {
+                        subscriber.Enqueue(i);
+                    }
+                }
+                else
+                {
+                    caller.NextModel = 0;
+                }
+                
+            }
+            else
+            {
+                caller.NextModel = 0;
+            }
+            
+        }
+
+        private ArrayList executeModel(Container container, Droplets caller, String model)
+        {
+            switch (model)
+            {
+                case "split":
+                    Console.WriteLine("Came in hgere!");
+                    return MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletSplit(container, caller);
+                case "merge":
+                    return MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, caller); ;
+            }
+            return null;
         }
 
         /* Switch that reads the action and determines what needs to be calles*/
@@ -194,8 +294,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             ActionQueueItem item1 = new ActionQueueItem(action1, 1);
             actionQueueInstructions.Enqueue(item1);
 
-            SimulatorAction action2 = new SimulatorAction("electrode", 3, 1);
-            ActionQueueItem item2 = new ActionQueueItem(action2, 2);
+            SimulatorAction action2 = new SimulatorAction("electrode", 101, 1);
+            ActionQueueItem item2 = new ActionQueueItem(action2, 1);
             actionQueueInstructions.Enqueue(item2);
 
             SimulatorAction action3 = new SimulatorAction("electrode", 34, 1);
@@ -210,23 +310,23 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             ActionQueueItem item5 = new ActionQueueItem(action5, 5);
             actionQueueInstructions.Enqueue(item5);
 
-            SimulatorAction action6 = new SimulatorAction("electrode", 134, 1);
+            SimulatorAction action6 = new SimulatorAction("electrode", 100, 1);
             ActionQueueItem item6 = new ActionQueueItem(action6, 6);
             actionQueueInstructions.Enqueue(item6);
 
-            SimulatorAction action7 = new SimulatorAction("electrode", 133, 0);
+            SimulatorAction action7 = new SimulatorAction("electrode", 102, 1);
             ActionQueueItem item7 = new ActionQueueItem(action7, 7);
             actionQueueInstructions.Enqueue(item7);
 
-            SimulatorAction action8 = new SimulatorAction("electrode", 134, 0);
+            SimulatorAction action8 = new SimulatorAction("electrode", 103, 1);
             ActionQueueItem item8 = new ActionQueueItem(action8, 8);
             actionQueueInstructions.Enqueue(item8);
 
-            SimulatorAction action9 = new SimulatorAction("electrode", 641, 0);
+            SimulatorAction action9 = new SimulatorAction("electrode", 104, 1);
             ActionQueueItem item9 = new ActionQueueItem(action9, 9);
             actionQueueInstructions.Enqueue(item9);
 
-            SimulatorAction action10 = new SimulatorAction("electrode", 99, 0);
+            SimulatorAction action10 = new SimulatorAction("electrode", 101, 1);
             ActionQueueItem item10 = new ActionQueueItem(action10, 10);
             actionQueueInstructions.Enqueue(item10);
 

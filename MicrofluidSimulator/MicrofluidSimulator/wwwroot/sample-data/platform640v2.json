@@ -9835,9 +9835,73 @@
       "positionY": 0,
       "sizeX": 80,
       "sizeY": 400
+    },
+    {
+      "valueActualTemperature": 0,
+      "valueDesiredTemperature": 0,
+      "valuePowerStatus": 0,
+      "name": "heatactuator2",
+      "ID": 728,
+      "actuatorID": 2,
+      "type": "heater",
+      "positionX": 270,
+      "positionY": 0,
+      "sizeX": 80,
+      "sizeY": 400
+    },
+    {
+      "valueActualTemperature": 0,
+      "valueDesiredTemperature": 0,
+      "valuePowerStatus": 0,
+      "name": "heatactuator3",
+      "ID": 729,
+      "actuatorID": 3,
+      "type": "heater",
+      "positionX": 430,
+      "positionY": 0,
+      "sizeX": 80,
+      "sizeY": 400
+    },
+    {
+      "valueActualTemperature": 0,
+      "valueDesiredTemperature": 0,
+      "valuePowerStatus": 0,
+      "name": "heatactuator4",
+      "ID": 730,
+      "actuatorID": 4,
+      "type": "heater",
+      "positionX": 590,
+      "positionY": 0,
+      "sizeX": 80,
+      "sizeY": 400
     }
   ],
-  "sensors": [],
+  "sensors": [
+    {
+      "valueRed": 0,
+      "valueGreen": 0,
+      "valueBlue": 0,
+      "name": "RGBsensor1",
+      "ID": 725,
+      "sensorID": 1,
+      "type": "RGB_color",
+      "positionX": 280,
+      "positionY": 170,
+      "sizeX": 40,
+      "sizeY": 40
+    },
+    {
+      "valueTemperature": 20,
+      "name": "tempsensor1",
+      "ID": 726,
+      "sensorID": 2,
+      "type": "temperature",
+      "positionX": 420,
+      "positionY": 170,
+      "sizeX": 40,
+      "sizeY": 40
+    }
+  ],
   "inputs": [],
   "outputs": [],
   "droplets": [
