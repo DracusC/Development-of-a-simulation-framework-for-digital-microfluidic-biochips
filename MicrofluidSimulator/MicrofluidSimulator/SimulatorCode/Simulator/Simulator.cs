@@ -115,7 +115,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         executeAStep = false;
                         while (!noMoreActions)
                         {
-                            if (actionQueue.Count > 1)
+                            if (actionQueue.Count > 0)
                             {
                                 ActionQueueItem actionPeek = actionQueue.Peek();
                                 if (action.Time == actionPeek.Time)
