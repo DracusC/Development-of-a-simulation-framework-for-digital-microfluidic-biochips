@@ -66,58 +66,112 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         //}
 
         // called from joelspage
-        public void simulatorStep()
+        public void simulatorStep(float timeStepLength)
         {
             // only execute if action exists in queue
-            if(actionQueue.Count != 0)
+            float targetTime = container.CurrentTime + timeStepLength;
+            bool executeAStep = false;
+
+
+            if (timeStepLength == -1)
             {
-                // store the first action in the queue and dequeue it
-                bool noMoreActions = false;
-                ActionQueueItem action = actionQueue.Dequeue();
-
-                // print the timestamp of the action we're about to execute
-                Console.WriteLine("action number " + action.Time);
-
-                //Get the first action execute and get back the list of subscribers to the specific action
-                ArrayList subscribers = executeAction(action, container);
-
-                while (!noMoreActions)
+                if (actionQueue.Count > 1)
                 {
-                    if(actionQueue.Count > 1)
+                    ActionQueueItem actionPeek = actionQueue.Peek();
+                    targetTime = actionPeek.Time;
+                    executeAStep = true;
+                }
+                else
+                {
+                    targetTime = container.CurrentTime;
+                    executeAStep = false;
+                }
+            }
+
+
+
+            while (targetTime > container.CurrentTime || executeAStep)
+            {
+                ArrayList subscribers = new ArrayList();
+
+                if (actionQueue.Count > 1)
+                {
+                    ActionQueueItem actionPeekForTime = actionQueue.Peek();
+                    if (actionPeekForTime.Time == container.CurrentTime)
                     {
-                        ActionQueueItem actionPeek = actionQueue.Peek();
-                        if (action.Time == actionPeek.Time)
+                        // store the first action in the queue and dequeue it
+                        bool noMoreActions = false;
+                        ActionQueueItem action = actionQueue.Dequeue();
+
+                        // print the timestamp of the action we're about to execute
+                        Console.WriteLine("action number " + action.Time);
+
+                        //Get the first action execute and get back the list of subscribers to the specific action
+                        subscribers = executeAction(action, container);
+                        executeAStep = false;
+                        while (!noMoreActions)
                         {
-                            ActionQueueItem nextAction = actionQueue.Dequeue();
-                            Console.WriteLine("they are at the same time");
-                            ArrayList extraSubscribers = executeAction(nextAction, container);
-                            foreach (int subscriber in extraSubscribers)
+                            if (actionQueue.Count > 1)
                             {
-                                if (!subscribers.Contains(subscriber))
+                                ActionQueueItem actionPeek = actionQueue.Peek();
+                                if (action.Time == actionPeek.Time)
                                 {
-                                    subscribers.Add(subscriber);
+                                    ActionQueueItem nextAction = actionQueue.Dequeue();
+                                    Console.WriteLine("they are at the same time");
+                                    ArrayList extraSubscribers = executeAction(nextAction, container);
+                                    foreach (int subscriber in extraSubscribers)
+                                    {
+                                        if (!subscribers.Contains(subscriber))
+                                        {
+                                            subscribers.Add(subscriber);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    noMoreActions = true;
                                 }
                             }
+                            else
+                            {
+                                noMoreActions = true;
+                            }
                         }
-                        else
-                        {
-                            noMoreActions = true;
-                        }
+                        
                     }
                     else
                     {
-                        noMoreActions = true;
+                        //get subscribers to delta time
+                        subscribers = new ArrayList();
+                        if(actionPeekForTime.Time > targetTime)
+                        {
+                            executeAStep = false;
+                        }else 
+                        {
+                            container.TimeStep = actionPeekForTime.Time - container.CurrentTime;
+                            executeAStep = true;
+                        }
                     }
+                }
+                else
+                {
+                    //get subscribers to delta time
+                    subscribers = new ArrayList();
+                    executeAStep = false;
                 }
 
 
+
+ 
+                
 
 
                 Queue<int> subscriberQueue = new Queue<int>();
-                foreach(int subscriber in subscribers)
+                foreach (int subscriber in subscribers)
                 {
                     subscriberQueue.Enqueue(subscriber);
                 }
+
 
                 Console.WriteLine("subscriber queue " + subscriberQueue.Count());
                 while (subscriberQueue.Count() > 0)
@@ -131,79 +185,17 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     }
                 }
 
+                container.CurrentTime = container.CurrentTime + container.TimeStep;
+
+            }
 
 
-                // create a copy of the subscribers array
-                //ArrayList subscribersCopy = new ArrayList();
-                //subscribersCopy = (ArrayList)subscribers.Clone();
-                
-                //// split all the droplets that needs to be split
-                //foreach (int subscriber in subscribersCopy)
-                //{
-                //    int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
-                //    if(index != -1)
-                //    {
-                //        Droplets droplet = (Droplets)droplets[index];
-
-                //        //int actionChange = action.Action.ActionChange;
-                //        //if (actionChange != 0)
-                //        //{
-                //            MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletSplit(container, droplet);
-
-                //        //}
-                //        //else
-                //        //{
-                //           // MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
-
-                //        //}
-                //        Models.SubscriptionModels.dropletSubscriptions(container, droplet);
-                //        //Console.WriteLine(droplet.ToString());
-                //        ArrayList dropletSubscritions = droplet.Subscriptions;
-                //    }
-
-
-                    
-                //}
-
-                //// merge all the droplets that needs to be merged
-                //foreach (int subscriber in subscribersCopy)
-                //{
-                //    int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
-                //    if (index != -1)
-                //    {
-                //        Droplets droplet = (Droplets)droplets[index];
-
-                //        //int actionChange = action.Action.ActionChange;
-                //        //if (actionChange != 0)
-                //        //{
-                //        //MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement2(container, droplet);
-
-                //        //}
-                //        //else
-                //        //{
-
-                //        Type thisType = this.GetType();
-                //        MethodInfo theMethod = thisType.GetMethod("dropletMerge");
-                //        Object[] arguments = new Object[] { container, droplet };
-                //        theMethod.Invoke(this, arguments);
-
-                //        //MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
-                        
-                //        Electrodes[] electrodes = container.Electrodes;
-
-                //        //}
-                //        //.SubscriptionModels.dropletSubscriptions(container, droplet);
-                //        //Console.WriteLine(droplet.ToString());
-                //        //ArrayList dropletSubscritions = droplet.Subscriptions;
-                //    }
-
-
-
-                //}
-            }    
+            
+            
             
             
         }
+
 
         private void handelSubscriber(Container container, Droplets caller, Queue<int> subscriber)
         {

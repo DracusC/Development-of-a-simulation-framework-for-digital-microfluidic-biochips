@@ -85,7 +85,7 @@
 
     private void NextStep() {
         if(test) { stopwatch.Start(); test = false; } else {stopwatch.Stop(); Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds); stopwatch.Reset(); test = true; }
-        simulator.simulatorStep();
+        simulator.simulatorStep(-1);
         guibroker.update_board(simulator.Container);
     }
 
