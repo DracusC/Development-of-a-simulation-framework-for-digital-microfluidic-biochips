@@ -32,9 +32,10 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
             ArrayList droplets = initializeDroplets(jsonContainer.droplets);
             Console.WriteLine("actuatorname: " + jsonContainer.actuators[0].name);
-            MicrofluidSimulator.SimulatorCode.DataTypes.Actuators[] actuatorsInitial = initializeActuators(jsonContainer.actuators);
-
-            Container container = new Container(electrodeBoard, droplets, actuatorsInitial);
+            DataTypes.Actuators[] actuatorsInitial = initializeActuators(jsonContainer.actuators);
+            DataTypes.Sensors[] sensorsInitial = initializeSensors(jsonContainer.sensors, electrodeBoard);
+            Information information = initializeInformation(jsonContainer.information);
+            Container container = new Container(electrodeBoard, droplets, actuatorsInitial, sensorsInitial, information, 0);
             if(electrodesWithNeighbours == null)
             {
                 NeighbourFinder neighbourFinder = new NeighbourFinder();
@@ -47,37 +48,53 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return container;
         }
 
-        private MicrofluidSimulator.SimulatorCode.DataTypes.Actuators[] initializeActuators(List<MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Actuators> actuators)
+        private Information initializeInformation(DataTypes.JsonDataTypes.Information jsonInformation)
+        {
+            Information information = new Information(jsonInformation.platform_name, jsonInformation.platform_type, jsonInformation.platform_ID, jsonInformation.sizeX, jsonInformation.sizeY);
+            return information;
+        }
+
+        private DataTypes.Sensors[] initializeSensors(List<DataTypes.JsonDataTypes.Sensors> sensors, Electrodes[] electrodeBoard)
+        {
+            DataTypes.Sensors[] sensorsInitial = new DataTypes.Sensors[sensors.Count];
+
+            for (int i = 0; i < sensors.Count; i++)
+            {
+                switch (sensors[i].type)
+                {
+                    case "RGB_color":
+
+
+
+                        sensorsInitial[i] = new ColorSensor(sensors[i].name, sensors[i].ID, sensors[i].sensorID, sensors[i].type, sensors[i].positionX, sensors[i].positionY,
+                            sensors[i].sizeX, sensors[i].sizeY, sensors[i].valueRed, sensors[i].valueGreen, sensors[i].valueBlue, HelpfullRetreiveFunctions.getIDofElectrodeByPosition(sensors[i].positionX, sensors[i].positionY, electrodeBoard));
+
+                        break;
+                    case "temperature":
+
+                        sensorsInitial[i] = new TemperatureSensor(sensors[i].name, sensors[i].ID, sensors[i].sensorID, sensors[i].type, sensors[i].positionX, sensors[i].positionY,
+                            sensors[i].sizeX, sensors[i].sizeY, sensors[i].valueTemperature, HelpfullRetreiveFunctions.getIDofElectrodeByPosition(sensors[i].positionX, sensors[i].positionY, electrodeBoard));
+
+                        break;
+
+                }
+
+            }
+            return sensorsInitial;
+        }
+
+        private DataTypes.Actuators[] initializeActuators(List<DataTypes.JsonDataTypes.Actuators> actuators)
         {
             //List<MicrofluidSimulator.SimulatorCode.DataTypes.Actuators> actuatorsInitial = new List<MicrofluidSimulator.SimulatorCode.DataTypes.Actuators>();
-            MicrofluidSimulator.SimulatorCode.DataTypes.Actuators[] actuatorsInitial = new MicrofluidSimulator.SimulatorCode.DataTypes.Actuators[actuators.Count];
-            int heaterCount = 0;
+            DataTypes.Actuators[] actuatorsInitial = new DataTypes.Actuators[actuators.Count];
+            
             for(int i = 0; i < actuators.Count; i++)
             {
                 switch (actuators[i].type)
                 {
                     case "heater":
                         
-                        //int[,] cornersGetter = null;
                         
-                        //if (actuators[i].corners != null)
-                        //{
-                        //    cornersGetter = new int[actuators[i].corners.Count, 2];
-                        //    for (int j = 0; j < actuators[i].corners.Count; j++)
-                        //    {
-
-                        //        var res = System.Text.Json.JsonSerializer.Deserialize<List<int>>(actuators[i].corners[j].ToString());
-                        //        for (int k = 0; k < 2; k++)
-                        //        {
-                        //            cornersGetter[j, k] = res[k];
-                        //        }
-                        //    }
-
-                        //}
-                        
-                        //actuatorsInitial.Add(new Heater(actuators[i].name, actuators[i].ID, actuators[i].actuatorID, actuators[i].type, actuators[i].positionX,
-                        //    actuators[i].positionY, actuators[i].sizeX, actuators[i].sizeY, actuators[i].actualTemperature, actuators[i].desiredTemperature,
-                        //    actuators[i].status, actuators[i].nextDesiredTemperature, actuators[i].nextStatus, cornersGetter));
 
                         actuatorsInitial[i]= (new Heater(actuators[i].name, actuators[i].ID, actuators[i].actuatorID, actuators[i].type, actuators[i].positionX,
                             actuators[i].positionY, actuators[i].sizeX, actuators[i].sizeY, actuators[i].valueActualTemperature, actuators[i].valueDesiredTemperature,

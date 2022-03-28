@@ -64,6 +64,20 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return binarySearchActuators(ID, container);
         }
 
+        public static int getIDofElectrodeByPosition(int positionX, int positionY, Electrodes[] electrodeBoard)
+        {
+            
+            for(int i = 0; i < electrodeBoard.Length; i++)
+            {
+                Electrodes electrode = electrodeBoard[i];
+                if (electrode.PositionX <= positionX && electrode.PositionX+ electrode.SizeX >= positionX && electrode.PositionY <= positionY && electrode.PositionY + electrode.SizeY >= electrode.PositionY)
+                {
+                    return electrodeBoard[i].ID1;
+                }
+            }
+            return -1;
+        }
+
         public static int binarySearchElectrode(int ID, Container container)
         {
             Electrodes[] electrodes = container.Electrodes;

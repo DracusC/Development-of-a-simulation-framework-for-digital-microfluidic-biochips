@@ -249,29 +249,34 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         private ArrayList executeAction(ActionQueueItem action, Container container)
         {
             String actionName = action.Action.ActionName;
+            float lastHeaterCallTime = 0;
             switch (actionName)
             {
                 case "electrode":
                     return executeElectrodeAction(action, container);
                     break;
                 case "heater":
-                    return executeHeaterAction(action, container);
+
+                    return executeHeaterAction(action, container, lastHeaterCallTime);
                     break;
+
             }
             return null;
         }
 
-        private ArrayList executeHeaterAction(ActionQueueItem actionQueueItem, Container container)
+        private ArrayList executeHeaterAction(ActionQueueItem actionQueueItem, Container container, float lastHeaterCallTime)
         {
             // get the electrodes
-            MicrofluidSimulator.SimulatorCode.DataTypes.Actuators[] actuators = container.Actuators;
+            DataTypes.Actuators[] actuators = container.Actuators;
             // initialize action
             DataTypes.SimulatorAction action = actionQueueItem.Action;
-            int actuatorId = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.ActionOnID, container);
+            int actuatorId = Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.ActionOnID, container);
+            float deltaTime = container.CurrentTime - lastHeaterCallTime;
             // get the subscribers for the electrode flip
-            ArrayList subscribers = Models.ActuatorModels.heaterTemperatureChange(container, (Heater) actuators[actuatorId], action);
+            ArrayList subscribers = Models.HeaterModels.heaterTemperatureChange(container, (Heater)actuators[actuatorId], action, deltaTime);
             return subscribers;
         }
+
 
         private ArrayList executeElectrodeAction(ActionQueueItem actionQueueItem, Container container)
         {

@@ -1,13 +1,15 @@
-﻿namespace MicrofluidSimulator.SimulatorCode
+﻿namespace MicrofluidSimulator.SimulatorCode.DataTypes
 {
     public class Sensors
     {
         string name, type;
-        int ID, sensorID = -1, positionX, positionY, sizeX, sizeY;
+        int ID, sensorID, positionX, positionY, sizeX, sizeY;
+        public int electrodeId;
 
-        
 
-        public Sensors(string name, int ID, int sensorID, string type, int positionX, int positionY, int sizeX, int sizeY)
+
+
+        public Sensors(string name, int ID, int sensorID, string type, int positionX, int positionY, int sizeX, int sizeY, int electrodeId)
         {
             this.name = name;
             this.type = type;
@@ -17,6 +19,8 @@
             this.positionY = positionY;
             this.sizeX = sizeX;
             this.sizeY = sizeY;
+            this.electrodeId = electrodeId;
+
         }
 
         public Sensors()
@@ -31,5 +35,6 @@
         public int PositionY { get => positionY; set => positionY = value; }
         public int SizeX { get => sizeX; set => sizeX = value; }
         public int SizeY { get => sizeY; set => sizeY = value; }
+        public int ElectrodeId { get => electrodeId; set => electrodeId = value; }
     }
 }
