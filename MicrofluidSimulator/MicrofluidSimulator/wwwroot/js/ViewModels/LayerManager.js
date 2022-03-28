@@ -59,8 +59,9 @@
 
         for (let layer in this.layers) {
             var div = document.createElement('div');
-            div.innerHTML = `<input type='checkbox' name='${this.layers[layer].name}' value='${this.layers[layer].value}' id='${this.layers[layer].id}'/>
-                             <label for='${this.layers[layer].name}'>${this.layers[layer].text}</label>`;
+            div.classList.add("form-check");
+            div.innerHTML = `<input type='checkbox' name='${this.layers[layer].name}' value='${this.layers[layer].value}' id='${this.layers[layer].id}' class='form-check-input'/>
+                             <label for='${this.layers[layer].name}' class='form-check-label'>${this.layers[layer].text}</label>`;
             this.layers[layer].element = div;
             this.layers[layer].checkbox = div.querySelector('input');
             this.layers[layer].checkbox.checked = this.layers[layer].checked;

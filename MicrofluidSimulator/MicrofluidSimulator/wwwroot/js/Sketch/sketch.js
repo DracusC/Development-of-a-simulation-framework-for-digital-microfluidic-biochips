@@ -45,8 +45,10 @@ let sketch = function (p) {
         //p.frameRate(10);
         step = 0.05;
 
-        let button = p.select("#nextStep");
+        let button = p.select("#edit_button");
+        information_panel_manager.edit_btn = button.elt;
         button.mousePressed(() => {
+            information_panel_manager.onEdit();
             //console.log("HI FROM SKETCH");
             // Below is a test for resize
             //let container = document.getElementById("container");
@@ -96,22 +98,26 @@ let sketch = function (p) {
         if (layer_manager.layers.draw_droplet_groups.checkbox.checked) {
             for (let i in gui_broker.droplet_groups) {
                 if (polygon_contains(gui_broker.droplet_groups[i].vertices, p.mouseX, p.mouseY)) {
-                    information_panel_manager.selected_element = null;
-                    information_panel_manager.draw_information(information_panel_manager.information_filter("group", i, gui_broker.droplet_groups[i]));
+                    information_panel_manager.selected_element = information_panel_manager.information_filter("Group", i, gui_broker.droplet_groups[i]);
+                    information_panel_manager.information_element = information_panel_manager.information_filter("Group", i, gui_broker.droplet_groups[i]);
+                    information_panel_manager.draw_information(information_panel_manager.information_filter("Group", i, gui_broker.droplet_groups[i]));
                     return;
                 }
             }
         }
 
         // Handle click on droplet
-        for (let i in gui_broker.droplets) {
-            let droplet = gui_broker.droplets[i];
+        if (layer_manager.layers.draw_droplets.checkbox.checked) {
+            for (let i in gui_broker.droplets) {
+                let droplet = gui_broker.droplets[i];
 
-            // Check mouse over droplet
-            if (p.dist(p.mouseX, p.mouseY, droplet.PositionX, droplet.PositionY) < droplet.SizeX / 2) {
-                information_panel_manager.selected_element = droplet;
-                information_panel_manager.draw_information(information_panel_manager.information_filter("droplet", droplet));
-                return;
+                // Check mouse over droplet
+                if (p.dist(p.mouseX, p.mouseY, droplet.PositionX, droplet.PositionY) < droplet.SizeX / 2) {
+                    information_panel_manager.selected_element = droplet;
+                    information_panel_manager.information_element = information_panel_manager.information_filter("Droplet", droplet);
+                    information_panel_manager.draw_information(information_panel_manager.information_filter("Droplet", droplet));
+                    return;
+                }
             }
         }
 
@@ -120,7 +126,8 @@ let sketch = function (p) {
             let electrode = gui_broker.electrodes[i];
             if (electrodeContains(electrode, p.mouseX, p.mouseY)) {
                 information_panel_manager.selected_element = electrode;
-                information_panel_manager.draw_information(information_panel_manager.information_filter("electrode", electrode));
+                information_panel_manager.information_element = information_panel_manager.information_filter("Electrode", electrode);
+                information_panel_manager.draw_information(information_panel_manager.information_filter("Electrode", electrode));
                 return;
             }
         }
