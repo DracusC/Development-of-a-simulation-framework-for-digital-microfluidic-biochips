@@ -5,7 +5,7 @@
         public Information information { get; set; }
         public List<Electrode> electrodes { get; set; }
         public List<Actuators> actuators { get; set; }
-        public List<object> sensors { get; set; }
+        public List<Sensors> sensors { get; set; }
         public List<object> inputs { get; set; }
         public List<object> outputs { get; set; }
         public List<Droplets> droplets { get; set; }
@@ -16,6 +16,23 @@
         {
             return "electrodeName: " + electrodes[i].toString() + " platformName: " + information.toString();
         }
+    }
+
+    public class Sensors
+    {
+        public int valueRed { get; set; }
+        public int valueGreen { get; set; }
+        public int valueBlue { get; set; }
+        public int valueTemperature { get; set; }
+        public string name { get; set; }
+        public int ID { get; set; }
+        public int sensorID { get; set; }
+        public string type { get; set; }
+        public int positionX { get; set; }
+        public int positionY { get; set; }
+        public int sizeX { get; set; }
+        public int sizeY { get; set; }
+
     }
 
     public class Information

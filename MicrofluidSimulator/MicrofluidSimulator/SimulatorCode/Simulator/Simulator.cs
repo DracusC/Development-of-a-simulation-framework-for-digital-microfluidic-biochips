@@ -12,16 +12,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         Container container;
         ArrayList droplets;
         Queue<ActionQueueItem> actionQueue;
+        //ArrayList containerConfigurations;
         //Queue<ActionQueueItem> oldActionQueue;
-        public Simulator(Queue<ActionQueueItem> actionQueue, JsonContainer jsonContainer, ElectrodesWithNeighbours[] electrodesWithNeighbours)
+        public Simulator(Queue<ActionQueueItem> actionQueue, JsonContainer jsonContainer, ElectrodesWithNeighbours[] electrodesWithNeighbours, string generatedActionQueue)
         {
-            this.actionQueue = generateTestQueue();
+            
 
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(jsonContainer, electrodesWithNeighbours);
+            this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
             droplets = container.Droplets;
             Electrodes[] electrodeBoard = container.Electrodes;
+            //ArrayList containerConfigurations = new ArrayList();
         }
 
         public Container Container { get => container; set => container = value; }
@@ -66,58 +69,113 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         //}
 
         // called from joelspage
-        public void simulatorStep()
+        public void simulatorStep(float timeStepLength)
         {
             // only execute if action exists in queue
-            if(actionQueue.Count != 0)
+            float targetTime = container.CurrentTime + timeStepLength;
+            bool executeAStep = false;
+
+
+            if (timeStepLength == -1)
             {
-                // store the first action in the queue and dequeue it
-                bool noMoreActions = false;
-                ActionQueueItem action = actionQueue.Dequeue();
-
-                // print the timestamp of the action we're about to execute
-                Console.WriteLine("action number " + action.Time);
-
-                //Get the first action execute and get back the list of subscribers to the specific action
-                ArrayList subscribers = executeAction(action, container);
-
-                while (!noMoreActions)
+                if (actionQueue.Count > 1)
                 {
-                    if(actionQueue.Count > 1)
+                    ActionQueueItem actionPeek = actionQueue.Peek();
+                    targetTime = actionPeek.Time;
+                    executeAStep = true;
+                }
+                else
+                {
+                    targetTime = container.CurrentTime;
+                    executeAStep = false;
+                }
+            }
+
+
+
+            while (targetTime > container.CurrentTime || executeAStep)
+            {
+                ArrayList subscribers = new ArrayList();
+
+                if (actionQueue.Count > 1)
+                {
+                    ActionQueueItem actionPeekForTime = actionQueue.Peek();
+                    if (actionPeekForTime.Time == container.CurrentTime)
                     {
-                        ActionQueueItem actionPeek = actionQueue.Peek();
-                        if (action.Time == actionPeek.Time)
+                        // store the first action in the queue and dequeue it
+                        bool noMoreActions = false;
+                        ActionQueueItem action = actionQueue.Dequeue();
+
+                        // print the timestamp of the action we're about to execute
+                        Console.WriteLine("action number " + action.Time);
+
+                        //containerConfigurations.Add(container);
+                        //Get the first action execute and get back the list of subscribers to the specific action
+                        subscribers = executeAction(action, container);
+                        executeAStep = false;
+                        while (!noMoreActions)
                         {
-                            ActionQueueItem nextAction = actionQueue.Dequeue();
-                            Console.WriteLine("they are at the same time");
-                            ArrayList extraSubscribers = executeAction(nextAction, container);
-                            foreach (int subscriber in extraSubscribers)
+                            if (actionQueue.Count > 0)
                             {
-                                if (!subscribers.Contains(subscriber))
+                                ActionQueueItem actionPeek = actionQueue.Peek();
+                                if (action.Time == actionPeek.Time)
                                 {
-                                    subscribers.Add(subscriber);
+                                    ActionQueueItem nextAction = actionQueue.Dequeue();
+                                    Console.WriteLine("they are at the same time");
+                                    ArrayList extraSubscribers = executeAction(nextAction, container);
+                                    foreach (int subscriber in extraSubscribers)
+                                    {
+                                        if (!subscribers.Contains(subscriber))
+                                        {
+                                            subscribers.Add(subscriber);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    noMoreActions = true;
                                 }
                             }
+                            else
+                            {
+                                noMoreActions = true;
+                            }
                         }
-                        else
-                        {
-                            noMoreActions = true;
-                        }
+                        
                     }
                     else
                     {
-                        noMoreActions = true;
+                        //get subscribers to delta time
+                        subscribers = new ArrayList();
+                        if(actionPeekForTime.Time > targetTime)
+                        {
+                            executeAStep = false;
+                        }else 
+                        {
+                            container.TimeStep = actionPeekForTime.Time - container.CurrentTime;
+                            executeAStep = true;
+                        }
                     }
+                }
+                else
+                {
+                    //get subscribers to delta time
+                    subscribers = new ArrayList();
+                    executeAStep = false;
                 }
 
 
+
+ 
+                
 
 
                 Queue<int> subscriberQueue = new Queue<int>();
-                foreach(int subscriber in subscribers)
+                foreach (int subscriber in subscribers)
                 {
                     subscriberQueue.Enqueue(subscriber);
                 }
+
 
                 Console.WriteLine("subscriber queue " + subscriberQueue.Count());
                 while (subscriberQueue.Count() > 0)
@@ -131,79 +189,17 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     }
                 }
 
+                container.CurrentTime = container.CurrentTime + container.TimeStep;
+
+            }
 
 
-                // create a copy of the subscribers array
-                //ArrayList subscribersCopy = new ArrayList();
-                //subscribersCopy = (ArrayList)subscribers.Clone();
-                
-                //// split all the droplets that needs to be split
-                //foreach (int subscriber in subscribersCopy)
-                //{
-                //    int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
-                //    if(index != -1)
-                //    {
-                //        Droplets droplet = (Droplets)droplets[index];
-
-                //        //int actionChange = action.Action.ActionChange;
-                //        //if (actionChange != 0)
-                //        //{
-                //            MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletSplit(container, droplet);
-
-                //        //}
-                //        //else
-                //        //{
-                //           // MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
-
-                //        //}
-                //        Models.SubscriptionModels.dropletSubscriptions(container, droplet);
-                //        //Console.WriteLine(droplet.ToString());
-                //        ArrayList dropletSubscritions = droplet.Subscriptions;
-                //    }
-
-
-                    
-                //}
-
-                //// merge all the droplets that needs to be merged
-                //foreach (int subscriber in subscribersCopy)
-                //{
-                //    int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
-                //    if (index != -1)
-                //    {
-                //        Droplets droplet = (Droplets)droplets[index];
-
-                //        //int actionChange = action.Action.ActionChange;
-                //        //if (actionChange != 0)
-                //        //{
-                //        //MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement2(container, droplet);
-
-                //        //}
-                //        //else
-                //        //{
-
-                //        Type thisType = this.GetType();
-                //        MethodInfo theMethod = thisType.GetMethod("dropletMerge");
-                //        Object[] arguments = new Object[] { container, droplet };
-                //        theMethod.Invoke(this, arguments);
-
-                //        //MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, droplet);
-                        
-                //        Electrodes[] electrodes = container.Electrodes;
-
-                //        //}
-                //        //.SubscriptionModels.dropletSubscriptions(container, droplet);
-                //        //Console.WriteLine(droplet.ToString());
-                //        //ArrayList dropletSubscritions = droplet.Subscriptions;
-                //    }
-
-
-
-                //}
-            }    
+            
+            
             
             
         }
+
 
         private void handelSubscriber(Container container, Droplets caller, Queue<int> subscriber)
         {
@@ -249,29 +245,34 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         private ArrayList executeAction(ActionQueueItem action, Container container)
         {
             String actionName = action.Action.ActionName;
+            float lastHeaterCallTime = 0;
             switch (actionName)
             {
                 case "electrode":
                     return executeElectrodeAction(action, container);
                     break;
                 case "heater":
-                    return executeHeaterAction(action, container);
+
+                    return executeHeaterAction(action, container, lastHeaterCallTime);
                     break;
+
             }
             return null;
         }
 
-        private ArrayList executeHeaterAction(ActionQueueItem actionQueueItem, Container container)
+        private ArrayList executeHeaterAction(ActionQueueItem actionQueueItem, Container container, float lastHeaterCallTime)
         {
             // get the electrodes
-            MicrofluidSimulator.SimulatorCode.DataTypes.Actuators[] actuators = container.Actuators;
+            DataTypes.Actuators[] actuators = container.Actuators;
             // initialize action
             DataTypes.SimulatorAction action = actionQueueItem.Action;
-            int actuatorId = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.ActionOnID, container);
+            int actuatorId = Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.ActionOnID, container);
+            float deltaTime = container.CurrentTime - lastHeaterCallTime;
             // get the subscribers for the electrode flip
-            ArrayList subscribers = Models.ActuatorModels.heaterTemperatureChange(container, (Heater) actuators[actuatorId], action);
+            ArrayList subscribers = Models.HeaterModels.heaterTemperatureChange(container, (Heater)actuators[actuatorId], action, deltaTime);
             return subscribers;
         }
+
 
         private ArrayList executeElectrodeAction(ActionQueueItem actionQueueItem, Container container)
         {
@@ -433,5 +434,53 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
             return actionQueueInstructions;
         }
+        private Queue<ActionQueueItem> generateTestQueueFromReader(string generatedActionQueue, Container container)
+        {
+            Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
+            
+            int counter = 0;
+            int timeStep = 0;
+            foreach (string line in generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            { 
+            
+                if (counter % 2 == 0)
+                {
+                    timeStep++;
+                }
+                string[] words = line.Split(' ');
+                for(int i = 3; i < words.Length-1; i++)
+                {
+                   
+                    if (words[1].Equals("setel"))
+                    {
+                        Console.WriteLine("timeStep " + timeStep + "action " + words[1] + "electrodeId" + words[i]);
+                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodId(Int32.Parse(words[i]), Int32.Parse(words[2]), container);
+                        SimulatorAction action = new SimulatorAction("electrode", electrodeId, 1);
+                        ActionQueueItem item = new ActionQueueItem(action, timeStep);
+                        actionQueueInstructions.Enqueue(item);
+                    }
+                    else if (words[1].Equals("clrel"))
+                    {
+                        Console.WriteLine("timeStep " + timeStep + "action " + words[1] + "electrodeId" + words[i]);
+                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodId(Int32.Parse(words[i]), Int32.Parse(words[2]), container);
+                        SimulatorAction action = new SimulatorAction("electrode", electrodeId, 0);
+                        ActionQueueItem item = new ActionQueueItem(action, timeStep);
+                        actionQueueInstructions.Enqueue(item);
+                    }
+                    
+                    
+                    
+                    
+                }
+                
+                counter++;
+            }
+
+            return actionQueueInstructions;
+
+        }
     }
+
+    
 }
+

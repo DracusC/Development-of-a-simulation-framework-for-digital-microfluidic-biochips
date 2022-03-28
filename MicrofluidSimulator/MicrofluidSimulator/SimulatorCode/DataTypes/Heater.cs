@@ -16,12 +16,12 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
             this.valueDesiredTemperature = valueDesiredTemperature;
             this.valuePowerStatus = valuePowerStatus;
             
-            this.subscriptions = new ArrayList();
+            
         }
 
         public int ValueActualTemperature { get => valueActualTemperature; set => valueActualTemperature = value; }
         public int ValueDesiredTemperature { get => valueDesiredTemperature; set => valueDesiredTemperature = value; }
         public int ValuePowerStatus { get => valuePowerStatus; set => valuePowerStatus = value; }
-        public ArrayList Subscriptions1 { get => subscriptions; set => subscriptions = value; }
+       
     }
 }
