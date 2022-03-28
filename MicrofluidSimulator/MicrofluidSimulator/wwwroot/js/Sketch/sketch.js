@@ -69,7 +69,7 @@ let sketch = function (p) {
         if (amount < 1) {
             amount += step;
         } else if (gui_broker.play_status) {
-            gui_broker.next_simulator_step(); // Calls for the next "step" of the simulation
+            //gui_broker.next_simulator_step(); // Calls for the next "step" of the simulation
         }
 
         /* Draw calls */
@@ -89,6 +89,9 @@ let sketch = function (p) {
 
         if (layer_manager.layers.draw_droplet_groups.checkbox.checked) { draw_grouped_droplets(); }
 
+        if (gui_broker.play_status) {
+            gui_broker.next_simulator_step();
+        }
     }
 
     /** Handle single mouse clicks */
