@@ -80,13 +80,13 @@
 @code {
 
     // ACTUAL CODE BELOW
-    GUIBroker guibroker = new GUIBroker();
+    static GUIBroker guibroker = new GUIBroker();
 
     bool test = true;
     Stopwatch stopwatch = new Stopwatch();
 
     private void NextStep() {
-        if(test) { stopwatch.Start(); test = false; } else {stopwatch.Stop(); Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds); stopwatch.Reset(); test = true; }
+        //if(test) { stopwatch.Start(); test = false; } else {stopwatch.Stop(); Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds); stopwatch.Reset(); test = true; }
         simulator.simulatorStep(-1);
         guibroker.update_board(simulator.Container);
     }
@@ -115,7 +115,7 @@
     }
 
     private JsonContainer? container;
-    private Simulator? simulator;
+    private static Simulator? simulator;
     private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
     protected override async void OnAfterRender(bool firstRender) {
         Console.WriteLine("FIRST == " + firstRender);
@@ -126,14 +126,19 @@
             electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v2neighbours.json");
             string actionQueueInstructions = await Http.GetStringAsync("sample-data/simple_paths_commands.txt");
             simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
-            
+
             guibroker.set_jsruntime(JsRuntime);
             guibroker.update_board(simulator.Container);
             guibroker.initialize_board(container.information);
         }
     }
 
-
+    [JSInvokable]
+    public static void nextStepTime(float deltaTime)
+    {
+        simulator.simulatorStep(deltaTime);
+        guibroker.update_board(simulator.Container);
+    }
 
     // MODAL CODE
     ModalDialog editorModal;

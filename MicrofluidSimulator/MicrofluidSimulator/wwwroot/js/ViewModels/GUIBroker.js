@@ -13,6 +13,9 @@ let gui_broker = {
     next_simulator_step: () => {
         DotNet.invokeMethodAsync('MicrofluidSimulator', 'JSSimulatorNextStep');
     },
+    next_simulator_step_time: (time) => {
+        DotNet.invokeMethodAsync('MicrofluidSimulator', 'nextStepTime', time);
+    },
     init_board: () => { },
     get_droplet_groups: function () {
         this.droplet_groups = {};
