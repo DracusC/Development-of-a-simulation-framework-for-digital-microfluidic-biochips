@@ -12,16 +12,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         Container container;
         ArrayList droplets;
         Queue<ActionQueueItem> actionQueue;
+        //ArrayList containerConfigurations;
         //Queue<ActionQueueItem> oldActionQueue;
-        public Simulator(Queue<ActionQueueItem> actionQueue, JsonContainer jsonContainer, ElectrodesWithNeighbours[] electrodesWithNeighbours)
+        public Simulator(Queue<ActionQueueItem> actionQueue, JsonContainer jsonContainer, ElectrodesWithNeighbours[] electrodesWithNeighbours, string generatedActionQueue)
         {
-            this.actionQueue = generateTestQueue();
+            
 
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(jsonContainer, electrodesWithNeighbours);
+            this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
             droplets = container.Droplets;
             Electrodes[] electrodeBoard = container.Electrodes;
+            //ArrayList containerConfigurations = new ArrayList();
         }
 
         public Container Container { get => container; set => container = value; }
@@ -106,6 +109,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         // print the timestamp of the action we're about to execute
                         Console.WriteLine("action number " + action.Time);
 
+                        //containerConfigurations.Add(container);
                         //Get the first action execute and get back the list of subscribers to the specific action
                         subscribers = executeAction(action, container);
                         executeAStep = false;
@@ -430,5 +434,53 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
             return actionQueueInstructions;
         }
+        private Queue<ActionQueueItem> generateTestQueueFromReader(string generatedActionQueue, Container container)
+        {
+            Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
+            
+            int counter = 0;
+            int timeStep = 0;
+            foreach (string line in generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            { 
+            
+                if (counter % 2 == 0)
+                {
+                    timeStep++;
+                }
+                string[] words = line.Split(' ');
+                for(int i = 3; i < words.Length-1; i++)
+                {
+                   
+                    if (words[1].Equals("setel"))
+                    {
+                        Console.WriteLine("timeStep " + timeStep + "action " + words[1] + "electrodeId" + words[i]);
+                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodId(Int32.Parse(words[i]), Int32.Parse(words[2]), container);
+                        SimulatorAction action = new SimulatorAction("electrode", electrodeId, 1);
+                        ActionQueueItem item = new ActionQueueItem(action, timeStep);
+                        actionQueueInstructions.Enqueue(item);
+                    }
+                    else if (words[1].Equals("clrel"))
+                    {
+                        Console.WriteLine("timeStep " + timeStep + "action " + words[1] + "electrodeId" + words[i]);
+                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodId(Int32.Parse(words[i]), Int32.Parse(words[2]), container);
+                        SimulatorAction action = new SimulatorAction("electrode", electrodeId, 0);
+                        ActionQueueItem item = new ActionQueueItem(action, timeStep);
+                        actionQueueInstructions.Enqueue(item);
+                    }
+                    
+                    
+                    
+                    
+                }
+                
+                counter++;
+            }
+
+            return actionQueueInstructions;
+
+        }
     }
+
+    
 }
+

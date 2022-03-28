@@ -24,7 +24,19 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         }
 
+        public static int getIdOfElectrodByElectrodId(int electrodeId, int driverId, Container container)
+        {
+            Electrodes[] electrodes = container.Electrodes;
 
+            foreach(Electrodes electrode in electrodes)
+            {
+                if(electrode.ElectrodeID == electrodeId && electrode.DriverID == driverId)
+                {
+                    return electrode.ID1;
+                }
+            }
+            return -1;
+        }
 
         public static int getIndexOfElectrodeByID(int ID, Container container)
         {

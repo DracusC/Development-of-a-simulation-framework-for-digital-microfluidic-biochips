@@ -122,8 +122,9 @@
             setP5();
             container = await Http.GetFromJsonAsync<JsonContainer>("sample-data/platform640v2.json");
             electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v2neighbours.json");
-            simulator = new Simulator(null, container, electrodesWithNeighbours);
-
+            string actionQueueInstructions = await Http.GetStringAsync("sample-data/simple_paths_commands.txt");
+            simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
+            
             guibroker.set_jsruntime(JsRuntime);
             guibroker.update_board(simulator.Container);
             guibroker.initialize_board(container.information);
