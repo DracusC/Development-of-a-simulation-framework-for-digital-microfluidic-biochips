@@ -10,7 +10,7 @@
       "wwwroot/js/ViewModels/Global.js"
     ],
     "minify": {
-      "enabled": true,
+      "enabled": false,
       "renameLocals": true
     },
     "sourceMap": false

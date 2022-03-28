@@ -96,12 +96,8 @@ let sketch = function (p) {
         if (layer_manager.layers.draw_droplet_groups.checkbox.checked) {
             for (let i in gui_broker.droplet_groups) {
                 if (polygon_contains(gui_broker.droplet_groups[i].vertices, p.mouseX, p.mouseY)) {
-                    console.log("GRP " + i + " CLICKED");
-
-                    // Calculate group average values
-                    information_panel_manager.selected_element = droplet_group_information_filter(i, gui_broker.droplet_groups[i]);
-                    information_panel_manager.draw_information(information_panel_manager.selected_element);
-
+                    information_panel_manager.selected_element = null;
+                    information_panel_manager.draw_information(information_panel_manager.information_filter("group", i, gui_broker.droplet_groups[i]));
                     return;
                 }
             }
@@ -114,16 +110,17 @@ let sketch = function (p) {
             // Check mouse over droplet
             if (p.dist(p.mouseX, p.mouseY, droplet.PositionX, droplet.PositionY) < droplet.SizeX / 2) {
                 information_panel_manager.selected_element = droplet;
-                information_panel_manager.draw_information(droplet);
+                information_panel_manager.draw_information(information_panel_manager.information_filter("droplet", droplet));
                 return;
             }
         }
 
         // Handle click on electrode
         for (let i in gui_broker.electrodes) {
-            if (electrodeContains(gui_broker.electrodes[i], p.mouseX, p.mouseY)) {
-                information_panel_manager.selected_element = gui_broker.electrodes[i];
-                information_panel_manager.draw_information(gui_broker.electrodes[i]);
+            let electrode = gui_broker.electrodes[i];
+            if (electrodeContains(electrode, p.mouseX, p.mouseY)) {
+                information_panel_manager.selected_element = electrode;
+                information_panel_manager.draw_information(information_panel_manager.information_filter("electrode", electrode));
                 return;
             }
         }
