@@ -146,7 +146,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     else
                     {
                         //get subscribers to delta time
-                        subscribers = new ArrayList();
+                        subscribers = container.SubscribedDroplets;
                         if(actionPeekForTime.Time > targetTime)
                         {
                             executeAStep = false;
@@ -160,7 +160,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 else
                 {
                     //get subscribers to delta time
-                    subscribers = new ArrayList();
+                    subscribers = container.SubscribedDroplets;
                     executeAStep = false;
                 }
 
