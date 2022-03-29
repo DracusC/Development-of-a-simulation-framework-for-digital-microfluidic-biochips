@@ -233,10 +233,14 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             switch (model)
             {
                 case "split":
-                    Console.WriteLine("Came in hgere!");
-                    return MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletSplit(container, caller);
+                    return Models.DropletModels.dropletSplit(container, caller);
                 case "merge":
-                    return MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, caller); ;
+                    return Models.DropletModels.dropletMerge(container, caller);
+                case "temperature":
+                    return Models.DropletTemperatureModels.dropletTemperatureChange(container, caller);
+                case "color":
+                    return Models.DropletColorModels.dropletColorChange(container, caller);
+                    ;
             }
             return null;
         }
