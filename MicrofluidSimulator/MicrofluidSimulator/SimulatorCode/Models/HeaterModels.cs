@@ -5,35 +5,34 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class HeaterModels
     {
-        public static ArrayList heaterTemperatureChange(Container container, Heater heater, SimulatorAction action)
+        public static ArrayList heaterTemperatureCalled(Container container, Heater heater, SimulatorAction action)
         {
-            // get the desired temperature
             heater.ValueDesiredTemperature = action.ActionChange;
-
-            heater.ValuePowerStatus = 1; // i dont know yet
 
             if (heater.ValueDesiredTemperature == heater.ValueActualTemperature)
             {
                 return heater.Subscriptions;
-            }else if(heater.ValueActualTemperature < heater.ValueDesiredTemperature)
+            }
+            else if (heater.ValueActualTemperature < heater.ValueDesiredTemperature)
             {
-                for(int i = 0; i < (int) container.TimeStep; i++)
-                {
-                    heater.ValueActualTemperature += 2; // temp increase is currently 2 per second
-                }
-                
+                heater.ValuePowerStatus = 1;
+                return heater.Subscriptions;
             }
             else
             {
-                for(int i = 0; i < (int)container.TimeStep; i++)
-                {
-                    heater.ValueActualTemperature -= 2; // temp decrease is currently 2 per second
-                }
-                
+                heater.ValuePowerStatus = -1;
+                return heater.Subscriptions;
             }
-            
+
+        }
+        public static ArrayList heaterTemperatureChange(Container container, Heater heater, SimulatorAction action)
+        {
+            heater.ValueActualTemperature = (int) (heater.ValueActualTemperature + container.TimeStep * heater.ValuePowerStatus);
+
             // give back the subscribers of the heater
             return heater.Subscriptions;
+
+            
         }
     }
 }
