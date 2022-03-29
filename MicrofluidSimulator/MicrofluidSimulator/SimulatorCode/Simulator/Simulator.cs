@@ -269,7 +269,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             int actuatorId = Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.ActionOnID, container);
             float deltaTime = container.CurrentTime - lastHeaterCallTime;
             // get the subscribers for the electrode flip
-            ArrayList subscribers = Models.HeaterModels.heaterTemperatureChange(container, (Heater)actuators[actuatorId], action, deltaTime);
+            ArrayList subscribers = Models.HeaterModels.heaterTemperatureChange(container, (Heater)actuators[actuatorId], action);
             return subscribers;
         }
 

@@ -61,7 +61,7 @@
 
 
         <button id="nextStep" class="btn btn-primary" @onclick="NextStep">Next Step</button>
-        <button class="btn btn-primary" @onclick="Play">Play</button>
+        <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
     </div>
 </div>
 
@@ -91,8 +91,15 @@
         guibroker.update_board(simulator.Container);
     }
 
+    public string PlayButtonText { get; set; } = "Play";
     public void Play() {
         Console.WriteLine("Play called");
+
+        PlayButtonText = PlayButtonText.Equals("Play") ? "Pause" : "Play";
+        
+        InvokeAsync(() => StateHasChanged());
+
+        
         guibroker.change_play_status();
     }
 
