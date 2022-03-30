@@ -7,6 +7,7 @@
  */
 let gui_broker = {
     play_status: false,
+    board: {},
     droplets: [],
     electrodes: [],
     droplet_groups: {},
@@ -15,6 +16,9 @@ let gui_broker = {
     },
     next_simulator_step_time: (time) => {
         DotNet.invokeMethodAsync('MicrofluidSimulator', 'nextStepTime', time);
+    },
+    update_simulator_container: function (type, JSONString) {
+        DotNet.invokeMethodAsync('MicrofluidSimulator', 'updateSimulatorContainer', type, JSONString);
     },
     init_board: () => { },
     get_droplet_groups: function () {

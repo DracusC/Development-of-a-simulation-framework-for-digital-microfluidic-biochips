@@ -1,6 +1,7 @@
 ﻿@page "/"
 @page "/JoelsPage"
 @using MicrofluidSimulator.Components
+@using MicrofluidSimulator.SimulatorCode.DataTypes
 @using Microsoft.JSInterop
 @using SimulatorCode
 @using System.Text.Json.Serialization
@@ -11,6 +12,7 @@
 @using MicrofluidSimulator.SimulatorCode.View
 @using System.Diagnostics
 @using System.Text.Json
+@using System.Reflection
 
 @if(ModalOpen){
     <ModalDialog  @ref=editorModal Title="Information editor" Text = "INSERT" OnClose="@CloseModal" OnSubmit="@SubmitModal"/>
@@ -47,6 +49,7 @@
                 
                 <div id="information">
                     <button id="edit_button" class="btn btn-primary">Edit</button>
+                    <div id="saveclose_button_div"><button id="save_button" class="btn btn-primary">Save</button><button id="cancel_button" class="btn btn-primary">Cancel</button></div>
                     <div id="informationElements"></div>
                 </div>
             </div>
@@ -60,7 +63,7 @@
         </div>
 
 
-        <button id="nextStep" class="btn btn-primary" @onclick="NextStep">Next Step</button>
+        <button id="nextStep" class="btn btn-primary" @onclick="JSSimulatorNextStep">Next Step</button>
         <button class="btn btn-primary" @onclick="Play">Play</button>
     </div>
 </div>
@@ -85,34 +88,63 @@
     bool test = true;
     Stopwatch stopwatch = new Stopwatch();
 
-    private void NextStep() {
-        //if(test) { stopwatch.Start(); test = false; } else {stopwatch.Stop(); Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds); stopwatch.Reset(); test = true; }
-        simulator.simulatorStep(-1);
-        guibroker.update_board(simulator.Container);
-    }
 
     public void Play() {
         Console.WriteLine("Play called");
         guibroker.change_play_status();
     }
 
-    private async Task RunNextSimulatorStep() {
-        if (simulator.ActionQueue.Count != 0) {
-            Console.WriteLine(simulator.ActionQueue.Count);
-            NextStep();
+    [JSInvokable]
+    public static async Task JSSimulatorNextStep() {
+        simulator.simulatorStep(-1f);
+        guibroker.update_board(simulator.Container);
+    }
+    [JSInvokable]
+    public static void nextStepTime(float deltaTime)
+    {
+        simulator.simulatorStep(deltaTime);
+        guibroker.update_board(simulator.Container);
+    }
+    [JSInvokable]
+    public static async void updateSimulatorContainer(string Type, string JSONString)
+    {
+        // [(key -> value)] [ID1 -> 1, "Status" -> 1]
+        Console.WriteLine(Type);
+        Console.WriteLine(JSONString);
+
+
+        switch(Type)
+        {
+            case("Electrode"):
+
+
+                MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Electrode JSONElectrode = JsonSerializer.Deserialize<MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Electrode>(JSONString);
+
+                int ID = JSONElectrode.ID;
+                Console.WriteLine("ID: " + ID);
+                int index =  MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.Container);
+                Console.WriteLine("Index: " + index);
+
+
+                Electrodes electrode = simulator.Container.Electrodes[index];
+
+                Console.WriteLine(JSONElectrode.GetType().GetProperties().Length);
+
+                foreach (PropertyInfo property in JSONElectrode.GetType().GetProperties())
+                {   
+                    Console.WriteLine(property.Name + " : " + electrode.GetType().GetProperty(property.Name));
+                    
+                }
+
+                
+                //MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Electrode electrode = JsonSerializer.Deserialize<MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Electrode>(JSONString);
+
+                //electrode.GetType().GetProperty(key) = value;
+
+                break;
         }
     }
 
-    // Used to call C# code from JS
-    private static Func<Task> CallPlaceHolder;
-    protected override void OnInitialized() {
-        base.OnInitialized();
-        CallPlaceHolder = RunNextSimulatorStep;
-    }
-    [JSInvokable]
-    public static async Task JSSimulatorNextStep() {
-        await CallPlaceHolder.Invoke();
-    }
 
     private JsonContainer? container;
     private static Simulator? simulator;
@@ -132,13 +164,7 @@
             guibroker.initialize_board(container.information);
         }
     }
-
-    [JSInvokable]
-    public static void nextStepTime(float deltaTime)
-    {
-        simulator.simulatorStep(deltaTime);
-        guibroker.update_board(simulator.Container);
-    }
+    
 
     // MODAL CODE
     ModalDialog editorModal;

@@ -110,6 +110,22 @@
     visibility: visible;
 }
 
+#cancel_button {
+}
+
+#save_button {
+    margin-right: 0.2em;
+}
+
+#saveclose_button_div {
+    width: fit-content;
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    margin: 0.5em;
+    visibility: hidden;
+}
+
 
 /* Tooltip styling from W3Schools https://www.w3schools.com/css/tryit.asp?filename=trycss_tooltip_arrow_left */
 .customtooltip {

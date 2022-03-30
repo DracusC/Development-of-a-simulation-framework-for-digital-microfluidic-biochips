@@ -9,6 +9,7 @@ window.setp5 = () => {
 // Global methods that can be called by C# scripts
 window.update_board = (container_string) => {
     var board = JSON.parse(container_string);
+    gui_broker.board = board;
     gui_broker.droplets = board.Droplets;
     gui_broker.electrodes = board.Electrodes;
 

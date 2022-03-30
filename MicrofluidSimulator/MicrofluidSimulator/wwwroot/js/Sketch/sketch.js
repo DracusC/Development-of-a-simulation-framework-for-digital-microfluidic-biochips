@@ -37,8 +37,6 @@ let sketch = function (p) {
         // Used to get sharper edges in sketch
         p.pixelDensity(4);
 
-        //p.frameRate(30);
-
         // Create layers
         //layer_electrode_id = p.createGraphics(1, 1);
         layer_electrode_shape = p.createGraphics(1, 1);
@@ -47,16 +45,23 @@ let sketch = function (p) {
         //p.frameRate(10);
         step = 0.05;
 
-        let button = p.select("#edit_button");
-        information_panel_manager.edit_btn = button.elt;
-        button.mousePressed(() => {
+        let saveclose_button_div = p.select("#saveclose_button_div");
+        information_panel_manager.saveclose_button_div = saveclose_button_div.elt;
+
+        let edit_button = p.select("#edit_button");
+        information_panel_manager.edit_button = edit_button.elt;
+        edit_button.mousePressed(() => {
             information_panel_manager.onEdit();
-            //console.log("HI FROM SKETCH");
-            // Below is a test for resize
-            //let container = document.getElementById("container");
-            //console.log(window.innerWidth);
-            //document.getElementById("defaultCanvas0").style.width = (window.innerWidth * 0.8) + "px";
-            //document.getElementById("defaultCanvas0").style.height = ((window.innerWidth * 0.8) * (400/860)) + "px";
+        });
+
+        let cancel_button = p.select("#cancel_button");
+        cancel_button.mousePressed(() => {
+            information_panel_manager.onCancel();
+        });
+
+        let save_button = p.select("#save_button");
+        save_button.mousePressed(() => {
+            information_panel_manager.onSave();
         });
     }
 
@@ -66,13 +71,6 @@ let sketch = function (p) {
      */
     p.draw = function () {
         p.background(240);
-
-        // Increment the step used for position animation
-        if (amount < 1) {
-            amount += step;
-        } else if (gui_broker.play_status) {
-            //gui_broker.next_simulator_step(); // Calls for the next "step" of the simulation
-        }
 
         /* Draw calls */
         //draw_electrodes();
