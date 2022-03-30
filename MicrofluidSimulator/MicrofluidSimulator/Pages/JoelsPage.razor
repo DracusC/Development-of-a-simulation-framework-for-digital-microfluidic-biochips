@@ -94,10 +94,10 @@
         Console.WriteLine("Play called");
 
         PlayButtonText = PlayButtonText.Equals("Play") ? "Pause" : "Play";
-        
+
         InvokeAsync(() => StateHasChanged());
 
-        
+
         guibroker.change_play_status();
     }
 
@@ -119,35 +119,38 @@
         Console.WriteLine(Type);
         Console.WriteLine(JSONString);
 
+        int ID;
+        int index;
 
         switch(Type)
         {
             case("Electrode"):
+                Electrodes JSONElectrode = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrodes>(JSONString);
 
-
-                MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Electrode JSONElectrode = JsonSerializer.Deserialize<MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Electrode>(JSONString);
-
-                int ID = JSONElectrode.ID;
-                Console.WriteLine("ID: " + ID);
-                int index =  MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.Container);
-                Console.WriteLine("Index: " + index);
-
+                ID = JSONElectrode.ID1;
+                index =  MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.Container);
 
                 Electrodes electrode = simulator.Container.Electrodes[index];
 
-                Console.WriteLine(JSONElectrode.GetType().GetProperties().Length);
+                electrode.Status = JSONElectrode.Status;
+                break;
 
-                foreach (PropertyInfo property in JSONElectrode.GetType().GetProperties())
-                {   
-                    Console.WriteLine(property.Name + " : " + electrode.GetType().GetProperty(property.Name));
-                    
-                }
+            case("Droplet"):
+                MicrofluidSimulator.SimulatorCode.Droplets JSONDroplet = Newtonsoft.Json.JsonConvert.DeserializeObject<MicrofluidSimulator.SimulatorCode.Droplets>(JSONString);
+                ID = JSONDroplet.ID1;
+                index =  MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(ID, simulator.Container);
 
+                Console.WriteLine("ID: " + ID + ", index: " + index);
+
+                MicrofluidSimulator.SimulatorCode.Droplets droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.Container.Droplets[index];
+
+                droplet.Color = JSONDroplet.Color;
+                droplet.Temperature = JSONDroplet.Temperature;
+                droplet.Volume = JSONDroplet.Volume;
+                break;
+
+            case("Group"):
                 
-                //MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Electrode electrode = JsonSerializer.Deserialize<MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Electrode>(JSONString);
-
-                //electrode.GetType().GetProperty(key) = value;
-
                 break;
         }
     }
@@ -160,6 +163,7 @@
         Console.WriteLine("FIRST == " + firstRender);
         if(firstRender) {
             Console.WriteLine("TEST");
+
             setP5();
             container = await Http.GetFromJsonAsync<JsonContainer>("sample-data/platform640v2.json");
             electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v2neighbours.json");
@@ -195,9 +199,9 @@
         Electrodes el = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrodes>(jsonString);
 
         foreach (var property in el.GetType().GetProperties())
-            {
-                Console.WriteLine(property.Name + ": " + property.GetValue(el, null));
-            }
+        {
+            Console.WriteLine(property.Name + ": " + property.GetValue(el, null));
+        }
 
         ModalOpen = false;
         StateHasChanged();

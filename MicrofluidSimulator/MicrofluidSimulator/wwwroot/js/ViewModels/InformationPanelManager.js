@@ -220,9 +220,16 @@
         console.log(this.selected_element);
         if (this.selected_element_type == "Group") {
             console.log("GROUP SELECT");
+
+            let array_of_droplets = [];
+            console.log(this.selected_element.Droplets);
+
+
+
+
             //console.log(gui_broker.board[this.selected_element_type + "s"].find(o => o.ID1 === this.selected_element.ID1));
         } else {
-            values_to_send.ID = this.selected_element.ID1;
+            values_to_send.ID1 = this.selected_element.ID1;
         }
 
         console.log(values_to_send);
