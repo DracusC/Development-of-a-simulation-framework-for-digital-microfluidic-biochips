@@ -146,6 +146,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     else
                     {
                         //get subscribers to delta time
+                        //subscribers = new ArrayList();
                         subscribers = container.SubscribedDroplets;
                         if(actionPeekForTime.Time > targetTime)
                         {
@@ -160,6 +161,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 else
                 {
                     //get subscribers to delta time
+                    //subscribers = new ArrayList();
                     subscribers = container.SubscribedDroplets;
                     executeAStep = false;
                 }
@@ -210,10 +212,18 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 ArrayList newSubscribers = executeModel(container,caller,nextModel);
                 if(newSubscribers != null)
                 {
-                    foreach (int i in newSubscribers)
+                    if (newSubscribers.Count > 0)
                     {
-                        subscriber.Enqueue(i);
+                        foreach (int i in newSubscribers)
+                        {
+                            subscriber.Enqueue(i);
+                        }
                     }
+                    else
+                    {
+                        caller.NextModel = 0;
+                    }
+
                 }
                 else
                 {

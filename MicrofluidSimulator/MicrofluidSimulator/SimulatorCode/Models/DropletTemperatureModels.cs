@@ -13,7 +13,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             
             if(heater == null)
             {
-                subscribers.Add(caller);
+                subscribers.Add(caller.ID1);
                 return subscribers;
             }
             else
@@ -28,7 +28,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 return subscribers;
             }
             
-            subscribers.Add(caller);
+            subscribers.Add(caller.ID1);
             return subscribers;
 
         }

@@ -47,6 +47,29 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         }
 
+        public static float getAreaOfElectrode(Electrodes electrode)
+        {
+            if(electrode.Shape == 0)
+            {
+                return electrode.SizeX * electrode.SizeY;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private static float getAreaOfIregularShapedElectrode(Electrodes electrode)
+        {
+            int[,] corners = electrode.Corners;
+            float area = 0;
+            for(int i = 0; i < corners.GetLength(0)-1; i++)
+            {
+                area = area + (corners[i,0]* corners[i+1,1] - corners[i+1,0]* corners[i,1]);
+            }
+            area = area + (corners[0, 0] * corners[corners.GetLength(0) - 2, 1] - corners[corners.GetLength(0) - 2, 0] * corners[0, 1]);
+            return area/2;
+        }
 
     }
 
