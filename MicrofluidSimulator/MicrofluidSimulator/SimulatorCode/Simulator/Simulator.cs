@@ -162,6 +162,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 {
                     //get subscribers to delta time
                     //subscribers = new ArrayList();
+                    container.TimeStep = targetTime - container.CurrentTime;
                     subscribers = container.SubscribedDroplets;
                     executeAStep = false;
                 }
