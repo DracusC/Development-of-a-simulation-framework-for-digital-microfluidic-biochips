@@ -1,4 +1,5 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
+using MicrofluidSimulator.SimulatorCode.Models;
 using MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes;
 using System.Collections;
 using System.Reflection;
@@ -201,6 +202,36 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
             
             
+        }
+
+
+        public void simulatorRunAllModels()
+        {
+            ArrayList droplets = container.Droplets;
+            foreach (Droplets droplet in Droplets)
+            {
+                SubscriptionModels.dropletSubscriptions(container, droplet);
+            }
+
+            ArrayList subscribers = container.SubscribedDroplets;
+            Queue<int> subscriberQueue = new Queue<int>();
+            foreach (int subscriber in subscribers)
+            {
+                subscriberQueue.Enqueue(subscriber);
+            }
+
+
+            Console.WriteLine("subscriber queue " + subscriberQueue.Count());
+            while (subscriberQueue.Count() > 0)
+            {
+                int subscriber = subscriberQueue.Dequeue();
+                int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+                if (index != -1)
+                {
+                    Droplets droplet = (Droplets)droplets[index];
+                    handelSubscriber(container, droplet, subscriberQueue);
+                }
+            }
         }
 
 
