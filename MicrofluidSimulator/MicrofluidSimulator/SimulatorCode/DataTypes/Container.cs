@@ -8,6 +8,8 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
         Actuators[] actuators;
         Sensors[] sensors;
         Information information;
+        ArrayList subscribedDroplets;
+        ArrayList subscribedActuators;
         float currentTime;
         float timeStep;
         public Container()
@@ -22,6 +24,8 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
             Sensors = sensors;
             Information = information;
             CurrentTime = currentTime;
+            subscribedDroplets = new ArrayList();
+            subscribedActuators = new ArrayList();
             this.timeStep = 0;
        
         }
@@ -34,5 +38,7 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
         public Information Information { get => information; set => information = value; }
         public float CurrentTime { get => currentTime; set => currentTime = value; }
         public float TimeStep { get => timeStep; set => timeStep = value; }
+        public ArrayList SubscribedDroplets { get => subscribedDroplets; set => subscribedDroplets = value; }
+        public ArrayList SubscribedActuators { get => subscribedActuators; set => subscribedActuators = value; }
     }
 }

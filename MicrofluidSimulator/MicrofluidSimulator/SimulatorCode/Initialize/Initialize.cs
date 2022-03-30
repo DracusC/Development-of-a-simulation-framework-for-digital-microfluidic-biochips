@@ -36,7 +36,15 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             DataTypes.Sensors[] sensorsInitial = initializeSensors(jsonContainer.sensors, electrodeBoard);
             Information information = initializeInformation(jsonContainer.information);
             Container container = new Container(electrodeBoard, droplets, actuatorsInitial, sensorsInitial, information, 0);
-            if(electrodesWithNeighbours == null)
+            foreach(Droplets droplet in droplets)
+            {
+                container.SubscribedDroplets.Add(droplet.ID1);
+            }
+            foreach (DataTypes.Actuators actuators in actuatorsInitial)
+            {
+                container.SubscribedActuators.Add(actuators.ID1);
+            }
+            if (electrodesWithNeighbours == null)
             {
                 NeighbourFinder neighbourFinder = new NeighbourFinder();
                 NeighbourFinder.findNeighbours(container);

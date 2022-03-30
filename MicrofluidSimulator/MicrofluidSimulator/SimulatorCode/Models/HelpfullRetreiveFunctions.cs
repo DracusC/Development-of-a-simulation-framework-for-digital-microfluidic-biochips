@@ -24,6 +24,52 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         }
 
+        public static float getMassOfDropletGivenSubstance(Droplets caller)
+        {
+            switch (caller.Substance_name)
+            {
+              
+                case "h20":
+                    int waterDensity = 997;
+                    return caller.Volume * waterDensity;
+                    break;
+            }
+            return -1;
+        }
+
+        public static float getHeatCapacityOfDropletGivenSubstance(Droplets caller)
+        {
+            switch (caller.Substance_name)
+            {
+
+                case "h20":
+                    int waterHeatCapacity = 4182;
+                    return waterHeatCapacity;
+                    break;
+            }
+            return -1;
+        }
+
+        public static Heater getHeaterOnDroplet(Container container, Droplets caller)
+        {
+            foreach (Actuators actuator in container.Actuators)
+            {
+                if (actuator.Type.Equals("heater"))
+                {
+                    int minMarginX = ((Heater)actuator).PositionX;
+                    int maxMarginX = ((Heater)actuator).PositionX + ((Heater)actuator).SizeX;
+                    int minMarginY = ((Heater)actuator).PositionY;
+                    int maxMarginY = ((Heater)actuator).PositionY + ((Heater)actuator).SizeY;
+
+                    if (caller.PositionX <= minMarginX && caller.PositionX >= maxMarginX && caller.PositionY <= minMarginY && caller.PositionY >= maxMarginY)
+                    {
+                        return (Heater)actuator;
+                    }
+                }
+            }
+            return null;
+        }
+
         public static int getIdOfElectrodByElectrodId(int electrodeId, int driverId, Container container)
         {
             Electrodes[] electrodes = container.Electrodes;

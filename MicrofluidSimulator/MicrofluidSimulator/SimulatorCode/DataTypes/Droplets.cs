@@ -31,7 +31,7 @@ namespace MicrofluidSimulator.SimulatorCode
             this.electrodeID = electrodeID;
             this.subscriptions = new ArrayList();
             NextModel = 0;
-            ModelOrder = new string[] {"split","merge"};
+            ModelOrder = new string[] {"split","merge", "temperature", "color"};
         }
 
         public Droplets()

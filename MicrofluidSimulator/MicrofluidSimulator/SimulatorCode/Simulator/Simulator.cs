@@ -146,7 +146,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     else
                     {
                         //get subscribers to delta time
-                        subscribers = new ArrayList();
+                        //subscribers = new ArrayList();
+                        subscribers = container.SubscribedDroplets;
                         if(actionPeekForTime.Time > targetTime)
                         {
                             executeAStep = false;
@@ -160,7 +161,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 else
                 {
                     //get subscribers to delta time
-                    subscribers = new ArrayList();
+                    //subscribers = new ArrayList();
+                    container.TimeStep = targetTime - container.CurrentTime;
+                    subscribers = container.SubscribedDroplets;
                     executeAStep = false;
                 }
 
@@ -210,10 +213,18 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 ArrayList newSubscribers = executeModel(container,caller,nextModel);
                 if(newSubscribers != null)
                 {
-                    foreach (int i in newSubscribers)
+                    if (newSubscribers.Count > 0)
                     {
-                        subscriber.Enqueue(i);
+                        foreach (int i in newSubscribers)
+                        {
+                            subscriber.Enqueue(i);
+                        }
                     }
+                    else
+                    {
+                        caller.NextModel = 0;
+                    }
+
                 }
                 else
                 {
@@ -233,10 +244,14 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             switch (model)
             {
                 case "split":
-                    Console.WriteLine("Came in hgere!");
-                    return MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletSplit(container, caller);
+                    return Models.DropletModels.dropletSplit(container, caller);
                 case "merge":
-                    return MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMerge(container, caller); ;
+                    return Models.DropletModels.dropletMerge(container, caller);
+                case "temperature":
+                    return Models.DropletTemperatureModels.dropletTemperatureChange(container, caller);
+                case "color":
+                    return Models.DropletColorModels.dropletColorChange(container, caller);
+                    ;
             }
             return null;
         }
@@ -265,11 +280,11 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             // get the electrodes
             DataTypes.Actuators[] actuators = container.Actuators;
             // initialize action
-            DataTypes.SimulatorAction action = actionQueueItem.Action;
+            SimulatorAction action = actionQueueItem.Action;
             int actuatorId = Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.ActionOnID, container);
-            float deltaTime = container.CurrentTime - lastHeaterCallTime;
+            
             // get the subscribers for the electrode flip
-            ArrayList subscribers = Models.HeaterModels.heaterTemperatureChange(container, (Heater)actuators[actuatorId], action, deltaTime);
+            ArrayList subscribers = Models.HeaterModels.heaterTemperatureCalled(container, (Heater)actuators[actuatorId], action);
             return subscribers;
         }
 
