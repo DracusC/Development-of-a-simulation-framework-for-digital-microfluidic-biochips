@@ -97,9 +97,10 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             while (targetTime > container.CurrentTime || executeAStep)
             {
                 ArrayList subscribers = new ArrayList();
-
+                
                 if (actionQueue.Count > 1)
                 {
+                    container.TimeStep = 0;
                     ActionQueueItem actionPeekForTime = actionQueue.Peek();
                     if (actionPeekForTime.Time == container.CurrentTime)
                     {
@@ -151,6 +152,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         subscribers = container.SubscribedDroplets;
                         if(actionPeekForTime.Time > targetTime)
                         {
+                            container.TimeStep = targetTime - container.CurrentTime;
                             executeAStep = false;
                         }else 
                         {
@@ -207,12 +209,16 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
         public void simulatorRunAllModels()
         {
+            Console.WriteLine("This method was inacted based on an edit of variables!");
             ArrayList droplets = container.Droplets;
+            Electrodes[] electrodes = container.Electrodes;
+            Console.WriteLine("Electrode with id:"+ electrodes[194].ID1 + " has status: " + electrodes[194].Status);
             foreach (Droplets droplet in Droplets)
             {
                 SubscriptionModels.dropletSubscriptions(container, droplet);
             }
 
+            container.TimeStep = 0;
             ArrayList subscribers = container.SubscribedDroplets;
             Queue<int> subscriberQueue = new Queue<int>();
             foreach (int subscriber in subscribers)
@@ -232,6 +238,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     handelSubscriber(container, droplet, subscriberQueue);
                 }
             }
+
+            int num = 0;
+            foreach(int i in container.SubscribedDroplets)
+            {
+                num++;
+            }
+            Console.WriteLine("there are now :" + num + " droplets");
         }
 
 
