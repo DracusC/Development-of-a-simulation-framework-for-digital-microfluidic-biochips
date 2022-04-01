@@ -22,6 +22,7 @@ namespace MicrofluidSimulator.SimulatorCode.View
          * JSRuntime is used to run javascript code within c#
          */
         private IJSRuntime _jSRuntime;
+        private IJSInProcessRuntime _JSInProcessRuntime;
 
         public GUIBroker(IJSRuntime jSRuntime) {
             _jSRuntime = jSRuntime;
@@ -32,40 +33,44 @@ namespace MicrofluidSimulator.SimulatorCode.View
         public void set_jsruntime(IJSRuntime jSRuntime) {
             _jSRuntime = jSRuntime;
         }
-        
-        public async void initialize_board(Information container) {
+
+        public void set_jsprocess(IJSInProcessRuntime JSInProcessRuntime)
+        {
+            _JSInProcessRuntime = JSInProcessRuntime;
+        }
+
+        public void initialize_board(Information container) {
             var json_string = Newtonsoft.Json.JsonConvert.SerializeObject(container);
-            var data = await _jSRuntime.InvokeAsync<object>("initialize_board", json_string);
+            _JSInProcessRuntime.InvokeVoid("initialize_board", json_string);
         }
 
-        public async void update_board(Container container) {
-            var json_container = Newtonsoft.Json.JsonConvert.SerializeObject(container);
-            var data = await _jSRuntime.InvokeAsync<object>("update_board", json_container);
+        public void update_board(Container container) {
+            _JSInProcessRuntime.InvokeVoid("update_board", Newtonsoft.Json.JsonConvert.SerializeObject(container));
         }
 
-        public async Task<bool> get_gui_status() {
-            var result = await _jSRuntime.InvokeAsync<bool>("get_gui_status");
+        public bool get_gui_status() {
+            var result = _JSInProcessRuntime.Invoke<bool>("get_gui_status");
             return result;
         }
 
-        public async void change_play_status() {
-            var data = await _jSRuntime.InvokeAsync<object>("change_play_status");
+        public void change_play_status() {
+            _JSInProcessRuntime.InvokeVoid("change_play_status");
         }
 
-        public async void restart_board()
+        public void restart_board()
         {
-            var data = await _jSRuntime.InvokeAsync<object>("restart_board");
+            _JSInProcessRuntime.InvokeVoid("restart_board");
         }
 
-        public async Task<string> get_selected_element()
+        public string get_selected_element()
         {
-            var result = await _jSRuntime.InvokeAsync<string>("get_selected_element");
+            var result = _JSInProcessRuntime.Invoke<string>("get_selected_element");
             return result;
         }
 
-        public async void start_update_timer()
+        public void start_update_timer()
         {
-            var data = await _jSRuntime.InvokeAsync<object>("start_update_timer");
+            _JSInProcessRuntime.InvokeVoid("start_update_timer");
         }
     }
 }

@@ -6,6 +6,7 @@
 @using SimulatorCode
 @using System.Text.Json.Serialization
 @using MicrofluidSimulator.SimulatorCode.Simulator
+@inject IJSInProcessRuntime JSInProcessRuntime
 @inject IJSRuntime JsRuntime
 @inject HttpClient Http
 @using MicrofluidSimulator.SimulatorCode.DataTypes
@@ -13,10 +14,6 @@
 @using System.Diagnostics
 @using System.Text.Json
 @using System.Reflection
-
-@if (ModalOpen) {
-    <ModalDialog  @ref=editorModal Title="Information editor" Text = "INSERT" OnClose="@CloseModal" OnSubmit="@SubmitModal"/>
-}
 
 <h3>Welcome to the simulator</h3>
 
@@ -73,11 +70,9 @@
 
 <RadzenSlider TValue="int" Min="-100" Max="100"></RadzenSlider>
 
-<button class="btn btn-primary" @onclick="OpenModal">MODAL</button>
-
 @functions{
-    async void setP5() {
-    await JsRuntime.InvokeAsync<object>("setp5");
+    void setP5() {
+        JSInProcessRuntime.Invoke<object>("setp5");
     }
  }
 
@@ -107,8 +102,9 @@
     }
 
     [JSInvokable]
-    public static async Task JSSimulatorNextStep() {
+    public static void JSSimulatorNextStep() {
         guibroker.start_update_timer();
+
         simulator.simulatorStep(-1f);
         guibroker.update_board(simulator.container);
     }
@@ -125,14 +121,8 @@
         guibroker.update_board(simulator.container);
     }
 
-    private async Task RunNextSimulatorStep() {
-        if (simulator.actionQueue.Count != 0) {
-            Console.WriteLine(simulator.actionQueue.Count);
-            NextStep();
-        }
-    }
     [JSInvokable]
-    public static async void updateSimulatorContainer(string Type, string JSONString)
+    public static void updateSimulatorContainer(string Type, string JSONString)
     {
         // [(key -> value)] [ID1 -> 1, "Status" -> 1]
         Console.WriteLine(Type);
@@ -193,40 +183,10 @@
             simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
             Console.WriteLine("SIMULATOR.CONTAINER HERE" + simulator.container);
             guibroker.set_jsruntime(JsRuntime);
+            guibroker.set_jsprocess(JSInProcessRuntime);
             guibroker.start_update_timer();
             guibroker.update_board(simulator.container);
             guibroker.initialize_board(container.information);
         }
-    }
-
-
-    // MODAL CODE
-    ModalDialog editorModal;
-    public bool ModalOpen { get; set; }
-    private async Task CloseModal(bool accepted)
-    {
-        ModalOpen = false;
-        StateHasChanged();
-    }
-    private async void OpenModal()
-    {
-        ModalOpen = true;
-        StateHasChanged();
-    }
-    private async Task SubmitModal(bool accepted)
-    {
-        KeyValuePair<string, Dictionary<string, string>> result = editorModal.getElementOnSumbit();
-
-        string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(result.Value);
-        Console.WriteLine(jsonString);
-        SimulatorCode.Electrode el = Newtonsoft.Json.JsonConvert.DeserializeObject<SimulatorCode.Electrode>(jsonString);
-
-        foreach (var property in el.GetType().GetProperties())
-        {
-            Console.WriteLine(property.Name + ": " + property.GetValue(el, null));
-        }
-
-        ModalOpen = false;
-        StateHasChanged();
     }
 }

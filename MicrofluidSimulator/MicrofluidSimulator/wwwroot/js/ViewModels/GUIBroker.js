@@ -12,13 +12,13 @@ let gui_broker = {
     electrodes: [],
     droplet_groups: {},
     next_simulator_step: () => {
-        DotNet.invokeMethodAsync('MicrofluidSimulator', 'JSSimulatorNextStep');
+        DotNet.invokeMethod('MicrofluidSimulator', 'JSSimulatorNextStep');
     },
     next_simulator_step_time: (time) => {
-        DotNet.invokeMethodAsync('MicrofluidSimulator', 'nextStepTime', time);
+        DotNet.invokeMethod('MicrofluidSimulator', 'nextStepTime', time);
     },
     update_simulator_container: function (type, JSONString) {
-        DotNet.invokeMethodAsync('MicrofluidSimulator', 'updateSimulatorContainer', type, JSONString);
+        DotNet.invokeMethod('MicrofluidSimulator', 'updateSimulatorContainer', type, JSONString);
     },
     init_board: () => { },
     get_droplet_groups: function () {
