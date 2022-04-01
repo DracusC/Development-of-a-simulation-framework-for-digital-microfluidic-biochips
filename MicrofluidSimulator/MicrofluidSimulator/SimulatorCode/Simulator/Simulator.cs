@@ -1,5 +1,6 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
 using System.Collections;
+using MicrofluidSimulator.SimulatorCode.Models;
 using System.Reflection;
 
 namespace MicrofluidSimulator.SimulatorCode.Simulator
@@ -116,7 +117,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 
                 if (actionQueue.Count > 1)
                 {
-                    container.TimeStep = 0;
+                    container.timeStep = 0;
                     ActionQueueItem actionPeekForTime = actionQueue.Peek();
                     if (actionPeekForTime.time == container.currentTime)
                     {
@@ -168,7 +169,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         subscribers = container.subscribedDroplets;
                         if(actionPeekForTime.time > targetTime)
                         {
-                            container.TimeStep = targetTime - container.CurrentTime;
+                            container.timeStep = targetTime - container.currentTime;
                             executeAStep = false;
                         }else 
                         {
@@ -181,8 +182,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 {
                     //get subscribers to delta time
                     //subscribers = new ArrayList();
-                    container.TimeStep = targetTime - container.CurrentTime;
-                    subscribers = container.SubscribedDroplets;
+                    container.timeStep = targetTime - container.currentTime;
+                    subscribers = container.subscribedDroplets;
                     executeAStep = false;
                 }
 
@@ -226,16 +227,16 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         public void simulatorRunAllModels()
         {
             Console.WriteLine("This method was inacted based on an edit of variables!");
-            ArrayList droplets = container.Droplets;
-            Electrodes[] electrodes = container.Electrodes;
-            Console.WriteLine("Electrode with id:"+ electrodes[194].ID1 + " has status: " + electrodes[194].Status);
-            foreach (Droplets droplet in Droplets)
+            List<Droplets> droplets = container.droplets;
+            Electrode[] electrodes = container.electrodes;
+            Console.WriteLine("Electrode with id:"+ electrodes[194].ID + " has status: " + electrodes[194].status);
+            foreach (Droplets droplet in droplets)
             {
                 SubscriptionModels.dropletSubscriptions(container, droplet);
             }
 
-            container.TimeStep = 0;
-            ArrayList subscribers = container.SubscribedDroplets;
+            container.timeStep = 0;
+            ArrayList subscribers = container.subscribedDroplets;
             Queue<int> subscriberQueue = new Queue<int>();
             foreach (int subscriber in subscribers)
             {
@@ -256,7 +257,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             }
 
             int num = 0;
-            foreach(int i in container.SubscribedDroplets)
+            foreach(int i in container.subscribedDroplets)
             {
                 num++;
             }

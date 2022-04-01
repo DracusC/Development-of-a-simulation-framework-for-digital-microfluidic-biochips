@@ -14,7 +14,7 @@
 @using System.Text.Json
 @using System.Reflection
 
-@if(ModalOpen){
+@if (ModalOpen) {
     <ModalDialog  @ref=editorModal Title="Information editor" Text = "INSERT" OnClose="@CloseModal" OnSubmit="@SubmitModal"/>
 }
 
@@ -28,11 +28,11 @@
                 <span>BOARD NAME</span>
                 <div id='container'></div>
             </div>
-            
+
             <div id="layerPanel">
                 <span>Layer Panel</span>
                 <form name="layer">
-                    
+
                 </form>
             </div>
         </div>
@@ -46,7 +46,7 @@
                         <span class="customtooltiptext">Edit information</span>
                     </div>
                 </div>
-                
+
                 <div id="information">
                     <button id="edit_button" class="btn btn-primary">Edit</button>
                     <div id="saveclose_button_div"><button id="save_button" class="btn btn-primary">Save</button><button id="cancel_button" class="btn btn-primary">Cancel</button></div>
@@ -77,12 +77,11 @@
 
 @functions{
     async void setP5() {
-        await JsRuntime.InvokeAsync<object>("setp5");
+    await JsRuntime.InvokeAsync<object>("setp5");
     }
-}
+ }
 
 @code {
-
     // ACTUAL CODE BELOW
     static GUIBroker guibroker = new GUIBroker();
 
@@ -92,7 +91,7 @@
     private void NextStep() {
         //if(test) { stopwatch.Start(); test = false; } else {stopwatch.Stop(); Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds); stopwatch.Reset(); test = true; }
         simulator.simulatorStep(-1);
-        guibroker.update_board(simulator.Container);
+        guibroker.update_board(simulator.container);
     }
 
     public string PlayButtonText { get; set; } = "Play";
@@ -110,77 +109,79 @@
     [JSInvokable]
     public static async Task JSSimulatorNextStep() {
         simulator.simulatorStep(-1f);
-        guibroker.update_board(simulator.Container);
+        guibroker.update_board(simulator.container);
     }
     [JSInvokable]
     public static void nextStepTime(float deltaTime)
     {
         simulator.simulatorStep(deltaTime);
-        guibroker.update_board(simulator.Container);
-    public void Restart()
-    {
-        simulator.restartSimulator();
         guibroker.update_board(simulator.container);
     }
 
-    private async Task RunNextSimulatorStep() {
-        if (simulator.actionQueue.Count != 0) {
-            Console.WriteLine(simulator.actionQueue.Count);
-            NextStep();
-        }
-    }
-    [JSInvokable]
-    public static async void updateSimulatorContainer(string Type, string JSONString)
-    {
-        // [(key -> value)] [ID1 -> 1, "Status" -> 1]
-        Console.WriteLine(Type);
-        Console.WriteLine(JSONString);
-
-        int ID;
-        int index;
-
-        switch(Type)
+    public void Restart()
         {
-            case("Electrode"):
-                Electrodes JSONElectrode = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrodes>(JSONString);
-
-                ID = JSONElectrode.ID1;
-                index =  MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.Container);
-
-                Electrodes electrode = simulator.Container.Electrodes[index];
-
-                electrode.Status = JSONElectrode.Status;
-                break;
-
-            case("Droplet"):
-                MicrofluidSimulator.SimulatorCode.Droplets JSONDroplet = Newtonsoft.Json.JsonConvert.DeserializeObject<MicrofluidSimulator.SimulatorCode.Droplets>(JSONString);
-                ID = JSONDroplet.ID1;
-                index =  MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(ID, simulator.Container);
-
-                Console.WriteLine("ID: " + ID + ", index: " + index);
-
-                MicrofluidSimulator.SimulatorCode.Droplets droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.Container.Droplets[index];
-
-                droplet.Color = JSONDroplet.Color;
-                droplet.Temperature = JSONDroplet.Temperature;
-                droplet.Volume = JSONDroplet.Volume;
-                break;
-
-            case("Group"):
-
-                break;
+            simulator.restartSimulator();
+            guibroker.update_board(simulator.container);
         }
 
-        simulator.simulatorRunAllModels();
-        guibroker.update_board(simulator.Container);
-    }
+        private async Task RunNextSimulatorStep() {
+            if (simulator.actionQueue.Count != 0) {
+                Console.WriteLine(simulator.actionQueue.Count);
+                NextStep();
+            }
+        }
+        [JSInvokable]
+        public static async void updateSimulatorContainer(string Type, string JSONString)
+        {
+            // [(key -> value)] [ID1 -> 1, "Status" -> 1]
+            Console.WriteLine(Type);
+            Console.WriteLine(JSONString);
+
+            int ID;
+            int index;
+
+            switch (Type)
+            {
+                case ("Electrode"):
+                    Electrode JSONElectrode = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrode>(JSONString);
+
+                    ID = JSONElectrode.ID;
+                    index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.container);
+
+                    Electrode electrode = simulator.container.electrodes[index];
+
+                    electrode.status = JSONElectrode.status;
+                    break;
+
+                case ("Droplet"):
+                    MicrofluidSimulator.SimulatorCode.Droplets JSONDroplet = Newtonsoft.Json.JsonConvert.DeserializeObject<MicrofluidSimulator.SimulatorCode.Droplets>(JSONString);
+                    ID = JSONDroplet.ID;
+                    index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(ID, simulator.container);
+
+                    Console.WriteLine("ID: " + ID + ", index: " + index);
+
+                    MicrofluidSimulator.SimulatorCode.Droplets droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
+
+                    droplet.color = JSONDroplet.color;
+                    droplet.temperature = JSONDroplet.temperature;
+                    droplet.volume = JSONDroplet.volume;
+                    break;
+
+                case ("Group"):
+
+                    break;
+            }
+
+            simulator.simulatorRunAllModels();
+            guibroker.update_board(simulator.container);
+        }
 
     private Container? container;
     private static Simulator? simulator;
     private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
     protected override async void OnAfterRender(bool firstRender) {
         Console.WriteLine("FIRST == " + firstRender);
-        if(firstRender) {
+        if (firstRender) {
             Console.WriteLine("TEST");
 
             setP5();
@@ -196,12 +197,6 @@
         }
     }
 
-    [JSInvokable]
-    public static void nextStepTime(float deltaTime)
-    {
-        simulator.simulatorStep(deltaTime);
-        guibroker.update_board(simulator.container);
-    }
 
     // MODAL CODE
     ModalDialog editorModal;
@@ -222,7 +217,7 @@
 
         string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(result.Value);
         Console.WriteLine(jsonString);
-            SimulatorCode.Electrode el = Newtonsoft.Json.JsonConvert.DeserializeObject<SimulatorCode.Electrode>(jsonString);
+        SimulatorCode.Electrode el = Newtonsoft.Json.JsonConvert.DeserializeObject<SimulatorCode.Electrode>(jsonString);
 
         foreach (var property in el.GetType().GetProperties())
         {
@@ -232,5 +227,4 @@
         ModalOpen = false;
         StateHasChanged();
     }
-
 }

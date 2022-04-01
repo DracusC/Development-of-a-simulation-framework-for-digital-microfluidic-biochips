@@ -20,7 +20,7 @@
             volume: 0,
             group: 0
         },
-        Droplet_editable: ["Volume", "Temperature", "Color"],
+        Droplet_editable: ["volume", "temperature", "color"],
         Electrode: {
             name: "",
             ID: "",
@@ -29,7 +29,7 @@
             positionY: 0,
             subscriptions: []
         },
-        Electrode_editable: ["Status"],
+        Electrode_editable: ["status"],
         Group: {
             Group_ID: 0,
             substance_name: "",
@@ -38,7 +38,7 @@
             volume: 0,
             droplets: []
         },
-        Group_editable: ["Volume", "Temperature", "Color"]
+        Group_editable: ["volume", "temperature", "color"]
     },
     information_filter: function (type) {
         let returnVal;
@@ -86,8 +86,8 @@
                     let droplet = group[i];
                     returnVal.droplets.push(droplet.ID);
                     for (let key in droplet) {
-                        if (key == "Volume") { returnVal.volume += droplet[key] }
-                        if (key == "Temperature") { returnVal.temperature += droplet[key] }
+                        if (key == "volume") { returnVal.volume += droplet[key] }
+                        if (key == "temperature") { returnVal.temperature += droplet[key] }
                     }
                 }
 
@@ -229,7 +229,7 @@
 
             //console.log(gui_broker.board[this.selected_element_type + "s"].find(o => o.ID1 === this.selected_element.ID1));
         } else {
-            values_to_send.ID1 = this.selected_element.ID1;
+            values_to_send.ID = this.selected_element.ID;
         }
 
         console.log(values_to_send);
