@@ -7,10 +7,14 @@ window.setp5 = () => {
 window.start_update_timer = () => {
     console.time("UpdateTimer");
 }
+window.end_update_timer = () => {
+    console.timeEnd("UpdateTimer");
+}
 
 // TODO: Look into reflections
 // Global methods that can be called by C# scripts
 window.update_board = (_container_string) => {
+    console.time("DeserializeTimer");
     let container_string = BINDING.conv_string(_container_string);
 
     var board = JSON.parse(container_string);
@@ -20,6 +24,7 @@ window.update_board = (_container_string) => {
     //information_panel_manager.draw_information(board.Electrodes[130]);
     gui_broker.get_droplet_groups();
 
+    console.timeEnd("DeserializeTimer");
     console.timeEnd("UpdateTimer");
 
     amount = 0;
@@ -30,6 +35,7 @@ window.change_play_status = (status) => {
 };
 
 window.initialize_board = (information) => {
+
     var JSONinformation = JSON.parse(information);
     console.log(JSONinformation);
     gui_broker.init_board(JSONinformation.sizeX, JSONinformation.sizeY + 1);

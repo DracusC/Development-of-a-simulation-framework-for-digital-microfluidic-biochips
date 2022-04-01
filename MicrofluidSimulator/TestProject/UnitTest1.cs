@@ -1,3 +1,4 @@
+/*
 using NUnit.Framework;
 using MicrofluidSimulator.SimulatorCode;
 using MicrofluidSimulator.SimulatorCode.Initialize;
@@ -45,4 +46,4 @@ namespace TestProject
             Assert.That(subscribers, Has.Exactly(1).EqualTo(2));
         }
     }
-}
+}*/

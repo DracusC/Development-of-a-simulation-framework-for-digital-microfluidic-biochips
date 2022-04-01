@@ -70,6 +70,8 @@ let sketch = function (p) {
      * Draw is called every frame of the sketch.
      */
     p.draw = function () {
+        //console.time("DrawTime");
+
         p.background(240);
 
         /* Draw calls */
@@ -89,9 +91,12 @@ let sketch = function (p) {
 
         if (layer_manager.layers.draw_droplet_groups.checkbox.checked) { draw_grouped_droplets(); }
 
+        //console.timeEnd("DrawTime");
+
         if (gui_broker.play_status) {
             gui_broker.next_simulator_step();
         }
+        
     }
 
     /** Handle single mouse clicks */

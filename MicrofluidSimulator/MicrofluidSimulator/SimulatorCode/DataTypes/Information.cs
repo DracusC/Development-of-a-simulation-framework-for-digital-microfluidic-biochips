@@ -1,5 +1,7 @@
-﻿namespace MicrofluidSimulator.SimulatorCode
+﻿
+namespace MicrofluidSimulator.SimulatorCode
 {
+
     public class Information
     {
         //string platform_name, platform_type;
