@@ -62,5 +62,10 @@ namespace MicrofluidSimulator.SimulatorCode.View
             var result = await _jSRuntime.InvokeAsync<string>("get_selected_element");
             return result;
         }
+
+        public async void start_update_timer()
+        {
+            var data = await _jSRuntime.InvokeAsync<object>("start_update_timer");
+        }
     }
 }

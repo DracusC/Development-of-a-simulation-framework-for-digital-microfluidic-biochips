@@ -4,6 +4,9 @@ window.setp5 = () => {
     return true;
 };
 
+window.start_update_timer = () => {
+    console.time("UpdateTimer");
+}
 
 // TODO: Look into reflections
 // Global methods that can be called by C# scripts
@@ -14,6 +17,8 @@ window.update_board = (container_string) => {
 
     //information_panel_manager.draw_information(board.Electrodes[130]);
     gui_broker.get_droplet_groups();
+
+    console.timeEnd("UpdateTimer");
 
     amount = 0;
 }

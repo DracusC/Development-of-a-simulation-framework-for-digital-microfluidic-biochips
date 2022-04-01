@@ -108,6 +108,7 @@
 
     [JSInvokable]
     public static async Task JSSimulatorNextStep() {
+        guibroker.start_update_timer();
         simulator.simulatorStep(-1f);
         guibroker.update_board(simulator.container);
     }
@@ -119,62 +120,62 @@
     }
 
     public void Restart()
+    {
+        simulator.restartSimulator();
+        guibroker.update_board(simulator.container);
+    }
+
+    private async Task RunNextSimulatorStep() {
+        if (simulator.actionQueue.Count != 0) {
+            Console.WriteLine(simulator.actionQueue.Count);
+            NextStep();
+        }
+    }
+    [JSInvokable]
+    public static async void updateSimulatorContainer(string Type, string JSONString)
+    {
+        // [(key -> value)] [ID1 -> 1, "Status" -> 1]
+        Console.WriteLine(Type);
+        Console.WriteLine(JSONString);
+
+        int ID;
+        int index;
+
+        switch (Type)
         {
-            simulator.restartSimulator();
-            guibroker.update_board(simulator.container);
+            case ("Electrode"):
+                Electrode JSONElectrode = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrode>(JSONString);
+
+                ID = JSONElectrode.ID;
+                index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.container);
+
+                Electrode electrode = simulator.container.electrodes[index];
+
+                electrode.status = JSONElectrode.status;
+                break;
+
+            case ("Droplet"):
+                MicrofluidSimulator.SimulatorCode.Droplets JSONDroplet = Newtonsoft.Json.JsonConvert.DeserializeObject<MicrofluidSimulator.SimulatorCode.Droplets>(JSONString);
+                ID = JSONDroplet.ID;
+                index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(ID, simulator.container);
+
+                Console.WriteLine("ID: " + ID + ", index: " + index);
+
+                MicrofluidSimulator.SimulatorCode.Droplets droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
+
+                droplet.color = JSONDroplet.color;
+                droplet.temperature = JSONDroplet.temperature;
+                droplet.volume = JSONDroplet.volume;
+                break;
+
+            case ("Group"):
+
+                break;
         }
 
-        private async Task RunNextSimulatorStep() {
-            if (simulator.actionQueue.Count != 0) {
-                Console.WriteLine(simulator.actionQueue.Count);
-                NextStep();
-            }
-        }
-        [JSInvokable]
-        public static async void updateSimulatorContainer(string Type, string JSONString)
-        {
-            // [(key -> value)] [ID1 -> 1, "Status" -> 1]
-            Console.WriteLine(Type);
-            Console.WriteLine(JSONString);
-
-            int ID;
-            int index;
-
-            switch (Type)
-            {
-                case ("Electrode"):
-                    Electrode JSONElectrode = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrode>(JSONString);
-
-                    ID = JSONElectrode.ID;
-                    index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.container);
-
-                    Electrode electrode = simulator.container.electrodes[index];
-
-                    electrode.status = JSONElectrode.status;
-                    break;
-
-                case ("Droplet"):
-                    MicrofluidSimulator.SimulatorCode.Droplets JSONDroplet = Newtonsoft.Json.JsonConvert.DeserializeObject<MicrofluidSimulator.SimulatorCode.Droplets>(JSONString);
-                    ID = JSONDroplet.ID;
-                    index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(ID, simulator.container);
-
-                    Console.WriteLine("ID: " + ID + ", index: " + index);
-
-                    MicrofluidSimulator.SimulatorCode.Droplets droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
-
-                    droplet.color = JSONDroplet.color;
-                    droplet.temperature = JSONDroplet.temperature;
-                    droplet.volume = JSONDroplet.volume;
-                    break;
-
-                case ("Group"):
-
-                    break;
-            }
-
-            simulator.simulatorRunAllModels();
-            guibroker.update_board(simulator.container);
-        }
+        simulator.simulatorRunAllModels();
+        guibroker.update_board(simulator.container);
+    }
 
     private Container? container;
     private static Simulator? simulator;
@@ -192,6 +193,7 @@
             simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
             Console.WriteLine("SIMULATOR.CONTAINER HERE" + simulator.container);
             guibroker.set_jsruntime(JsRuntime);
+            guibroker.start_update_timer();
             guibroker.update_board(simulator.container);
             guibroker.initialize_board(container.information);
         }
