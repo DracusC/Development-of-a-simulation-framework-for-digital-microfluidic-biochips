@@ -113,9 +113,10 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             while (targetTime > container.currentTime || executeAStep)
             {
                 ArrayList subscribers = new ArrayList();
-
+                
                 if (actionQueue.Count > 1)
                 {
+                    container.TimeStep = 0;
                     ActionQueueItem actionPeekForTime = actionQueue.Peek();
                     if (actionPeekForTime.time == container.currentTime)
                     {
@@ -167,6 +168,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         subscribers = container.subscribedDroplets;
                         if(actionPeekForTime.time > targetTime)
                         {
+                            container.TimeStep = targetTime - container.CurrentTime;
                             executeAStep = false;
                         }else 
                         {
@@ -179,7 +181,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 {
                     //get subscribers to delta time
                     //subscribers = new ArrayList();
-                    subscribers = container.subscribedDroplets;
+                    container.TimeStep = targetTime - container.CurrentTime;
+                    subscribers = container.SubscribedDroplets;
                     executeAStep = false;
                 }
 
@@ -217,6 +220,47 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
             
             
+        }
+
+
+        public void simulatorRunAllModels()
+        {
+            Console.WriteLine("This method was inacted based on an edit of variables!");
+            ArrayList droplets = container.Droplets;
+            Electrodes[] electrodes = container.Electrodes;
+            Console.WriteLine("Electrode with id:"+ electrodes[194].ID1 + " has status: " + electrodes[194].Status);
+            foreach (Droplets droplet in Droplets)
+            {
+                SubscriptionModels.dropletSubscriptions(container, droplet);
+            }
+
+            container.TimeStep = 0;
+            ArrayList subscribers = container.SubscribedDroplets;
+            Queue<int> subscriberQueue = new Queue<int>();
+            foreach (int subscriber in subscribers)
+            {
+                subscriberQueue.Enqueue(subscriber);
+            }
+
+
+            Console.WriteLine("subscriber queue " + subscriberQueue.Count());
+            while (subscriberQueue.Count() > 0)
+            {
+                int subscriber = subscriberQueue.Dequeue();
+                int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+                if (index != -1)
+                {
+                    Droplets droplet = (Droplets)droplets[index];
+                    handelSubscriber(container, droplet, subscriberQueue);
+                }
+            }
+
+            int num = 0;
+            foreach(int i in container.SubscribedDroplets)
+            {
+                num++;
+            }
+            Console.WriteLine("there are now :" + num + " droplets");
         }
 
 
