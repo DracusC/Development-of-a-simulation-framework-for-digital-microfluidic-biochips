@@ -40,39 +40,36 @@ namespace MicrofluidSimulator.SimulatorCode.View
         public void initialize_board(Information container) {
             /*var stopwatch = new Stopwatch();
             stopwatch.Start();
-            byte[] bytes = MessagePackSerializer.Serialize(container);
+            string jsonuft = Utf8Json.JsonSerializer.ToJsonString(container);
             stopwatch.Stop();
 
-            Console.WriteLine("Initialize serialize time: " + stopwatch.ElapsedMilliseconds + " ms");
+            Console.WriteLine("Init Utf8Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");
 
             stopwatch.Reset();
             stopwatch.Start();
             string json = JsonSerializer.Serialize(container);
             stopwatch.Stop();
 
-            Console.WriteLine("Newtonsoft serialize time: " + stopwatch.ElapsedMilliseconds + " ms");*/
+            Console.WriteLine("Init System.Text.Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");*/
 
             var json_string = Utf8Json.JsonSerializer.ToJsonString(container);
             _JSInProcessRuntime.InvokeVoid("initialize_board", json_string);
         }
 
         public void update_board(Container container) {
-            //byte[] bytes = MessagePackSerializer.Serialize(container);
-            //MessagePackSerializer.ConvertToJson(container);
             /*var stopwatch = new Stopwatch();
             stopwatch.Start();
-            //byte[] bytes = MessagePackSerializer.Serialize(container, MessagePack.Resolvers.ContractlessStandardResolver.Options);
-            //string json = MessagePackSerializer.ConvertToJson(bytes);
-            string json = JsonSerializer.Serialize(container);
+            string jsonuft = Utf8Json.JsonSerializer.ToJsonString(container);
             stopwatch.Stop();
-            Console.WriteLine("System.Text.Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");
+
+            Console.WriteLine("Utf8Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");
 
             stopwatch.Reset();
             stopwatch.Start();
-            string json2 = Utf8Json.JsonSerializer.ToJsonString(container);
+            string json = JsonSerializer.Serialize(container);
             stopwatch.Stop();
 
-            Console.WriteLine("utf8 serialize time: " + stopwatch.ElapsedMilliseconds + " ms");*/
+            Console.WriteLine("System.Text.Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");*/
 
             _JSUnmarshalledRuntime.InvokeUnmarshalled<string, string>("update_board", Utf8Json.JsonSerializer.ToJsonString(container));
             //_JSInProcessRuntime.InvokeVoid("update_board", container);
