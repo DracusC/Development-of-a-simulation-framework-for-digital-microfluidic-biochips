@@ -10,7 +10,9 @@ window.start_update_timer = () => {
 
 // TODO: Look into reflections
 // Global methods that can be called by C# scripts
-window.update_board = (container_string) => {
+window.update_board = (_container_string) => {
+    let container_string = BINDING.conv_string(_container_string);
+
     var board = JSON.parse(container_string);
     gui_broker.droplets = board.droplets;
     gui_broker.electrodes = board.electrodes;

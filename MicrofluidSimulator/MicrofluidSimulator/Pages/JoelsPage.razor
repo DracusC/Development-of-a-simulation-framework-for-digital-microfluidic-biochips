@@ -7,7 +7,7 @@
 @using System.Text.Json.Serialization
 @using MicrofluidSimulator.SimulatorCode.Simulator
 @inject IJSInProcessRuntime JSInProcessRuntime
-@inject IJSRuntime JsRuntime
+@inject IJSUnmarshalledRuntime JSUnmarshalledRuntime
 @inject HttpClient Http
 @using MicrofluidSimulator.SimulatorCode.DataTypes
 @using MicrofluidSimulator.SimulatorCode.View
@@ -182,8 +182,8 @@
             Console.WriteLine("CONTAINER HERE" + container);
             simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
             Console.WriteLine("SIMULATOR.CONTAINER HERE" + simulator.container);
-            guibroker.set_jsruntime(JsRuntime);
             guibroker.set_jsprocess(JSInProcessRuntime);
+            guibroker.set_unmarshall(JSUnmarshalledRuntime);
             guibroker.start_update_timer();
             guibroker.update_board(simulator.container);
             guibroker.initialize_board(container.information);

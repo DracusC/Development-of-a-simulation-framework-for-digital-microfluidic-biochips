@@ -21,22 +21,19 @@ namespace MicrofluidSimulator.SimulatorCode.View
         /*
          * JSRuntime is used to run javascript code within c#
          */
-        private IJSRuntime _jSRuntime;
         private IJSInProcessRuntime _JSInProcessRuntime;
-
-        public GUIBroker(IJSRuntime jSRuntime) {
-            _jSRuntime = jSRuntime;
-        }
+        private IJSUnmarshalledRuntime _JSUnmarshalledRuntime;
 
         public GUIBroker() { }
-
-        public void set_jsruntime(IJSRuntime jSRuntime) {
-            _jSRuntime = jSRuntime;
-        }
 
         public void set_jsprocess(IJSInProcessRuntime JSInProcessRuntime)
         {
             _JSInProcessRuntime = JSInProcessRuntime;
+        }
+
+        public void set_unmarshall(IJSUnmarshalledRuntime JSUnmarshalledRuntime)
+        {
+            _JSUnmarshalledRuntime = JSUnmarshalledRuntime;
         }
 
         public void initialize_board(Information container) {
@@ -45,7 +42,7 @@ namespace MicrofluidSimulator.SimulatorCode.View
         }
 
         public void update_board(Container container) {
-            _JSInProcessRuntime.InvokeVoid("update_board", Newtonsoft.Json.JsonConvert.SerializeObject(container));
+            _JSUnmarshalledRuntime.InvokeUnmarshalled<string, string>("update_board", Newtonsoft.Json.JsonConvert.SerializeObject(container));
         }
 
         public bool get_gui_status() {

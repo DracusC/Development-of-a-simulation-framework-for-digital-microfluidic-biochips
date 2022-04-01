@@ -76,7 +76,7 @@
     private List<KeyValuePair<string, string>> kvpList = new List<KeyValuePair<string, string>>() { };
     protected override async void OnInitialized()
     {
-        GUIBroker guibroker = new GUIBroker(JsRuntime);
+        GUIBroker guibroker = new GUIBroker();
 
         string jsonString = guibroker.get_selected_element();
 
