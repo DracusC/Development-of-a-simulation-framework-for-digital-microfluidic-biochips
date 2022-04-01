@@ -2,9 +2,7 @@
 {
     public class Subscriptions
     {
-        int subscriptionType;
-
-        
+        //int subscriptionType; 
 
         public Subscriptions(int subscription)
         {
@@ -15,5 +13,7 @@
         {
             this.subscriptionType = -1; //null
         }
+
+        public int subscriptionType { get; set; }
     }
 }

@@ -5,53 +5,53 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class ElectrodeModels
     {
-        public static ArrayList electrodeOnOff(Container values, Electrodes electrode, DataTypes.SimulatorAction action)
+        public static ArrayList electrodeOnOff(Container values, Electrode electrode, DataTypes.SimulatorAction action)
         {
             // electrode on/off
-            electrode.Status = action.ActionChange;
+            electrode.status = action.actionChange;
             //if (action.ActionChange != 0)
             //{
                 // give back the subscribers of the electrode
-                return electrode.Subscriptions;
+                return electrode.subscriptions;
             //}
             //ArrayList empty = new ArrayList();
             //return empty;
         }
-        public static Droplets electrodeHasDroplet(Electrodes Caller, Container container)
+        public static Droplets electrodeHasDroplet(Electrode Caller, Container container)
         {
-            ArrayList droplets = container.Droplets;
+            List<Droplets> droplets = container.droplets;
             foreach (Droplets droplet in droplets)
             {
-                if (droplet.ElectrodeID == Caller.ID1)
+                if (droplet.electrodeID == Caller.ID)
                 {
                     return droplet;
                 }
             }
             return null;
         }
-        public static int[] getCenterOfElectrode(Electrodes electrode)
+        public static int[] getCenterOfElectrode(Electrode electrode)
         {
             int[] centre = new int[2];
-            if (electrode.Shape == 0)
+            if (electrode.shape == 0)
             {
-                centre[0] = electrode.PositionX + (electrode.SizeX / 2);
-                centre[1] = electrode.PositionY + (electrode.SizeY / 2);
+                centre[0] = electrode.positionX + (electrode.sizeX / 2);
+                centre[1] = electrode.positionY + (electrode.sizeY / 2);
             }
             else
             {
-                centre[0] = electrode.PositionX + 5;
-                centre[1] = electrode.PositionY + 5;
+                centre[0] = electrode.positionX + 5;
+                centre[1] = electrode.positionY + 5;
             }
 
             return centre;
 
         }
 
-        public static float getAreaOfElectrode(Electrodes electrode)
+        public static float getAreaOfElectrode(Electrode electrode)
         {
-            if(electrode.Shape == 0)
+            if(electrode.shape == 0)
             {
-                return electrode.SizeX * electrode.SizeY;
+                return electrode.sizeX * electrode.sizeY;
             }
             else
             {
@@ -59,15 +59,16 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
         }
 
-        private static float getAreaOfIregularShapedElectrode(Electrodes electrode)
+        private static float getAreaOfIregularShapedElectrode(Electrode electrode)
         {
-            int[,] corners = electrode.Corners;
+            
             float area = 0;
-            for(int i = 0; i < corners.GetLength(0)-1; i++)
+            
+            for(int i = 0; i < electrode.corners.Count-1; i++)
             {
-                area = area + (corners[i,0]* corners[i+1,1] - corners[i+1,0]* corners[i,1]);
+                area = area + (electrode.corners[i][0] * electrode.corners[i+1][1] - electrode.corners[i+1][0] * electrode.corners[i][1]);
             }
-            area = area + (corners[0, 0] * corners[corners.GetLength(0) - 2, 1] - corners[corners.GetLength(0) - 2, 0] * corners[0, 1]);
+            area = area + (electrode.corners[0][0] * electrode.corners[electrode.corners.Count - 2][1] - electrode.corners[electrode.corners.Count - 2][0] * electrode.corners[0][1]);
             return area/2;
         }
 

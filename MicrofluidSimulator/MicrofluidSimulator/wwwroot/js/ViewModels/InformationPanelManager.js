@@ -5,33 +5,33 @@
     editing: false,
     display_info: {
         Droplet: {
-            ID1: "",
-            Substance_name: "",
-            Color: "",
-            SizeX: 0,
-            PositionX: 0,
-            PositionY: 0,
-            Temperature: 0,
-            Volume: 0,
-            Group: 0
+            ID: "",
+            substance_name: "",
+            color: "",
+            sizeX: 0,
+            positionX: 0,
+            positionY: 0,
+            temperature: 0,
+            volume: 0,
+            group: 0
         },
         Droplet_editable: ["Volume", "Temperature", "Color"],
         Electrode: {
-            Name: "",
-            ID1: "",
-            Status: 0,
-            PositionX: 0,
-            PositionY: 0,
-            Subscriptions: []
+            name: "",
+            ID: "",
+            status: 0,
+            positionX: 0,
+            positionY: 0,
+            subscriptions: []
         },
         Electrode_editable: ["Status"],
         Group: {
             Group_ID: 0,
-            Substance_name: "",
-            Color: "",
-            Temperature: 0,
-            Volume: 0,
-            Droplets: []
+            substance_name: "",
+            color: "",
+            temperature: 0,
+            volume: 0,
+            droplets: []
         },
         Group_editable: ["Volume", "Temperature", "Color"]
     },
@@ -71,24 +71,24 @@
                 let group = arguments[2];
 
                 returnVal = { ...this.display_info[type] };
-                returnVal.Droplets = [];
+                returnVal.droplets = [];
                 returnVal.Group_ID = id;
 
-                returnVal.Substance_name = group[0].Substance_name;
-                returnVal.Color = group[0].Color;
+                returnVal.substance_name = group[0].substance_name;
+                returnVal.color = group[0].color;
 
                 for (let i = 0; i < group.length; i++) {
                     let droplet = group[i];
-                    returnVal.Droplets.push(droplet.ID1);
+                    returnVal.droplets.push(droplet.ID);
                     for (let key in droplet) {
-                        if (key == "Volume") { returnVal.Volume += droplet[key] }
-                        if (key == "Temperature") { returnVal.Temperature += droplet[key] }
+                        if (key == "Volume") { returnVal.volume += droplet[key] }
+                        if (key == "Temperature") { returnVal.temperature += droplet[key] }
                     }
                 }
 
-                returnVal.Temperature = returnVal.Temperature / group.length;
+                returnVal.temperature = returnVal.temperature / group.length;
 
-                returnVal.Type = type;
+                returnVal.type = type;
                 return returnVal;
                 break;
         }

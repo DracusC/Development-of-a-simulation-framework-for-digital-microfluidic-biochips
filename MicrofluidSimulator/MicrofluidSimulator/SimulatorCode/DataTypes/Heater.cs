@@ -4,9 +4,9 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
     
     public class Heater : Actuators
     {
-        int valueActualTemperature, valueDesiredTemperature, valuePowerStatus;
+        //int valueActualTemperature, valueDesiredTemperature, valuePowerStatus;
 
-        ArrayList subscriptions;
+        //ArrayList subscriptions;
         
         public Heater(string name, int ID, int actuatorID, string type, int positionX, int positionY, int sizeX, int sizeY, int valueActualTemperature, int valueDesiredTemperature, 
             int valuePowerStatus)
@@ -19,9 +19,9 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
             
         }
 
-        public int ValueActualTemperature { get => valueActualTemperature; set => valueActualTemperature = value; }
-        public int ValueDesiredTemperature { get => valueDesiredTemperature; set => valueDesiredTemperature = value; }
-        public int ValuePowerStatus { get => valuePowerStatus; set => valuePowerStatus = value; }
-       
+        public int valueActualTemperature { get; set; }
+        public int valueDesiredTemperature { get; set; }
+        public int valuePowerStatus { get; set; }
+
     }
 }

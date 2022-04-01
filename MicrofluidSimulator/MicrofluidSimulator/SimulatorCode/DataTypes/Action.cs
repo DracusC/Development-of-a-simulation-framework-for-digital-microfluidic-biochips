@@ -2,8 +2,8 @@
 {
     public class SimulatorAction
     {
-        String actionName;
-        int actionOnID, actionChange;
+        //String actionName;
+        //int actionOnID, actionChange;
 
         public SimulatorAction(string actionName, int actionOnID, int actionChange)
         {
@@ -12,8 +12,8 @@
             this.actionChange = actionChange;
         }
 
-        public string ActionName { get => actionName; set => actionName = value; }
-        public int ActionOnID { get => actionOnID; set => actionOnID = value; }
-        public int ActionChange { get => actionChange; set => actionChange = value; }
+        public string actionName { get; set; }
+        public int actionOnID { get; set; }
+        public int actionChange { get; set; }
     }
 }

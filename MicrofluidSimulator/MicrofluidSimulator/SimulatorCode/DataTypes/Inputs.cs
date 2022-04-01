@@ -2,8 +2,8 @@
 {
     public class Inputs
     {
-        string name;
-        int ID, inputID = -1, positionX, positionY;
+        //string name;
+        //int ID, inputID = -1, positionX, positionY;
 
         
 
@@ -14,16 +14,17 @@
             this.inputID = inputID;
             this.positionX = positionX;
             this.positionY = positionY;
+            this.inputID = -1;
         }
 
         public Inputs()
         {
         }
 
-        public string Name { get => name; set => name = value; }
-        public int ID1 { get => ID; set => ID = value; }
-        public int InputID { get => inputID; set => inputID = value; }
-        public int PositionX { get => positionX; set => positionX = value; }
-        public int PositionY { get => positionY; set => positionY = value; }
+        public string name { get; set; }
+        public int ID { get; set; }
+        public int inputID { get; set; }
+        public int positionX { get; set; }
+        public int positionY { get; set; }
     }
 }

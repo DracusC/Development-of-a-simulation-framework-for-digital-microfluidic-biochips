@@ -12,7 +12,7 @@ namespace MicrofluidSimulator.SimulatorCode.View
     public class GUIInfo {
         public bool gui_status { get; set; }
         public Droplets[] droplets { get; set; }
-        public Electrodes[] electrodes { get; set;}
+        public Electrode[] electrodes { get; set;}
     }
 
     public class GUIBroker {
@@ -33,7 +33,7 @@ namespace MicrofluidSimulator.SimulatorCode.View
             _jSRuntime = jSRuntime;
         }
         
-        public async void initialize_board(MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Information container) {
+        public async void initialize_board(Information container) {
             var json_string = Newtonsoft.Json.JsonConvert.SerializeObject(container);
             var data = await _jSRuntime.InvokeAsync<object>("initialize_board", json_string);
         }
@@ -50,6 +50,11 @@ namespace MicrofluidSimulator.SimulatorCode.View
 
         public async void change_play_status() {
             var data = await _jSRuntime.InvokeAsync<object>("change_play_status");
+        }
+
+        public async void restart_board()
+        {
+            var data = await _jSRuntime.InvokeAsync<object>("restart_board");
         }
 
         public async Task<string> get_selected_element()

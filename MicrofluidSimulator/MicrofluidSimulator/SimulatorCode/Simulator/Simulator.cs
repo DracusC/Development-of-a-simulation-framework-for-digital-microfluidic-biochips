@@ -1,5 +1,4 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
-using MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes;
 using System.Collections;
 using System.Reflection;
 
@@ -9,27 +8,45 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
     public class Simulator
     {
-        Container container;
-        ArrayList droplets;
-        Queue<ActionQueueItem> actionQueue;
-        //ArrayList containerConfigurations;
-        //Queue<ActionQueueItem> oldActionQueue;
-        public Simulator(Queue<ActionQueueItem> actionQueue, JsonContainer jsonContainer, ElectrodesWithNeighbours[] electrodesWithNeighbours, string generatedActionQueue)
+        
+        public Simulator(Queue<ActionQueueItem> actionQueue, Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours, string generatedActionQueue)
         {
             
 
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
-            container = init.initialize(jsonContainer, electrodesWithNeighbours);
+            container = init.initialize(container, electrodesWithNeighbours);
             this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
-            droplets = container.Droplets;
-            Electrodes[] electrodeBoard = container.Electrodes;
+            droplets = container.droplets;
+            Electrode[] electrodeBoard = container.electrodes;
+
+
+            
+            
+            this.container = container;
+
+            this.initialActionQueue = this.actionQueue;
+            this.initialContainer = this.container;
+
+            Console.WriteLine("initialContainer info" + this.initialContainer.droplets[0].positionX);
+            //restartSimulator(jsonContainer, electrodesWithNeighbours, initialActionQueue);
             //ArrayList containerConfigurations = new ArrayList();
         }
+        
+        public void restartSimulator()
+        {
+            this.container = this.initialContainer;
+            this.actionQueue = this.initialActionQueue;
+            
+        }
+        
+        public Container container { get; set; }
+        public List<Droplets> droplets { get; set; }
+        public Queue<ActionQueueItem> actionQueue { get; set; }
 
-        public Container Container { get => container; set => container = value; }
-        public ArrayList Droplets { get => droplets; set => droplets = value; }
-        public Queue<ActionQueueItem> ActionQueue { get => actionQueue; set => actionQueue = value; }
+        public Queue<ActionQueueItem> initialActionQueue { get; set; }
+
+        public Container initialContainer { get; set; }
 
         //public void simulatorRun(Queue<ActionQueueItem> actionQueue)
         //{
@@ -72,7 +89,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         public void simulatorStep(float timeStepLength)
         {
             // only execute if action exists in queue
-            float targetTime = container.CurrentTime + timeStepLength;
+            float targetTime = container.currentTime + timeStepLength;
             bool executeAStep = false;
 
 
@@ -81,33 +98,33 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 if (actionQueue.Count > 1)
                 {
                     ActionQueueItem actionPeek = actionQueue.Peek();
-                    targetTime = actionPeek.Time;
+                    targetTime = actionPeek.time;
                     executeAStep = true;
                 }
                 else
                 {
-                    targetTime = container.CurrentTime;
+                    targetTime = container.currentTime;
                     executeAStep = false;
                 }
             }
 
 
 
-            while (targetTime > container.CurrentTime || executeAStep)
+            while (targetTime > container.currentTime || executeAStep)
             {
                 ArrayList subscribers = new ArrayList();
 
                 if (actionQueue.Count > 1)
                 {
                     ActionQueueItem actionPeekForTime = actionQueue.Peek();
-                    if (actionPeekForTime.Time == container.CurrentTime)
+                    if (actionPeekForTime.time == container.currentTime)
                     {
                         // store the first action in the queue and dequeue it
                         bool noMoreActions = false;
                         ActionQueueItem action = actionQueue.Dequeue();
 
                         // print the timestamp of the action we're about to execute
-                        Console.WriteLine("action number " + action.Time);
+                        Console.WriteLine("action number " + action.time);
 
                         //containerConfigurations.Add(container);
                         //Get the first action execute and get back the list of subscribers to the specific action
@@ -118,7 +135,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                             if (actionQueue.Count > 0)
                             {
                                 ActionQueueItem actionPeek = actionQueue.Peek();
-                                if (action.Time == actionPeek.Time)
+                                if (action.time == actionPeek.time)
                                 {
                                     ActionQueueItem nextAction = actionQueue.Dequeue();
                                     Console.WriteLine("they are at the same time");
@@ -147,13 +164,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     {
                         //get subscribers to delta time
                         //subscribers = new ArrayList();
-                        subscribers = container.SubscribedDroplets;
-                        if(actionPeekForTime.Time > targetTime)
+                        subscribers = container.subscribedDroplets;
+                        if(actionPeekForTime.time > targetTime)
                         {
                             executeAStep = false;
                         }else 
                         {
-                            container.TimeStep = actionPeekForTime.Time - container.CurrentTime;
+                            container.timeStep = actionPeekForTime.time - container.currentTime;
                             executeAStep = true;
                         }
                     }
@@ -162,7 +179,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 {
                     //get subscribers to delta time
                     //subscribers = new ArrayList();
-                    subscribers = container.SubscribedDroplets;
+                    subscribers = container.subscribedDroplets;
                     executeAStep = false;
                 }
 
@@ -191,7 +208,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     }
                 }
 
-                container.CurrentTime = container.CurrentTime + container.TimeStep;
+                container.currentTime = container.currentTime + container.timeStep;
 
             }
 
@@ -205,10 +222,10 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
         private void handelSubscriber(Container container, Droplets caller, Queue<int> subscriber)
         {
-            if(caller.NextModel < caller.ModelOrder.Count())
+            if(caller.nextModel < caller.modelOrder.Count())
             {
-                String nextModel = caller.ModelOrder[caller.NextModel];
-                caller.NextModel++;
+                String nextModel = caller.modelOrder[caller.nextModel];
+                caller.nextModel++;
                 ArrayList newSubscribers = executeModel(container,caller,nextModel);
                 if(newSubscribers != null)
                 {
@@ -221,19 +238,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     }
                     else
                     {
-                        caller.NextModel = 0;
+                        caller.nextModel = 0;
                     }
 
                 }
                 else
                 {
-                    caller.NextModel = 0;
+                    caller.nextModel = 0;
                 }
                 
             }
             else
             {
-                caller.NextModel = 0;
+                caller.nextModel = 0;
             }
             
         }
@@ -258,7 +275,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         /* Switch that reads the action and determines what needs to be calles*/
         private ArrayList executeAction(ActionQueueItem action, Container container)
         {
-            String actionName = action.Action.ActionName;
+            String actionName = action.action.actionName;
             float lastHeaterCallTime = 0;
             switch (actionName)
             {
@@ -277,10 +294,10 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         private ArrayList executeHeaterAction(ActionQueueItem actionQueueItem, Container container, float lastHeaterCallTime)
         {
             // get the electrodes
-            DataTypes.Actuators[] actuators = container.Actuators;
+            DataTypes.Actuators[] actuators = container.actuators;
             // initialize action
-            SimulatorAction action = actionQueueItem.Action;
-            int actuatorId = Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.ActionOnID, container);
+            SimulatorAction action = actionQueueItem.action;
+            int actuatorId = Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.actionOnID, container);
             
             // get the subscribers for the electrode flip
             ArrayList subscribers = Models.HeaterModels.heaterTemperatureCalled(container, (Heater)actuators[actuatorId], action);
@@ -291,11 +308,11 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         private ArrayList executeElectrodeAction(ActionQueueItem actionQueueItem, Container container)
         {
             // get the electrodes
-            Electrodes[] electrodeBoard = container.Electrodes;
+            Electrode[] electrodeBoard = container.electrodes;
             // initialize action
-            DataTypes.SimulatorAction action = actionQueueItem.Action;
+            DataTypes.SimulatorAction action = actionQueueItem.action;
             // get the id of the electro of which the action is executed on
-            int electrodeId = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(action.ActionOnID, container);
+            int electrodeId = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(action.actionOnID, container);
             // get the subscribers for the electrode flip
             ArrayList subscribers = Models.ElectrodeModels.electrodeOnOff(container, electrodeBoard[electrodeId], action);
             return subscribers;

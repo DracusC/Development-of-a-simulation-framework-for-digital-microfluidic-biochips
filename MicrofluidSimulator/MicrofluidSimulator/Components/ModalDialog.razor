@@ -84,7 +84,7 @@
         try
         {
             // JSON deserialization of Electrode
-            Electrodes el = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrodes>(jsonString);
+            Electrode el = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrode>(jsonString);
             Console.WriteLine(jsonString);
             kvpList.Insert(0, new KeyValuePair<string, string>("elementType", "Electrode"));
 

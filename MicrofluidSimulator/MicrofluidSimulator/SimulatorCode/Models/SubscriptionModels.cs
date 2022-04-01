@@ -7,36 +7,36 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static void dropletSubscriptions(Container container, Droplets caller)
         {
             // Gets the needed data out of the container
-            ArrayList droplets = container.Droplets;
-            Electrodes[] electrodeBoard = container.Electrodes;
-            Actuators[] actuators = container.Actuators;
+            List<Droplets> droplets = container.droplets;
+            Electrode[] electrodeBoard = container.electrodes;
+            Actuators[] actuators = container.actuators;
 
             // Clear all previous subscriptions before adding new to avoid duplicates
             // and deprecated subscriptions
-            ArrayList dropletSubscritions = caller.Subscriptions;
+            ArrayList dropletSubscritions = caller.subscriptions;
             foreach(int n in dropletSubscritions)
             {
-                electrodeBoard[n].Subscriptions.Remove(caller.ID1);
+                electrodeBoard[n].subscriptions.Remove(caller.ID);
                 //actuators[n].Subscriptions.Remove(caller.ID1); // Carl this is not correct
             }
-            caller.Subscriptions = new ArrayList();
+            caller.subscriptions = new ArrayList();
 
             //Add the new subscriptions
 
             //find the index of the electrode we are on
             
-            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID,container);
+            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID,container);
             
-            Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
+            Electrode dropletElectrode = electrodeBoard[dropletElectrodeIndex];
             // add the droplet to the sublist of the electrode it is on then run for all neighbours
-            dropletElectrode.Subscriptions.Add(caller.ID1);
-            caller.Subscriptions.Add(dropletElectrodeIndex);
+            dropletElectrode.subscriptions.Add(caller.ID);
+            caller.subscriptions.Add(dropletElectrodeIndex);
 
-            foreach (int neighbour in dropletElectrode.Neighbours)
+            foreach (int neighbour in dropletElectrode.neighbours)
             {
                 int index = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
-                electrodeBoard[index].Subscriptions.Add(caller.ID1);
-                caller.Subscriptions.Add(index);
+                electrodeBoard[index].subscriptions.Add(caller.ID);
+                caller.subscriptions.Add(index);
             }
         }
     }

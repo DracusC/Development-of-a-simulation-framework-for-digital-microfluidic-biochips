@@ -5,7 +5,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     {
         public string colorSensor(Container container, Droplets caller)
         {
-            return caller.Color;
+            return caller.color;
             
         }
     }

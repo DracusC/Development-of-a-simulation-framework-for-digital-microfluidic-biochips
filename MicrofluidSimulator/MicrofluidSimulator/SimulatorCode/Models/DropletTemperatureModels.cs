@@ -13,7 +13,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             
             if(heater == null)
             {
-                subscribers.Add(caller.ID1);
+                subscribers.Add(caller.ID);
                 return subscribers;
             }
             else
@@ -23,12 +23,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 
 
                 // droplet temperature change is right now dependent on the powerstatus of the heater, this should later be changed to be dependent on the heater temperature
-                float temperatureChange = (container.TimeStep * heater.ValuePowerStatus) / (mass * hC);
-                caller.Temperature += temperatureChange;
+                float temperatureChange = (container.timeStep * heater.valuePowerStatus) / (mass * hC);
+                caller.temperature += temperatureChange;
                 return subscribers;
             }
             
-            subscribers.Add(caller.ID1);
+            subscribers.Add(caller.ID);
             return subscribers;
 
         }

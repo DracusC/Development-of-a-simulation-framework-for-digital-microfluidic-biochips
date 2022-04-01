@@ -2,14 +2,14 @@
 {
     public class Sensors
     {
-        string name, type;
-        int ID, sensorID, positionX, positionY, sizeX, sizeY;
-        public int electrodeId;
+        //string name, type;
+        //int ID, sensorID, positionX, positionY, sizeX, sizeY;
+        //public int electrodeId;
 
 
 
 
-        public Sensors(string name, int ID, int sensorID, string type, int positionX, int positionY, int sizeX, int sizeY, int electrodeId)
+        public Sensors(string name, int ID, int sensorID, string type, int positionX, int positionY, int sizeX, int sizeY, int electrodeID)
         {
             this.name = name;
             this.type = type;
@@ -19,7 +19,7 @@
             this.positionY = positionY;
             this.sizeX = sizeX;
             this.sizeY = sizeY;
-            this.electrodeId = electrodeId;
+            this.electrodeID = electrodeID;
 
         }
 
@@ -27,14 +27,18 @@
         {
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Type { get => type; set => type = value; }
-        public int ID1 { get => ID; set => ID = value; }
-        public int SensorID { get => sensorID; set => sensorID = value; }
-        public int PositionX { get => positionX; set => positionX = value; }
-        public int PositionY { get => positionY; set => positionY = value; }
-        public int SizeX { get => sizeX; set => sizeX = value; }
-        public int SizeY { get => sizeY; set => sizeY = value; }
-        public int ElectrodeId { get => electrodeId; set => electrodeId = value; }
+        public string name { get; set; }
+        public string type { get; set; }
+        public int ID { get; set; }
+        public int sensorID { get; set; }
+        public int positionX { get; set; }
+        public int positionY { get; set; }
+        public int sizeX { get; set; }
+        public int sizeY { get; set; }
+        public int electrodeID { get; set; }
+        public int valueRed { get; set; }
+        public int valueGreen { get; set; }
+        public int valueBlue { get; set; }
+        public int valueTemperature { get; set; }
     }
 }

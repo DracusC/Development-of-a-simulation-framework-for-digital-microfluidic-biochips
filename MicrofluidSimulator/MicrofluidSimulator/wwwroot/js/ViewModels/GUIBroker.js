@@ -21,10 +21,10 @@ let gui_broker = {
         this.droplet_groups = {};
 
         for (let i = 0; i < this.droplets.length; i++) {
-            if (typeof this.droplet_groups[this.droplets[i].Group] == "undefined") {
-                this.droplet_groups[this.droplets[i].Group] = [(this.droplets[i])];
+            if (typeof this.droplet_groups[this.droplets[i].group] == "undefined") {
+                this.droplet_groups[this.droplets[i].group] = [(this.droplets[i])];
             } else {
-                this.droplet_groups[this.droplets[i].Group].push(this.droplets[i]);
+                this.droplet_groups[this.droplets[i].group].push(this.droplets[i]);
             }
         }
     }

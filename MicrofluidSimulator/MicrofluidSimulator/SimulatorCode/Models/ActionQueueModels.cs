@@ -28,33 +28,33 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public String getJsonDescriptionOfElementById(Container container, int id)
         {
-            for(int i = 0; i < container.Electrodes.Length; i++)
+            for(int i = 0; i < container.electrodes.Length; i++)
             {
-                if(container.Electrodes[i].ID1 == id)
+                if(container.electrodes[i].ID == id)
                 {
-                    return JsonSerializer.Serialize(container.Electrodes[i]);
+                    return JsonSerializer.Serialize(container.electrodes[i]);
                 }
             }
-            for (int i = 0; i < container.Droplets.Count; i++)
+            for (int i = 0; i < container.droplets.Count; i++)
             {
-                Droplets droplet = (Droplets)container.Droplets[i];
-                if (droplet.ID1 == id)
+                Droplets droplet = (Droplets)container.droplets[i];
+                if (droplet.ID == id)
                 {
                     return JsonSerializer.Serialize(droplet);
                 }
             }
-            for (int i = 0; i < container.Sensors.Length; i++)
+            for (int i = 0; i < container.sensors.Length; i++)
             {
-                if (container.Sensors[i].ID1 == id)
+                if (container.sensors[i].ID == id)
                 {
-                    return JsonSerializer.Serialize(container.Sensors[i]);
+                    return JsonSerializer.Serialize(container.sensors[i]);
                 }
             }
-            for (int i = 0; i < container.Actuators.Length; i++)
+            for (int i = 0; i < container.actuators.Length; i++)
             {
-                if (container.Actuators[i].ID1 == id)
+                if (container.actuators[i].ID == id)
                 {
-                    return JsonSerializer.Serialize(container.Actuators[i]);
+                    return JsonSerializer.Serialize(container.actuators[i]);
                 }
             }
             return "not found";

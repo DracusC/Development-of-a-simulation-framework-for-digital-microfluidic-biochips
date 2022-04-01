@@ -117,7 +117,7 @@ let sketch = function (p) {
                 let droplet = gui_broker.droplets[i];
 
                 // Check mouse over droplet
-                if (p.dist(p.mouseX, p.mouseY, droplet.PositionX, droplet.PositionY) < droplet.SizeX / 2) {
+                if (p.dist(p.mouseX, p.mouseY, droplet.positionX, droplet.positionY) < droplet.sizeX / 2) {
                     information_panel_manager.selected_element = droplet;
                     information_panel_manager.information_element = information_panel_manager.information_filter("Droplet", droplet);
                     information_panel_manager.draw_information(information_panel_manager.information_filter("Droplet", droplet));
@@ -154,7 +154,7 @@ let sketch = function (p) {
         for (let i = 0; i < group.length; i++) {
             //console.log(group[i]);
             let droplet = group[i];
-            group_info.Droplets.push(droplet.ID1);
+            group_info.Droplets.push(droplet.ID);
             for (let key in droplet) {
                 if (key == "Volume") { group_info.Volume += droplet[key] }
                 if (key == "Temperature") { group_info.Temperature += droplet[key] }
@@ -174,20 +174,20 @@ let sketch = function (p) {
      */
     function electrodeContains(electrode, x, y) {
         let vertexes = [];
-        if (electrode.Shape == 0) {
-            vertexes = [[0, 0], [electrode.SizeX, 0], [electrode.SizeX, electrode.SizeY], [0, electrode.SizeY]];
+        if (electrode.shape == 0) {
+            vertexes = [[0, 0], [electrode.sizeX, 0], [electrode.sizeX, electrode.sizeY], [0, electrode.sizeY]];
         } else {
-            vertexes = electrode.Corners;
+            vertexes = electrode.corners;
         }
 
         let i;
         let j;
         let result = false;
         for (i = 0, j = vertexes.length - 1; i < vertexes.length; j = i++) {
-            let ivertX = vertexes[i][0] + electrode.PositionX;
-            let ivertY = vertexes[i][1] + electrode.PositionY;
-            let jvertX = vertexes[j][0] + electrode.PositionX;
-            let jvertY = vertexes[j][1] + electrode.PositionY;
+            let ivertX = vertexes[i][0] + electrode.positionX;
+            let ivertY = vertexes[i][1] + electrode.positionY;
+            let jvertX = vertexes[j][0] + electrode.positionX;
+            let jvertY = vertexes[j][1] + electrode.positionY;
 
             if ((ivertY > y) != (jvertY > y) && (x < (jvertX - ivertX)
                 * (y - ivertY) / (jvertY - ivertY) + ivertX)) {
@@ -220,12 +220,12 @@ let sketch = function (p) {
     function draw_grouped_droplets() {
         // TESTING GROUPED DROPLETS
         for (let i in gui_broker.droplet_groups) {
-            let check_size = gui_broker.electrodes[0].SizeX / 2;
+            let check_size = gui_broker.electrodes[0].sizeX / 2;
             let current_droplet = gui_broker.droplet_groups[i][0];
-            let current_droplet_point = [current_droplet.PositionX - check_size, current_droplet.PositionY - check_size];
+            let current_droplet_point = [current_droplet.positionX - check_size, current_droplet.positionY - check_size];
 
-            //let draw_size = current_droplet.SizeX / 2;
-            let droplet_draw_point = [current_droplet.PositionX - current_droplet.SizeX / 2, current_droplet.PositionY - current_droplet.SizeX / 2];
+            //let draw_size = current_droplet.sizeX / 2;
+            let droplet_draw_point = [current_droplet.positionX - current_droplet.sizeX / 2, current_droplet.positionY - current_droplet.sizeX / 2];
 
             // Change so case where theres no path from current point is valid
             let points_to_draw = [];
@@ -241,13 +241,13 @@ let sketch = function (p) {
                     let other_droplet = gui_broker.droplet_groups[i][j];
 
                     // Check cases
-                    if (other_droplet.PositionX == current_droplet_point[0] + check_size && other_droplet.PositionY == current_droplet_point[1] - check_size) {
+                    if (other_droplet.positionX == current_droplet_point[0] + check_size && other_droplet.positionY == current_droplet_point[1] - check_size) {
                         top_right = other_droplet;
-                    } else if (other_droplet.PositionX == current_droplet_point[0] - check_size && other_droplet.PositionY == current_droplet_point[1] + check_size) {
+                    } else if (other_droplet.positionX == current_droplet_point[0] - check_size && other_droplet.positionY == current_droplet_point[1] + check_size) {
                         bottom_left = other_droplet;
-                    } else if (other_droplet.PositionX == current_droplet_point[0] - check_size && other_droplet.PositionY == current_droplet_point[1] - check_size) {
+                    } else if (other_droplet.positionX == current_droplet_point[0] - check_size && other_droplet.positionY == current_droplet_point[1] - check_size) {
                         top_left = other_droplet;
-                    } else if (other_droplet.PositionX == current_droplet_point[0] + check_size && other_droplet.PositionY == current_droplet_point[1] + check_size) {
+                    } else if (other_droplet.positionX == current_droplet_point[0] + check_size && other_droplet.positionY == current_droplet_point[1] + check_size) {
                         bottom_right = other_droplet;
                     }
                 }
@@ -256,53 +256,53 @@ let sketch = function (p) {
                     points_to_draw.push(droplet_draw_point);
 
                     if (JSON.stringify(points_to_draw).indexOf(
-                        JSON.stringify([bottom_right.PositionX - bottom_right.SizeX / 2,
-                            bottom_right.PositionY - bottom_right.SizeY / 2])) == -1) {
-                        points_to_draw.push([bottom_right.PositionX - bottom_right.SizeX / 2, bottom_right.PositionY - bottom_right.SizeY / 2]);
+                        JSON.stringify([bottom_right.positionX - bottom_right.sizeX / 2,
+                            bottom_right.positionY - bottom_right.sizeY / 2])) == -1) {
+                        points_to_draw.push([bottom_right.positionX - bottom_right.sizeX / 2, bottom_right.positionY - bottom_right.sizeY / 2]);
                     }
 
-                    droplet_draw_point = [bottom_right.PositionX + bottom_right.SizeX / 2, bottom_right.PositionY - bottom_right.SizeY / 2];
+                    droplet_draw_point = [bottom_right.positionX + bottom_right.sizeX / 2, bottom_right.positionY - bottom_right.sizeY / 2];
                     current_droplet_point = [current_droplet_point[0] + check_size * 2, current_droplet_point[1]];
 
                 } else if (bottom_right == null && bottom_left != null) {
                     points_to_draw.push(droplet_draw_point);
 
                     if (JSON.stringify(points_to_draw).indexOf(
-                        JSON.stringify([bottom_left.PositionX + bottom_left.SizeX / 2,
-                            bottom_left.PositionY - bottom_left.SizeY / 2])) == -1) {
-                        points_to_draw.push([bottom_left.PositionX + bottom_left.SizeX / 2, bottom_left.PositionY - bottom_left.SizeY / 2]);
+                        JSON.stringify([bottom_left.positionX + bottom_left.sizeX / 2,
+                            bottom_left.positionY - bottom_left.sizeY / 2])) == -1) {
+                        points_to_draw.push([bottom_left.positionX + bottom_left.sizeX / 2, bottom_left.positionY - bottom_left.sizeY / 2]);
                     }
 
-                    droplet_draw_point = [bottom_left.PositionX + bottom_left.SizeX / 2, bottom_left.PositionY + bottom_left.SizeY / 2];
+                    droplet_draw_point = [bottom_left.positionX + bottom_left.sizeX / 2, bottom_left.positionY + bottom_left.sizeY / 2];
                     current_droplet_point = [current_droplet_point[0], current_droplet_point[1] + check_size * 2];
                     
                 } else if (bottom_left == null && top_left != null) {
                     points_to_draw.push(droplet_draw_point);
 
                     if (JSON.stringify(points_to_draw).indexOf(
-                        JSON.stringify([top_left.PositionX + top_left.SizeX / 2,
-                            top_left.PositionY + top_left.SizeY / 2])) == -1) {
-                        points_to_draw.push([top_left.PositionX + top_left.SizeX / 2, top_left.PositionY + top_left.SizeY / 2]);
+                        JSON.stringify([top_left.positionX + top_left.sizeX / 2,
+                            top_left.positionY + top_left.sizeY / 2])) == -1) {
+                        points_to_draw.push([top_left.positionX + top_left.sizeX / 2, top_left.positionY + top_left.sizeY / 2]);
                     }
 
-                    droplet_draw_point = [top_left.PositionX - top_left.SizeX / 2, top_left.PositionY + top_left.SizeY / 2];
+                    droplet_draw_point = [top_left.positionX - top_left.sizeX / 2, top_left.positionY + top_left.sizeY / 2];
                     current_droplet_point = [current_droplet_point[0] - check_size * 2, current_droplet_point[1]];
 
                 } else if (top_left == null && top_right != null) {
                     points_to_draw.push(droplet_draw_point);
 
                     if (JSON.stringify(points_to_draw).indexOf(
-                        JSON.stringify([top_right.PositionX - top_right.SizeX / 2,
-                            top_right.PositionY + top_right.SizeY / 2])) == -1) {
-                        points_to_draw.push([top_right.PositionX - top_right.SizeX / 2, top_right.PositionY + top_right.SizeY / 2]);
+                        JSON.stringify([top_right.positionX - top_right.sizeX / 2,
+                            top_right.positionY + top_right.sizeY / 2])) == -1) {
+                        points_to_draw.push([top_right.positionX - top_right.sizeX / 2, top_right.positionY + top_right.sizeY / 2]);
                     }
 
-                    droplet_draw_point = [top_right.PositionX - top_right.SizeX / 2, top_right.PositionY - top_right.SizeY / 2];
+                    droplet_draw_point = [top_right.positionX - top_right.sizeX / 2, top_right.positionY - top_right.sizeY / 2];
                     current_droplet_point = [current_droplet_point[0], current_droplet_point[1] - check_size * 2];
                 }
             }
 
-            p.fill(current_droplet.Color);
+            p.fill(current_droplet.color);
 
             let points_vector = [];
             for (let j = 0; j < points_to_draw.length; j++) {
@@ -310,7 +310,7 @@ let sketch = function (p) {
             }
 
             //console.log(points_vector);
-            gui_broker.droplet_groups[current_droplet.Group].vertices = points_to_draw;
+            gui_broker.droplet_groups[current_droplet.group].vertices = points_to_draw;
 
             drawRounded(p, points_vector, 50);
             //p.beginShape();
@@ -416,7 +416,7 @@ let sketch = function (p) {
         if (element == null) { return; }
 
         
-        if (element.Status != "undefined") {
+        if (element.status != "undefined") {
 
             // Electrode
             for (let i = 0; i < gui_broker.electrodes.length; i++) {
@@ -429,14 +429,14 @@ let sketch = function (p) {
                 layer.strokeWeight(3);
 
                 // Check the electrode shape
-                if (electrode.Shape == 1) {
+                if (electrode.shape == 1) {
                     layer.beginShape();
-                    for (let i = 0; i < electrode.Corners.length; i++) {
-                        layer.vertex(electrode.PositionX + electrode.Corners[i][0] + 0.5, electrode.PositionY + electrode.Corners[i][1] + 0.5);
+                    for (let i = 0; i < electrode.corners.length; i++) {
+                        layer.vertex(electrode.positionX + electrode.corners[i][0] + 0.5, electrode.positionY + electrode.corners[i][1] + 0.5);
                     }
                     layer.endShape(layer.CLOSE);
                 } else {
-                    layer.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
+                    layer.rect(electrode.positionX, electrode.positionY, electrode.sizeX, electrode.sizeY);
                 }
             }
         } else {
@@ -450,18 +450,18 @@ let sketch = function (p) {
         for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
 
-            if (electrode.Status == 0) { continue; }
+            if (electrode.status == 0) { continue; }
             p.fill("red");
             
             // Check the electrode shape
-            if (electrode.Shape == 1) {
+            if (electrode.shape == 1) {
                 p.beginShape();
-                for (let i = 0; i < electrode.Corners.length; i++) {
-                    p.vertex(electrode.PositionX + electrode.Corners[i][0] + 0.5, electrode.PositionY + electrode.Corners[i][1] + 0.5);
+                for (let i = 0; i < electrode.corners.length; i++) {
+                    p.vertex(electrode.positionX + electrode.corners[i][0] + 0.5, electrode.positionY + electrode.corners[i][1] + 0.5);
                 }
                 p.endShape(p.CLOSE);
             } else {
-                p.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
+                p.rect(electrode.positionX, electrode.positionY, electrode.sizeX, electrode.sizeY);
             }
         }
     }
@@ -473,13 +473,13 @@ let sketch = function (p) {
 
             layer_electrode_shape.stroke("black");
             layer_electrode_shape.fill("white");
-            //if (electrode.Status != 0) { layer_electrode_shape.fill("red"); }
+            //if (electrode.status != 0) { layer_electrode_shape.fill("red"); }
 
             // Check the electrode shape
-            if (electrode.Shape == 1) {
-                draw_polygon_electrode_shapes(electrode.PositionX, electrode.PositionY, electrode.Corners);
+            if (electrode.shape == 1) {
+                draw_polygon_electrode_shapes(electrode.positionX, electrode.positionY, electrode.corners);
             } else {
-                layer_electrode_shape.rect(electrode.PositionX, electrode.PositionY, electrode.SizeX, electrode.SizeY);
+                layer_electrode_shape.rect(electrode.positionX, electrode.positionY, electrode.sizeX, electrode.sizeY);
             }
         }
     }
@@ -498,8 +498,8 @@ let sketch = function (p) {
 
         for (let i = 0; i < gui_broker.droplets.length; i++) {
             let droplet = gui_broker.droplets[i];
-            p.fill(droplet.Color);
-            p.ellipse(droplet.PositionX, droplet.PositionY, droplet.SizeX, droplet.SizeY);
+            p.fill(droplet.color);
+            p.ellipse(droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY);
             //anim_move(droplet, i);
         }
     }
@@ -514,28 +514,28 @@ let sketch = function (p) {
         let pos_x = 0;
         let pos_y = 0;
 
-        if (electrode.Shape == 1) {
+        if (electrode.shape == 1) {
             layer.fill(0, 255, 0);
             let corner_sum_x = 0;
             let corner_sum_y = 0;
 
             
-            for (let i = 0; i < electrode.Corners.length; i++) {
-                corner_sum_x = parseInt(corner_sum_x) + (parseInt(electrode.PositionX) + parseInt(electrode.Corners[i][0]));
-                corner_sum_y = parseInt(corner_sum_y) + (parseInt(electrode.PositionY) + parseInt(electrode.Corners[i][1]));
+            for (let i = 0; i < electrode.corners.length; i++) {
+                corner_sum_x = parseInt(corner_sum_x) + (parseInt(electrode.positionX) + parseInt(electrode.corners[i][0]));
+                corner_sum_y = parseInt(corner_sum_y) + (parseInt(electrode.positionY) + parseInt(electrode.corners[i][1]));
             }
 
-            pos_x = (corner_sum_x) / (electrode.Corners.length) - layer.textWidth(electrode.ID1) / 2;
-            pos_y = (corner_sum_y) / (electrode.Corners.length) + layer.textAscent(electrode.ID1) / 2;
+            pos_x = (corner_sum_x) / (electrode.corners.length) - layer.textWidth(electrode.ID) / 2;
+            pos_y = (corner_sum_y) / (electrode.corners.length) + layer.textAscent(electrode.ID) / 2;
             
         } else {
             layer.fill(255, 200, 0);
-            pos_x = electrode.PositionX + electrode.SizeX / 2 - layer.textWidth(electrode.ID1)/2;
-            pos_y = electrode.PositionY + electrode.SizeY / 2 + layer.textAscent(electrode.ID1)/2;
+            pos_x = electrode.positionX + electrode.sizeX / 2 - layer.textWidth(electrode.ID)/2;
+            pos_y = electrode.positionY + electrode.sizeY / 2 + layer.textAscent(electrode.ID)/2;
         }
 
         layer.textSize(6);
-        layer.text(electrode.ID1, pos_x, pos_y);
+        layer.text(electrode.ID, pos_x, pos_y);
     }
 
 };

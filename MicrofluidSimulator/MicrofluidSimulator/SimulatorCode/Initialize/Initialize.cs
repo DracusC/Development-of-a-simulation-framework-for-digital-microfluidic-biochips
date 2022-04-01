@@ -1,14 +1,7 @@
 ﻿using System.Collections;
 using MicrofluidSimulator.SimulatorCode.DataTypes;
-using System.Linq;
-using System.Text.Json;
-using System.Numerics;
-using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using MicrofluidSimulator.SimulatorCode.Models;
-using MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes;
-using MicrofluidSimulator.SimulatorCode.DataTypes;
+
 
 namespace MicrofluidSimulator.SimulatorCode.Initialize
 {
@@ -21,52 +14,53 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         }
 
-        public Container initialize(JsonContainer jsonContainer, ElectrodesWithNeighbours[] electrodesWithNeighbours)
+        public Container initialize(Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours)
         {
 
             //Electrodes[] electrodes = new Electrodes[jsonContainer.electrodes.Count];
-           
-            Electrodes[] electrodeBoard = initializeBoard(jsonContainer.electrodes, electrodesWithNeighbours);
 
+            //Electrode[] electrodeBoard = initializeBoard(jsonContainer.electrodes, electrodesWithNeighbours);
 
+            Electrode[] electrodeBoard = initializeBoard(container.electrodes, electrodesWithNeighbours);
 
-            ArrayList droplets = initializeDroplets(jsonContainer.droplets);
-            Console.WriteLine("actuatorname: " + jsonContainer.actuators[0].name);
-            DataTypes.Actuators[] actuatorsInitial = initializeActuators(jsonContainer.actuators);
-            DataTypes.Sensors[] sensorsInitial = initializeSensors(jsonContainer.sensors, electrodeBoard);
-            Information information = initializeInformation(jsonContainer.information);
-            Container container = new Container(electrodeBoard, droplets, actuatorsInitial, sensorsInitial, information, 0);
-            foreach(Droplets droplet in droplets)
+            //List<Droplets> droplets = initializeDroplets(jsonContainer.droplets);
+            List<Droplets> droplets = initializeDroplets(container.droplets);
+            Console.WriteLine("actuatorname: " + container.actuators[0].name);
+            DataTypes.Actuators[] actuatorsInitial = initializeActuators(container.actuators);
+            DataTypes.Sensors[] sensorsInitial = initializeSensors(container.sensors, electrodeBoard);
+            Information information = initializeInformation(container.information);
+            Container initialContainer = new Container(electrodeBoard, droplets, actuatorsInitial, sensorsInitial, information, 0);
+            foreach(Droplets droplet in container.droplets)
             {
-                container.SubscribedDroplets.Add(droplet.ID1);
+                initialContainer.subscribedDroplets.Add(droplet.ID);
             }
             foreach (DataTypes.Actuators actuators in actuatorsInitial)
             {
-                container.SubscribedActuators.Add(actuators.ID1);
+                initialContainer.subscribedActuators.Add(actuators.ID);
             }
             if (electrodesWithNeighbours == null)
             {
                 NeighbourFinder neighbourFinder = new NeighbourFinder();
-                NeighbourFinder.findNeighbours(container);
+                NeighbourFinder.findNeighbours(initialContainer);
             }
 
-            initializeSubscriptions(container);
+            initializeSubscriptions(initialContainer);
 
 
-            return container;
+            return initialContainer;
         }
 
-        private Information initializeInformation(DataTypes.JsonDataTypes.Information jsonInformation)
+        private Information initializeInformation(Information informationInput)
         {
-            Information information = new Information(jsonInformation.platform_name, jsonInformation.platform_type, jsonInformation.platform_ID, jsonInformation.sizeX, jsonInformation.sizeY);
+            Information information = new Information(informationInput.platform_name, informationInput.platform_type, informationInput.platform_ID, informationInput.sizeX, informationInput.sizeY);
             return information;
         }
 
-        private DataTypes.Sensors[] initializeSensors(List<DataTypes.JsonDataTypes.Sensors> sensors, Electrodes[] electrodeBoard)
+        private Sensors[] initializeSensors(Sensors[] sensors, Electrode[] electrodeBoard)
         {
-            DataTypes.Sensors[] sensorsInitial = new DataTypes.Sensors[sensors.Count];
+            Sensors[] sensorsInitial = new DataTypes.Sensors[sensors.Length];
 
-            for (int i = 0; i < sensors.Count; i++)
+            for (int i = 0; i < sensors.Length; i++)
             {
                 switch (sensors[i].type)
                 {
@@ -91,12 +85,12 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return sensorsInitial;
         }
 
-        private DataTypes.Actuators[] initializeActuators(List<DataTypes.JsonDataTypes.Actuators> actuators)
+        private DataTypes.Actuators[] initializeActuators(Actuators[] actuators)
         {
             //List<MicrofluidSimulator.SimulatorCode.DataTypes.Actuators> actuatorsInitial = new List<MicrofluidSimulator.SimulatorCode.DataTypes.Actuators>();
-            DataTypes.Actuators[] actuatorsInitial = new DataTypes.Actuators[actuators.Count];
+            DataTypes.Actuators[] actuatorsInitial = new DataTypes.Actuators[actuators.Length];
             
-            for(int i = 0; i < actuators.Count; i++)
+            for(int i = 0; i < actuators.Length; i++)
             {
                 switch (actuators[i].type)
                 {
@@ -123,12 +117,12 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             List<int> Coords { get; set; }
         }
 
-        private Electrodes[] initializeBoard(List<Electrode> electrodes, ElectrodesWithNeighbours[] electrodesWithNeighbours)
+        private Electrode[] initializeBoard(Electrode[] electrodes, ElectrodesWithNeighbours[] electrodesWithNeighbours)
         {
 
 
-            Electrodes[] electrodeBoard = new Electrodes[electrodes.Count];
-            for (int i = 0; i < electrodes.Count; i++)
+            //Electrode[] electrodeBoard = new Electrode[electrodes.Count];
+            for (int i = 0; i < electrodes.Length; i++)
             {
                 //electrodeBoard[i] = new Electrodes("arrel", i, i, i, 0, (i % 32) * 20, (i / 32) * 20, 20, 20, 0, null);
 
@@ -137,30 +131,30 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
 
 
-                int[,] cornersGetter = new int[electrodes[i].corners.Count, 2];
-                for (int j = 0; j < electrodes[i].corners.Count; j++)
-                {
+                //int[,] cornersGetter = new int[electrodes[i].corners.Count, 2];
+                //for (int j = 0; j < electrodes[i].corners.Count; j++)
+                //{
 
-                    var res = System.Text.Json.JsonSerializer.Deserialize<List<int>>(electrodes[i].corners[j].ToString());
-                    for (int k = 0; k < 2; k++)
-                    {
-                        cornersGetter[j, k] = res[k];
-                    }
-                }
-
-
+                //    var res = System.Text.Json.JsonSerializer.Deserialize<List<int>>(electrodes[i].corners[j].ToString());
+                //    for (int k = 0; k < 2; k++)
+                //    {
+                //        cornersGetter[j, k] = res[k];
+                //    }
+                //}
 
 
 
-                electrodeBoard[i] = new Electrodes(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
-                electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, cornersGetter);
 
-                if(electrodesWithNeighbours != null)
+
+                //electrodeBoard[i] = new Electrode(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
+                //electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, electrodes[i].corners);
+
+                if (electrodesWithNeighbours != null)
                 {
                     
                     for(int j = 0; j < electrodesWithNeighbours[i].Neighbours.Count; j++)
                     {
-                        electrodeBoard[i].Neighbours.Add(electrodesWithNeighbours[i].Neighbours[j]);
+                        electrodes[i].neighbours.Add(electrodesWithNeighbours[i].Neighbours[j]);
                     }
                     
                     //int[] neighboursGetter = new int[electrodesWithNeighbours[i].Neighbours.Count];
@@ -187,16 +181,16 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
             }
 
-            return electrodeBoard;
+            return electrodes;
 
 
         }
 
-        private ArrayList initializeDroplets(List<MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Droplets> droplets)
+        private List<Droplets> initializeDroplets(List<Droplets> droplets)
         {
-            ArrayList dropletsArray = new ArrayList();
+            List<Droplets> dropletsArray = new List<Droplets>();
             int i = 0;
-            foreach (MicrofluidSimulator.SimulatorCode.DataTypes.JsonDataTypes.Droplets droplet in droplets)
+            foreach (Droplets droplet in droplets)
             {
                 dropletsArray.Add(new Droplets(droplet.name, droplet.ID, droplet.substance_name, droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY, droplet.color, droplet.temperature, DropletModels.getVolumeOfDroplet(droplet.sizeX, 1), droplet.electrodeID, i));
                 i++;
@@ -219,13 +213,13 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         private void initializeSubscriptions(Container container)
         {
-            ArrayList droplets = container.Droplets;
+            List<Droplets> droplets = container.droplets;
             foreach (Droplets droplet in droplets)
             {
                 Models.SubscriptionModels.dropletSubscriptions(container, droplet);
-                foreach(int sub in droplet.Subscriptions)
+                foreach(int sub in droplet.subscriptions)
                 {
-                    Console.WriteLine("droplet subs id: " + droplet.ID1 + " subs: " + sub);
+                    Console.WriteLine("droplet subs id: " + droplet.ID + " subs: " + sub);
                 }
                 
             }

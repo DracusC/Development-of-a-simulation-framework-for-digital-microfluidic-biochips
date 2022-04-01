@@ -2,8 +2,8 @@
 {
     public class Outputs
     {
-        string name;
-        int ID, outputID = -1, positionX, positionY;
+        //string name;
+        //int ID, outputID = -1, positionX, positionY;
 
         
         public Outputs(string name, int ID, int outputID, int positionX, int positionY)
@@ -18,11 +18,11 @@
         public Outputs()
         {
         }
-        public string Name { get => name; set => name = value; }
-        public int ID1 { get => ID; set => ID = value; }
-        public int OutputID { get => outputID; set => outputID = value; }
-        public int PositionX { get => positionX; set => positionX = value; }
-        public int PositionY { get => positionY; set => positionY = value; }
+        public string name { get => name; set => name = value; }
+        public int ID { get => ID; set => ID = value; }
+        public int outputID { get => outputID; set => outputID = value; }
+        public int positionX { get => positionX; set => positionX = value; }
+        public int positionY { get => positionY; set => positionY = value; }
 
     }
 }

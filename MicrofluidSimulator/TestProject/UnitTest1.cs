@@ -26,7 +26,7 @@ namespace TestProject
             JsonContainer jsonContainer = JsonSerializer.Deserialize<JsonContainer>(jsonString);
             Initialize init = new Initialize();
             Container container = init.initialize(jsonContainer, null);
-            int[] neighbours = container.Electrodes[0].Neighbours.ToArray(typeof(int)) as int[];
+            int[] neighbours = container.electrodes[0].neighbours.ToArray(typeof(int)) as int[];
             Assert.That(neighbours, Has.Exactly(1).EqualTo(2));
             Assert.That(neighbours, Has.Exactly(1).EqualTo(33));
         }
@@ -39,7 +39,7 @@ namespace TestProject
             JsonContainer jsonContainer = JsonSerializer.Deserialize<JsonContainer>(jsonString);
             Initialize init = new Initialize();
             Container container = init.initialize(jsonContainer, null);
-            int[] subscribers = container.Electrodes[1].Subscriptions.ToArray(typeof(int)) as int[];
+            int[] subscribers = container.electrodes[1].subscriptions.ToArray(typeof(int)) as int[];
             Assert.That(subscribers, Has.Exactly(1).EqualTo(0));
             Assert.That(subscribers, Has.Exactly(1).EqualTo(1));
             Assert.That(subscribers, Has.Exactly(1).EqualTo(2));

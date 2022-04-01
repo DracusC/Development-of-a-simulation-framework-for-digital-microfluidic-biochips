@@ -10,15 +10,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static ArrayList dropletSplit(Container container, Droplets caller)
         {   
             ArrayList subscribers = new ArrayList();   
-            subscribers.Add(caller.ID1);
+            subscribers.Add(caller.ID);
 
             int minimalSplitVolume = 0;
-            ArrayList droplets = container.Droplets;
-            Electrodes[] electrodeBoard = container.Electrodes;
+            List<Droplets> droplets = container.droplets;
+            Electrode[] electrodeBoard = container.electrodes;
 
             //get index of electrode we are on and get the electrode
-            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
-            Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
+            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
+            Electrode dropletElectrode = electrodeBoard[dropletElectrodeIndex];
             //Console.WriteLine("CHeck split for " + caller.ID1);
             //int onNeighbours = countOnNeigbours(electrodeBoard, dropletElectrode);
             //if(onNeighbours  != 0)
@@ -35,13 +35,13 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             int cur = 0;
 
             ArrayList toSplitToo = new ArrayList();
-            foreach (int n in dropletElectrode.Neighbours)
+            foreach (int n in dropletElectrode.neighbours)
             {
                 int indexForElectrode  = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(n, container);
-                Electrodes tempElectrode = electrodeBoard[indexForElectrode];
+                Electrode tempElectrode = electrodeBoard[indexForElectrode];
                 
                 
-                if (tempElectrode.Status > 0 && (ElectrodeModels.electrodeHasDroplet(tempElectrode,container) == null))
+                if (tempElectrode.status > 0 && (ElectrodeModels.electrodeHasDroplet(tempElectrode,container) == null))
                 {
                     toSplitToo.Add(indexForElectrode);
 
@@ -79,10 +79,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
             foreach(int i in toSplitToo)
             {
-                ArrayList droplets = container.Droplets;
-                Electrodes[] electrodeBoard = container.Electrodes;
+                List<Droplets> droplets = container.droplets;
+                Electrode[] electrodeBoard = container.electrodes;
 
-                Electrodes tempElectrode = electrodeBoard[i];
+                Electrode tempElectrode = electrodeBoard[i];
 
                 int[] centerOfElectrode = ElectrodeModels.getCenterOfElectrode(tempElectrode);
                 int electrodeCenterX = centerOfElectrode[0];
@@ -90,38 +90,38 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                 Random rnd = new Random();
                 int id = rnd.Next(10000000);
-                string color = origin.Color;
+                string color = origin.color;
                 //float vol = origin.Volume;
                 //origin.Volume = vol/2;
                 //int diam = getDiameterOfDroplet(vol / 2, 1);
                 //origin.SizeX = diam;
                 //origin.SizeY = diam;
-                Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, 20, 0, tempElectrode.ID1, origin.Group);
+                Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, 20, 0, tempElectrode.ID, origin.group);
                 droplets.Add(newDroplet);
-                subscribers.Add(newDroplet.ID1);
-                container.SubscribedDroplets.Add(newDroplet.ID1);
+                subscribers.Add(newDroplet.ID);
+                container.subscribedDroplets.Add(newDroplet.ID);
                 int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(id, container);
                 //((Droplets)droplets[index]).ElectrodeID = tempElectrode.ID1;
                 SubscriptionModels.dropletSubscriptions(container, newDroplet);
             }
-            updateGroupNumber(container, origin, origin.Group);
+            updateGroupNumber(container, origin, origin.group);
             dropletColorChange(container, origin);
-            updateGroupVolume( container, origin.Group, 0);
+            updateGroupVolume( container, origin.group, 0);
             return subscribers;
         }
 
         public static void updateGroupVolume(Container container, int groupID, float extraVolume)
         {
-            ArrayList droplets = container.Droplets;
+            List<Droplets> droplets = container.droplets;
             ArrayList groupMembers = findGroupMembers(container, groupID);
             float volume = getGroupVolume(container, groupMembers) + extraVolume;
             float newVolume = volume/groupMembers.Count;
             int diam = getDiameterOfDroplet(newVolume, 1);
             foreach (Droplets droplet in groupMembers)
             {
-                droplet.Volume = newVolume;
-                droplet.SizeX = diam;
-                droplet.SizeY = diam;
+                droplet.volume = newVolume;
+                droplet.sizeX = diam;
+                droplet.sizeY = diam;
             }
 
         }
@@ -129,10 +129,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         static ArrayList findGroupMembers(Container container, int groupID)
         {
             ArrayList groupMembers = new ArrayList();
-            ArrayList droplets = container.Droplets;
+            List<Droplets> droplets = container.droplets;
             foreach (Droplets droplet in droplets)
             {   
-                if(droplet.Group == groupID)
+                if(droplet.group == groupID)
                 { 
                     groupMembers.Add(droplet);
                 }
@@ -143,12 +143,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public static float getGroupVolume(Container container, ArrayList groupMembers)
         {
-            ArrayList droplets = container.Droplets;
+            List<Droplets> droplets = container.droplets;
 
             float volume = 0;
             foreach (Droplets droplet in groupMembers)
             {
-                volume = volume + droplet.Volume;
+                volume = volume + droplet.volume;
             }
             return volume;
         }
@@ -156,36 +156,36 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static ArrayList dropletMerge(Container container, Droplets caller)
         {
             ArrayList subscribers = new ArrayList();
-            ArrayList droplets = container.Droplets;
-            Electrodes[] electrodeBoard = container.Electrodes;
-            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
-            Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
-            if (dropletElectrode.Status == 0)
+            List<Droplets> droplets = container.droplets;
+            Electrode[] electrodeBoard = container.electrodes;
+            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
+            Electrode dropletElectrode = electrodeBoard[dropletElectrodeIndex];
+            if (dropletElectrode.status == 0)
             {
                 ArrayList onNeighbours = new ArrayList();
-                foreach (int neighbour in dropletElectrode.Neighbours)
+                foreach (int neighbour in dropletElectrode.neighbours)
                 {
                     int electrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
-                    Electrodes electrode = electrodeBoard[electrodeIndex];
-                    if(electrode.Status != 0)
+                    Electrode electrode = electrodeBoard[electrodeIndex];
+                    if(electrode.status != 0)
                     {
                         onNeighbours.Add(neighbour);
                     }
                 }
                 if(onNeighbours.Count > 0)
                 {
-                    ArrayList dropletSubscritions = caller.Subscriptions;
+                    ArrayList dropletSubscritions = caller.subscriptions;
                     foreach (int n in dropletSubscritions)
                     {
 
-                        electrodeBoard[n].Subscriptions.Remove(caller.ID1);
+                        electrodeBoard[n].subscriptions.Remove(caller.ID);
                     }
-                    container.SubscribedDroplets.Remove(caller.ID1);
+                    container.subscribedDroplets.Remove(caller.ID);
                     //caller.Subscriptions = new ArrayList();
-                    float volume = caller.Volume;
-                    int groupId = caller.Group;
-                    int removedDropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
-                    Electrodes removedDropletElectrode = electrodeBoard[removedDropletElectrodeIndex];
+                    float volume = caller.volume;
+                    int groupId = caller.group;
+                    int removedDropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
+                    Electrode removedDropletElectrode = electrodeBoard[removedDropletElectrodeIndex];
 
 
                     droplets.Remove(caller);
@@ -196,10 +196,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     ArrayList neighbouringDroplets = new ArrayList();
 
 
-                    foreach (int neigbour in removedDropletElectrode.Neighbours)
+                    foreach (int neigbour in removedDropletElectrode.neighbours)
                     {
                         int tempElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neigbour, container);
-                        Electrodes tempElectrode = electrodeBoard[tempElectrodeIndex];
+                        Electrode tempElectrode = electrodeBoard[tempElectrodeIndex];
 
                         Droplets tempDroplet = ElectrodeModels.electrodeHasDroplet(tempElectrode, container);
                         if (tempDroplet != null)
@@ -210,7 +210,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                     Droplets firstDroplet = (Droplets) neighbouringDroplets[0];
 
-                    updateGroupNumber(container, firstDroplet, firstDroplet.Group);
+                    updateGroupNumber(container, firstDroplet, firstDroplet.group);
                     handeledDroplet.Add(firstDroplet);
 
                     ArrayList connectedDroplets = new ArrayList();
@@ -248,7 +248,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                     foreach (Droplets droplet in neighbouringDroplets)
                     {
-                        updateGroupVolume(container, droplet.Group, volume/neighbouringDroplets.Count);
+                        updateGroupVolume(container, droplet.group, volume/neighbouringDroplets.Count);
                     }
 
 
@@ -259,16 +259,16 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                 }
             }
-            subscribers.Add(caller.ID1);
+            subscribers.Add(caller.ID);
             return subscribers;
         }
 
-        static int countOnNeigbours(Electrodes[] electrodeBoard, Electrodes electrode)
+        static int countOnNeigbours(Electrode[] electrodeBoard, Electrode electrode)
         {
             int onNeighbours = 0;
-            foreach (int neighbour in electrode.Neighbours)
+            foreach (int neighbour in electrode.neighbours)
             {
-                if (electrodeBoard[neighbour].Status > 0)
+                if (electrodeBoard[neighbour].status > 0)
                 {
                     onNeighbours++;
                 }
@@ -281,11 +281,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static void dropletColorChange(Container container, Droplets caller)
         {
             ArrayList groupColors = new ArrayList();
-            ArrayList groupMembers = findGroupMembers(container, caller.Group);
+            ArrayList groupMembers = findGroupMembers(container, caller.group);
 
             foreach (Droplets droplet in groupMembers)
             {   
-                groupColors.Add(ColorTranslator.FromHtml(droplet.Color));
+                groupColors.Add(ColorTranslator.FromHtml(droplet.color));
             }
 
             int r = 0;
@@ -303,7 +303,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
             foreach(Droplets droplet in groupMembers)
             {
-                droplet.Color = $"#{r:X2}{g:X2}{b:X2}";
+                droplet.color = $"#{r:X2}{g:X2}{b:X2}";
             }
 
 
@@ -318,7 +318,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             findAllConnectedDroplets( container,caller, connectedDroplets);
             foreach(Droplets droplet in connectedDroplets)
             {
-                droplet.Group = newGroupID;
+                droplet.group = newGroupID;
             }
         }
 
@@ -327,16 +327,16 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         static void findAllConnectedDroplets(Container container, Droplets caller, ArrayList members)
         {
-            ArrayList droplets = container.Droplets;
-            Electrodes[] electrodeBoard = container.Electrodes;
-            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
-            Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
+            List<Droplets> droplets = container.droplets;
+            Electrode[] electrodeBoard = container.electrodes;
+            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
+            Electrode dropletElectrode = electrodeBoard[dropletElectrodeIndex];
             members.Add(caller);
-            foreach(int neigbour in dropletElectrode.Neighbours)
+            foreach(int neigbour in dropletElectrode.neighbours)
             {   
 
                 int tempElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neigbour, container);
-                Electrodes tempElectrode = electrodeBoard[tempElectrodeIndex];
+                Electrode tempElectrode = electrodeBoard[tempElectrodeIndex];
 
                 Droplets tempDroplet = ElectrodeModels.electrodeHasDroplet(tempElectrode, container);
                 if(tempDroplet != null && !members.Contains(tempDroplet))
@@ -352,28 +352,28 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static void dropletMovement(Container container, Droplets caller)
         {
 
-            ArrayList droplets = container.Droplets;
-            Electrodes[] electrodeBoard = container.Electrodes;
-            int posX = caller.PositionX / 20;
-            int posY = caller.PositionY / 20;
+            List<Droplets> droplets = container.droplets;
+            Electrode[] electrodeBoard = container.electrodes;
+            int posX = caller.positionX / 20;
+            int posY = caller.positionY / 20;
 
 
             
 
             //get index of electrode we are on and get the electrode
-            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.ElectrodeID, container);
-            Electrodes dropletElectrode = electrodeBoard[dropletElectrodeIndex];
+            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
+            Electrode dropletElectrode = electrodeBoard[dropletElectrodeIndex];
 
             // init values for finding the electrode with highest attraction
             double max = 0;
-            Electrodes electrode = null;
+            Electrode electrode = null;
 
             // Find the attraction for the electrode we are on
             // Attraction is definded by status/distance
-            int electrodeCenterX = dropletElectrode.PositionX + 10;
-            int electrodeCenterY = dropletElectrode.PositionY + 10;
-            double dist = electrodeDistance(electrodeCenterX, electrodeCenterY, caller.PositionX, caller.PositionY);
-            double attraction = dropletElectrode.Status / (dist + 0.1);
+            int electrodeCenterX = dropletElectrode.positionX + 10;
+            int electrodeCenterY = dropletElectrode.positionY + 10;
+            double dist = electrodeDistance(electrodeCenterX, electrodeCenterY, caller.positionX, caller.positionY);
+            double attraction = dropletElectrode.status / (dist + 0.1);
             //If the attraction is higher than the previous highest, this is now the highest
             if (attraction > max)
             {
@@ -382,13 +382,13 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
 
             // Find the attraction for all the neighbouring electrodes
-            foreach (int neighbour in dropletElectrode.Neighbours)
+            foreach (int neighbour in dropletElectrode.neighbours)
             {
                 int index = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
-                electrodeCenterX = electrodeBoard[index].PositionX + 10;
-                electrodeCenterY = electrodeBoard[index].PositionY + 10;
-                dist = electrodeDistance(electrodeCenterX, electrodeCenterY, caller.PositionX, caller.PositionY);
-                attraction = electrodeBoard[index].Status / (dist + 0.1);
+                electrodeCenterX = electrodeBoard[index].positionX + 10;
+                electrodeCenterY = electrodeBoard[index].positionY + 10;
+                dist = electrodeDistance(electrodeCenterX, electrodeCenterY, caller.positionX, caller.positionY);
+                attraction = electrodeBoard[index].status / (dist + 0.1);
                 if (attraction > max)
                 {
                     max = attraction;
@@ -398,9 +398,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             // move the droplet to the electrode with the highest attraction
             if(electrode != null)
             {
-                caller.PositionX = electrode.PositionX + 10;
-                caller.PositionY = electrode.PositionY + 10;
-                caller.ElectrodeID = electrode.ID1;
+                caller.positionX = electrode.positionX + 10;
+                caller.positionY = electrode.positionY + 10;
+                caller.electrodeID = electrode.ID;
             }
         }
 

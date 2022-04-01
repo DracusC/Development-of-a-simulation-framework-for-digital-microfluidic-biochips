@@ -10,11 +10,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public static int getIndexOfDropletByID(int ID, Container container)
         {
-            ArrayList droplets = container.Droplets;
+            List<Droplets> droplets = container.droplets;
             int i = 0;
             foreach(Droplets droplet in droplets)
             {
-               if(droplet.ID1 == ID)
+               if(droplet.ID == ID)
                {
                     return i;
                }
@@ -26,12 +26,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public static float getMassOfDropletGivenSubstance(Droplets caller)
         {
-            switch (caller.Substance_name)
+            switch (caller.substance_name)
             {
               
                 case "h20":
                     int waterDensity = 997;
-                    return caller.Volume * waterDensity;
+                    return caller.volume * waterDensity;
                     break;
             }
             return -1;
@@ -39,7 +39,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public static float getHeatCapacityOfDropletGivenSubstance(Droplets caller)
         {
-            switch (caller.Substance_name)
+            switch (caller.substance_name)
             {
 
                 case "h20":
@@ -52,16 +52,16 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public static Heater getHeaterOnDroplet(Container container, Droplets caller)
         {
-            foreach (Actuators actuator in container.Actuators)
+            foreach (Actuators actuator in container.actuators)
             {
-                if (actuator.Type.Equals("heater"))
+                if (actuator.type.Equals("heater"))
                 {
-                    int minMarginX = ((Heater)actuator).PositionX;
-                    int maxMarginX = ((Heater)actuator).PositionX + ((Heater)actuator).SizeX;
-                    int minMarginY = ((Heater)actuator).PositionY;
-                    int maxMarginY = ((Heater)actuator).PositionY + ((Heater)actuator).SizeY;
+                    int minMarginX = ((Heater)actuator).positionX;
+                    int maxMarginX = ((Heater)actuator).positionX + ((Heater)actuator).sizeX;
+                    int minMarginY = ((Heater)actuator).positionY;
+                    int maxMarginY = ((Heater)actuator).positionY + ((Heater)actuator).sizeY;
 
-                    if (caller.PositionX <= minMarginX && caller.PositionX >= maxMarginX && caller.PositionY <= minMarginY && caller.PositionY >= maxMarginY)
+                    if (caller.positionX <= minMarginX && caller.positionX >= maxMarginX && caller.positionY <= minMarginY && caller.positionY >= maxMarginY)
                     {
                         return (Heater)actuator;
                     }
@@ -72,13 +72,13 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public static int getIdOfElectrodByElectrodId(int electrodeId, int driverId, Container container)
         {
-            Electrodes[] electrodes = container.Electrodes;
+            Electrode[] electrodes = container.electrodes;
 
-            foreach(Electrodes electrode in electrodes)
+            foreach(Electrode electrode in electrodes)
             {
-                if(electrode.ElectrodeID == electrodeId && electrode.DriverID == driverId)
+                if(electrode.electrodeID == electrodeId && electrode.driverID == driverId)
                 {
-                    return electrode.ID1;
+                    return electrode.ID;
                 }
             }
             return -1;
@@ -87,10 +87,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static int getIndexOfElectrodeByID(int ID, Container container)
         {
 
-            Electrodes[] electrodes = container.Electrodes;
+            Electrode[] electrodes = container.electrodes;
             //if (ID < electrodes.Count())
             //{
-                if (electrodes[ID].ID1 == ID)
+                if (electrodes[ID].ID == ID)
                 {
                     return ID;
                 }
@@ -112,9 +112,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static int getIndexOfActuatorByID(int ID, Container container)
         {
 
-            Actuators[] actuators = container.Actuators;
+            Actuators[] actuators = container.actuators;
             
-            if (actuators[ID].ID1 == ID)
+            if (actuators[ID].ID == ID)
             {
                 return ID;
             }
@@ -122,15 +122,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return binarySearchActuators(ID, container);
         }
 
-        public static int getIDofElectrodeByPosition(int positionX, int positionY, Electrodes[] electrodeBoard)
+        public static int getIDofElectrodeByPosition(int positionX, int positionY, Electrode[] electrodeBoard)
         {
             
             for(int i = 0; i < electrodeBoard.Length; i++)
             {
-                Electrodes electrode = electrodeBoard[i];
-                if (electrode.PositionX <= positionX && electrode.PositionX+ electrode.SizeX >= positionX && electrode.PositionY <= positionY && electrode.PositionY + electrode.SizeY >= electrode.PositionY)
+                Electrode electrode = electrodeBoard[i];
+                if (electrode.positionX <= positionX && electrode.positionX+ electrode.sizeX >= positionX && electrode.positionY <= positionY && electrode.positionY + electrode.sizeY >= electrode.positionY)
                 {
-                    return electrodeBoard[i].ID1;
+                    return electrodeBoard[i].ID;
                 }
             }
             return -1;
@@ -138,18 +138,18 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public static int binarySearchElectrode(int ID, Container container)
         {
-            Electrodes[] electrodes = container.Electrodes;
+            Electrode[] electrodes = container.electrodes;
             int min = 0;
             int max = electrodes.Count() - 1;
 
             while (min <= max)
             {
                 int mid = (min + max) / 2;
-                if (ID == electrodes[mid].ID1)
+                if (ID == electrodes[mid].ID)
                 {
                     return mid;
                 }
-                else if (ID < electrodes[mid].ID1)
+                else if (ID < electrodes[mid].ID)
                 {
                     max = mid - 1;
                 }
@@ -163,18 +163,18 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public static int binarySearchActuators(int ID, Container container)
         {
-            Actuators[] actuators = container.Actuators;
+            Actuators[] actuators = container.actuators;
             int min = 0;
             int max = actuators.Count() - 1;
 
             while (min <= max)
             {
                 int mid = (min + max) / 2;
-                if (ID == actuators[mid].ID1)
+                if (ID == actuators[mid].ID)
                 {
                     return mid;
                 }
-                else if (ID < actuators[mid].ID1)
+                else if (ID < actuators[mid].ID)
                 {
                     max = mid - 1;
                 }
