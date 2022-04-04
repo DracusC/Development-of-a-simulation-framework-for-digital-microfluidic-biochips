@@ -45,8 +45,18 @@
         draw_selected_element: {
             name: "draw_selected_element",
             value: "draw_selected_element",
-            id: "drdraw_selected_element",
+            id: "draw_selected_element",
             text: "Draw Selected", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: true,
+            layer: "insert"         // Reference - pass to functions
+        },
+        draw_actuators: {
+            name: "draw_actuators",
+            value: "draw_actuators",
+            id: "draw_actuators",
+            text: "Draw Actuators", // Will be shown in layer panel list
             element: "insert",      // Reference - get toggled from here
             checkbox: "insert",
             checked: true,

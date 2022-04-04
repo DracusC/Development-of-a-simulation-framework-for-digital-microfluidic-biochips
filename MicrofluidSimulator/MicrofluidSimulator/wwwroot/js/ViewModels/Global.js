@@ -18,6 +18,7 @@ window.update_board = (_container_string) => {
     let container_string = BINDING.conv_string(_container_string);
 
     var board = JSON.parse(container_string);
+    gui_broker.board = board;
     gui_broker.droplets = board.droplets;
     gui_broker.electrodes = board.electrodes;
 

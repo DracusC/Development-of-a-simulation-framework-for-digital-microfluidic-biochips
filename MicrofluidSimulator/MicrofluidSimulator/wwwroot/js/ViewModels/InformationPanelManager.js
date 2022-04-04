@@ -3,6 +3,8 @@
     edit_button: null,
     save_button: null,
     close_button: null,
+    multiple_selection: null,
+    double_clicked: false,
     selected_element: null,
     selected_element_type: null,
     information_element: null,
@@ -72,8 +74,8 @@
                 break;
             case ("Group"):
 
-                let id = arguments[1];
-                let group = arguments[2];
+                let id = arguments[2];
+                let group = arguments[1];
 
                 returnVal = { ...this.display_info[type] };
                 returnVal.droplets = [];
@@ -97,6 +99,10 @@
                 return returnVal;
                 break;
         }
+    },
+    draw_multiple_selection: function (p) {
+        p.fill("#d3d3d3");
+        p.rect(p.mouseX, p.mouseY, 100, 100);
     },
     draw_information: function (element) {
 
@@ -125,6 +131,9 @@
         informationView.append(div);
     },
     onEdit: function () {
+
+
+        if (this.selected_element == null) { this.onCancel(); return; }
 
         this.before_edit_values = {};
 
@@ -229,6 +238,13 @@
         //values_to_send = this.selected_element;
 
         gui_broker.update_simulator_container(this.selected_element_type, JSON.stringify(values_to_send));
+    },
+    clear: function () {
+        this.edit_button.style.visibility = "visible";
+        this.saveclose_button_div.style.visibility = "hidden";
+
+        let div = document.querySelector("#informationElements");
+        div.innerHTML = "";
     }
 
 }

@@ -32,6 +32,8 @@ let sketch = function (p) {
         // Create main canvas
         let canvas = p.createCanvas(1, 1);
         canvas.mouseClicked(onMouseClicked);
+        canvas.doubleClicked(onMouseDoubleClicked);
+        
         console.log(canvas.position());
 
         // Used to get sharper edges in sketch
@@ -85,11 +87,15 @@ let sketch = function (p) {
         // Draw all direct layers
         layer_manager.draw_layers(p);
 
+        if (layer_manager.layers.draw_actuators.checkbox.checked) { draw_actuators(); }
+
         if (layer_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
 
         if (layer_manager.layers.draw_selected_element.checkbox.checked) { draw_selected_element(layer_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
 
         if (layer_manager.layers.draw_droplet_groups.checkbox.checked) { draw_grouped_droplets(); }
+
+        if (information_panel_manager.double_clicked) { information_panel_manager.draw_multiple_selection(p); }
 
         //console.timeEnd("DrawTime");
 
@@ -99,16 +105,40 @@ let sketch = function (p) {
         
     }
 
+
+    p.keyPressed = function () {
+        if (information_panel_manager.double_clicked) {
+            if (p.key <= Object.keys(information_panel_manager.multiple_selection).length) {
+                console.log("inside");
+                //information_panel_manager.selected_element = information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]];
+                console.log(Object.keys(information_panel_manager.multiple_selection)[p.key - 1], information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]]);
+
+                let type = Object.keys(information_panel_manager.multiple_selection)[p.key - 1];
+                let element = information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]];
+                let groupID = (typeof element[0] === 'undefined') ? null : element[0].group;
+
+                information_panel_manager.selected_element = information_panel_manager.information_filter(type, element, groupID);
+                information_panel_manager.information_element = information_panel_manager.information_filter(type, element, groupID);
+                information_panel_manager.draw_information(information_panel_manager.information_filter(type, element, groupID));
+
+                information_panel_manager.double_clicked = false;
+                information_panel_manager.multiple_selection = null;
+            }
+        }
+    }
+
     /** Handle single mouse clicks */
     function onMouseClicked() {
+        information_panel_manager.double_clicked = false;
+        information_panel_manager.multiple_selection = null;
 
         // Handle click on droplet group
         if (layer_manager.layers.draw_droplet_groups.checkbox.checked) {
             for (let i in gui_broker.droplet_groups) {
                 if (polygon_contains(gui_broker.droplet_groups[i].vertices, p.mouseX, p.mouseY)) {
-                    information_panel_manager.selected_element = information_panel_manager.information_filter("Group", i, gui_broker.droplet_groups[i]);
-                    information_panel_manager.information_element = information_panel_manager.information_filter("Group", i, gui_broker.droplet_groups[i]);
-                    information_panel_manager.draw_information(information_panel_manager.information_filter("Group", i, gui_broker.droplet_groups[i]));
+                    information_panel_manager.selected_element = information_panel_manager.information_filter("Group", gui_broker.droplet_groups[i], i);
+                    information_panel_manager.information_element = information_panel_manager.information_filter("Group", gui_broker.droplet_groups[i], i);
+                    information_panel_manager.draw_information(information_panel_manager.information_filter("Group", gui_broker.droplet_groups[i], i));
                     return;
                 }
             }
@@ -138,6 +168,49 @@ let sketch = function (p) {
                 information_panel_manager.draw_information(information_panel_manager.information_filter("Electrode", electrode));
                 return;
             }
+        }
+    }
+
+    function onMouseDoubleClicked() {
+
+
+        let list_of_elements = {};
+        // Handle click on droplet group
+        if (layer_manager.layers.draw_droplet_groups.checkbox.checked) {
+            for (let i in gui_broker.droplet_groups) {
+                if (polygon_contains(gui_broker.droplet_groups[i].vertices, p.mouseX, p.mouseY)) {
+                    list_of_elements["Group"] = gui_broker.droplet_groups[i];
+                }
+            }
+        }
+
+        // Handle click on droplet
+        if (layer_manager.layers.draw_droplets.checkbox.checked) {
+            for (let i in gui_broker.droplets) {
+                let droplet = gui_broker.droplets[i];
+
+                // Check mouse over droplet
+                if (p.dist(p.mouseX, p.mouseY, droplet.positionX, droplet.positionY) < droplet.sizeX / 2) {
+                    list_of_elements["Droplet"] = (droplet);
+                }
+            }
+        }
+
+        // Handle click on electrode
+        for (let i in gui_broker.electrodes) {
+            let electrode = gui_broker.electrodes[i];
+            if (electrodeContains(electrode, p.mouseX, p.mouseY)) {
+                list_of_elements["Electrode"] = (electrode);
+            }
+        }
+        console.log("double clicked", list_of_elements);
+
+        if (Object.keys(list_of_elements).length > 1) {
+            information_panel_manager.selected_element = null;
+            information_panel_manager.clear();
+
+            information_panel_manager.double_clicked = true;
+            information_panel_manager.multiple_selection = list_of_elements;
         }
     }
 
@@ -278,6 +351,7 @@ let sketch = function (p) {
             }
 
             p.fill(current_droplet.color);
+            p.stroke("#000000");
 
             let points_vector = [];
             for (let j = 0; j < points_to_draw.length; j++) {
@@ -479,6 +553,18 @@ let sketch = function (p) {
         }
     }
 
+    /* Call to draw actuators */
+    function draw_actuators() {
+        let actuators = gui_broker.board.actuators;
+        actuators.forEach((actuator) => {
+            //console.log(actuator);
+            let color = p.color("#FF0000");
+            color.setAlpha(100);
+            p.fill(color);
+            p.stroke("#FF0000");
+            p.rect(actuator.positionX, actuator.positionY, actuator.sizeX, actuator.sizeY);
+        })
+    }
 
     /**
      * Call to draw ID's of all electrodes (used for debugging)
