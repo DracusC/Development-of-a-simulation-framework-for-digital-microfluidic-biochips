@@ -112,10 +112,6 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         }
 
-        public class Corner
-        {
-            List<int> Coords { get; set; }
-        }
 
         private Electrode[] initializeBoard(Electrode[] electrodes, ElectrodesWithNeighbours[] electrodesWithNeighbours)
         {

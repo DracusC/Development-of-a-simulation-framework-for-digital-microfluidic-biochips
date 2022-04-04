@@ -93,7 +93,7 @@
 
                 returnVal.temperature = returnVal.temperature / group.length;
 
-                returnVal.type = type;
+                returnVal.Type = type;
                 return returnVal;
                 break;
         }

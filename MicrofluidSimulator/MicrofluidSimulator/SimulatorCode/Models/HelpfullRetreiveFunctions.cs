@@ -109,6 +109,102 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return binarySearchElectrode(ID, container);
         }
 
+        public static Container createCopyOfContainer(Container container)
+        {
+            
+            Electrode[] electrodes = new Electrode[container.electrodes.Length];
+            List<Droplets> droplets = new List<Droplets>();
+            Actuators[] actuators  = new Actuators[container.actuators.Length];
+            Sensors[] sensors = new Sensors[container.sensors.Length];
+            Information information = container.information;
+            float currentTime = 0;
+            
+            for (int i = 0; i < electrodes.Length; i++)
+            {
+                
+                electrodes[i] = new Electrode(container.electrodes[i].name, container.electrodes[i].ID, container.electrodes[i].electrodeID, container.electrodes[i].driverID, container.electrodes[i].shape,
+                container.electrodes[i].positionX, container.electrodes[i].positionY, container.electrodes[i].sizeX, container.electrodes[i].sizeY, container.electrodes[i].status, container.electrodes[i].corners);
+
+                electrodes[i].neighbours = container.electrodes[i].neighbours;
+            }
+
+
+
+            Console.WriteLine("CONTAINER DROPLETS COUNT " + container.droplets.Count);
+            int j = 0;
+            foreach (Droplets droplet in container.droplets)
+            {
+                droplets.Add(new Droplets(droplet.name, droplet.ID, droplet.substance_name, droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY, droplet.color, droplet.temperature, droplet.volume, droplet.electrodeID, droplet.group));
+                j++;
+            }
+            Console.WriteLine("THERE IS THIS MANY DROPLETS AFTER COPY" + j);
+
+            
+            
+
+
+            for (int i = 0; i < container.actuators.Length; i++)
+            {
+                switch (container.actuators[i].type)
+                {
+                    case "heater":
+
+
+
+                        actuators[i] = (new Heater(container.actuators[i].name, container.actuators[i].ID, container.actuators[i].actuatorID, container.actuators[i].type, container.actuators[i].positionX,
+                            container.actuators[i].positionY, container.actuators[i].sizeX, container.actuators[i].sizeY, container.actuators[i].valueActualTemperature, container.actuators[i].valueDesiredTemperature,
+                            container.actuators[i].valuePowerStatus));
+
+                        break;
+
+                }
+
+            }
+            for (int i = 0; i < sensors.Length; i++)
+            {
+                sensors[i] = container.sensors[i];
+            }
+
+            for (int i = 0; i < container.sensors.Length; i++)
+            {
+                switch (sensors[i].type)
+                {
+                    case "RGB_color":
+
+
+
+                        sensors[i] = new ColorSensor(container.sensors[i].name, container.sensors[i].ID, container.sensors[i].sensorID, container.sensors[i].type, container.sensors[i].positionX, container.sensors[i].positionY,
+                            container.sensors[i].sizeX, container.sensors[i].sizeY, container.sensors[i].valueRed, container.sensors[i].valueGreen, container.sensors[i].valueBlue, HelpfullRetreiveFunctions.getIDofElectrodeByPosition(container.sensors[i].positionX, container.sensors[i].positionY,electrodes));
+
+                        break;
+                    case "temperature":
+
+                        sensors[i] = new TemperatureSensor(container.sensors[i].name, container.sensors[i].ID, container.sensors[i].sensorID, container.sensors[i].type, container.sensors[i].positionX, container.sensors[i].positionY,
+                            container.sensors[i].sizeX, container.sensors[i].sizeY, container.sensors[i].valueTemperature, HelpfullRetreiveFunctions.getIDofElectrodeByPosition(container.sensors[i].positionX, container.sensors[i].positionY, electrodes));
+
+                        break;
+
+                }
+
+            }
+            Container newContainer = new Container(electrodes, droplets, actuators, sensors, information, currentTime);
+            foreach(Droplets droplet in newContainer.droplets)
+            {
+                newContainer.subscribedDroplets.Add(droplet.ID);
+            }
+
+            //foreach (Droplets droplet in droplets)
+            //{
+            //    Models.SubscriptionModels.dropletSubscriptions(newContainer, droplet);
+            //    foreach (int sub in droplet.subscriptions)
+            //    {
+            //        Console.WriteLine("droplet subs id: " + droplet.ID + " subs: " + sub);
+            //    }
+
+            //}
+
+            return newContainer;
+        }
         public static int getIndexOfActuatorByID(int ID, Container container)
         {
 
