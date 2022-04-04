@@ -97,6 +97,8 @@ let sketch = function (p) {
 
         if (information_panel_manager.double_clicked) { information_panel_manager.draw_multiple_selection(p); }
 
+        draw_bubbles();
+
         //console.timeEnd("DrawTime");
 
         if (gui_broker.play_status) {
@@ -564,6 +566,19 @@ let sketch = function (p) {
             p.stroke("#FF0000");
             p.rect(actuator.positionX, actuator.positionY, actuator.sizeX, actuator.sizeY);
         })
+    }
+
+    /* Call to draw bubbles */
+    function draw_bubbles() {
+        let bubbles = gui_broker.board.bubbles;
+
+        if (typeof bubbles != 'undefined') {
+            p.noFill();
+            p.stroke("#000000");
+            bubbles.forEach((bubble) => {
+                p.ellipse(bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY);
+            })
+        }
     }
 
     /**

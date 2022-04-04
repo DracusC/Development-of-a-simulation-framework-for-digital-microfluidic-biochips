@@ -101,8 +101,31 @@
         }
     },
     draw_multiple_selection: function (p) {
-        p.fill("#d3d3d3");
-        p.rect(p.mouseX, p.mouseY, 100, 100);
+
+        let s_list = [];
+        for (let i = 0; i < Object.keys(information_panel_manager.multiple_selection).length; i++) {
+            s_list.push((i + 1) + " " + Object.keys(information_panel_manager.multiple_selection)[i]);
+        }
+
+        p.fill("#1b6ec2");
+        //p.rect(p.mouseX, p.mouseY, p.textWidth(s) / Object.keys(information_panel_manager.multiple_selection).length-1, p.textAscent(s) * (Object.keys(information_panel_manager.multiple_selection).length+1));
+
+        p.fill("#ffffff");
+        for (let i in s_list) {
+            p.text(s_list[i], p.mouseX + 10, p.mouseY + (p.textAscent(s_list[i]) * (parseInt(i) + 1)));
+        }
+
+
+
+
+        /*if (p.key <= Object.keys(information_panel_manager.multiple_selection).length) {
+            console.log("inside");
+            //information_panel_manager.selected_element = information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]];
+            console.log(Object.keys(information_panel_manager.multiple_selection)[p.key - 1], information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]]);
+
+            let type = Object.keys(information_panel_manager.multiple_selection)[p.key - 1];
+            let element = information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]];*/
+
     },
     draw_information: function (element) {
 
