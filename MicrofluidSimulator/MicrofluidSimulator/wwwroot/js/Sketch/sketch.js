@@ -141,34 +141,6 @@ let sketch = function (p) {
         }
     }
 
-
-    function droplet_group_information_filter(id, group) {
-        let group_info = {
-            Group_ID: id,
-            Substance_name: group[0].Substance_name,
-            Color: group[0].Color,
-            Temperature: 0,
-            Volume: 0,
-            Droplets: []
-        };
-        //console.log(group);
-
-        // WIP
-        for (let i = 0; i < group.length; i++) {
-            //console.log(group[i]);
-            let droplet = group[i];
-            group_info.Droplets.push(droplet.ID);
-            for (let key in droplet) {
-                if (key == "Volume") { group_info.Volume += droplet[key] }
-                if (key == "Temperature") { group_info.Temperature += droplet[key] }
-            }
-        }
-
-        group_info.Temperature = group_info.Temperature / group.length;
-
-        return group_info;
-    }
-
     /**
      * Checks whether a point (x, y) is contained within an electrode.
      * @param {any} electrode

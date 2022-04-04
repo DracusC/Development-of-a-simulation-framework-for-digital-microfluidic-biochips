@@ -31,7 +31,7 @@
         },
         Electrode_editable: ["status"],
         Group: {
-            Group_ID: 0,
+            groupID: 0,
             substance_name: "",
             color: "",
             temperature: 0,
@@ -77,7 +77,7 @@
 
                 returnVal = { ...this.display_info[type] };
                 returnVal.droplets = [];
-                returnVal.Group_ID = id;
+                returnVal.groupID = id;
 
                 returnVal.substance_name = group[0].substance_name;
                 returnVal.color = group[0].color;
@@ -184,7 +184,7 @@
         }
     },
     onSave: function () {
-        console.log("Save");
+        
         this.edit_button.style.visibility = "visible";
         this.saveclose_button_div.style.visibility = "hidden";
 
@@ -212,21 +212,14 @@
                 input.classList.add("input_readonly");
 
                 // TODO: Check if the input value is ok!
-                this.selected_element[attribute] = JSON.parse(input.value);
+                this.selected_element[attribute] = input.value;
                 values_to_send[attribute] = input.value;
             }
         }
 
-        console.log(this.selected_element);
         if (this.selected_element_type == "Group") {
-            console.log("GROUP SELECT");
-
-            let array_of_droplets = [];
-            console.log(this.selected_element.Droplets);
-
-
-
-
+            values_to_send.droplets = this.selected_element.droplets;
+            values_to_send.groupID = this.selected_element.groupID;
             //console.log(gui_broker.board[this.selected_element_type + "s"].find(o => o.ID1 === this.selected_element.ID1));
         } else {
             values_to_send.ID = this.selected_element.ID;
@@ -234,7 +227,6 @@
 
         
         //values_to_send = this.selected_element;
-        console.log("CALUES TO SEND", values_to_send);
 
         gui_broker.update_simulator_container(this.selected_element_type, JSON.stringify(values_to_send));
     }

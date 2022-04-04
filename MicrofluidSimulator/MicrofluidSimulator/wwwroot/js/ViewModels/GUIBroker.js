@@ -20,6 +20,9 @@ let gui_broker = {
     update_simulator_container: function (type, JSONString) {
         DotNet.invokeMethod('MicrofluidSimulator', 'updateSimulatorContainer', type, JSONString);
     },
+    goto_simulator_time_step: (time) => {
+        DotNet.invokeMethod('MicrofluidSimulator', 'gotoSimulatorTimeStep', time);
+    },
     init_board: () => { console.log("BEFORE LOADED"); },
     get_droplet_groups: function () {
         this.droplet_groups = {};

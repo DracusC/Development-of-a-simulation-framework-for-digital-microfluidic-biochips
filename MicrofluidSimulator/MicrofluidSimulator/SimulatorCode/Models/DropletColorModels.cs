@@ -10,7 +10,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
 
             ArrayList groupColors = new ArrayList();
-            ArrayList groupMembers = DropletUtillityFunctions.findGroupMembers(container, caller.group);
+            List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container, caller.group);
 
             foreach (Droplets droplet in groupMembers)
             {
