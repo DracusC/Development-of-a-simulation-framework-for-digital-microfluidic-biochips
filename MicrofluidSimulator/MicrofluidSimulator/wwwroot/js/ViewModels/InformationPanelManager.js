@@ -136,8 +136,6 @@
         let max_width = Math.max.apply(Math, s_list.map(function (o) { return p.textWidth(o); }))
         let max_height = p.textAscent(s_list[0]) * s_list.length + 10 + 5 * s_list.length;
 
-        console.log(p.textWidth(s_list[0]), p.textWidth(s_list[1]));
-
         p.stroke("#000000");
         p.rect(p.mouseX, p.mouseY, max_width + 20, max_height, 5);
 
