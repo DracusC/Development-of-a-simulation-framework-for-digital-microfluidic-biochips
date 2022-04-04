@@ -9988,6 +9988,18 @@
       "color": "#7940C0",
       "temperature": 20,
       "electrodeID": 372
+    },
+    {
+      "name": "test droplet",
+      "ID": 7,
+      "substance_name": "h20",
+      "positionX": 120,
+      "positionY": 10,
+      "sizeX": 20,
+      "sizeY": 20,
+      "color": "#7940C0",
+      "temperature": 20,
+      "electrodeID": 1
     }
   ],
   "bubbles": [],

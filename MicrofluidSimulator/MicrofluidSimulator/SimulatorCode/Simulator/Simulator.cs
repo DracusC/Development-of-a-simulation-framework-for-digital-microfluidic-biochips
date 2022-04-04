@@ -18,6 +18,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(container, electrodesWithNeighbours);
             this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
+
             this.droplets = container.droplets;
             Electrode[] electrodeBoard = container.electrodes;
 
@@ -99,7 +100,17 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             float targetTime = container.currentTime + timeStepLength;
             bool executeAStep = false;
 
+            if(container.currentTime == 1)
+            {
+                container.bubbles.Add(BubbleModels.makeBubble(container.droplets[7], 2));
 
+                Console.WriteLine("DROPLET " + container.droplets[7].ID + " CREATED BUBBLE WITH ID AND SIZE "
+                    + container.bubbles[0].ID + " , " + container.bubbles[0].sizeX + "\n DROPLET " + container.droplets[7].ID + " NOW HAS SIZE " 
+                    + container.droplets[7].sizeX);
+                simulatorRunAllModels();    
+
+                
+            }
             if (timeStepLength == -1)
             {
                 if (actionQueue.Count > 1)
@@ -523,7 +534,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         private Queue<ActionQueueItem> generateTestQueueFromReader(string generatedActionQueue, Container container)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
-            
             int counter = 0;
             int timeStep = 0;
             foreach (string line in generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))

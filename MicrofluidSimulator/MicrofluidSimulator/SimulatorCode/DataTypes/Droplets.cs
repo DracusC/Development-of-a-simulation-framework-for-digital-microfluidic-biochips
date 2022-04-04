@@ -3,16 +3,7 @@ namespace MicrofluidSimulator.SimulatorCode
 {
     public class Droplets
     {
-        //string name, substance_name, color;
-        //int ID, positionX, positionY, sizeX, sizeY;
-        //float temperature;
-        //float volume;
-        //int group;
-        //int electrodeID;
-
-        //ArrayList subscriptions;
-        //int nextModel;
-        //String[] modelOrder;
+        
 
 
         public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature, float volume, int electrodeID, int group)

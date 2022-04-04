@@ -2,10 +2,9 @@
 {
     public class ActionQueueItem
     {
-        //DataTypes.SimulatorAction action;
-        //float time;
-
-        public ActionQueueItem(DataTypes.SimulatorAction action, float time)
+        
+        // an actionqueue item contains the action itself as well as the time of which it should be executed
+        public ActionQueueItem(SimulatorAction action, float time)
         {
             this.action = action;
             this.time = time;
