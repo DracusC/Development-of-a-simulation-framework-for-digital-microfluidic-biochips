@@ -3,11 +3,9 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
 {
     public class Actuators
     {
-        //protected string name, type;
-        //protected int ID, actuatorID = -1, positionX, positionY, sizeX, sizeY;
-        //ArrayList subscriptions;
+        
 
-
+        // actuators is a parent class for all kinds of actuators, e.g. heaters
         public Actuators(string name, int ID, int actuatorID, string type, int positionX, int positionY, int sizeX, int sizeY)
         {
             this.name = name;
@@ -19,6 +17,7 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
             this.sizeX = sizeX;
             this.sizeY = sizeY;
 
+            // contain an arraylist of subscribers to the actuator
             this.subscriptions = new ArrayList();
         }
 

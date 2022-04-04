@@ -3,6 +3,8 @@
     edit_button: null,
     save_button: null,
     close_button: null,
+    multiple_selection: null,
+    double_clicked: false,
     selected_element: null,
     selected_element_type: null,
     information_element: null,
@@ -31,7 +33,7 @@
         },
         Electrode_editable: ["status"],
         Group: {
-            Group_ID: 0,
+            groupID: 0,
             substance_name: "",
             color: "",
             temperature: 0,
@@ -72,12 +74,12 @@
                 break;
             case ("Group"):
 
-                let id = arguments[1];
-                let group = arguments[2];
+                let id = arguments[2];
+                let group = arguments[1];
 
                 returnVal = { ...this.display_info[type] };
                 returnVal.droplets = [];
-                returnVal.Group_ID = id;
+                returnVal.groupID = id;
 
                 returnVal.substance_name = group[0].substance_name;
                 returnVal.color = group[0].color;
@@ -97,6 +99,33 @@
                 return returnVal;
                 break;
         }
+    },
+    draw_multiple_selection: function (p) {
+
+        let s_list = [];
+        for (let i = 0; i < Object.keys(information_panel_manager.multiple_selection).length; i++) {
+            s_list.push((i + 1) + " " + Object.keys(information_panel_manager.multiple_selection)[i]);
+        }
+
+        p.fill("#1b6ec2");
+        //p.rect(p.mouseX, p.mouseY, p.textWidth(s) / Object.keys(information_panel_manager.multiple_selection).length-1, p.textAscent(s) * (Object.keys(information_panel_manager.multiple_selection).length+1));
+
+        p.fill("#ffffff");
+        for (let i in s_list) {
+            p.text(s_list[i], p.mouseX + 10, p.mouseY + (p.textAscent(s_list[i]) * (parseInt(i) + 1)));
+        }
+
+
+
+
+        /*if (p.key <= Object.keys(information_panel_manager.multiple_selection).length) {
+            console.log("inside");
+            //information_panel_manager.selected_element = information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]];
+            console.log(Object.keys(information_panel_manager.multiple_selection)[p.key - 1], information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]]);
+
+            let type = Object.keys(information_panel_manager.multiple_selection)[p.key - 1];
+            let element = information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]];*/
+
     },
     draw_information: function (element) {
 
@@ -125,6 +154,9 @@
         informationView.append(div);
     },
     onEdit: function () {
+
+
+        if (this.selected_element == null) { this.onCancel(); return; }
 
         this.before_edit_values = {};
 
@@ -184,7 +216,7 @@
         }
     },
     onSave: function () {
-        console.log("Save");
+        
         this.edit_button.style.visibility = "visible";
         this.saveclose_button_div.style.visibility = "hidden";
 
@@ -212,21 +244,14 @@
                 input.classList.add("input_readonly");
 
                 // TODO: Check if the input value is ok!
-                this.selected_element[attribute] = JSON.parse(input.value);
+                this.selected_element[attribute] = input.value;
                 values_to_send[attribute] = input.value;
             }
         }
 
-        console.log(this.selected_element);
         if (this.selected_element_type == "Group") {
-            console.log("GROUP SELECT");
-
-            let array_of_droplets = [];
-            console.log(this.selected_element.Droplets);
-
-
-
-
+            values_to_send.droplets = this.selected_element.droplets;
+            values_to_send.groupID = this.selected_element.groupID;
             //console.log(gui_broker.board[this.selected_element_type + "s"].find(o => o.ID1 === this.selected_element.ID1));
         } else {
             values_to_send.ID = this.selected_element.ID;
@@ -234,9 +259,15 @@
 
         
         //values_to_send = this.selected_element;
-        console.log("CALUES TO SEND", values_to_send);
 
         gui_broker.update_simulator_container(this.selected_element_type, JSON.stringify(values_to_send));
+    },
+    clear: function () {
+        this.edit_button.style.visibility = "visible";
+        this.saveclose_button_div.style.visibility = "hidden";
+
+        let div = document.querySelector("#informationElements");
+        div.innerHTML = "";
     }
 
 }

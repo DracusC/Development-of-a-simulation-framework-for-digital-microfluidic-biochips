@@ -4,12 +4,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class DropletUtillityFunctions
     {
-        public static float getGroupVolume(Container container, ArrayList groupMembers)
+        public static float getGroupVolume(Container container, int groupID)
         {
-            List<Droplets> droplets = container.droplets;
+            List<Droplets> droplets = findGroupMembers(container, groupID);
 
             float volume = 0;
-            foreach (Droplets droplet in groupMembers)
+            foreach (Droplets droplet in droplets)
             {
                 volume = volume + droplet.volume;
             }
@@ -47,9 +47,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
         }
 
-        public static ArrayList findGroupMembers(Container container, int groupID)
+        public static List<Droplets> findGroupMembers(Container container, int groupID)
         {
-            ArrayList groupMembers = new ArrayList();
+            List<Droplets> groupMembers = new List<Droplets>();
             List<Droplets> droplets = container.droplets;
             foreach (Droplets droplet in droplets)
             {
@@ -65,9 +65,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static void updateGroupVolume(Container container, int groupID, float extraVolume)
         {
             List<Droplets> droplets = container.droplets;
-            ArrayList groupMembers = DropletUtillityFunctions.findGroupMembers(container, groupID);
-
-            float volume = DropletUtillityFunctions.getGroupVolume(container, groupMembers) + extraVolume;
+            List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container, groupID);
+            float volume = DropletUtillityFunctions.getGroupVolume(container, groupID) + extraVolume;
             float newVolume = volume / groupMembers.Count;
             int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume, 1);
             foreach (Droplets droplet in groupMembers)

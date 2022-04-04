@@ -92,13 +92,8 @@
 
     public string PlayButtonText { get; set; } = "Play";
     public void Play() {
-        Console.WriteLine("Play called");
-
         PlayButtonText = PlayButtonText.Equals("Play") ? "Pause" : "Play";
-
         InvokeAsync(() => StateHasChanged());
-
-
         guibroker.change_play_status();
     }
 
@@ -115,6 +110,15 @@
         simulator.simulatorStep(deltaTime);
         guibroker.update_board(simulator.container);
     }
+    [JSInvokable]
+    public static void gotoSimulatorTimeStep(float deltaTime)
+    {
+        simulator.restartSimulator();
+        simulator.simulatorStep(deltaTime);
+        guibroker.update_board(simulator.container);
+    }
+
+
 
     public void Restart()
     {
@@ -142,6 +146,7 @@
 
                 Electrode electrode = simulator.container.electrodes[index];
 
+                // Change values
                 electrode.status = JSONElectrode.status;
                 break;
 
@@ -154,14 +159,37 @@
 
                 MicrofluidSimulator.SimulatorCode.Droplets droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
 
+                // Change values
                 droplet.color = JSONDroplet.color;
                 droplet.temperature = JSONDroplet.temperature;
                 droplet.volume = JSONDroplet.volume;
                 break;
 
             case ("Group"):
+                GroupDroplets JSONGroupDroplets = Newtonsoft.Json.JsonConvert.DeserializeObject<GroupDroplets>(JSONString);
 
-                break;
+                List<Droplets> dropletList = new List<Droplets>();
+
+                foreach (int dropletID in JSONGroupDroplets.droplets)
+                {
+                    index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(dropletID, simulator.container);
+                    droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
+
+                    // Change values for each droplet in a group
+                    droplet.color = JSONGroupDroplets.color;
+                    droplet.temperature = JSONGroupDroplets.temperature;
+                }
+
+                float prevVolume = MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID);
+
+                float deltaVolume = JSONGroupDroplets.volume - prevVolume;
+                Console.WriteLine("PrevVolume " + prevVolume + " , diff " + deltaVolume + " GID " + JSONGroupDroplets.groupID);
+
+                MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.updateGroupVolume(simulator.container, JSONGroupDroplets.groupID, deltaVolume);
+
+                Console.WriteLine("Updated Volume: " + MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID));
+
+            break;
         }
 
         simulator.simulatorRunAllModels();

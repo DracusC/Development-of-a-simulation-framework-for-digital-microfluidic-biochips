@@ -24,6 +24,7 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
             this.sensors = sensors;
             this.information = information;
             this.currentTime = currentTime;
+            this.bubbles = new List<Bubbles>();
             subscribedDroplets = new ArrayList();
             subscribedActuators = new ArrayList();
             this.timeStep = 0;
@@ -41,9 +42,10 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
         public ArrayList subscribedDroplets { get; set; }
         public ArrayList subscribedActuators { get; set; }
 
+        public List<Bubbles> bubbles { get; set; }
+
         public object[] inputs { get; set; }
         public object[] outputs { get; set; }
-        public object[] bubbles { get; set; }
         public object[] unclassified { get; set; }
 
         
