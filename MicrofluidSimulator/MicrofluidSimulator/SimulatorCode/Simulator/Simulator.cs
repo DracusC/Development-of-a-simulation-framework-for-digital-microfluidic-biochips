@@ -95,6 +95,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         // called from joelspage
         public void simulatorStep(float timeStepLength)
         {
+            float maximumTimeStep = 1f;
             // only execute if action exists in queue
             float targetTime = container.currentTime + timeStepLength;
             bool executeAStep = false;
@@ -194,6 +195,11 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
 
 
+                //check if we step a too large time amount
+                if (container.timeStep > maximumTimeStep)
+                {
+                    container.timeStep = maximumTimeStep;
+                }
 
  
                 
@@ -317,7 +323,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 case "split":
                     return Models.DropletModels.dropletSplit(container, caller);
                 case "merge":
-                    return Models.DropletModels.dropletMerge(container, caller);
+                    return Models.DropletMerge.dropletMerge(container, caller);
                 case "temperature":
                     return Models.DropletTemperatureModels.dropletTemperatureChange(container, caller);
                 case "color":

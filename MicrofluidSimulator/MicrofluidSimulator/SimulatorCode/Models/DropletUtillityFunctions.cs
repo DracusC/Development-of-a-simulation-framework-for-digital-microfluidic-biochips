@@ -66,6 +66,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
             List<Droplets> droplets = container.droplets;
             ArrayList groupMembers = DropletUtillityFunctions.findGroupMembers(container, groupID);
+
             float volume = DropletUtillityFunctions.getGroupVolume(container, groupMembers) + extraVolume;
             float newVolume = volume / groupMembers.Count;
             int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume, 1);
