@@ -93,7 +93,7 @@
 
                 returnVal.temperature = returnVal.temperature / group.length;
 
-                returnVal.type = type;
+                returnVal.Type = type;
                 return returnVal;
                 break;
         }
@@ -212,7 +212,7 @@
                 input.classList.add("input_readonly");
 
                 // TODO: Check if the input value is ok!
-                this.selected_element[attribute] = input.value;
+                this.selected_element[attribute] = JSON.parse(input.value);
                 values_to_send[attribute] = input.value;
             }
         }
@@ -232,7 +232,9 @@
             values_to_send.ID = this.selected_element.ID;
         }
 
-        console.log(values_to_send);
+        
+        //values_to_send = this.selected_element;
+        console.log("CALUES TO SEND", values_to_send);
 
         gui_broker.update_simulator_container(this.selected_element_type, JSON.stringify(values_to_send));
     }

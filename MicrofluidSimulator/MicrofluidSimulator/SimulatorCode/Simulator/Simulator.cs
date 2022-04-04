@@ -18,7 +18,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(container, electrodesWithNeighbours);
             this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
-            droplets = container.droplets;
+            this.droplets = container.droplets;
             Electrode[] electrodeBoard = container.electrodes;
 
 
@@ -26,19 +26,25 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
             this.container = container;
 
-            this.initialActionQueue = this.actionQueue;
-            this.initialContainer = this.container;
+            this.initialActionQueue = new Queue<ActionQueueItem>(this.actionQueue);
+            this.initialContainer = HelpfullRetreiveFunctions.createCopyOfContainer(container);
+            simulatorRunAllModels();
 
-            Console.WriteLine("initialContainer info" + this.initialContainer.droplets[0].positionX);
-            //restartSimulator(jsonContainer, electrodesWithNeighbours, initialActionQueue);
+            //Console.WriteLine("initialContainer info" + this.initialContainer.droplets[0].positionX);
+            //restartSimulator(container, electrodesWithNeighbours, generatedActionQueue);
             //ArrayList containerConfigurations = new ArrayList();
         }
-        
+
         public void restartSimulator()
         {
-            this.container = this.initialContainer;
-            this.actionQueue = this.initialActionQueue;
             
+            this.container = HelpfullRetreiveFunctions.createCopyOfContainer(this.initialContainer);
+            this.actionQueue = new Queue<ActionQueueItem>(this.initialActionQueue);
+            this.droplets = this.container.droplets;
+            simulatorRunAllModels();
+
+
+
         }
         
         public Container container { get; set; }
@@ -200,13 +206,16 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
 
 
-                Console.WriteLine("subscriber queue " + subscriberQueue.Count());
+                //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
                 while (subscriberQueue.Count() > 0)
                 {
                     int subscriber = subscriberQueue.Dequeue();
+                    //Console.WriteLine("SUBSCRIBERS " + subscriber);
                     int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
                     if (index != -1)
                     {
+                        //Console.WriteLine("INDEX " + index);
+                        //Console.WriteLine("DROPLETS LENGTH" + droplets.Count);
                         Droplets droplet = (Droplets)droplets[index];
                         handelSubscriber(container, droplet, subscriberQueue);
                     }
@@ -241,10 +250,11 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             foreach (int subscriber in subscribers)
             {
                 subscriberQueue.Enqueue(subscriber);
+                //Console.WriteLine("ENQUING " + subscriber);
             }
 
 
-            Console.WriteLine("subscriber queue " + subscriberQueue.Count());
+            //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
             while (subscriberQueue.Count() > 0)
             {
                 int subscriber = subscriberQueue.Dequeue();
