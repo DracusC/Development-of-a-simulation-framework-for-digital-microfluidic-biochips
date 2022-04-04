@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace MicrofluidSimulator.SimulatorCode.Models
 {
-    public class HeaterModels
+    public class HeaterActuatorModels
     {
         public static ArrayList heaterTemperatureCalled(Container container, Heater heater, SimulatorAction action)
         {

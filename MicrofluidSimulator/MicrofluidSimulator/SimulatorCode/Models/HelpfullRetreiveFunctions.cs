@@ -30,11 +30,33 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             {
               
                 case "h20":
-                    int waterDensity = 997;
+                    float waterDensity = 0.997F;
                     return caller.volume * waterDensity;
                     break;
             }
             return -1;
+        }
+
+        public static float getAreaOfDroplet(Droplets caller)
+        {
+            return (float) (Math.PI * (Math.Pow(caller.sizeX / 2, 2)));
+            
+        }
+
+        public static float getThermalConductivityOfDroplet(Droplets caller)
+        {
+            switch (caller.substance_name)
+            {
+
+                case "h20":
+
+                    return 0.598F;
+                    break;
+            }
+            return -1;
+
+            
+            
         }
 
         public static float getHeatCapacityOfDropletGivenSubstance(Droplets caller)
@@ -281,6 +303,26 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return -1;
         }
+
+        public static Droplets getDropletOnSensor(Container container, Sensors sensor)
+        {
+            foreach (Droplets droplet in container.droplets)
+            {
+                
+                    int minMarginX = droplet.positionX;
+                    int maxMarginX = droplet.positionX + (droplet).sizeX;
+                    int minMarginY = (droplet).positionY;
+                    int maxMarginY = (droplet).positionY + (droplet).sizeY;
+
+                    if (sensor.positionX <= minMarginX && sensor.positionX >= maxMarginX && sensor.positionY <= minMarginY && sensor.positionY >= maxMarginY)
+                    {
+                        return droplet;
+                    }
+            }
+            return null;
+        }
+            
+        
     }
 
 }
