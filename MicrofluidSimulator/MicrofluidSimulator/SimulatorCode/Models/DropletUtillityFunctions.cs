@@ -68,7 +68,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container, groupID);
             float volume = DropletUtillityFunctions.getGroupVolume(container, groupID) + extraVolume;
             float newVolume = volume / groupMembers.Count;
-            int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume, 1);
+            int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume);
             foreach (Droplets droplet in groupMembers)
             {
                 droplet.volume = newVolume;
@@ -86,16 +86,16 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return Math.Sqrt(x + y);
         }
 
-        public static float getVolumeOfDroplet(float diameter, float height)
+        public static float getVolumeOfDroplet(float diameter)
         {
             float pi = (float)Math.PI;
-            return ((float)pi) * ((float)Math.Pow((diameter / 2), 2)) * height;
+            return ((float)pi) * ((float)Math.Pow((diameter / 2), 2)) * GlobalVariables.HEIGHT;
         }
 
-        public static int getDiameterOfDroplet(float volume, float height)
+        public static int getDiameterOfDroplet(float volume)
         {
             float pi = (float)Math.PI;
-            return (int)(2 * (float)(Math.Sqrt(volume / (pi * height))));
+            return (int)(2 * (float)(Math.Sqrt(volume / (pi * GlobalVariables.HEIGHT))));
         }
 
     }

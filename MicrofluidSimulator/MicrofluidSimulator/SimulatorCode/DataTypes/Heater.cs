@@ -23,5 +23,20 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
         public int valueDesiredTemperature { get; set; }
         public int valuePowerStatus { get; set; }
 
+        public float GetTargetTemperature()
+        {
+            return valueDesiredTemperature;
+        }
+
+        public float GetCurrentTemperature()
+        {
+            return valueActualTemperature;
+        }
+
+        public float GetCurrentPower()
+        {
+            return valuePowerStatus;
+        }
+
     }
 }
