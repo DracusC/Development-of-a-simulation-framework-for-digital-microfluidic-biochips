@@ -455,6 +455,8 @@ let sketch = function (p) {
 
     /* Initialize board values */
     function init_board(sizeX, sizeY) {
+        gui_broker.sketch_ref = p;
+
         p.resizeCanvas(sizeX + 1, sizeY);
 
         //layer_electrode_id = p.createGraphics(sizeX + 1, sizeY);
@@ -469,6 +471,8 @@ let sketch = function (p) {
             let electrode = gui_broker.electrodes[i];
             debug_electrode_text(layer_manager.layers.debug_electrode_text.layer, electrode);
         }
+
+        draw_actuators(layer_manager.draw_actuators.layer);
 
         layer_electrode_shape = p.createGraphics(sizeX + 1, sizeY);
         //layer_electrode_id.clear();
@@ -592,6 +596,19 @@ let sketch = function (p) {
             p.fill(color);
             p.stroke("#FF0000");
             p.rect(actuator.positionX, actuator.positionY, actuator.sizeX, actuator.sizeY);
+        })
+    }
+
+    /* Call to draw actuators */
+    function draw_sensors() {
+        let sensors = gui_broker.board.sensors;
+        actuators.forEach((sensor) => {
+            //console.log(actuator);
+            let color = p.color("#FF0000");
+            color.setAlpha(100);
+            p.fill(color);
+            p.stroke("#FF0000");
+            p.rect(sensor.positionX, sensor.positionY, sensor.sizeX, sensor.sizeY);
         })
     }
 

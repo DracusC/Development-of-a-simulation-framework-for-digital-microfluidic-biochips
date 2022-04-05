@@ -6,6 +6,7 @@
  * It basically acts as the broker between the GUI and simulation.
  */
 let gui_broker = {
+    sketch_ref: null,
     play_status: false,
     board: {},
     droplets: [],
