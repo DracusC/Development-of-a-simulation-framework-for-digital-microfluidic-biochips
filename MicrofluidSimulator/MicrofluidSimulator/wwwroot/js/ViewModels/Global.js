@@ -36,6 +36,10 @@ window.change_play_status = (status) => {
 };
 
 window.initialize_board = (information) => {
+    // Remove any previous sketch
+    if (gui_broker.sketch_ref != null) {
+        gui_broker.sketch_ref.remove();
+    }
 
     var JSONinformation = JSON.parse(information);
     console.log(JSONinformation);

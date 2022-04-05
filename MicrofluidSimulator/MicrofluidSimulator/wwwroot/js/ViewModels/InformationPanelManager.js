@@ -40,11 +40,21 @@
             volume: 0,
             droplets: []
         },
-        Group_editable: ["volume", "temperature", "color"]
+        Group_editable: ["volume", "temperature", "color"],
+        Actuator: {
+            name: "",
+            actuatorID: 0,
+            type: "",
+            valueActualTemperature: 0,
+            valueDesiredTemperature: 0,
+            valuePowerStatus: 0
+        },
+        Actuator_editable: []
     },
     information_filter: function (type) {
         let returnVal;
         this.selected_element_type = type;
+
         switch (type) {
             case ("Droplet"):
                 let droplet = arguments[1];
@@ -98,6 +108,20 @@
                 returnVal.Type = type;
                 return returnVal;
                 break;
+
+            case ("Actuator"):
+                let actuator = arguments[1];
+
+                returnVal = this.display_info[type];
+
+                for (let key in returnVal) {
+                    returnVal[key] = actuator[key];
+                }
+
+                returnVal.Type = type;
+                return returnVal;
+
+                break;
         }
     },
     draw_multiple_selection: function (p) {
@@ -107,25 +131,19 @@
             s_list.push((i + 1) + " " + Object.keys(information_panel_manager.multiple_selection)[i]);
         }
 
+        p.textSize(14);
         p.fill("#1b6ec2");
-        //p.rect(p.mouseX, p.mouseY, p.textWidth(s) / Object.keys(information_panel_manager.multiple_selection).length-1, p.textAscent(s) * (Object.keys(information_panel_manager.multiple_selection).length+1));
+        let max_width = Math.max.apply(Math, s_list.map(function (o) { return p.textWidth(o); }))
+        let max_height = p.textAscent(s_list[0]) * s_list.length + 10 + 5 * s_list.length;
 
+        p.stroke("#000000");
+        p.rect(p.mouseX, p.mouseY, max_width + 20, max_height, 5);
+
+        p.noStroke();
         p.fill("#ffffff");
         for (let i in s_list) {
-            p.text(s_list[i], p.mouseX + 10, p.mouseY + (p.textAscent(s_list[i]) * (parseInt(i) + 1)));
+            p.text(s_list[i], p.mouseX + 10, p.mouseY + (p.textAscent(s_list[i]) * (parseInt(i) + 1)) + 5 * (parseInt(i) + 1));
         }
-
-
-
-
-        /*if (p.key <= Object.keys(information_panel_manager.multiple_selection).length) {
-            console.log("inside");
-            //information_panel_manager.selected_element = information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]];
-            console.log(Object.keys(information_panel_manager.multiple_selection)[p.key - 1], information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]]);
-
-            let type = Object.keys(information_panel_manager.multiple_selection)[p.key - 1];
-            let element = information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]];*/
-
     },
     draw_information: function (element) {
 

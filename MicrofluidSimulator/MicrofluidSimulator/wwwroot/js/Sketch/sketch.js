@@ -87,7 +87,7 @@ let sketch = function (p) {
         // Draw all direct layers
         layer_manager.draw_layers(p);
 
-        if (layer_manager.layers.draw_actuators.checkbox.checked) { draw_actuators(); }
+        //if (layer_manager.layers.draw_actuators.checkbox.checked) { draw_actuators(); }
 
         if (layer_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
 
@@ -161,6 +161,21 @@ let sketch = function (p) {
             }
         }
 
+        // Handle click on actuator
+        if (layer_manager.layers.draw_actuators.checkbox.checked) {
+            for (let i in gui_broker.board.actuators) {
+                let actuator = gui_broker.board.actuators[i];
+                let vertexes = [[actuator.positionX, actuator.positionY], [actuator.positionX + actuator.sizeX, actuator.positionY], [actuator.positionX + actuator.sizeX, actuator.positionY + actuator.sizeY], [actuator.positionX, actuator.positionY + actuator.sizeY]];
+
+                if (polygon_contains(vertexes, p.mouseX, p.mouseY)) {
+                    information_panel_manager.selected_element = actuator;
+                    information_panel_manager.information_element = information_panel_manager.information_filter("Actuator", actuator);
+                    information_panel_manager.draw_information(information_panel_manager.information_filter("Actuator", actuator));
+                    return;
+                }
+            }
+        }
+
         // Handle click on electrode
         for (let i in gui_broker.electrodes) {
             let electrode = gui_broker.electrodes[i];
@@ -194,6 +209,18 @@ let sketch = function (p) {
                 // Check mouse over droplet
                 if (p.dist(p.mouseX, p.mouseY, droplet.positionX, droplet.positionY) < droplet.sizeX / 2) {
                     list_of_elements["Droplet"] = (droplet);
+                }
+            }
+        }
+
+        // Handle click on actuator
+        if (layer_manager.layers.draw_actuators.checkbox.checked) {
+            for (let i in gui_broker.board.actuators) {
+                let actuator = gui_broker.board.actuators[i];
+                let vertexes = [[actuator.positionX, actuator.positionY], [actuator.positionX + actuator.sizeX, actuator.positionY], [actuator.positionX + actuator.sizeX, actuator.positionY + actuator.sizeY], [actuator.positionX, actuator.positionY + actuator.sizeY]];
+
+                if (polygon_contains(vertexes, p.mouseX, p.mouseY)) {
+                    list_of_elements["Actuator"] = actuator;
                 }
             }
         }
@@ -428,6 +455,8 @@ let sketch = function (p) {
 
     /* Initialize board values */
     function init_board(sizeX, sizeY) {
+        gui_broker.sketch_ref = p;
+
         p.resizeCanvas(sizeX + 1, sizeY);
 
         //layer_electrode_id = p.createGraphics(sizeX + 1, sizeY);
@@ -443,14 +472,10 @@ let sketch = function (p) {
             debug_electrode_text(layer_manager.layers.debug_electrode_text.layer, electrode);
         }
 
-        layer_electrode_shape = p.createGraphics(sizeX + 1, sizeY);
-        //layer_electrode_id.clear();
-        //layer_electrode_id.clear();
+        draw_actuators(layer_manager.layers.draw_actuators.layer);
+        draw_sensors(layer_manager.layers.draw_sensors.layer);
 
-        /*for (let i = 0; i < gui_broker.electrodes.length; i++) {
-            let electrode = gui_broker.electrodes[i];
-            debug_electrode_text(layer_electrode_id, electrode);
-        }*/
+        layer_electrode_shape = p.createGraphics(sizeX + 1, sizeY);
 
         draw_electrodes_shapes();
     }
@@ -556,15 +581,28 @@ let sketch = function (p) {
     }
 
     /* Call to draw actuators */
-    function draw_actuators() {
+    function draw_actuators(layer) {
         let actuators = gui_broker.board.actuators;
         actuators.forEach((actuator) => {
             //console.log(actuator);
-            let color = p.color("#FF0000");
+            let color = layer.color("#FF0000");
             color.setAlpha(100);
-            p.fill(color);
-            p.stroke("#FF0000");
-            p.rect(actuator.positionX, actuator.positionY, actuator.sizeX, actuator.sizeY);
+            layer.fill(color);
+            layer.stroke("#FF0000");
+            layer.rect(actuator.positionX, actuator.positionY, actuator.sizeX, actuator.sizeY);
+        })
+    }
+
+    /* Call to draw actuators */
+    function draw_sensors(layer) {
+        let sensors = gui_broker.board.sensors;
+        sensors.forEach((sensor) => {
+            //console.log(actuator);
+            let color = layer.color("#1AA7EC");
+            color.setAlpha(100);
+            layer.fill(color);
+            layer.stroke("#1AA7EC");
+            layer.rect(sensor.positionX, sensor.positionY, sensor.sizeX, sensor.sizeY);
         })
     }
 
