@@ -87,7 +87,7 @@ let sketch = function (p) {
         // Draw all direct layers
         layer_manager.draw_layers(p);
 
-        if (layer_manager.layers.draw_actuators.checkbox.checked) { draw_actuators(); }
+        //if (layer_manager.layers.draw_actuators.checkbox.checked) { draw_actuators(); }
 
         if (layer_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
 
@@ -472,16 +472,10 @@ let sketch = function (p) {
             debug_electrode_text(layer_manager.layers.debug_electrode_text.layer, electrode);
         }
 
-        draw_actuators(layer_manager.draw_actuators.layer);
+        draw_actuators(layer_manager.layers.draw_actuators.layer);
+        draw_sensors(layer_manager.layers.draw_sensors.layer);
 
         layer_electrode_shape = p.createGraphics(sizeX + 1, sizeY);
-        //layer_electrode_id.clear();
-        //layer_electrode_id.clear();
-
-        /*for (let i = 0; i < gui_broker.electrodes.length; i++) {
-            let electrode = gui_broker.electrodes[i];
-            debug_electrode_text(layer_electrode_id, electrode);
-        }*/
 
         draw_electrodes_shapes();
     }
@@ -587,28 +581,28 @@ let sketch = function (p) {
     }
 
     /* Call to draw actuators */
-    function draw_actuators() {
+    function draw_actuators(layer) {
         let actuators = gui_broker.board.actuators;
         actuators.forEach((actuator) => {
             //console.log(actuator);
-            let color = p.color("#FF0000");
+            let color = layer.color("#FF0000");
             color.setAlpha(100);
-            p.fill(color);
-            p.stroke("#FF0000");
-            p.rect(actuator.positionX, actuator.positionY, actuator.sizeX, actuator.sizeY);
+            layer.fill(color);
+            layer.stroke("#FF0000");
+            layer.rect(actuator.positionX, actuator.positionY, actuator.sizeX, actuator.sizeY);
         })
     }
 
     /* Call to draw actuators */
-    function draw_sensors() {
+    function draw_sensors(layer) {
         let sensors = gui_broker.board.sensors;
-        actuators.forEach((sensor) => {
+        sensors.forEach((sensor) => {
             //console.log(actuator);
-            let color = p.color("#FF0000");
+            let color = layer.color("#1AA7EC");
             color.setAlpha(100);
-            p.fill(color);
-            p.stroke("#FF0000");
-            p.rect(sensor.positionX, sensor.positionY, sensor.sizeX, sensor.sizeY);
+            layer.fill(color);
+            layer.stroke("#1AA7EC");
+            layer.rect(sensor.positionX, sensor.positionY, sensor.sizeX, sensor.sizeY);
         })
     }
 

@@ -61,6 +61,16 @@
             checkbox: "insert",
             checked: true,
             layer: "insert"         // Reference - pass to functions
+        },
+        draw_sensors: {
+            name: "draw_sensors",
+            value: "draw_sensors",
+            id: "draw_sensors",
+            text: "Draw Sensors", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: true,
+            layer: "insert"         // Reference - pass to functions
         }
 
     },
