@@ -66,12 +66,26 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
             List<Droplets> droplets = container.droplets;
             List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container, groupID);
-            float volume = DropletUtillityFunctions.getGroupVolume(container, groupID) + extraVolume;
-            float newVolume = volume / groupMembers.Count;
-            int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume);
+            Electrode[] electrodeBoard = container.electrodes;
+            int totalAreaOfElectrode = 0;
             foreach (Droplets droplet in groupMembers)
             {
+                int tempElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(droplet.electrodeID, container);
+                Electrode tempElectrode = electrodeBoard[tempElectrodeIndex];
+                totalAreaOfElectrode += ElectrodeModels.getAreaOfElectrode(tempElectrode);
+
+            }
+
+            float volume = DropletUtillityFunctions.getGroupVolume(container, groupID) + extraVolume;
+            //float newVolume = volume / groupMembers.Count;
+            //int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume, 1);
+            foreach (Droplets droplet in groupMembers)
+            {
+                int tempElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(droplet.electrodeID, container);
+                Electrode tempElectrode = electrodeBoard[tempElectrodeIndex];
+                float newVolume = (volume * ElectrodeModels.getAreaOfElectrode(tempElectrode)) / totalAreaOfElectrode;
                 droplet.volume = newVolume;
+                int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume);
                 droplet.sizeX = diam;
                 droplet.sizeY = diam;
             }
@@ -96,6 +110,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
             float pi = (float)Math.PI;
             return (int)(2 * (float)(Math.Sqrt(volume / (pi * GlobalVariables.HEIGHT))));
+        }
+        public static float getAreaOfDroplet(Droplets droplet)
+        {
+            float pi = (float)Math.PI;
+            int diam = getDiameterOfDroplet(droplet.volume);
+            return (diam / 2) * (diam / 2) * pi;
         }
 
     }
