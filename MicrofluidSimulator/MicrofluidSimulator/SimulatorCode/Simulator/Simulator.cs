@@ -101,17 +101,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             float targetTime = container.currentTime + timeStepLength;
             bool executeAStep = false;
 
-            if(container.currentTime == 1)
-            {
-                container.bubbles.Add(BubbleModels.makeBubble(container.droplets[7], 2));
-
-                Console.WriteLine("DROPLET " + container.droplets[7].ID + " CREATED BUBBLE WITH ID AND SIZE "
-                    + container.bubbles[0].ID + " , " + container.bubbles[0].sizeX + "\n DROPLET " + container.droplets[7].ID + " NOW HAS SIZE " 
-                    + container.droplets[7].sizeX);
-                simulatorRunAllModels();    
-
-                
-            }
+            
             if (timeStepLength == -1)
             {
                 if (actionQueue.Count > 1)
@@ -339,6 +329,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     return Models.DropletTemperatureModels.dropletTemperatureChange(container, caller);
                 case "color":
                     return Models.DropletColorModels.dropletColorChange(container, caller);
+                case "makeBubble":
+                    return Models.BubbleModels.makeBubble(container, caller);
                     ;
             }
             return null;
