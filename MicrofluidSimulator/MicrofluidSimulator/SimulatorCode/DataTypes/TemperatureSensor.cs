@@ -11,5 +11,10 @@
         }
 
         public int valueTemperature {get;set;}
+
+        public float GetTemperature()
+        {
+            return valueTemperature;
+        }
     }
 }

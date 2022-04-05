@@ -25,6 +25,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
             //List<Droplets> droplets = initializeDroplets(jsonContainer.droplets);
             List<Droplets> droplets = initializeDroplets(container.droplets);
+            
             Console.WriteLine("actuatorname: " + container.actuators[0].name);
             DataTypes.Actuators[] actuatorsInitial = initializeActuators(container.actuators);
             DataTypes.Sensors[] sensorsInitial = initializeSensors(container.sensors, electrodeBoard);
@@ -42,6 +43,12 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             {
                 NeighbourFinder neighbourFinder = new NeighbourFinder();
                 NeighbourFinder.findNeighbours(initialContainer);
+            }
+            foreach (Droplets droplet in container.droplets)
+            {
+
+                DropletUtillityFunctions.updateGroupNumber(container, droplet, droplet.group);
+
             }
 
             initializeSubscriptions(initialContainer);
@@ -191,6 +198,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 dropletsArray.Add(new Droplets(droplet.name, droplet.ID, droplet.substance_name, droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY, droplet.color, droplet.temperature, DropletUtillityFunctions.getVolumeOfDroplet(droplet.sizeX), droplet.electrodeID, i));
                 i++;
             }
+            
             //    droplets.Add(new Droplets("test droplet", 0, "h20", 120, 10, 15, 15, "blue", 20, DropletModels.getVolumeOfDroplet(15, 1), 0));
             //((Droplets)droplets[0]).ElectrodeID = 1;
 

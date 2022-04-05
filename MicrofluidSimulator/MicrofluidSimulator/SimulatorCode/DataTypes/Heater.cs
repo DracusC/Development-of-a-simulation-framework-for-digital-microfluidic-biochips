@@ -8,8 +8,8 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
 
         //ArrayList subscriptions;
         
-        public Heater(string name, int ID, int actuatorID, string type, int positionX, int positionY, int sizeX, int sizeY, int valueActualTemperature, int valueDesiredTemperature, 
-            int valuePowerStatus)
+        public Heater(string name, int ID, int actuatorID, string type, int positionX, int positionY, int sizeX, int sizeY, float valueActualTemperature, float valueDesiredTemperature, 
+            float valuePowerStatus)
             :base(name, ID, actuatorID, type, positionX, positionY, sizeX, sizeY)
         {
             this.valueActualTemperature = valueActualTemperature;
@@ -19,9 +19,9 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
             
         }
 
-        public int valueActualTemperature { get; set; }
-        public int valueDesiredTemperature { get; set; }
-        public int valuePowerStatus { get; set; }
+        public float valueActualTemperature { get; set; }
+        public float valueDesiredTemperature { get; set; }
+        public float valuePowerStatus { get; set; }
 
         public float GetTargetTemperature()
         {
@@ -36,6 +36,27 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
         public float GetCurrentPower()
         {
             return valuePowerStatus;
+        }
+
+        public ArrayList SetTargetTemperature(float targetTemperature)
+        {
+            this.valueDesiredTemperature = targetTemperature;
+
+            if (this.valueDesiredTemperature == this.valueActualTemperature)
+            {
+                return this.subscriptions;
+            }
+            else if (this.valueActualTemperature < this.valueDesiredTemperature)
+            {
+                this.valuePowerStatus = 1;
+                return this.subscriptions;
+            }
+            else
+            {
+                this.valuePowerStatus = -1;
+                return this.subscriptions;
+            }
+
         }
 
     }

@@ -346,27 +346,29 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 case "electrode":
                     return executeElectrodeAction(action, container);
                     break;
-                case "heater":
+                //case "heater":
 
-                    return executeHeaterAction(action, container, lastHeaterCallTime);
+                //    return executeHeaterAction(action, container, lastHeaterCallTime);
+                // this should be called by an api instead
                     break;
 
             }
             return null;
         }
 
-        private ArrayList executeHeaterAction(ActionQueueItem actionQueueItem, Container container, float lastHeaterCallTime)
-        {
-            // get the electrodes
-            DataTypes.Actuators[] actuators = container.actuators;
-            // initialize action
-            SimulatorAction action = actionQueueItem.action;
-            int actuatorId = Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.actionOnID, container);
+        // this method should be refactored to an api call
+        //private ArrayList executeHeaterAction(ActionQueueItem actionQueueItem, Container container, float lastHeaterCallTime)
+        //{
+        //    // get the electrodes
+        //    DataTypes.Actuators[] actuators = container.actuators;
+        //    // initialize action
+        //    SimulatorAction action = actionQueueItem.action;
+        //    int actuatorId = Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.actionOnID, container);
             
-            // get the subscribers for the electrode flip
-            ArrayList subscribers = Models.HeaterActuatorModels.heaterTemperatureCalled(container, (Heater)actuators[actuatorId], action);
-            return subscribers;
-        }
+        //    // get the subscribers for the electrode flip
+        //    ArrayList subscribers = Models.HeaterActuatorModels.heaterTemperatureCalled(container, (Heater)actuators[actuatorId], action);
+        //    return subscribers;
+        //}
 
 
         private ArrayList executeElectrodeAction(ActionQueueItem actionQueueItem, Container container)

@@ -1,9 +1,10 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
+using System.Drawing;
 namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class ColorSensorModels
     {
-        public string colorSensor(Container container, Sensors sensor)
+        public int[] colorSensor(Container container, Sensors sensor)
         {
             Droplets droplet = HelpfullRetreiveFunctions.getDropletOnSensor(container, sensor);
             if(droplet == null)
@@ -12,7 +13,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             else
             {
-                return droplet.color;
+                Color color = Color.FromName(droplet.color);
+                
+                return new int[] { color.R, color.G, color.B };
             }
         }
     }
