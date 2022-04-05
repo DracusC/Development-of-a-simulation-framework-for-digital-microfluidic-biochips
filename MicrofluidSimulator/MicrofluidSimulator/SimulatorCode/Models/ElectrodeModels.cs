@@ -47,7 +47,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         }
 
-        public static float getAreaOfElectrode(Electrode electrode)
+        public static int getAreaOfElectrode(Electrode electrode)
         {
             if(electrode.shape == 0)
             {

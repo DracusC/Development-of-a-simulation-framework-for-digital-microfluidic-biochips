@@ -66,12 +66,26 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
             List<Droplets> droplets = container.droplets;
             List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container, groupID);
-            float volume = DropletUtillityFunctions.getGroupVolume(container, groupID) + extraVolume;
-            float newVolume = volume / groupMembers.Count;
-            int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume, 1);
+            Electrode[] electrodeBoard = container.electrodes;
+            int totalAreaOfElectrode = 0;
             foreach (Droplets droplet in groupMembers)
             {
+                int tempElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(droplet.electrodeID, container);
+                Electrode tempElectrode = electrodeBoard[tempElectrodeIndex];
+                totalAreaOfElectrode += ElectrodeModels.getAreaOfElectrode(tempElectrode);
+
+            }
+
+            float volume = DropletUtillityFunctions.getGroupVolume(container, groupID) + extraVolume;
+            //float newVolume = volume / groupMembers.Count;
+            //int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume, 1);
+            foreach (Droplets droplet in groupMembers)
+            {
+                int tempElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(droplet.electrodeID, container);
+                Electrode tempElectrode = electrodeBoard[tempElectrodeIndex];
+                float newVolume = (volume * ElectrodeModels.getAreaOfElectrode(tempElectrode)) / totalAreaOfElectrode;
                 droplet.volume = newVolume;
+                int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume, 1);
                 droplet.sizeX = diam;
                 droplet.sizeY = diam;
             }
