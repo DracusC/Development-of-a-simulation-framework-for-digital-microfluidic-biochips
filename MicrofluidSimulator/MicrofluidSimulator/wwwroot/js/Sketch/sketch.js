@@ -107,7 +107,7 @@ let sketch = function (p) {
         
     }
 
-
+    /* Handle key presses */
     p.keyPressed = function () {
         if (information_panel_manager.double_clicked) {
             if (p.key <= Object.keys(information_panel_manager.multiple_selection).length) {
@@ -161,6 +161,21 @@ let sketch = function (p) {
             }
         }
 
+        // Handle click on sensor
+        if (layer_manager.layers.draw_sensors.checkbox.checked) {
+            for (let i in gui_broker.board.sensors) {
+                let sensor = gui_broker.board.sensors[i];
+                let vertexes = [[sensor.positionX, sensor.positionY], [sensor.positionX + sensor.sizeX, sensor.positionY], [sensor.positionX + sensor.sizeX, sensor.positionY + sensor.sizeY], [sensor.positionX, sensor.positionY + sensor.sizeY]];
+
+                if (polygon_contains(vertexes, p.mouseX, p.mouseY)) {
+                    information_panel_manager.selected_element = sensor;
+                    information_panel_manager.information_element = information_panel_manager.information_filter("Sensor", sensor);
+                    information_panel_manager.draw_information(information_panel_manager.information_filter("Sensor", sensor));
+                    return;
+                }
+            }
+        }
+
         // Handle click on actuator
         if (layer_manager.layers.draw_actuators.checkbox.checked) {
             for (let i in gui_broker.board.actuators) {
@@ -209,6 +224,18 @@ let sketch = function (p) {
                 // Check mouse over droplet
                 if (p.dist(p.mouseX, p.mouseY, droplet.positionX, droplet.positionY) < droplet.sizeX / 2) {
                     list_of_elements["Droplet"] = (droplet);
+                }
+            }
+        }
+
+        // Handle click on sensor
+        if (layer_manager.layers.draw_sensors.checkbox.checked) {
+            for (let i in gui_broker.board.sensors) {
+                let sensor = gui_broker.board.sensors[i];
+                let vertexes = [[sensor.positionX, sensor.positionY], [sensor.positionX + sensor.sizeX, sensor.positionY], [sensor.positionX + sensor.sizeX, sensor.positionY + sensor.sizeY], [sensor.positionX, sensor.positionY + sensor.sizeY]];
+
+                if (polygon_contains(vertexes, p.mouseX, p.mouseY)) {
+                    list_of_elements["Sensor"] = sensor;
                 }
             }
         }
