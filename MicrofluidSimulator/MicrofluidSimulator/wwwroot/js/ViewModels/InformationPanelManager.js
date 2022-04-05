@@ -37,8 +37,8 @@
             substance_name: "",
             color: "",
             temperature: 0,
-            volume: 0,
-            droplets: []
+            volume: 0
+            //droplets: []
         },
         Group_editable: ["volume", "temperature", "color"],
         Actuator: {
@@ -98,7 +98,7 @@
                 let group = arguments[1];
 
                 returnVal = { ...this.display_info[type] };
-                returnVal.droplets = [];
+                //returnVal.droplets = [];
                 returnVal.groupID = id;
 
                 returnVal.substance_name = group[0].substance_name;
@@ -106,7 +106,7 @@
 
                 for (let i = 0; i < group.length; i++) {
                     let droplet = group[i];
-                    returnVal.droplets.push(droplet.ID);
+                    //returnVal.droplets.push(droplet.ID);
                     for (let key in droplet) {
                         if (key == "volume") { returnVal.volume += droplet[key] }
                         if (key == "temperature") { returnVal.temperature += droplet[key] }
@@ -310,6 +310,35 @@
 
         let div = document.querySelector("#informationElements");
         div.innerHTML = "";
+    },
+    dynamic_update: function () {
+
+        if (this.selected_element_type == null) { return; }
+
+        let cur_element = this.selected_element;
+        let new_element = null;
+        let type = this.selected_element_type.toLowerCase();
+        let groupID = (typeof cur_element.groupID === 'undefined') ? null : cur_element.groupID;
+        console.log(groupID);
+
+        if (type == "group") {
+            let group_list = gui_broker.droplet_groups;
+            new_element = group_list[groupID];
+
+        } else {
+
+            let element_list = gui_broker.board[type + "s"];
+            element_list.forEach((element) => {
+                if (element.ID == cur_element.ID) {
+                    new_element = element;
+                }
+            })
+        }
+
+        // Update information
+        this.selected_element = this.information_filter(this.selected_element_type, new_element, groupID);;
+        this.information_element = this.information_filter(this.selected_element_type, new_element, groupID);
+        this.draw_information(this.information_filter(this.selected_element_type, new_element, groupID));
     }
 
 }
