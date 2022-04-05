@@ -85,7 +85,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 Electrode tempElectrode = electrodeBoard[tempElectrodeIndex];
                 float newVolume = (volume * ElectrodeModels.getAreaOfElectrode(tempElectrode)) / totalAreaOfElectrode;
                 droplet.volume = newVolume;
-                int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume, 1);
+                int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume);
                 droplet.sizeX = diam;
                 droplet.sizeY = diam;
             }
@@ -114,7 +114,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static float getAreaOfDroplet(Droplets droplet)
         {
             float pi = (float)Math.PI;
-            int diam = getDiameterOfDroplet(droplet.volume, 1f);
+            int diam = getDiameterOfDroplet(droplet.volume);
             return (diam / 2) * (diam / 2) * pi;
         }
 
