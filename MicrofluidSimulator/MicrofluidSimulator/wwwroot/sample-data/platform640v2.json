@@ -9997,9 +9997,9 @@
       "positionY": 130,
       "sizeX": 20,
       "sizeY": 20,
-      "color": "#7940C0",
-      "temperature": 101,
-      "electrodeID": 1
+      "color": "#0FF0FF",
+      "temperature": 20,
+      "electrodeID": 195
     }
   ],
   "bubbles": [],

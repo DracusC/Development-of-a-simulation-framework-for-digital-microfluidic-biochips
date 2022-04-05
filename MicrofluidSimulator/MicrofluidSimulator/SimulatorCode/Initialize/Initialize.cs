@@ -44,11 +44,10 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 NeighbourFinder neighbourFinder = new NeighbourFinder();
                 NeighbourFinder.findNeighbours(initialContainer);
             }
+
             foreach (Droplets droplet in container.droplets)
             {
-
-                DropletUtillityFunctions.updateGroupNumber(container, droplet, droplet.group);
-
+                DropletUtillityFunctions.updateGroupNumber(initialContainer, droplet, droplet.group);
             }
 
             initializeSubscriptions(initialContainer);
