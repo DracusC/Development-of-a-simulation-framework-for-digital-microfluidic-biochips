@@ -109,6 +109,16 @@ let sketch = function (p) {
 
     /* Handle key presses */
     p.keyPressed = function () {
+
+        // Escape will clear the information panel, enter will save it
+        if (information_panel_manager.selected_element != null && p.keyCode == 27) {
+            information_panel_manager.clear();
+        } else if (information_panel_manager.selected_element != null && information_panel_manager.editing && p.keyCode == 13) {
+            information_panel_manager.onSave();
+        }
+
+
+        
         if (information_panel_manager.double_clicked) {
             if (p.key <= Object.keys(information_panel_manager.multiple_selection).length) {
                 console.log("inside");

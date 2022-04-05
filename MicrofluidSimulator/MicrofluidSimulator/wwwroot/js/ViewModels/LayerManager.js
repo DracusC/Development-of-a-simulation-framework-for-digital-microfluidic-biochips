@@ -32,16 +32,6 @@
             checked: true
             //layer: "insert"         // Reference - pass to functions
         },
-        debug_electrode_text: {
-            name: "debug_electrode_text",
-            value: "debug_electrode_text",
-            id: "db_e_text",
-            text: "Electrode IDs", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
-            checkbox: "insert",
-            checked: false,
-            layer: "insert"         // Reference - pass to functions
-        },
         draw_actuators: {
             name: "draw_actuators",
             value: "draw_actuators",
@@ -70,6 +60,16 @@
             element: "insert",      // Reference - get toggled from here
             checkbox: "insert",
             checked: true,
+            layer: "insert"         // Reference - pass to functions
+        },
+        debug_electrode_text: {
+            name: "debug_electrode_text",
+            value: "debug_electrode_text",
+            id: "db_e_text",
+            text: "Electrode IDs", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: false,
             layer: "insert"         // Reference - pass to functions
         }
 

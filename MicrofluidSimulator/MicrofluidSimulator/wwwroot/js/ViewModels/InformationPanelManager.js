@@ -37,7 +37,8 @@
             substance_name: "",
             color: "",
             temperature: 0,
-            volume: 0
+            volume: 0,
+            Type: ""
             //droplets: []
         },
         Group_editable: ["volume", "temperature", "color"],
@@ -98,7 +99,7 @@
                 let group = arguments[1];
 
                 returnVal = { ...this.display_info[type] };
-                //returnVal.droplets = [];
+                returnVal.droplets = [];
                 returnVal.groupID = id;
 
                 returnVal.substance_name = group[0].substance_name;
@@ -106,7 +107,7 @@
 
                 for (let i = 0; i < group.length; i++) {
                     let droplet = group[i];
-                    //returnVal.droplets.push(droplet.ID);
+                    returnVal.droplets.push(droplet.ID);
                     for (let key in droplet) {
                         if (key == "volume") { returnVal.volume += droplet[key] }
                         if (key == "temperature") { returnVal.temperature += droplet[key] }
@@ -180,6 +181,8 @@
         let div = document.createElement("div");
 
         for (let key in element) {
+            if (!(key in this.display_info[element.Type])) { continue; }
+
             let innerDiv = document.createElement("div");
             let innerInput = document.createElement("input");
 
@@ -197,8 +200,7 @@
     },
     onEdit: function () {
 
-
-        if (this.selected_element == null) { this.onCancel(); return; }
+        if (this.selected_element == null) { return; }
 
         this.before_edit_values = {};
 
@@ -305,8 +307,12 @@
         gui_broker.update_simulator_container(this.selected_element_type, JSON.stringify(values_to_send));
     },
     clear: function () {
+        this.editing = false;
         this.edit_button.style.visibility = "visible";
         this.saveclose_button_div.style.visibility = "hidden";
+
+        this.selected_element = null;
+        this.information_element = null;
 
         let div = document.querySelector("#informationElements");
         div.innerHTML = "";
@@ -336,7 +342,7 @@
         }
 
         // Update information
-        this.selected_element = this.information_filter(this.selected_element_type, new_element, groupID);;
+        this.selected_element = this.information_filter(this.selected_element_type, new_element, groupID);
         this.information_element = this.information_filter(this.selected_element_type, new_element, groupID);
         this.draw_information(this.information_filter(this.selected_element_type, new_element, groupID));
     }

@@ -127,37 +127,13 @@
 }
 
 
-/* Tooltip styling from W3Schools https://www.w3schools.com/css/tryit.asp?filename=trycss_tooltip_arrow_left */
-.customtooltip {
-    position: relative;
-    display: inline-block;
+#slider_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
 }
-
-.customtooltip .customtooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    top: -5px;
-    left: 150%;
-}
-
-.customtooltip .customtooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-top: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent black transparent transparent;
-}
-
-.customtooltip:hover .customtooltiptext {
-    visibility: visible;
+#time_slider {
+    flex-grow: 1;
+    margin-right: 1em;
 }

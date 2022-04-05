@@ -26,23 +26,25 @@
                 <span>BOARD NAME</span>
                 <div id='container'></div>
             </div>
-
-            <div id="layerPanel">
-                <span>Layer Panel</span>
-                <form name="layer">
-
-                </form>
+        </div>
+        
+        <div id="button_panel">
+            <div>
+                <button id="nextStep" class="btn btn-primary" @onclick="JSSimulatorNextStep">Next Step</button>
+                <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
+                <button class="btn btn-primary" @onclick="Restart">Restart</button>
+            </div>
+            <div id="slider_div">
+                <RadzenSlider id="time_slider" @bind-Value=@sliderValue TValue="int" Min="0" Max=@GlobalVariables.maxSliderValue Class=""></RadzenSlider>
+                <button class="btn btn-primary" @onclick="GotoSliderTime">Goto: @sliderValue</button>
             </div>
         </div>
+        
 
         <div id="informationPanelContainer">
             <div id="informationPanel">
                 <div id="informationTitle">
                     <span>Information Panel</span>
-                    <div class="customtooltip">
-                        <img src="assets/edit_icon.png" />
-                        <span class="customtooltiptext">Edit information</span>
-                    </div>
                 </div>
 
                 <div id="information">
@@ -52,33 +54,34 @@
                 </div>
             </div>
 
-            <div id="">
-                <span>Selection Panel</span>
-                <div id="selectionPanel">
+            <div id="layerPanel">
+                <span>Layer Panel</span>
+                <form name="layer">
 
-                </div>
+                </form>
             </div>
         </div>
 
 
-        <button id="nextStep" class="btn btn-primary" @onclick="JSSimulatorNextStep">Next Step</button>
-        <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
-        <button class="btn btn-primary" @onclick="Restart">Restart</button>
+        
     </div>
 </div>
 
 
 
-<RadzenSlider TValue="int" Min="-100" Max="100"></RadzenSlider>
+
 
 @functions{
     void setP5() {
         JSInProcessRuntime.Invoke<object>("setp5");
     }
- }
+}
 
 @code {
-    // ACTUAL CODE BELOW
+
+    int sliderValue = 0;
+
+    // Get the GUIBroker object reference
     static GUIBroker guibroker = new GUIBroker();
 
     bool test = true;
@@ -100,7 +103,6 @@
     [JSInvokable]
     public static void JSSimulatorNextStep() {
         guibroker.start_update_timer();
-
         simulator.simulatorStep(-1f);
         guibroker.update_board(simulator.container);
     }
@@ -118,7 +120,11 @@
         guibroker.update_board(simulator.container);
     }
 
-
+    public void GotoSliderTime()
+    {
+        Restart();
+        nextStepTime((float)sliderValue);
+    }
 
     public void Restart()
     {
@@ -166,6 +172,7 @@
                 break;
 
             case ("Group"):
+                Console.WriteLine(JSONString);
                 GroupDroplets JSONGroupDroplets = Newtonsoft.Json.JsonConvert.DeserializeObject<GroupDroplets>(JSONString);
 
                 List<Droplets> dropletList = new List<Droplets>();
@@ -200,17 +207,15 @@
     private static Simulator? simulator;
     private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
     protected override async void OnAfterRender(bool firstRender) {
-        Console.WriteLine("FIRST == " + firstRender);
         if (firstRender) {
-            Console.WriteLine("TEST");
 
             setP5();
             container = await Http.GetFromJsonAsync<Container>("sample-data/platform640v2.json");
             electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v2neighbours.json");
             string actionQueueInstructions = await Http.GetStringAsync("sample-data/simple_paths_commands.txt");
-            Console.WriteLine("CONTAINER HERE" + container);
+
             simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
-            Console.WriteLine("SIMULATOR.CONTAINER HERE" + simulator.container);
+
             guibroker.set_jsprocess(JSInProcessRuntime);
             guibroker.set_unmarshall(JSUnmarshalledRuntime);
             guibroker.start_update_timer();
