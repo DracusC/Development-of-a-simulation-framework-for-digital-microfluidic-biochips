@@ -46,33 +46,49 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public static ArrayList splitDroplet(Container container, ArrayList toSplitToo, Droplets origin)
         {
+            List<Droplets> droplets = container.droplets;
+            Electrode[] electrodeBoard = container.electrodes;
+
             ArrayList subscribers = new ArrayList();
-
-            foreach(int i in toSplitToo)
+            float totalAreaToSplitToo = 0;
+            foreach (int i in toSplitToo)
             {
-                List<Droplets> droplets = container.droplets;
-                Electrode[] electrodeBoard = container.electrodes;
-
                 Electrode tempElectrode = electrodeBoard[i];
-
-                int[] centerOfElectrode = ElectrodeModels.getCenterOfElectrode(tempElectrode);
-                int electrodeCenterX = centerOfElectrode[0];
-                int electrodeCenterY = centerOfElectrode[1];
-
-                Random rnd = new Random();
-                int id = rnd.Next(10000000);
-                string color = origin.color;
-
-                Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, origin.temperature, 0, tempElectrode.ID, origin.group);
-                droplets.Add(newDroplet);
-                subscribers.Add(newDroplet.ID);
-                container.subscribedDroplets.Add(newDroplet.ID);
-                int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(id, container);
-
-                SubscriptionModels.dropletSubscriptions(container, newDroplet);
+                totalAreaToSplitToo += ElectrodeModels.getAreaOfElectrode(tempElectrode);
             }
-            DropletUtillityFunctions.updateGroupNumber(container, origin, origin.group);
-            DropletUtillityFunctions.updateGroupVolume( container, origin.group, 0);
+
+            if(DropletUtillityFunctions.getAreaOfDroplet(origin)/3 > totalAreaToSplitToo)
+            {
+                return subscribers;
+            }
+
+            {
+                foreach (int i in toSplitToo)
+                {
+
+                    Electrode tempElectrode = electrodeBoard[i];
+
+                    int[] centerOfElectrode = ElectrodeModels.getCenterOfElectrode(tempElectrode);
+                    int electrodeCenterX = centerOfElectrode[0];
+                    int electrodeCenterY = centerOfElectrode[1];
+
+                    Random rnd = new Random();
+                    int id = rnd.Next(10000000);
+                    string color = origin.color;
+
+                    Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, origin.temperature, 0, tempElectrode.ID, origin.group);
+                    droplets.Add(newDroplet);
+                    subscribers.Add(newDroplet.ID);
+                    container.subscribedDroplets.Add(newDroplet.ID);
+                    int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(id, container);
+
+                    SubscriptionModels.dropletSubscriptions(container, newDroplet);
+                }
+                DropletUtillityFunctions.updateGroupNumber(container, origin, origin.group);
+                DropletUtillityFunctions.updateGroupVolume(container, origin.group, 0);
+            }
+
+            
             return subscribers;
         }
 
