@@ -49,7 +49,17 @@
             valueDesiredTemperature: 0,
             valuePowerStatus: 0
         },
-        Actuator_editable: []
+        Actuator_editable: [],
+        Sensor: {
+            name: "",
+            sensorID: 0,
+            type: "",
+            valueRed: 0,
+            valueBlue: 0,
+            valueGreen: 0,
+            valueTemperature: 0
+        },
+        Sensor_editable: []
     },
     information_filter: function (type) {
         let returnVal;
@@ -116,6 +126,20 @@
 
                 for (let key in returnVal) {
                     returnVal[key] = actuator[key];
+                }
+
+                returnVal.Type = type;
+                return returnVal;
+
+                break;
+
+            case ("Sensor"):
+                let sensor = arguments[1];
+
+                returnVal = this.display_info[type];
+
+                for (let key in returnVal) {
+                    returnVal[key] = sensor[key];
                 }
 
                 returnVal.Type = type;

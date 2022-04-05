@@ -100,16 +100,16 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return Math.Sqrt(x + y);
         }
 
-        public static float getVolumeOfDroplet(float diameter, float height)
+        public static float getVolumeOfDroplet(float diameter)
         {
             float pi = (float)Math.PI;
-            return ((float)pi) * ((float)Math.Pow((diameter / 2), 2)) * height;
+            return ((float)pi) * ((float)Math.Pow((diameter / 2), 2)) * GlobalVariables.HEIGHT;
         }
 
-        public static int getDiameterOfDroplet(float volume, float height)
+        public static int getDiameterOfDroplet(float volume)
         {
             float pi = (float)Math.PI;
-            return (int)(2 * (float)(Math.Sqrt(volume / (pi * height))));
+            return (int)(2 * (float)(Math.Sqrt(volume / (pi * GlobalVariables.HEIGHT))));
         }
         public static float getAreaOfDroplet(Droplets droplet)
         {
