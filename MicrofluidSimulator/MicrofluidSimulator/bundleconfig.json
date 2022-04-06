@@ -2,6 +2,7 @@
   {
     "outputFileName": "wwwroot/js/sketch.bundle.min.js",
     "inputFiles": [
+      "wwwroot/js/Config/DrawConfig.js",
       "wwwroot/js/ViewModels/GUIBroker.js",
       "wwwroot/js/ViewModels/GUIController.js",
       "wwwroot/js/ViewModels/LayerManager.js",

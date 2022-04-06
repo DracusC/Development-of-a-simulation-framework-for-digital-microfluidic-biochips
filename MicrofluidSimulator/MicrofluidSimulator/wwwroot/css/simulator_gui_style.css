@@ -47,6 +47,7 @@
     background-color: lightgrey;
     border-style: solid;
     border-width: 2px;
+    border-left-style: none;
     flex-grow: 1;
 }
 #layerPanel form div {
@@ -126,6 +127,12 @@
     visibility: hidden;
 }
 
+
+#button_div {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
 #slider_div {
     display: flex;

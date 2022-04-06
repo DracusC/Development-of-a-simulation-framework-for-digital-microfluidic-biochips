@@ -417,7 +417,8 @@ let sketch = function (p) {
             }
 
             p.fill(current_droplet.color);
-            p.stroke("#000000");
+            p.stroke(draw_config.group.borderColor);
+            p.strokeWeight(draw_config.group.borderWidth);
 
             let points_vector = [];
             for (let j = 0; j < points_to_draw.length; j++) {
@@ -564,7 +565,7 @@ let sketch = function (p) {
             let electrode = gui_broker.electrodes[i];
 
             if (electrode.status == 0) { continue; }
-            p.fill("red");
+            p.fill(draw_config.electrode.activeColor);
             
             // Check the electrode shape
             if (electrode.shape == 1) {
@@ -612,6 +613,8 @@ let sketch = function (p) {
         for (let i = 0; i < gui_broker.droplets.length; i++) {
             let droplet = gui_broker.droplets[i];
             p.fill(droplet.color);
+            p.stroke(draw_config.droplet.borderColor);
+            p.strokeWeight(draw_config.droplet.borderWidth);
             p.ellipse(droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY);
             //anim_move(droplet, i);
         }
@@ -649,7 +652,8 @@ let sketch = function (p) {
 
         if (typeof bubbles != 'undefined') {
             p.noFill();
-            p.stroke("#000000");
+            p.stroke(draw_config.bubble.borderColor);
+            p.strokeWeight(draw_config.bubble.borderWidth);
             bubbles.forEach((bubble) => {
                 p.ellipse(bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY);
             })

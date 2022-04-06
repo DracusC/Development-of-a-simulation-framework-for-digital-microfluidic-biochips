@@ -16,8 +16,6 @@
 @using System.Text
 @using System.Reflection
 
-<h3>Welcome to the simulator</h3>
-
 <div id="simulatorGUI">
     <div id="simulatorContainer">
         <div id="mainContent">
@@ -28,15 +26,22 @@
             </div>
         </div>
         
-        <div id="button_panel">
-            <div>
-                <button id="nextStep" class="btn btn-primary" @onclick="JSSimulatorNextStep">Next Step</button>
-                <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
-                <button class="btn btn-primary" @onclick="Restart">Restart</button>
+        <div id="input_panel">
+            <div id="button_div">
+                <div>
+                    <button id="nextStep" class="btn btn-primary" @onclick="JSSimulatorNextStep">Next Step</button>
+                    <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
+                    <button class="btn btn-primary" @onclick="Restart">Restart</button>
+                    
+                </div>
+                <div>
+                    <span>TimeStep amount:</span>
+                    <RadzenNumeric @bind-Value="timeStepAmount" TValue="float" Step="0.1" Placeholder="Enter or clear value" Change="onTimeStepChange"></RadzenNumeric>
+                </div>
             </div>
             <div id="slider_div">
-                <RadzenSlider id="time_slider" @bind-Value=@sliderValue TValue="int" Min="0" Max=@GlobalVariables.maxSliderValue Class=""></RadzenSlider>
-                <button class="btn btn-primary" @onclick="GotoSliderTime">Goto: @sliderValue</button>
+                <RadzenSlider id="time_slider" @bind-Value=@sliderValue TValue="int" Min="0" Max=@GlobalVariables.maxSliderValue Change="onSliderChange"></RadzenSlider>
+                <button class="btn btn-primary" @onclick="GotoSliderTime">Goto Time: @sliderValue</button>
             </div>
         </div>
         
@@ -80,6 +85,22 @@
 @code {
 
     int sliderValue = 0;
+    static float timeStepAmount = 0;
+    static float actualTimeStepAmount = 0;
+    public void onTimeStepChange()
+    {
+        if(timeStepAmount <= 0)
+        {
+            timeStepAmount = -1;
+        }
+    }
+
+    public void onSliderChange()
+    {
+        Restart();
+        nextStepTime((float)sliderValue);
+    }
+
 
     // Get the GUIBroker object reference
     static GUIBroker guibroker = new GUIBroker();
@@ -103,7 +124,8 @@
     [JSInvokable]
     public static void JSSimulatorNextStep() {
         guibroker.start_update_timer();
-        simulator.simulatorStep(-1f);
+        Console.WriteLine(timeStepAmount);
+        simulator.simulatorStep(timeStepAmount);
         guibroker.update_board(simulator.container);
     }
     [JSInvokable]
