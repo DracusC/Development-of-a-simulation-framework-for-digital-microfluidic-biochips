@@ -315,13 +315,14 @@
 
         this.selected_element = null;
         this.information_element = null;
+        this.selected_element_type = null;
 
         let div = document.querySelector("#informationElements");
         div.innerHTML = "";
     },
     dynamic_update: function () {
 
-        if (this.selected_element_type == null) { return; }
+        if (this.selected_element == null) { return; }
 
         let cur_element = this.selected_element;
         let new_element = null;

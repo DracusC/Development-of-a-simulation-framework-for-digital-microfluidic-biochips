@@ -417,9 +417,17 @@ let sketch = function (p) {
                 }
             }
 
+
             p.fill(current_droplet.color);
-            p.stroke(draw_config.group.borderColor);
-            p.strokeWeight(draw_config.group.borderWidth);
+
+            // Check to see if the droplet group is selected
+            if (information_panel_manager.selected_element != null && typeof information_panel_manager.selected_element.groupID != "undefined" && information_panel_manager.selected_element.groupID == current_droplet.group) {
+                p.stroke(draw_config.group.selectedBorderColor);
+                p.strokeWeight(draw_config.group.selectedBorderWidth);
+            } else {
+                p.stroke(draw_config.group.borderColor);
+                p.strokeWeight(draw_config.group.borderWidth);
+            }
 
             let points_vector = [];
             for (let j = 0; j < points_to_draw.length; j++) {
@@ -537,7 +545,7 @@ let sketch = function (p) {
             for (let i = 0; i < gui_broker.electrodes.length; i++) {
                 let electrode = gui_broker.electrodes[i];
 
-                if (electrode != element) { continue; }
+                if (electrode.ID != element.ID) { continue; }
 
                 layer.noFill();
                 layer.stroke("blue");

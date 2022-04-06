@@ -15,7 +15,9 @@ let draw_config = {
 
     group: {
         borderColor: "#000000",
-        borderWidth: 1
+        borderWidth: 1,
+        selectedBorderColor: "#000000",
+        selectedBorderWidth: 2
     },
 
     actuator: {
