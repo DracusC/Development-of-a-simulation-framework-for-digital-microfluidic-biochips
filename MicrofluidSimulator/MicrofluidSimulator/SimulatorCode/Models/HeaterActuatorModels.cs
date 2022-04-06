@@ -6,11 +6,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     public class HeaterActuatorModels
     {
         
-        public static ArrayList heaterTemperatureChange(Container container, Heater heater, SimulatorAction action)
+        public static ArrayList heaterTemperatureChange(Container container, Heater heater)
         {
+            
             heater.valueActualTemperature = (int) (heater.valueActualTemperature + container.timeStep * heater.valuePowerStatus);
-
-            // give back the subscribers of the heater
+            
             return heater.subscriptions;
 
             

@@ -10,7 +10,6 @@
             this.valueTemperature = valueTemperature;
         }
 
-        public int valueTemperature {get;set;}
 
         public float GetTemperature()
         {
