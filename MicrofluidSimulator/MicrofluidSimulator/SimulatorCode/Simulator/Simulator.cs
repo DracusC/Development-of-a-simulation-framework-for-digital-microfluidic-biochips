@@ -29,6 +29,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
             this.initialActionQueue = new Queue<ActionQueueItem>(this.actionQueue);
             this.initialContainer = HelpfullRetreiveFunctions.createCopyOfContainer(container);
+            ((Heater)container.actuators[0]).SetTargetTemperature(100);
             simulatorRunAllModels();
 
             //Console.WriteLine("initialContainer info" + this.initialContainer.droplets[0].positionX);
@@ -148,7 +149,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                                 if (action.time == actionPeek.time)
                                 {
                                     ActionQueueItem nextAction = actionQueue.Dequeue();
-                                    Console.WriteLine("they are at the same time");
                                     ArrayList extraSubscribers = executeAction(nextAction, container);
                                     foreach (int subscriber in extraSubscribers)
                                     {
@@ -228,6 +228,12 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     }
                 }
 
+                Actuators[] actuators = container.actuators;
+                foreach (Actuators actuator in actuators)
+                {
+                    executeActuatorModel(container, actuator);
+                }
+
                 container.currentTime = container.currentTime + container.timeStep;
 
             }
@@ -239,6 +245,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
         }
 
+        private void executeActuatorModel(Container container, Actuators actuator)
+        {
+            
+            switch (actuator.type)
+            {
+                case "heater":
+                    Console.WriteLine("IS IN HEATER CASE");
+                    ((Heater)actuator).SetPowerStatus();
+                    HeaterActuatorModels.heaterTemperatureChange(container, (Heater) actuator);
+                    break;
+            }
+            
+        }
 
         public void simulatorRunAllModels()
         {
@@ -549,7 +568,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                    
                     if (words[1].Equals("setel"))
                     {
-                        Console.WriteLine("timeStep " + timeStep + "action " + words[1] + "electrodeId" + words[i]);
+                        
                         int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodId(Int32.Parse(words[i]), Int32.Parse(words[2]), container);
                         SimulatorAction action = new SimulatorAction("electrode", electrodeId, 1);
                         ActionQueueItem item = new ActionQueueItem(action, timeStep);
@@ -557,7 +576,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     }
                     else if (words[1].Equals("clrel"))
                     {
-                        Console.WriteLine("timeStep " + timeStep + "action " + words[1] + "electrodeId" + words[i]);
+                        
                         int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodId(Int32.Parse(words[i]), Int32.Parse(words[2]), container);
                         SimulatorAction action = new SimulatorAction("electrode", electrodeId, 0);
                         ActionQueueItem item = new ActionQueueItem(action, timeStep);

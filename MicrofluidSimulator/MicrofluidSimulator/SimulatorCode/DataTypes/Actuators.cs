@@ -33,9 +33,9 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
         public int positionY { get; set; }
         public int sizeX { get; set; }
         public int sizeY { get; set; }
-        public int valueActualTemperature { get; set; }
-        public int valueDesiredTemperature { get; set; }
-        public int valuePowerStatus { get; set; }
+        public float valueActualTemperature { get; set; }
+        public float valueDesiredTemperature { get; set; }
+        public float valuePowerStatus { get; set; }
         public ArrayList subscriptions { get; set; }
     }
 }

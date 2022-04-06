@@ -12,10 +12,6 @@
             this.valueBlue = valueBlue;
         }
 
-        public int valueRed { get; set; }
-        public int valueGreen { get; set; }
-        public int valueBlue { get; set; }
-
         public int[] GetColor()
         {
             return new[] { valueRed, valueGreen, valueBlue };
