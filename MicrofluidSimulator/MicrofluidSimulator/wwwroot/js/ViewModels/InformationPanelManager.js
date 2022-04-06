@@ -44,6 +44,7 @@
         Group_editable: ["volume", "temperature", "color"],
         Actuator: {
             name: "",
+            ID: 0,
             actuatorID: 0,
             type: "",
             valueActualTemperature: 0,
@@ -53,6 +54,7 @@
         Actuator_editable: [],
         Sensor: {
             name: "",
+            ID: 0,
             sensorID: 0,
             type: "",
             valueRed: 0,

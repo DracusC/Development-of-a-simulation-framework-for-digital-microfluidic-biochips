@@ -585,8 +585,9 @@ let sketch = function (p) {
         for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
 
-            layer_electrode_shape.stroke("black");
-            layer_electrode_shape.fill("white");
+            layer_electrode_shape.stroke(draw_config.electrode.borderColor);
+            layer_electrode_shape.strokeWeight(draw_config.electrode.borderWidth);
+            layer_electrode_shape.fill(draw_config.electrode.backgroundColor);
             //if (electrode.status != 0) { layer_electrode_shape.fill("red"); }
 
             // Check the electrode shape
@@ -625,10 +626,11 @@ let sketch = function (p) {
         let actuators = gui_broker.board.actuators;
         actuators.forEach((actuator) => {
             //console.log(actuator);
-            let color = layer.color("#FF0000");
-            color.setAlpha(100);
+            let color = layer.color(draw_config.actuator.backgroundColor);
+            color.setAlpha(draw_config.actuator.backgroundOpacity);
             layer.fill(color);
-            layer.stroke("#FF0000");
+            layer.stroke(draw_config.actuator.borderColor);
+            layer.strokeWeight(draw_config.actuator.borderWidth);
             layer.rect(actuator.positionX, actuator.positionY, actuator.sizeX, actuator.sizeY);
         })
     }
@@ -638,10 +640,11 @@ let sketch = function (p) {
         let sensors = gui_broker.board.sensors;
         sensors.forEach((sensor) => {
             //console.log(actuator);
-            let color = layer.color("#1AA7EC");
-            color.setAlpha(100);
+            let color = layer.color(draw_config.sensor.backgroundColor);
+            color.setAlpha(draw_config.sensor.backgroundOpacity);
             layer.fill(color);
-            layer.stroke("#1AA7EC");
+            layer.stroke(draw_config.sensor.borderColor);
+            layer.strokeWeight(draw_config.sensor.borderWidth);
             layer.rect(sensor.positionX, sensor.positionY, sensor.sizeX, sensor.sizeY);
         })
     }
