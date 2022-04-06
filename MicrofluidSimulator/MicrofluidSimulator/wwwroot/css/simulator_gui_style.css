@@ -131,7 +131,8 @@
 #button_div {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding: 0.5em;
 }
 
 #slider_div {
