@@ -343,6 +343,9 @@
             })
         }
 
+        // If the element is deleted
+        if (new_element == null) { this.clear(); return; }
+
         // Update information
         this.selected_element = this.information_filter(this.selected_element_type, new_element, groupID);
         this.information_element = this.information_filter(this.selected_element_type, new_element, groupID);

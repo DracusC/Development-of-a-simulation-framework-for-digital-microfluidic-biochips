@@ -108,7 +108,7 @@
     right: 0%;
     top: 0%;
     margin: 0.5em;
-    visibility: visible;
+    visibility: hidden;
 }
 
 #cancel_button {
