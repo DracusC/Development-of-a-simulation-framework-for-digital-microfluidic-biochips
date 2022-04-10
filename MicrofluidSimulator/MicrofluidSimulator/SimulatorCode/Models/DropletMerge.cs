@@ -103,6 +103,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                         foreach (Droplets droplet in neighbouringDroplets)
                         {
                             DropletUtillityFunctions.updateGroupVolume(container, droplet.group, volume / neighbouringDroplets.Count);
+
                         }
                     }
 

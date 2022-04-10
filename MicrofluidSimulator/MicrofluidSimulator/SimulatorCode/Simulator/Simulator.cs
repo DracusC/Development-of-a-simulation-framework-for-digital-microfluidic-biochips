@@ -97,7 +97,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         // called from joelspage
         public void simulatorStep(float timeStepLength)
         {
-            float maximumTimeStep = 1f;
+            float maximumTimeStep = 0.1f;
             // only execute if action exists in queue
             float targetTime = container.currentTime + timeStepLength;
             bool executeAStep = false;

@@ -55,7 +55,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             else
             {
-                return 0;
+                return (int) getAreaOfIregularShapedElectrode(electrode);
             }
         }
 
