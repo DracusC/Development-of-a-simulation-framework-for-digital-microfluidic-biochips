@@ -111,14 +111,54 @@ let sketch = function (p) {
             }
         }
 
+        findGroupSplit(0);
+
+        // Get next simulator step
         if (gui_broker.play_status && lerp_amount >= 1.3) {
             gui_broker.next_simulator_step();
             lerp_amount = 0;
         } else if (gui_broker.play_status && !layer_manager.layers.draw_droplet_animations.checkbox.checked) {
             gui_broker.next_simulator_step();
         }
+
+        
         
     }
+
+
+    function findGroupSplit(groupID) {
+
+
+
+        let cur_group = gui_broker.droplet_groups[groupID];
+        let prev_group = gui_broker.prev_droplet_groups[groupID];
+        if (typeof cur_group == "undefined" || typeof prev_group == "undefined") { return; }
+
+        if (!(Object.keys(gui_broker.prev_droplet_groups).length < Object.keys(gui_broker.droplet_groups).length)) { return; }
+
+        let possible_split_droplets = [];
+        for (i in prev_group) {
+            for (j in cur_group) {
+
+                if (prev_group[i].ID != cur_group[j].ID) {
+                    console.log("IN HERE", prev_group[i].ID);
+                    possible_split_droplets.push(prev_group[i].ID);
+                }
+            }
+        }
+
+        let new_groups = [];
+        for (i in possible_split_droplets) {
+            for (j in gui_broker.droplets) {
+                if (possible_split_droplets[i] == gui_broker.droplets[j].ID && gui_broker.droplets[j].group != groupID) {
+                    if (!new_groups.includes(gui_broker.droplets[j].group)) { new_groups.push(gui_broker.droplets[j].group); }
+                }
+            }
+        }
+
+        console.log("groups", new_groups, "split from group " + groupID);
+    }
+
 
     function lerpGroupVertices(groupID, amount) {
 
@@ -153,6 +193,8 @@ let sketch = function (p) {
 
             
         }
+
+        if (typeof gui_broker.droplet_groups[groupID] == "undefined") { return; }
 
         let points_vector = [];
         for (let j = 0; j < gui_broker.droplet_groups[groupID].vertices.length; j++) {

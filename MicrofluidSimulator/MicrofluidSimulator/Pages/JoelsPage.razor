@@ -110,11 +110,15 @@
     static GUIBroker guibroker = new GUIBroker();
 
     bool test = true;
-    Stopwatch stopwatch = new Stopwatch();
+    static Stopwatch stopwatch = new Stopwatch();
 
     private void NextStep() {
         //if(test) { stopwatch.Start(); test = false; } else {stopwatch.Stop(); Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds); stopwatch.Reset(); test = true; }
+
+        stopwatch.Start();
         simulator.simulatorStep(-1);
+        stopwatch.Stop();
+        Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds);
         guibroker.update_board(simulator.container);
     }
 
@@ -128,8 +132,11 @@
     [JSInvokable]
     public static void JSSimulatorNextStep() {
         guibroker.start_update_timer();
-        Console.WriteLine(timeStepAmount);
+        stopwatch.Reset();
+        stopwatch.Start();
         simulator.simulatorStep(timeStepAmount);
+        stopwatch.Stop();
+        Console.WriteLine("SW1: " + stopwatch.ElapsedMilliseconds);
         guibroker.update_board(simulator.container);
     }
     [JSInvokable]
