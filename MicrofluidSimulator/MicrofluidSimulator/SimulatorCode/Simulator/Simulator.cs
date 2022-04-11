@@ -96,12 +96,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         //}
 
         // called from joelspage
+
+        //double splitTime = 0;
+        //double mergeTime = 0;
+        //double tempTime = 0;
+        //double colorTime = 0;
+        //double bubbleTime = 0;
         public void simulatorStep(float timeStepLength)
         {
             float maximumTimeStep = 0.1f;
             // only execute if action exists in queue
             float targetTime = container.currentTime + timeStepLength;
             bool executeAStep = false;
+            bool mustRunAllModels = false;
 
             
             if (timeStepLength == -1)
@@ -119,7 +126,14 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
             }
 
+            //splitTime = 0;
+            //mergeTime = 0;
+            //tempTime = 0;
+            //colorTime = 0;
+            //bubbleTime = 0;
 
+            //var stopwatchO = new System.Diagnostics.Stopwatch();
+            //stopwatchO.Start();
 
             while (targetTime > container.currentTime || executeAStep)
             {
@@ -132,6 +146,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     if (actionPeekForTime.time == container.currentTime)
                     {
                         // store the first action in the queue and dequeue it
+                        mustRunAllModels = true;
+
                         bool noMoreActions = false;
                         ActionQueueItem action = actionQueue.Dequeue();
 
@@ -194,10 +210,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         if(actionPeekForTime.time > targetTime)
                         {
                             container.timeStep = targetTime - container.currentTime;
+                            mustRunAllModels = false;
                             executeAStep = false;
                         }else 
                         {
                             container.timeStep = actionPeekForTime.time - container.currentTime;
+                            mustRunAllModels = false;
+
                             executeAStep = true;
                         }
                     }
@@ -208,6 +227,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     //subscribers = new ArrayList();
                     container.timeStep = targetTime - container.currentTime;
                     subscribers = container.subscribedDroplets;
+                    mustRunAllModels = false;
+
                     executeAStep = false;
                 }
 
@@ -226,11 +247,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 foreach (int subscriber in subscribers)
                 {
                     subscriberQueue.Enqueue(subscriber);
+                    if (!mustRunAllModels)
+                    {
+                        int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+                        Droplets droplet = (Droplets)droplets[index];
+
+                        droplet.nextModel = 2;
+                    }
                 }
 
-                var stopwatch = new System.Diagnostics.Stopwatch();
-                stopwatch.Start();
                 
+
+                
+
                 //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
                 while (subscriberQueue.Count() > 0)
                 {
@@ -245,8 +274,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         handelSubscriber(container, droplet, subscriberQueue);
                     }
                 }
-                stopwatch.Stop();
-                Console.WriteLine("While SubQ: " + stopwatch.ElapsedMilliseconds + " ms");
+                
+                
 
                 
                 
@@ -335,10 +364,15 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             }
 
 
-            
-            
-            
-            
+            //stopwatchO.Stop();
+            //Console.WriteLine("Split time: " + tempTime + " ms");
+            //Console.WriteLine("Merge time: " + tempTime + " ms");
+            //Console.WriteLine("Temp time: " + tempTime + " ms");
+            //Console.WriteLine("Color time: " + tempTime + " ms");
+            //Console.WriteLine("Bubble time: " + tempTime + " ms");
+
+            //Console.WriteLine("While SubQ: " + stopwatchO.ElapsedMilliseconds + " ms");
+
         }
 
         private void executeBubbleModel(Container container, Bubbles bubble, List<Bubbles> bubbles)
@@ -361,6 +395,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
         }
 
+     
+
         public void simulatorRunAllModels()
         {
             Console.WriteLine("This method was inacted based on an edit of variables!");
@@ -381,7 +417,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 //Console.WriteLine("ENQUING " + subscriber);
             }
 
-
             //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
             while (subscriberQueue.Count() > 0)
             {
@@ -394,6 +429,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
             }
 
+            
+
             int num = 0;
             foreach(int i in container.subscribedDroplets)
             {
@@ -402,15 +439,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             Console.WriteLine("there are now :" + num + " droplets");
         }
 
-
         private void handelSubscriber(Container container, Droplets caller, Queue<int> subscriber)
         {
             if(caller.nextModel < caller.modelOrder.Count())
             {
                 String nextModel = caller.modelOrder[caller.nextModel];
                 caller.nextModel++;
+
+                
+
                 ArrayList newSubscribers = executeModel(container,caller,nextModel);
-                if(newSubscribers != null)
+                
+
+                if (newSubscribers != null)
                 {
                     if (newSubscribers.Count > 0)
                     {
@@ -443,16 +484,41 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             switch (model)
             {
                 case "split":
-                    return Models.DropletModels.dropletSplit(container, caller);
+                    //var stopwatch = new System.Diagnostics.Stopwatch();
+                    //stopwatch.Start();
+                    //var a = Models.DropletModels.dropletSplit(container, caller);
+                    //stopwatch.Stop();
+                    //splitTime += stopwatch.Elapsed.TotalMilliseconds;
+                    //Console.WriteLine("-.--------------Split time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
+                    return Models.DropletModels.dropletSplit(container, caller); ;
                 case "merge":
+                    //var stopwatch1 = new System.Diagnostics.Stopwatch();
+                    //stopwatch1.Start();
+                    //a = Models.DropletMerge.dropletMerge(container, caller);
+                    //mergeTime += stopwatch1.Elapsed.TotalMilliseconds;
+                    //Console.WriteLine("Merge time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
                     return Models.DropletMerge.dropletMerge(container, caller);
                 case "temperature":
-                    return Models.DropletTemperatureModels.dropletTemperatureChange(container, caller);
+                    //var stopwatch2 = new System.Diagnostics.Stopwatch();
+                    //stopwatch2.Start();
+                    //a = Models.DropletTemperatureModels.dropletTemperatureChange(container, caller);
+                    //tempTime += stopwatch2.Elapsed.TotalMilliseconds;
+                    //Console.WriteLine("Temp time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
+                    return Models.DropletTemperatureModels.dropletTemperatureChange(container, caller); ;
                 case "color":
+                    //var stopwatch3 = new System.Diagnostics.Stopwatch();
+                    //stopwatch3.Start();
+                    //a = Models.DropletColorModels.dropletColorChange(container, caller);
+                    //colorTime += stopwatch3.Elapsed.TotalMilliseconds;
+                    //Console.WriteLine("Color time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
                     return Models.DropletColorModels.dropletColorChange(container, caller);
                 case "makeBubble":
+                    //var stopwatch4 = new System.Diagnostics.Stopwatch();
+                    //stopwatch4.Start();
+                    //a = Models.BubbleModels.makeBubble(container, caller);
+                    //bubbleTime += stopwatch4.Elapsed.TotalMilliseconds;
+                    //Console.WriteLine("Bubble time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
                     return Models.BubbleModels.makeBubble(container, caller);
-                    ;
             }
             return null;
         }
