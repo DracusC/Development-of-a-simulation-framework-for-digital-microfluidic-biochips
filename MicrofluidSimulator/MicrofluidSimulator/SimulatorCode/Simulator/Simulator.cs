@@ -289,63 +289,41 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     
                 }
 
-                
-                // initial move of droplets
-                foreach (Bubbles bubble in container.bubbles)
+
+                ArrayList bubbleSubscribers = container.subscribedBubbles;
+                Queue<int> bubbleSubscribersQueue = new Queue<int>();
+                foreach (int subscriber in bubbleSubscribers)
                 {
-                    foreach (Droplets droplet in container.droplets)
-                    {
-                        
-                        if (BubbleModels.bubbleIsOneDroplet(droplet, bubble))
-                        {
-                            int rightPosX = droplet.positionX + GlobalVariables.RECTANGULARELECTRODESIZE;
-                            int rightPosY = droplet.positionY;
-                            if (HelpfullRetreiveFunctions.hasNeighbouringDroplet(container, rightPosX, rightPosY)){
-                                bubble.positionX = droplet.positionX - 1;
-                            }
-
-                            int leftPosX = droplet.positionX - GlobalVariables.RECTANGULARELECTRODESIZE;
-                            int leftPosY = droplet.positionX;
-                            if (HelpfullRetreiveFunctions.hasNeighbouringDroplet(container, leftPosX, leftPosY))
-                            {
-                                bubble.positionX = droplet.positionX + 1;
-                            }
-
-                            int bottomPosX = droplet.positionX;
-                            int bottomPosY = droplet.positionX + GlobalVariables.RECTANGULARELECTRODESIZE;
-                            if (HelpfullRetreiveFunctions.hasNeighbouringDroplet(container, bottomPosX, bottomPosY))
-                            {
-                                bubble.positionX = droplet.positionY - 1;
-                            }
-
-                            int topPosX = droplet.positionX;
-                            int topPosY = droplet.positionX - GlobalVariables.RECTANGULARELECTRODESIZE;
-                            if (HelpfullRetreiveFunctions.hasNeighbouringDroplet(container, topPosX, topPosY))
-                            {
-                                bubble.positionX = droplet.positionY + 1;
-                            }
-
-                            BubbleModels.moveBubble(droplet, bubble);
-                            
-
-
-
-                        }
-
-                    }
-
+                    bubbleSubscribersQueue.Enqueue(subscriber);
                 }
 
-                // merge bubbles
-                foreach (int bubbleID in container.subscribedBubbles)
+
+
+                //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
+                while (bubbleSubscribersQueue.Count() > 0)
                 {
-                    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleById(container, bubbleID);
+                    int subscriber = bubbleSubscribersQueue.Dequeue();
+                    //Console.WriteLine("SUBSCRIBERS " + subscriber);
+                    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleById(container, subscriber);
+
                     if (bubble != null && bubble.toRemove == false)
                     {
-                        executeBubbleModel(container, bubble, container.bubbles);
+                        handleBubbleSubscriber(container, bubble, bubbleSubscribersQueue);
                     }
-
                 }
+
+
+
+                // merge bubbles
+                //foreach (int bubbleID in container.subscribedBubbles)
+                //{
+                //    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleById(container, bubbleID);
+                //    if (bubble != null && bubble.toRemove == false)
+                //    {
+                //        executeBubbleModel(container, bubble;
+                //    }
+
+                //}
                 ArrayList subscribedBubbles = HelpfullRetreiveFunctions.copyOfSubscribedBubbles(container.subscribedBubbles);
                 foreach (int bubbleID in subscribedBubbles)
                 {
@@ -357,6 +335,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     }
 
                 }
+                
 
                 
                 container.currentTime = container.currentTime + container.timeStep;
@@ -374,11 +353,54 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             //Console.WriteLine("While SubQ: " + stopwatchO.ElapsedMilliseconds + " ms");
 
         }
-
-        private void executeBubbleModel(Container container, Bubbles bubble, List<Bubbles> bubbles)
+        private void handleBubbleSubscriber(Container container, Bubbles bubble, Queue<int> subscriber)
         {
-            BubbleModels.bubbleMerge(container, bubble, bubbles);
-            
+            if (bubble.nextModel < bubble.modelOrder.Count())
+            {
+                String nextModel = bubble.modelOrder[bubble.nextModel];
+                bubble.nextModel++;
+                ArrayList newSubscribers = executeBubbleModel(container, bubble, nextModel);
+                if (newSubscribers != null)
+                {
+                    if (newSubscribers.Count > 0)
+                    {
+                        foreach (int i in newSubscribers)
+                        {
+                            subscriber.Enqueue(i);
+                        }
+                    }
+                    else
+                    {
+                        bubble.nextModel = 0;
+                    }
+
+                }
+                else
+                {
+                    bubble.nextModel = 0;
+                }
+
+            }
+            else
+            {
+                bubble.nextModel = 0;
+            }
+
+
+
+
+        }
+        private ArrayList executeBubbleModel(Container container, Bubbles caller, String model)
+        {
+            switch (model)
+            {
+                case "move":
+                    return BubbleModels.moveBubble(container, caller);
+                case "merge":
+                    return BubbleModels.bubbleMerge(container, caller);
+                    ;
+            }
+            return null;
         }
 
         private void executeActuatorModel(Container container, Actuators actuator)

@@ -25,7 +25,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
             //List<Droplets> droplets = initializeDroplets(jsonContainer.droplets);
             List<Droplets> droplets = initializeDroplets(container.droplets);
-            List<Bubbles> bubbles = container.bubbles;
+            List<Bubbles> bubbles = initializeBubbles(container.bubbles);
             
             DataTypes.Actuators[] actuatorsInitial = initializeActuators(container.actuators);
             
@@ -39,6 +39,10 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             foreach (DataTypes.Actuators actuators in actuatorsInitial)
             {
                 initialContainer.subscribedActuators.Add(actuators.ID);
+            }
+            foreach(Bubbles bubble in bubbles)
+            {
+                initialContainer.subscribedBubbles.Add(bubble.ID);
             }
             if (electrodesWithNeighbours == null)
             {
@@ -55,6 +59,17 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
 
             return initialContainer;
+        }
+
+        private List<Bubbles> initializeBubbles(List<Bubbles> bubbles)
+        {
+            List<Bubbles> initialBubbles = new List<Bubbles>();
+            foreach(Bubbles bubble in bubbles)
+            {
+                initialBubbles.Add(new Bubbles(bubble.name, bubble.ID, bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY));
+            }
+            return initialBubbles;
+           
         }
 
         private Information initializeInformation(Information informationInput)
@@ -119,6 +134,8 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return actuatorsInitial;
 
         }
+
+        
 
 
         private Electrode[] initializeBoard(Electrode[] electrodes, ElectrodesWithNeighbours[] electrodesWithNeighbours)

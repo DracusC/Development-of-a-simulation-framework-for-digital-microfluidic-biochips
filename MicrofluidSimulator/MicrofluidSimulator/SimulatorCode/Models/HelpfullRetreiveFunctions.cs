@@ -212,7 +212,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 }
                 foreach (Bubbles bubble in container.bubbles)
                 {
-                    bubbles.Add(new Bubbles(bubble.name, bubble.ID, bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY, bubble.color));
+                    bubbles.Add(new Bubbles(bubble.name, bubble.ID, bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY));
                     j++;
                 }
 

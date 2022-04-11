@@ -5,8 +5,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     public class BubbleModels
     {
 
-        public static void bubbleMerge(Container container, Bubbles bubble, List<Bubbles> bubbles)
+        public static ArrayList bubbleMerge(Container container, Bubbles bubble)
         {
+            ArrayList subscribers = new ArrayList();
+            subscribers.Add(bubble.ID);
+            List<Bubbles> bubbles = container.bubbles;
             for (int i = 0; i < bubbles.Count; i++)
             {
                 if (!(bubbles[i].ID == bubble.ID) && (bubbles[i].toRemove == false) && (bubble.sizeX > bubbles[i].sizeX || bubble.sizeX == bubbles[i].sizeX))
@@ -36,10 +39,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 }
                 
             }
+            return subscribers;
             
         }
 
-        public static bool bubbleIsOneDroplet(Droplets droplet, Bubbles bubble)
+        public static bool bubbleIsOnDroplet(Droplets droplet, Bubbles bubble)
         {
 
             double vecVX = bubble.positionX - droplet.positionX;
@@ -77,9 +81,57 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             //}
             //return false;
         }
-        public static void moveBubble(Droplets droplet, Bubbles bubble)
+        public static ArrayList moveBubble(Container container, Bubbles bubble)
+        {
+            ArrayList subscribers = new ArrayList();
+            subscribers.Add(bubble.ID);
+            foreach (Droplets droplet in container.droplets)
+            {
+                if (bubbleIsOnDroplet(droplet, bubble))
+                {
+                    moveBubbleAccordingToGroup(container, droplet, bubble);
+                    moveBubbleFromDroplet(droplet, bubble);
+                }
+            }
+            return subscribers;
+            
+
+        }
+
+        private static void moveBubbleAccordingToGroup(Container container, Droplets droplet, Bubbles bubble)
         {
             
+            int rightPosX = droplet.positionX + GlobalVariables.RECTANGULARELECTRODESIZE;
+            int rightPosY = droplet.positionY;
+            if(HelpfullRetreiveFunctions.hasNeighbouringDroplet(container, rightPosX, rightPosY))
+            {
+                bubble.positionX = droplet.positionX - 1;
+            }
+                
+
+            int leftPosX = droplet.positionX - GlobalVariables.RECTANGULARELECTRODESIZE;
+            int leftPosY = droplet.positionY;
+            if (HelpfullRetreiveFunctions.hasNeighbouringDroplet(container, leftPosX, leftPosY))
+            {
+                bubble.positionX = droplet.positionX + 1;
+            }
+            int topPosX = droplet.positionX;
+            int topPosY = droplet.positionY - GlobalVariables.RECTANGULARELECTRODESIZE;
+            if (HelpfullRetreiveFunctions.hasNeighbouringDroplet(container, topPosX, topPosY))
+            {
+                bubble.positionY = droplet.positionY + 1;
+            }
+            int bottomPosX = droplet.positionX;
+            int bottomPosY = droplet.positionY + GlobalVariables.RECTANGULARELECTRODESIZE;
+            if (HelpfullRetreiveFunctions.hasNeighbouringDroplet(container, bottomPosX, bottomPosY))
+            {
+                bubble.positionX = droplet.positionY - 1;
+            }
+            
+        }
+
+        private static void moveBubbleFromDroplet(Droplets droplet, Bubbles bubble)
+        {
             double vecVX = bubble.positionX - droplet.positionX;
             double vecVY = bubble.positionY - droplet.positionY;
 
@@ -88,9 +140,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             double radius1 = droplet.sizeX / 2;
             double radius2 = bubble.sizeX / 2;
             double resize = radius1 + radius2;
-            if ((radius1 + radius2) < GlobalVariables.RECTANGULARELECTRODESIZE/2)
+            if ((radius1 + radius2) < GlobalVariables.RECTANGULARELECTRODESIZE / 2)
             {
-                resize = GlobalVariables.RECTANGULARELECTRODESIZE*0.6;
+                resize = GlobalVariables.RECTANGULARELECTRODESIZE * 0.6;
             }
             if (vecLength == 0)
             {
@@ -100,30 +152,30 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                 bubble.positionX = droplet.positionX + (int)vecUX;
                 bubble.positionY = droplet.positionY + (int)vecUY;
-            }else if (vecLength < (radius1 + radius2) || vecLength <= GlobalVariables.RECTANGULARELECTRODESIZE/2)
+            }
+            else if (vecLength < (radius1 + radius2) || vecLength <= GlobalVariables.RECTANGULARELECTRODESIZE / 2)
             {
-                
+
                 double vecUX = (resize / vecLength) * vecVX;
                 double vecUY = (resize / vecLength) * vecVY;
-                
-
-                bubble.positionX = droplet.positionX + (int) vecUX;
-                bubble.positionY = droplet.positionY + (int) vecUY;
 
 
-                
-                
+                bubble.positionX = droplet.positionX + (int)vecUX;
+                bubble.positionY = droplet.positionY + (int)vecUY;
+
+
+
+
 
             }
-            
-
         }
 
         public static ArrayList makeBubble(Container container, Droplets droplet)
         {
             ArrayList subscribtions = new ArrayList();
-            
-            if(droplet.temperature >= 90)
+            subscribtions.Add(droplet.ID);
+            return subscribtions;
+            if (droplet.temperature >= 90)
             {
                 Random rnd = new Random();
                 
@@ -141,13 +193,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                 
 
-                Bubbles bubble = new Bubbles("test bubble", id, droplet.positionX + toAddX, droplet.positionY + toAddY, splitAmount*5, splitAmount*5, droplet.color);
+                Bubbles bubble = new Bubbles("test bubble", id, droplet.positionX + toAddX, droplet.positionY + toAddY, splitAmount*5, splitAmount*5);
                 droplet.sizeX -= splitAmount;
                 droplet.sizeY -= splitAmount;
                 droplet.volume = DropletUtillityFunctions.getVolumeOfDroplet(droplet.sizeX);
                 bubble.subscriptions.Add(droplet.ID);
-                
-                moveBubble(droplet, bubble);
+
+                // move bubble
+                moveBubbleFromDroplet(droplet, bubble);
                 container.bubbles.Add(bubble);
                 container.subscribedBubbles.Add(bubble.ID);
 
@@ -167,7 +220,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
             foreach(Bubbles bubble in bubbles)
             {
-                Bubbles newBubble = new Bubbles("test bubble", bubble.ID, bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY, bubble.color);
+                Bubbles newBubble = new Bubbles("test bubble", bubble.ID, bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY);
                 newBubble.toRemove = bubble.toRemove;
                 copyOfBubbles.Add(newBubble);
             }
