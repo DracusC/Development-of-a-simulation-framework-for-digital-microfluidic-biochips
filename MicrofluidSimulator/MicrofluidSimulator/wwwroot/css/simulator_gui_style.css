@@ -70,6 +70,12 @@
     /*display: inline-block;*/
 }
 
+#simulatorHeader {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
 #information {
     background-color: lightgrey;
     height: 23rem;

@@ -21,7 +21,10 @@
         <div id="mainContent">
 
             <div id="simulatorView">
-                <span>BOARD NAME</span>
+                <div id="simulatorHeader">
+                    <span>BOARD NAME</span>
+                    <div><span>Simulation Time: </span><span id="simulatorTime"></span></div>
+                </div>
                 <div id='container'></div>
             </div>
         </div>
@@ -87,6 +90,7 @@
     int sliderValue = 0;
     static float timeStepAmount = -1;
     static float actualTimeStepAmount = 0;
+
     public void onTimeStepChange()
     {
         if(timeStepAmount <= 0)
@@ -131,8 +135,13 @@
     [JSInvokable]
     public static void nextStepTime(float deltaTime)
     {
-        simulator.simulatorStep(deltaTime);
-        guibroker.update_board(simulator.container);
+        float tempTimeStep = timeStepAmount;
+        timeStepAmount = deltaTime;
+        JSSimulatorNextStep();
+        timeStepAmount = tempTimeStep;
+
+        //simulator.simulatorStep(deltaTime);
+        //guibroker.update_board(simulator.container);
     }
     [JSInvokable]
     public static void gotoSimulatorTimeStep(float deltaTime)
@@ -218,7 +227,7 @@
 
                 Console.WriteLine("Updated Volume: " + MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID));
 
-            break;
+                break;
         }
 
         simulator.simulatorRunAllModels();
