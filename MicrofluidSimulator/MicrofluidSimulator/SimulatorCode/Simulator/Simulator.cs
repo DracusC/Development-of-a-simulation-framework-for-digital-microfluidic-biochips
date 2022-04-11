@@ -30,6 +30,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             this.initialActionQueue = new Queue<ActionQueueItem>(this.actionQueue);
             this.initialContainer = HelpfullRetreiveFunctions.createCopyOfContainer(container);
             ((Heater)container.actuators[0]).SetTargetTemperature(100);
+            ((Heater)container.actuators[2]).SetTargetTemperature(100);
             simulatorRunAllModels();
 
             //Console.WriteLine("initialContainer info" + this.initialContainer.droplets[0].positionX);
@@ -276,12 +277,67 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 
                 
 
-                Actuators[] actuators = container.actuators;
-                foreach (Actuators actuator in actuators)
+                
+                
+                foreach (int actuatorID in container.subscribedActuators)
                 {
-                    executeActuatorModel(container, actuator);
+                    Actuators actuator = HelpfullRetreiveFunctions.getActuatorById(container, actuatorID);
+                    if(actuator != null)
+                    {
+                        executeActuatorModel(container, actuator);
+                    }
+                    
                 }
 
+
+                ArrayList bubbleSubscribers = container.subscribedBubbles;
+                Queue<int> bubbleSubscribersQueue = new Queue<int>();
+                foreach (int subscriber in bubbleSubscribers)
+                {
+                    bubbleSubscribersQueue.Enqueue(subscriber);
+                }
+
+
+
+                //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
+                while (bubbleSubscribersQueue.Count() > 0)
+                {
+                    int subscriber = bubbleSubscribersQueue.Dequeue();
+                    //Console.WriteLine("SUBSCRIBERS " + subscriber);
+                    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleById(container, subscriber);
+
+                    if (bubble != null && bubble.toRemove == false)
+                    {
+                        handleBubbleSubscriber(container, bubble, bubbleSubscribersQueue);
+                    }
+                }
+
+
+
+                // merge bubbles
+                //foreach (int bubbleID in container.subscribedBubbles)
+                //{
+                //    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleById(container, bubbleID);
+                //    if (bubble != null && bubble.toRemove == false)
+                //    {
+                //        executeBubbleModel(container, bubble;
+                //    }
+
+                //}
+                ArrayList subscribedBubbles = HelpfullRetreiveFunctions.copyOfSubscribedBubbles(container.subscribedBubbles);
+                foreach (int bubbleID in subscribedBubbles)
+                {
+                    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleById(container, bubbleID);
+                    if (bubble != null && bubble.toRemove == true)
+                    {
+                        container.bubbles.Remove(bubble);
+                        container.subscribedBubbles.Remove(bubbleID);
+                    }
+
+                }
+                
+
+                
                 container.currentTime = container.currentTime + container.timeStep;
 
             }
@@ -297,6 +353,55 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             //Console.WriteLine("While SubQ: " + stopwatchO.ElapsedMilliseconds + " ms");
 
         }
+        private void handleBubbleSubscriber(Container container, Bubbles bubble, Queue<int> subscriber)
+        {
+            if (bubble.nextModel < bubble.modelOrder.Count())
+            {
+                String nextModel = bubble.modelOrder[bubble.nextModel];
+                bubble.nextModel++;
+                ArrayList newSubscribers = executeBubbleModel(container, bubble, nextModel);
+                if (newSubscribers != null)
+                {
+                    if (newSubscribers.Count > 0)
+                    {
+                        foreach (int i in newSubscribers)
+                        {
+                            subscriber.Enqueue(i);
+                        }
+                    }
+                    else
+                    {
+                        bubble.nextModel = 0;
+                    }
+
+                }
+                else
+                {
+                    bubble.nextModel = 0;
+                }
+
+            }
+            else
+            {
+                bubble.nextModel = 0;
+            }
+
+
+
+
+        }
+        private ArrayList executeBubbleModel(Container container, Bubbles caller, String model)
+        {
+            switch (model)
+            {
+                case "move":
+                    return BubbleModels.moveBubble(container, caller);
+                case "merge":
+                    return BubbleModels.bubbleMerge(container, caller);
+                    ;
+            }
+            return null;
+        }
 
         private void executeActuatorModel(Container container, Actuators actuator)
         {
@@ -304,7 +409,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             switch (actuator.type)
             {
                 case "heater":
-                    Console.WriteLine("IS IN HEATER CASE");
+                    
                     ((Heater)actuator).SetPowerStatus();
                     HeaterActuatorModels.heaterTemperatureChange(container, (Heater) actuator);
                     break;
@@ -675,6 +780,26 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 
                 counter++;
             }
+            SimulatorAction action12 = new SimulatorAction("electrode", 419, 1);
+            ActionQueueItem item12 = new ActionQueueItem(action12, timeStep+1);
+            SimulatorAction action1 = new SimulatorAction("electrode", 451, 1);
+            ActionQueueItem item1 = new ActionQueueItem(action1, timeStep+2);
+            SimulatorAction action13 = new SimulatorAction("electrode", 419, 0);
+            ActionQueueItem item13 = new ActionQueueItem(action13, timeStep+3);
+            SimulatorAction action2 = new SimulatorAction("electrode", 483, 1);
+            ActionQueueItem item2 = new ActionQueueItem(action2, timeStep+4);
+            SimulatorAction action3 = new SimulatorAction("electrode", 451, 0);
+            ActionQueueItem item3 = new ActionQueueItem(action3, timeStep+5);
+            SimulatorAction action4 = new SimulatorAction("electrode", 483, 0);
+            ActionQueueItem item4 = new ActionQueueItem(action3, timeStep + 6);
+
+            actionQueueInstructions.Enqueue(item12);
+            actionQueueInstructions.Enqueue(item1);
+            actionQueueInstructions.Enqueue(item13);
+            actionQueueInstructions.Enqueue(item2);
+            actionQueueInstructions.Enqueue(item3);
+            actionQueueInstructions.Enqueue(item4);
+
 
             return actionQueueInstructions;
 

@@ -9,7 +9,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static ArrayList heaterTemperatureChange(Container container, Heater heater)
         {
             
-            heater.valueActualTemperature = (int) (heater.valueActualTemperature + container.timeStep * heater.valuePowerStatus);
+            heater.valueActualTemperature = (heater.valueActualTemperature + container.timeStep * heater.valuePowerStatus);
             
             return heater.subscriptions;
 

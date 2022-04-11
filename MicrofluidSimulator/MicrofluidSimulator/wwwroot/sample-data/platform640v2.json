@@ -2817,7 +2817,7 @@
     },
     {
       "name": "arrel217",
-      "ID":   217,
+      "ID": 217,
       "electrodeID": 89,
       "driverID": 0,
       "shape": 0,
@@ -10000,8 +10000,37 @@
       "color": "#0FF0FF",
       "temperature": 20,
       "electrodeID": 195
+    },
+    {
+      "name": "test droplet",
+      "ID": 8,
+      "substance_name": "h20",
+      "positionX": 160,
+      "positionY": 270,
+      "sizeX": 22,
+      "sizeY": 22,
+      "color": "#0FF0FF",
+      "temperature": 20,
+      "electrodeID": 419
     }
   ],
-  "bubbles": [],
+  "bubbles": [
+    {
+      "name": "test bubble",
+      "ID": 9,
+      "positionX": 160,
+      "positionY": 310,
+      "sizeX": 5,
+      "sizeY": 5
+    },
+    {
+      "name": "test bubble",
+      "ID": 10,
+      "positionX": 660,
+      "positionY": 330,
+      "sizeX": 50,
+      "sizeY": 50
+    }
+  ],
   "unclassified": []
 }
