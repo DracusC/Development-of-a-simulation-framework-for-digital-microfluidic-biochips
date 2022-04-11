@@ -101,6 +101,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             // only execute if action exists in queue
             float targetTime = container.currentTime + timeStepLength;
             bool executeAStep = false;
+            bool mustRunAllModels = false;
 
             
             if (timeStepLength == -1)
@@ -131,6 +132,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     if (actionPeekForTime.time == container.currentTime)
                     {
                         // store the first action in the queue and dequeue it
+                        mustRunAllModels = true;
+
                         bool noMoreActions = false;
                         ActionQueueItem action = actionQueue.Dequeue();
 
@@ -193,10 +196,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         if(actionPeekForTime.time > targetTime)
                         {
                             container.timeStep = targetTime - container.currentTime;
+                            mustRunAllModels = false;
                             executeAStep = false;
                         }else 
                         {
                             container.timeStep = actionPeekForTime.time - container.currentTime;
+                            mustRunAllModels = false;
+
                             executeAStep = true;
                         }
                     }
@@ -207,6 +213,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     //subscribers = new ArrayList();
                     container.timeStep = targetTime - container.currentTime;
                     subscribers = container.subscribedDroplets;
+                    mustRunAllModels = false;
+
                     executeAStep = false;
                 }
 
@@ -225,11 +233,20 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 foreach (int subscriber in subscribers)
                 {
                     subscriberQueue.Enqueue(subscriber);
+                    //if (!mustRunAllModels)
+                    //{
+                    //    int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+                    //    Droplets droplet = (Droplets)droplets[index];
+
+                    //    droplet.nextModel = 2;
+                    //}
                 }
 
                 var stopwatch = new System.Diagnostics.Stopwatch();
                 stopwatch.Start();
+
                 
+
                 //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
                 while (subscriberQueue.Count() > 0)
                 {
