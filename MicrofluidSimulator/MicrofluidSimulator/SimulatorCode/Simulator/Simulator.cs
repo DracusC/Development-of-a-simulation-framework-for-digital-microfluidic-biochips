@@ -228,7 +228,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     subscriberQueue.Enqueue(subscriber);
                 }
 
-
+                var stopwatch = new System.Diagnostics.Stopwatch();
+                stopwatch.Start();
+                
                 //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
                 while (subscriberQueue.Count() > 0)
                 {
@@ -243,6 +245,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         handelSubscriber(container, droplet, subscriberQueue);
                     }
                 }
+                stopwatch.Stop();
+                Console.WriteLine("While SubQ: " + stopwatch.ElapsedMilliseconds + " ms");
 
                 
                 
