@@ -153,10 +153,25 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                                     ArrayList extraSubscribers = executeAction(nextAction, container);
                                     foreach (int subscriber in extraSubscribers)
                                     {
-                                        if (!subscribers.Contains(subscriber))
+                                        int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+                                        if (index != -1)
                                         {
-                                            subscribers.Add(subscriber);
+                                            //Console.WriteLine("INDEX " + index);
+                                            //Console.WriteLine("DROPLETS LENGTH" + droplets.Count);
+                                            Droplets droplet = (Droplets)droplets[index];
+                                            
+                                            List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container,droplet.group);
+                                            foreach(Droplets d in groupMembers)
+                                            {
+                                                if (!subscribers.Contains(d.ID))
+                                                {
+                                                    subscribers.Add(d.ID);
+                                                }
+                                            }
+                                           
                                         }
+
+                                        
                                     }
                                 }
                                 else
@@ -219,7 +234,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 {
                     int subscriber = subscriberQueue.Dequeue();
                     //Console.WriteLine("SUBSCRIBERS " + subscriber);
-                    int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+                    int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
                     if (index != -1)
                     {
                         //Console.WriteLine("INDEX " + index);
