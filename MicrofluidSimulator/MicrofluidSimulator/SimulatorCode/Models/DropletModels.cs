@@ -28,7 +28,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 
 
                 
-                if (tempElectrode.status > 0 && (ElectrodeModels.electrodeHasDroplet(tempElectrode,container) == null) && allowSplit(container,caller))
+                if (tempElectrode.status > 0 && (ElectrodeModels.electrodeHasDroplet(tempElectrode,container) == null) && allowSplit(container,caller) && DropletUtillityFunctions.dropletOverlapElectrode(container,caller,tempElectrode))
                 {
                     toSplitToo.Add(indexForElectrode);
                 }
