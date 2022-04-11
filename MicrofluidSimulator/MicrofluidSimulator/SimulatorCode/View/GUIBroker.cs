@@ -57,13 +57,13 @@ namespace MicrofluidSimulator.SimulatorCode.View
         }
 
         public void update_board(Container container) {
-            /*var stopwatch = new Stopwatch();
+            var stopwatch = new Stopwatch();
             stopwatch.Start();
             string jsonuft = Utf8Json.JsonSerializer.ToJsonString(container);
             stopwatch.Stop();
-
+            
             Console.WriteLine("Utf8Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");
-
+            /*
             stopwatch.Reset();
             stopwatch.Start();
             string json = JsonSerializer.Serialize(container);
