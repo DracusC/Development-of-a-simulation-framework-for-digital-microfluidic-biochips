@@ -8,6 +8,7 @@
 let gui_broker = {
     sketch_ref: null,
     play_status: false,
+    animate: false,
     board: {},
     droplets: [],
     electrodes: [],

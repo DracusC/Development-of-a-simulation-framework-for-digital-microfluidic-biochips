@@ -32,6 +32,8 @@ window.update_board = (_container_string) => {
     console.timeEnd("UpdateTimer");
 
     document.querySelector("#simulatorTime").innerHTML = gui_broker.board.currentTime;
+
+    animate_once();
 }
 
 window.change_play_status = (status) => {
@@ -58,6 +60,16 @@ window.initialize_board = (information) => {
 
 window.get_selected_element = () => {
     return JSON.stringify(information_panel_manager.selected_element);
+}
+
+window.animate_once = () => {
+    gui_broker.animate = true;
+    lerp_amount = 0;
+}
+
+window.restart_board = () => {
+    gui_broker.animate = false;
+    lerp_amount = 1;
 }
 
 window.gui_broker = gui_broker;

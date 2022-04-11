@@ -57,12 +57,12 @@ namespace MicrofluidSimulator.SimulatorCode.View
         }
 
         public void update_board(Container container) {
-            var stopwatch = new Stopwatch();
+            /*var stopwatch = new Stopwatch();
             stopwatch.Start();
             string jsonuft = Utf8Json.JsonSerializer.ToJsonString(container);
             stopwatch.Stop();
             
-            Console.WriteLine("Utf8Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");
+            Console.WriteLine("Utf8Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");*/
             /*
             stopwatch.Reset();
             stopwatch.Start();
@@ -73,6 +73,10 @@ namespace MicrofluidSimulator.SimulatorCode.View
 
             _JSUnmarshalledRuntime.InvokeUnmarshalled<string, string>("update_board", Utf8Json.JsonSerializer.ToJsonString(container));
             //_JSInProcessRuntime.InvokeVoid("update_board", container);
+        }
+
+        public void animate_once() {
+            _JSInProcessRuntime.InvokeVoid("animate_once");
         }
 
         public bool get_gui_status() {

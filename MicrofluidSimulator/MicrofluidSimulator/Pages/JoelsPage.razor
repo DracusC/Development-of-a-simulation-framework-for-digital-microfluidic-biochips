@@ -115,14 +115,11 @@
     private void NextStep() {
         //if(test) { stopwatch.Start(); test = false; } else {stopwatch.Stop(); Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds); stopwatch.Reset(); test = true; }
 
-        stopwatch.Start();
         simulator.simulatorStep(-1);
-        stopwatch.Stop();
-        Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds);
         guibroker.update_board(simulator.container);
     }
 
-    public string PlayButtonText { get; set; } = "Play";
+    public static string PlayButtonText { get; set; } = "Play";
     public void Play() {
         PlayButtonText = PlayButtonText.Equals("Play") ? "Pause" : "Play";
         InvokeAsync(() => StateHasChanged());
@@ -132,11 +129,12 @@
     [JSInvokable]
     public static void JSSimulatorNextStep() {
         guibroker.start_update_timer();
-        stopwatch.Reset();
-        stopwatch.Start();
+        //stopwatch.Reset();
+        //stopwatch.Start();
         simulator.simulatorStep(timeStepAmount);
-        stopwatch.Stop();
-        Console.WriteLine("SW1: " + stopwatch.ElapsedMilliseconds);
+        //stopwatch.Stop();
+        //Console.WriteLine("SW1: " + stopwatch.ElapsedMilliseconds);
+        if(PlayButtonText == "Play") { guibroker.animate_once(); }
         guibroker.update_board(simulator.container);
     }
     [JSInvokable]
@@ -168,6 +166,7 @@
     {
         simulator.restartSimulator();
         guibroker.update_board(simulator.container);
+        guibroker.restart_board();
     }
 
     [JSInvokable]

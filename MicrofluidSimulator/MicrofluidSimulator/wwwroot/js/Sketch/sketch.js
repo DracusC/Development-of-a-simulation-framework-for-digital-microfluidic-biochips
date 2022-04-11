@@ -9,7 +9,7 @@
  */
 let simulator_droplets = [];
 let simulator_electrodes = [];
-let amount = 0;     // Used to interpolate between droplet positions.
+let lerp_amount = 0;     // Used to interpolate between droplet positions.
 
 
 // TODO: Refrator into a layer array, that will automatically create them
@@ -72,12 +72,12 @@ let sketch = function (p) {
     /*
      * Draw is called every frame of the sketch.
      */
-    let lerp_amount = 0;
+    
     p.draw = function () {
         //console.time("DrawTime");
-        if (gui_broker.play_status && layer_manager.layers.draw_droplet_animations.checkbox.checked) {
+        if ((gui_broker.play_status && layer_manager.layers.draw_droplet_animations.checkbox.checked) || gui_broker.animate) {
             lerp_amount += 0.07; // Maybe make an animation object, or global variables
-        }
+        } //else if (!gui_broker.animate) { lerp_amount = 0; }
 
         p.background(240);
 
@@ -98,7 +98,7 @@ let sketch = function (p) {
 
         if (layer_manager.layers.draw_selected_element.checkbox.checked) { draw_selected_element(layer_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
 
-        if (layer_manager.layers.draw_droplet_groups.checkbox.checked) { draw_grouped_droplets(); }
+        if (layer_manager.layers.draw_droplet_groups.checkbox.checked || layer_manager.layers.draw_droplet_animations.checkbox.checked) { draw_grouped_droplets(); }
 
         if (information_panel_manager.double_clicked) { information_panel_manager.draw_multiple_selection(p); }
 
@@ -109,9 +109,13 @@ let sketch = function (p) {
             for (i in gui_broker.droplet_groups) {
                 lerpGroupVertices(i, c_lerp_amount);
             }
-        }
 
-        findGroupSplit(0);
+            let new_groups = findGroupSplit(0);
+            for (i in new_groups) {
+                //console.log(new_groups[i]);
+                lerpGroupVertices(new_groups[i], c_lerp_amount, 0);
+            }
+        }
 
         // Get next simulator step
         if (gui_broker.play_status && lerp_amount >= 1.3) {
@@ -119,16 +123,14 @@ let sketch = function (p) {
             lerp_amount = 0;
         } else if (gui_broker.play_status && !layer_manager.layers.draw_droplet_animations.checkbox.checked) {
             gui_broker.next_simulator_step();
+        } else if (gui_broker.animate && lerp_amount >= 1.3) {
+            console.log("********************************************************************* HI");
+            gui_broker.animate = false;
         }
-
-        
-        
     }
 
 
     function findGroupSplit(groupID) {
-
-
 
         let cur_group = gui_broker.droplet_groups[groupID];
         let prev_group = gui_broker.prev_droplet_groups[groupID];
@@ -156,27 +158,34 @@ let sketch = function (p) {
             }
         }
 
-        console.log("groups", new_groups, "split from group " + groupID);
+        //console.log(new_groups);
+        return new_groups;
     }
 
 
-    function lerpGroupVertices(groupID, amount) {
+    function lerpGroupVertices(groupID, amount, prevGroupID) { // prevGroupID is optional
+
 
         let cur_group = gui_broker.droplet_groups[groupID];
-        let prev_group = gui_broker.prev_droplet_groups[groupID];
+
+        if (typeof prevGroupID == "undefined") { prevGroupID = groupID }
+
+        let prev_group = gui_broker.prev_droplet_groups[prevGroupID];
+
         if (typeof cur_group == "undefined") { return; }
 
         if (typeof prev_group != "undefined") {
-            let vertex_pairs_before = getGroupVertexPairsForLerp(groupID);
-            let vertex_pairs = getGroupVertexPairsForLerp(groupID);
-
+            let vertex_pairs_before = getGroupVertexPairsForLerp(groupID, prevGroupID);
+            let vertex_pairs = getGroupVertexPairsForLerp(groupID, prevGroupID);
 
             let vertX;
             let vertY;
             //[[[x1, x2], [y1, y2]] ... ]
+
             for (i in vertex_pairs) {
                 vertX = p.lerp(vertex_pairs[i][0][0], vertex_pairs[i][0][1], amount);
                 vertY = p.lerp(vertex_pairs[i][1][0], vertex_pairs[i][1][1], amount);
+
 
                 vertex_pairs[i][0][0] = vertX;
                 vertex_pairs[i][1][0] = vertY;
@@ -184,6 +193,7 @@ let sketch = function (p) {
                 for (a in cur_group.vertices) {
                     let vert = cur_group.vertices[a];
                     for (b in vertex_pairs_before) {
+
                         if (vert[0] == vertex_pairs_before[b][0][1] && vert[1] == vertex_pairs_before[b][1][1] && vertex_pairs_before[b][0][1] == vertex_pairs[i][0][1] && vertex_pairs_before[b][1][1] == vertex_pairs[i][1][1]) {
                             gui_broker.droplet_groups[groupID].vertices[a] = [vertX, vertY];
                         }
@@ -191,7 +201,7 @@ let sketch = function (p) {
                 }
             }
 
-            
+
         }
 
         if (typeof gui_broker.droplet_groups[groupID] == "undefined") { return; }
@@ -203,14 +213,23 @@ let sketch = function (p) {
 
         p.fill(gui_broker.droplet_groups[groupID][0].color);
         drawRounded(p, points_vector, 50);
+
+        p.fill("black");
+        for (let j = 0; j < gui_broker.droplet_groups[groupID].vertices.length; j++) {
+            p.ellipse(gui_broker.droplet_groups[groupID].vertices[j][0], gui_broker.droplet_groups[groupID].vertices[j][1], 3, 3);
+        }
     }
 
-    function getGroupVertexPairsForLerp(groupID) {
+    function getGroupVertexPairsForLerp(groupID, prevGroupID) {
         let cur_group = gui_broker.droplet_groups[groupID];
-        let prev_group = gui_broker.prev_droplet_groups[groupID];
+
+        if (typeof prevGroupID == "undefined") { prevGroupID = groupID }
+        let prev_group = gui_broker.prev_droplet_groups[prevGroupID];
+
         if (typeof cur_group == "undefined" || typeof prev_group == "undefined") { return; }
 
-        let vertices_to_lerp = getGroupVerticesToLerp(groupID);
+        let vertices_to_lerp = getGroupVerticesToLerp(groupID, prevGroupID);
+
         let vertex_pairs = [];
         // [[[x1,x2],[y1,y2]] ... ]
 
@@ -226,13 +245,17 @@ let sketch = function (p) {
             vertex_pairs.push([[vertices_to_lerp[i][0], min_dist[1][0]], [vertices_to_lerp[i][1], min_dist[1][1]]]);
             vertices_to_lerp.push([min_dist[1][0], min_dist[1][1]]);
         }
+
         return vertex_pairs;
 
     }
 
-    function getGroupVerticesToLerp(groupID) {
+    function getGroupVerticesToLerp(groupID, prevGroupID) {
         let cur_group = gui_broker.droplet_groups[groupID];
-        let prev_group = gui_broker.prev_droplet_groups[groupID];
+
+        if (typeof prevGroupID == "undefined") { prevGroupID = groupID }
+        let prev_group = gui_broker.prev_droplet_groups[prevGroupID];
+
         if (typeof cur_group == "undefined" || typeof prev_group == "undefined") { return; }
 
         // Find vertices to lerp
@@ -244,7 +267,7 @@ let sketch = function (p) {
                 let dist = p.dist(prev_group.vertices[i][0], prev_group.vertices[i][1], cur_group.vertices[j][0], cur_group.vertices[j][1]);
                 min_dist = p.min(min_dist, dist);
             }
-            //console.log(i, min_dist);
+
             if (min_dist > cur_group[0].sizeX / 2) {
                 newArray.push([prev_group.vertices[i][0], prev_group.vertices[i][1]]);
             }
