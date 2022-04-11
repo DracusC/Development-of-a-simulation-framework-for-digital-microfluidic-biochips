@@ -14,6 +14,7 @@ namespace MicrofluidSimulator.SimulatorCode
             this.sizeX = sizeX;
             this.sizeY = sizeY;
             this.color = color;
+            this.toRemove = false;
 
             this.subscriptions = new ArrayList();
         }
@@ -28,6 +29,7 @@ namespace MicrofluidSimulator.SimulatorCode
         public int positionY { get; set; }
         public int sizeX { get; set; }
         public int sizeY { get; set; }
+        public bool toRemove { get; set; }
 
         public ArrayList subscriptions { get; set; }
     }

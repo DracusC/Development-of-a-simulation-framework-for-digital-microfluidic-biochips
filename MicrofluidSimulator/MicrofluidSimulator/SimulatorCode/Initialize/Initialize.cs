@@ -25,13 +25,13 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
             //List<Droplets> droplets = initializeDroplets(jsonContainer.droplets);
             List<Droplets> droplets = initializeDroplets(container.droplets);
-            
+            List<Bubbles> bubbles = container.bubbles;
             
             DataTypes.Actuators[] actuatorsInitial = initializeActuators(container.actuators);
             
             DataTypes.Sensors[] sensorsInitial = initializeSensors(container.sensors, electrodeBoard);
             Information information = initializeInformation(container.information);
-            Container initialContainer = new Container(electrodeBoard, droplets, actuatorsInitial, sensorsInitial, information, 0);
+            Container initialContainer = new Container(electrodeBoard, droplets, actuatorsInitial, sensorsInitial, information, bubbles, 0);
             foreach(Droplets droplet in container.droplets)
             {
                 initialContainer.subscribedDroplets.Add(droplet.ID);

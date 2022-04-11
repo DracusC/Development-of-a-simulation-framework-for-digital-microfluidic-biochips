@@ -39,6 +39,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             //return $"#{r:X2}{g:X2}{b:X2}";
             
             ArrayList subscribers = new ArrayList();
+            subscribers.Add(caller.ID);
             return subscribers;
         }
     }

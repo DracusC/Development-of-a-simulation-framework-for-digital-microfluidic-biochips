@@ -33,7 +33,7 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
 
         public void SetTargetTemperature(float targetTemperature)
         {
-            Console.WriteLine("targetTemperature SET TO 100");
+            
             this.valueDesiredTemperature = targetTemperature;
 
         }
@@ -46,7 +46,7 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
             }
             else if (this.valueActualTemperature < this.valueDesiredTemperature)
             {
-                Console.WriteLine("POWERSTATUS SET TO 1");
+                
                 this.valuePowerStatus = 1;
                 
             }

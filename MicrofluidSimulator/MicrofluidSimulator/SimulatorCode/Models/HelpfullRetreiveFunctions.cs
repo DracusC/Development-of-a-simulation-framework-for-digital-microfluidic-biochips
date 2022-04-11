@@ -31,7 +31,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
               
                 case "h20":
                     float waterDensity = 0.997F;
-                    return caller.volume * waterDensity;
+                    return (caller.volume/1000) * waterDensity;
                     break;
             }
             return -1;
@@ -78,13 +78,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             {
                 if (actuator.type.Equals("heater"))
                 {
+                    
                     int minMarginX = ((Heater)actuator).positionX;
                     int maxMarginX = ((Heater)actuator).positionX + ((Heater)actuator).sizeX;
                     int minMarginY = ((Heater)actuator).positionY;
                     int maxMarginY = ((Heater)actuator).positionY + ((Heater)actuator).sizeY;
 
-                    if (caller.positionX <= minMarginX && caller.positionX >= maxMarginX && caller.positionY <= minMarginY && caller.positionY >= maxMarginY)
+                    if (caller.positionX >= minMarginX && caller.positionX <= maxMarginX && caller.positionY >= minMarginY && caller.positionY <= maxMarginY)
                     {
+                        
                         return (Heater)actuator;
                     }
                 }
@@ -136,6 +138,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             
             Electrode[] electrodes = new Electrode[container.electrodes.Length];
             List<Droplets> droplets = new List<Droplets>();
+            List<Bubbles> bubbles = new List<Bubbles>();
             Actuators[] actuators  = new Actuators[container.actuators.Length];
             Sensors[] sensors = new Sensors[container.sensors.Length];
             Information information = container.information;
@@ -207,9 +210,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                         break;
 
                 }
+                foreach (Bubbles bubble in container.bubbles)
+                {
+                    bubbles.Add(new Bubbles(bubble.name, bubble.ID, bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY, bubble.color));
+                    j++;
+                }
 
             }
-            Container newContainer = new Container(electrodes, droplets, actuators, sensors, information, currentTime);
+            Container newContainer = new Container(electrodes, droplets, actuators, sensors, information, bubbles, currentTime);
             foreach(Droplets droplet in newContainer.droplets)
             {
                 newContainer.subscribedDroplets.Add(droplet.ID);
@@ -277,6 +285,57 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 }
             }
             return -1;
+        }
+
+        public static bool hasNeighbouringDroplet(Container container, int posX, int posY)
+        {
+            foreach(Droplets droplet in container.droplets)
+            {
+                int vecX = posX - droplet.positionX;
+                int vecY = posY - droplet.positionY;
+                double vecLength = Math.Sqrt(Math.Pow(vecX,2) + Math.Pow(vecY,2));
+                if(vecLength <= droplet.sizeX / 2)
+                {
+                    return true;
+                }
+            }
+            return false;
+            
+        }
+
+        internal static Bubbles getBubbleById(Container container, int bubbleID)
+        {
+            foreach (Bubbles bubble in container.bubbles)
+            {
+                if (bubble.ID == bubbleID)
+                {
+                    return bubble;
+                }
+            }
+            return null;
+            
+        }
+
+        internal static ArrayList copyOfSubscribedBubbles(ArrayList subscribedBubbles)
+        {
+            ArrayList copyOfSubscribedBubbles = new ArrayList();
+            foreach(int bubbleID in subscribedBubbles)
+            {
+                copyOfSubscribedBubbles.Add(bubbleID);
+            }
+            return copyOfSubscribedBubbles;
+        }
+
+        public static Actuators getActuatorById(Container container, int actuatorID)
+        {
+            foreach(Actuators actuator in container.actuators)
+            {
+                if(actuator.ID == actuatorID)
+                {
+                    return actuator;
+                }
+            }
+            return null;
         }
 
         public static int binarySearchActuators(int ID, Container container)
