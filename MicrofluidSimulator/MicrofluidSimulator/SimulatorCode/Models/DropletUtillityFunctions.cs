@@ -26,6 +26,28 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
         }
 
+        public static int findAreaAllConnectedElectrodes(Container container, Electrode electrode, ArrayList alreadyChecked)
+        {
+            int area = ElectrodeModels.getAreaOfElectrode(electrode);
+            Electrode[] electrodeBoard = container.electrodes;
+            alreadyChecked.Add(electrode.ID);
+
+            foreach (int neigbour in electrode.neighbours)
+            {
+
+                int tempElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neigbour, container);
+                Electrode tempElectrode = electrodeBoard[tempElectrodeIndex];
+
+                if (tempElectrode.status > 0 && !alreadyChecked.Contains(tempElectrode.ID))
+                {
+                    area += findAreaAllConnectedElectrodes(container, tempElectrode, alreadyChecked);
+                }
+            }
+            return area;
+        }
+
+
+
         public static void findAllConnectedDroplets(Container container, Droplets caller, ArrayList members)
         {
             List<Droplets> droplets = container.droplets;
@@ -88,7 +110,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 int diam = DropletUtillityFunctions.getDiameterOfDroplet(newVolume);
                 droplet.sizeX = diam;
                 droplet.sizeY = diam;
+                SubscriptionModels.dropletSubscriptions(container, droplet);
+
             }
+
 
         }
 

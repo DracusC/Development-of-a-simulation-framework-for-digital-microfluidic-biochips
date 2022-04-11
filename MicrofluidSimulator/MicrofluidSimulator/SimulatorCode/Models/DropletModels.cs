@@ -50,14 +50,17 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             Electrode[] electrodeBoard = container.electrodes;
 
             ArrayList subscribers = new ArrayList();
-            float totalAreaToSplitToo = 0;
-            foreach (int i in toSplitToo)
-            {
-                Electrode tempElectrode = electrodeBoard[i];
-                totalAreaToSplitToo += ElectrodeModels.getAreaOfElectrode(tempElectrode);
-            }
+            //float totalAreaToSplitToo = 0;
+            //foreach (int i in toSplitToo)
+            //{
+            //    Electrode tempElectrode = electrodeBoard[i];
+            //    totalAreaToSplitToo += ElectrodeModels.getAreaOfElectrode(tempElectrode);
+            //}
 
-            if(DropletUtillityFunctions.getAreaOfDroplet(origin)/3 > totalAreaToSplitToo)
+            int indexForElectrode = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(origin.electrodeID, container);
+            Electrode dropletElectrode = electrodeBoard[indexForElectrode];
+
+            if (DropletUtillityFunctions.getAreaOfDroplet(origin)/3 > DropletUtillityFunctions.findAreaAllConnectedElectrodes(container, dropletElectrode, new ArrayList()))
             {
                 return subscribers;
             }
