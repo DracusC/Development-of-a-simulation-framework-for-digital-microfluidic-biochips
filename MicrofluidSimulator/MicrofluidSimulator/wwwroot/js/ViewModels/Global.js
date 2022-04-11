@@ -23,6 +23,7 @@ window.update_board = (_container_string) => {
     gui_broker.electrodes = board.electrodes;
 
     //information_panel_manager.draw_information(board.Electrodes[130]);
+    gui_broker.prev_droplet_groups = gui_broker.droplet_groups;
     gui_broker.get_droplet_groups();
 
     information_panel_manager.dynamic_update();

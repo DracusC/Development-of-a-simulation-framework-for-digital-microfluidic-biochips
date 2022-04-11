@@ -7,11 +7,13 @@
  */
 let gui_broker = {
     sketch_ref: null,
+    animation_speed: 0.07,
     play_status: false,
     board: {},
     droplets: [],
     electrodes: [],
     droplet_groups: {},
+    prev_droplet_groups: {},
     next_simulator_step: () => {
         DotNet.invokeMethod('MicrofluidSimulator', 'JSSimulatorNextStep');
     },

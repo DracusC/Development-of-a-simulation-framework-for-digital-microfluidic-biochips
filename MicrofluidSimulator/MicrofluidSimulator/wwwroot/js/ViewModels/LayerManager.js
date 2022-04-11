@@ -22,6 +22,16 @@
             checked: true
             //layer: "insert"         // Reference - pass to functions
         },
+        draw_droplet_animations: {
+            name: "draw_droplet_animations",
+            value: "draw_droplet_animations",
+            id: "draw_droplet_animations",
+            text: "Draw Droplet Animations", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: true
+            //layer: "insert"         // Reference - pass to functions
+        },
         draw_active_electrodes: {
             name: "draw_active_electrodes",
             value: "draw_active_electrodes",
