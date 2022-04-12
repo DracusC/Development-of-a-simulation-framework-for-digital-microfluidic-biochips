@@ -16,6 +16,27 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
         {
         }
 
+        // To make a copy of a container
+        public Container(Container container)
+        {
+            this.electrodes = container.electrodes;
+            this.droplets = container.droplets;
+            this.actuators = container.actuators;
+            this.sensors = container.sensors;
+            this.information = container.information;
+            this.currentTime = container.currentTime;
+            this.bubbles = container.bubbles;
+            this.subscribedDroplets = container.subscribedDroplets;
+            this.subscribedActuators = container.subscribedActuators;
+            this.subscribedBubbles = container.subscribedBubbles;
+            this.timeStep = container.timeStep;
+
+            this.inputs = container.inputs;
+            this.outputs = container.outputs;
+            this.unclassified = container.unclassified;
+        }
+
+
         public Container(Electrode[] electrodes, List<Droplets> droplets, Actuators[] actuators, Sensors[] sensors, Information information, List<Bubbles> bubbles, float currentTime)
         {
             this.electrodes = electrodes;

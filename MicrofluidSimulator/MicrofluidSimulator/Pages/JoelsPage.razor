@@ -16,6 +16,8 @@
 @using System.Text
 @using System.Reflection
 
+@using System.Net
+
 <div id="simulatorGUI">
     <div id="simulatorContainer">
         <div id="mainContent">
@@ -76,8 +78,8 @@
 </div>
 
 
-
-
+<button id="" class="btn btn-primary" @onclick="DownloadData">Download</button>
+<a id="downloadAnchorElem" style="display:none"></a>
 
 @functions{
     void setP5() {
@@ -154,6 +156,7 @@
         simulator.restartSimulator();
         simulator.simulatorStep(deltaTime);
         guibroker.update_board(simulator.container);
+
     }
 
     public void GotoSliderTime()
@@ -167,6 +170,36 @@
         simulator.restartSimulator();
         guibroker.update_board(simulator.container);
         guibroker.restart_board();
+    }
+
+    // Download data - Doesnt quite work yet
+    public void DownloadData()
+    {
+        Restart();
+
+        // TEST
+        List<Container> dataList = new List<Container>();
+
+        while(simulator.actionQueue.Count > 1)
+        {
+            Console.WriteLine(simulator.actionQueue.Count);
+            Console.WriteLine("Current Time: " + simulator.container.currentTime);
+
+            Container copy = new Container(simulator.container);
+
+            Console.WriteLine("COPY CURRENT TIME ", copy.currentTime);
+
+            dataList.Add(copy);
+
+            nextStepTime(-1f);
+        }
+
+        string jsonStringForDownload = Utf8Json.JsonSerializer.ToJsonString(dataList);
+
+        guibroker.download_data(jsonStringForDownload);
+
+        Restart();
+
     }
 
     [JSInvokable]

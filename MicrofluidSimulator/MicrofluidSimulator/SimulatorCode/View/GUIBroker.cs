@@ -79,6 +79,11 @@ namespace MicrofluidSimulator.SimulatorCode.View
             _JSInProcessRuntime.InvokeVoid("animate_once");
         }
 
+        public void download_data(string jsonData)
+        {
+            _JSInProcessRuntime.InvokeVoid("download_data", jsonData);
+        }
+
         public bool get_gui_status() {
             var result = _JSInProcessRuntime.Invoke<bool>("get_gui_status");
             return result;
