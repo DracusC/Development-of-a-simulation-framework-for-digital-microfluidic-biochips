@@ -623,7 +623,16 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             heater.SetTargetTemperature(desiredValue);
             return 0;
         }
-
+        public int[] getColorOfSensorWithID(int sensorID)
+        {
+            ColorSensor colorSensor = (ColorSensor)HelpfullRetreiveFunctions.getSensorByID(container, sensorID);
+            if (colorSensor == null) {
+                return new int[] { -1, -1, -1 };
+            } else
+            {
+                return colorSensor.GetColor();
+             }
+        }
 
 
         private Queue<ActionQueueItem> generateTestQueue()

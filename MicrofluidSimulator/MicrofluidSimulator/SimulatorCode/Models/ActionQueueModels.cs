@@ -5,20 +5,22 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     public class ActionQueueModels
     {
         // method to add an action queue in the front of the original action queue
-        public Queue<ActionQueueItem> pushActionQueueToStartOfOriginalActionQueue(Queue<ActionQueueItem> originalActionQueue, Queue<ActionQueueItem> actionQueueToPush)
+        public static Queue<ActionQueueItem> pushActionQueueToStartOfOriginalActionQueue(Queue<ActionQueueItem> originalActionQueue, Queue<ActionQueueItem> actionQueueToPush, float timeSkip)
         {
             // traverse the queue
             for(int i = 0; i < originalActionQueue.Count; i++)
             {
+                ActionQueueItem itemToPush = originalActionQueue.Dequeue();
+                itemToPush.time += timeSkip;
                 // add the original queues elements to the end of the new queue
-                actionQueueToPush.Enqueue(originalActionQueue.Dequeue());
+                actionQueueToPush.Enqueue(itemToPush);
             }
 
             return actionQueueToPush;
         }
 
         // method to add an action in the front of the action queue
-        public Queue<ActionQueueItem> pushActionToStartOfOriginalActionQueue(Queue<ActionQueueItem> originalActionQueue, ActionQueueItem actionToPush)
+        public static Queue<ActionQueueItem> pushActionToStartOfOriginalActionQueue(Queue<ActionQueueItem> originalActionQueue, ActionQueueItem actionToPush, float timeSkip)
         {
             // initialzie the new queue we want to return
             Queue<ActionQueueItem> newActionQueue = new Queue<ActionQueueItem>();
@@ -27,8 +29,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             // traverse the original queue
             for (int i = 0; i < originalActionQueue.Count+1; i++)
             {
+                ActionQueueItem itemToPush = originalActionQueue.Dequeue();
+                itemToPush.time += timeSkip;
                 // add the original queues elements to the end of the new queue
-                newActionQueue.Enqueue(originalActionQueue.Dequeue());
+                newActionQueue.Enqueue(itemToPush);
             }
 
             return newActionQueue;

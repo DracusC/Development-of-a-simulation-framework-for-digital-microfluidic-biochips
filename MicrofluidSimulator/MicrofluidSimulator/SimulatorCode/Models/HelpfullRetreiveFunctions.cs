@@ -382,12 +382,23 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
             return newContainer;
         }
-        
-      
 
-        
-            
-        
+        //sensor retreive functions
+        public static Sensors getSensorByID(Container container, int sensorID)
+        {
+            foreach (Sensors sensor in container.sensors)
+            {
+                if (sensor.ID == sensorID)
+                {
+                    return sensor;
+                }
+            }
+            return null;
+        }
+
+
+
+
     }
 
 }
