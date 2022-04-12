@@ -4,7 +4,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class BubbleModels
     {
-
+        
         public static ArrayList bubbleMerge(Container container, Bubbles bubble)
         {
             ArrayList subscribers = new ArrayList();
@@ -14,15 +14,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             {
                 if (!(bubbles[i].ID == bubble.ID) && (bubbles[i].toRemove == false) && (bubble.sizeX > bubbles[i].sizeX || bubble.sizeX == bubbles[i].sizeX))
                 {
-
                     
+
                     double radius1 = bubble.sizeX / 2;
                     double radius2 = bubbles[i].sizeX / 2;
                     double vecVX = bubbles[i].positionX - bubble.positionX;
                     double vecVY = bubbles[i].positionY - bubble.positionY;
 
                     double dist = Math.Sqrt(Math.Pow(vecVX, 2) + Math.Pow(vecVY, 2));
-                    double resize = Math.Sqrt(Math.Pow(bubbles[i].sizeX, 2) + Math.Pow(bubbles[i].sizeY, 2));
+                    double resize = Math.Sqrt(Math.Pow(bubbles[i].sizeX/2, 2) + Math.Pow(bubbles[i].sizeY/2, 2));
                     double vecUX = (resize / dist) * vecVX;
                     double vecUY = (resize / dist) * vecVY;
 
@@ -125,7 +125,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             int bottomPosY = droplet.positionY + GlobalVariables.RECTANGULARELECTRODESIZE;
             if (HelpfullRetreiveFunctions.hasNeighbouringDroplet(container, bottomPosX, bottomPosY))
             {
-                bubble.positionX = droplet.positionY - 1;
+                
+                bubble.positionY = droplet.positionY - 1;
             }
             
         }
@@ -173,16 +174,24 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static ArrayList makeBubble(Container container, Droplets droplet)
         {
             ArrayList subscribtions = new ArrayList();
-            subscribtions.Add(droplet.ID);
-            return subscribtions;
-            if (droplet.temperature >= 90)
+
+            
+            
+            if (droplet.temperature >= 90 && (container.timeStep >= 0.5 || droplet.accumulatingBubbleSize >= 0.5) )
             {
+                droplet.accumulatingBubbleSize += container.timeStep;
+                Console.WriteLine("SPLITTING FOR DROPLET " + droplet.ID);
                 Random rnd = new Random();
                 
-                int splitAmount = (int) (0.1 * droplet.sizeX * container.timeStep);
+                    
+                double splitAmount = 0.1 * droplet.sizeX * droplet.accumulatingBubbleSize;
+                double splitSize = HelpfullRetreiveFunctions.getDiameterOfBubble(splitAmount);
+                if (splitSize > droplet.sizeX * 0.8)
+                {
+                    splitSize = droplet.sizeX * 0.8;
+                }
 
-
-
+                Console.WriteLine("SPLITSIZE" + splitSize);
                 int signX = rnd.Next(3);
                 int signY = rnd.Next(3);
 
@@ -193,39 +202,36 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                 
 
-                Bubbles bubble = new Bubbles("test bubble", id, droplet.positionX + toAddX, droplet.positionY + toAddY, splitAmount*5, splitAmount*5);
-                droplet.sizeX -= splitAmount;
-                droplet.sizeY -= splitAmount;
-                droplet.volume = DropletUtillityFunctions.getVolumeOfDroplet(droplet.sizeX);
+                Bubbles bubble = new Bubbles("test bubble", id, droplet.positionX + toAddX, droplet.positionY + toAddY, (int)splitSize, (int)splitSize);
+                droplet.volume -= (float) splitAmount;
+                droplet.sizeX = DropletUtillityFunctions.getDiameterOfDroplet(droplet.volume);
+                droplet.sizeY = DropletUtillityFunctions.getDiameterOfDroplet(droplet.volume);
+                
                 bubble.subscriptions.Add(droplet.ID);
 
                 // move bubble
+                moveBubbleAccordingToGroup(container, droplet, bubble);
                 moveBubbleFromDroplet(droplet, bubble);
                 container.bubbles.Add(bubble);
                 container.subscribedBubbles.Add(bubble.ID);
 
 
                 subscribtions.Add(droplet.ID);
+                droplet.accumulatingBubbleSize = 0;
+                return subscribtions;
+            }else if(droplet.temperature >= 90)
+            {
+                droplet.accumulatingBubbleSize += container.timeStep;
+                subscribtions.Add(droplet.ID);
                 return subscribtions;
             }
+            
             subscribtions.Add(droplet.ID);
             return subscribtions;
             
             
         }
 
-        internal static List<Bubbles> copyBubbles(List<Bubbles> bubbles)
-        {
-            List<Bubbles> copyOfBubbles = new List<Bubbles>();
-
-            foreach(Bubbles bubble in bubbles)
-            {
-                Bubbles newBubble = new Bubbles("test bubble", bubble.ID, bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY);
-                newBubble.toRemove = bubble.toRemove;
-                copyOfBubbles.Add(newBubble);
-            }
-            return copyOfBubbles;
-           
-        }
+        
     }
 }

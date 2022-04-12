@@ -79,7 +79,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     int id = rnd.Next(10000000);
                     string color = origin.color;
 
-                    Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, origin.temperature, 0, tempElectrode.ID, origin.group);
+                    Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, origin.temperature, 0, tempElectrode.ID, origin.group, origin.accumulatingBubbleSize);
                     droplets.Add(newDroplet);
                     subscribers.Add(newDroplet.ID);
                     container.subscribedDroplets.Add(newDroplet.ID);

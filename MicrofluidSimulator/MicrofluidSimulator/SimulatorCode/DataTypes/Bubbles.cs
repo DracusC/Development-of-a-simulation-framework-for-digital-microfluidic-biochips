@@ -19,7 +19,7 @@ namespace MicrofluidSimulator.SimulatorCode
             this.subscriptions = new ArrayList();
 
             nextModel = 0;
-            modelOrder = new string[] { "move", "merge" };
+            modelOrder = new string[] { "move", "merge", "move" };
         }
 
         public Bubbles()
