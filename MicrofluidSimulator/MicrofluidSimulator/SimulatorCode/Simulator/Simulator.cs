@@ -28,7 +28,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             this.container = container;
 
             this.initialActionQueue = new Queue<ActionQueueItem>(this.actionQueue);
-            this.initialContainer = HelpfullRetreiveFunctions.createCopyOfContainer(container);
+            this.initialContainer = HelpfullRetreiveFunctions.createCopyAndResetContainer(container);
             ((Heater)container.actuators[0]).SetTargetTemperature(100);
             ((Heater)container.actuators[2]).SetTargetTemperature(100);
             simulatorRunAllModels();
@@ -41,7 +41,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         public void restartSimulator()
         {
             
-            this.container = HelpfullRetreiveFunctions.createCopyOfContainer(this.initialContainer);
+            this.container = HelpfullRetreiveFunctions.createCopyAndResetContainer(this.initialContainer);
             this.actionQueue = new Queue<ActionQueueItem>(this.initialActionQueue);
             this.droplets = this.container.droplets;
             simulatorRunAllModels();
@@ -593,6 +593,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             return subscribers;
 
         }
+
+
+        // Utillity for VM
+        public int setActuatorTargetTemperature(int heaterID, int desiredValue)
+        {
+            Heater heater = (Heater)HelpfullRetreiveFunctions.getActuatorById(container, heaterID);
+            if(heater == null) { return 1; }
+
+            heater.valueDesiredTemperature = desiredValue;
+            return 0;
+        }
+
+
 
         private Queue<ActionQueueItem> generateTestQueue()
         {
