@@ -133,7 +133,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return binarySearchElectrode(ID, container);
         }
 
-        public static Container createCopyOfContainer(Container container)
+        public static Container createCopyAndResetContainer(Container container)
         {
             
             Electrode[] electrodes = new Electrode[container.electrodes.Length];
