@@ -37,6 +37,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return -1;
         }
 
+        public static double getDiameterOfBubble(double volumeFromDroplet)
+        {
+            double airDensity = 0.0012F;
+            double volume = volumeFromDroplet / airDensity;
+            double radius = Math.Pow((3 * volume / (4 * Math.PI)), (1.0 / 3.0));
+            return radius*2;
+        }
+
         public static float getAreaOfDroplet(Droplets caller)
         {
             return (float) (Math.PI * (Math.Pow(caller.sizeX / 2, 2)));
@@ -159,7 +167,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             int j = 0;
             foreach (Droplets droplet in container.droplets)
             {
-                droplets.Add(new Droplets(droplet.name, droplet.ID, droplet.substance_name, droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY, droplet.color, droplet.temperature, droplet.volume, droplet.electrodeID, droplet.group));
+                droplets.Add(new Droplets(droplet.name, droplet.ID, droplet.substance_name, droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY, droplet.color, droplet.temperature, droplet.volume, droplet.electrodeID, droplet.group, 0));
                 j++;
             }
             Console.WriteLine("THERE IS THIS MANY DROPLETS AFTER COPY" + j);
@@ -210,28 +218,27 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                         break;
 
                 }
-                foreach (Bubbles bubble in container.bubbles)
-                {
-                    bubbles.Add(new Bubbles(bubble.name, bubble.ID, bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY));
-                    j++;
-                }
+                
 
+            }
+            foreach (Bubbles bubble in container.bubbles)
+            {
+                bubbles.Add(new Bubbles(bubble.name, bubble.ID, bubble.positionX, bubble.positionY, bubble.sizeX, bubble.sizeY));
+                j++;
             }
             Container newContainer = new Container(electrodes, droplets, actuators, sensors, information, bubbles, currentTime);
             foreach(Droplets droplet in newContainer.droplets)
             {
                 newContainer.subscribedDroplets.Add(droplet.ID);
             }
-
-            //foreach (Droplets droplet in droplets)
-            //{
-            //    Models.SubscriptionModels.dropletSubscriptions(newContainer, droplet);
-            //    foreach (int sub in droplet.subscriptions)
-            //    {
-            //        Console.WriteLine("droplet subs id: " + droplet.ID + " subs: " + sub);
-            //    }
-
-            //}
+            foreach(Bubbles bubble in newContainer.bubbles){
+                newContainer.subscribedBubbles.Add(bubble.ID);
+            }
+            foreach(Actuators actuator in newContainer.actuators)
+            {
+                newContainer.subscribedActuators.Add(actuator.ID);
+            }
+            
 
             return newContainer;
         }

@@ -6,7 +6,7 @@ namespace MicrofluidSimulator.SimulatorCode
         
 
 
-        public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature, float volume, int electrodeID, int group)
+        public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature, float volume, int electrodeID, int group, double accumulatingBubbleSize)
         {
             this.name = name;
             this.substance_name = substance_name;
@@ -21,6 +21,7 @@ namespace MicrofluidSimulator.SimulatorCode
             this.group = group;
             this.electrodeID = electrodeID;
             this.subscriptions = new ArrayList();
+            this.accumulatingBubbleSize = accumulatingBubbleSize;
             nextModel = 0;
             modelOrder = new string[] {"split", "merge", "temperature", "color", "makeBubble"};
         }
@@ -29,6 +30,7 @@ namespace MicrofluidSimulator.SimulatorCode
         {
         }
 
+        public double accumulatingBubbleSize { get; set; }
         public string name { get; set; }
         public string substance_name { get; set; }
         public string color { get; set; }

@@ -10030,6 +10030,22 @@
       "positionY": 330,
       "sizeX": 50,
       "sizeY": 50
+    },
+    {
+      "name": "test bubble",
+      "ID": 11,
+      "positionX": 115,
+      "positionY": 10,
+      "sizeX": 12,
+      "sizeY": 12
+    },
+    {
+      "name": "test bubble",
+      "ID": 12,
+      "positionX": 125,
+      "positionY": 10,
+      "sizeX": 12,
+      "sizeY": 12
     }
   ],
   "unclassified": []

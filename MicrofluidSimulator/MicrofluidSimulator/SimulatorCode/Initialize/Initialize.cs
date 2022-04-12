@@ -213,7 +213,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             int i = 0;
             foreach (Droplets droplet in droplets)
             {
-                dropletsArray.Add(new Droplets(droplet.name, droplet.ID, droplet.substance_name, droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY, droplet.color, droplet.temperature, DropletUtillityFunctions.getVolumeOfDroplet(droplet.sizeX), droplet.electrodeID, i));
+                dropletsArray.Add(new Droplets(droplet.name, droplet.ID, droplet.substance_name, droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY, droplet.color, droplet.temperature, DropletUtillityFunctions.getVolumeOfDroplet(droplet.sizeX), droplet.electrodeID, i, 0));
                 i++;
             }
             

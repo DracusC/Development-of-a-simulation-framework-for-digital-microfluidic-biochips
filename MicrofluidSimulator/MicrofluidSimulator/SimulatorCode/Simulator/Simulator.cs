@@ -31,8 +31,19 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             this.initialContainer = HelpfullRetreiveFunctions.createCopyAndResetContainer(container);
             ((Heater)container.actuators[0]).SetTargetTemperature(100);
             ((Heater)container.actuators[2]).SetTargetTemperature(100);
+            foreach (Bubbles bubble in container.bubbles)
+            {
+                Console.WriteLine("BUBBLE ID " + bubble.ID);
+            }
             simulatorRunAllModels();
-
+            foreach (Bubbles bubble in container.bubbles)
+            {
+                Console.WriteLine("BUBBLE ID AFTER SIMULATORRUNALLMODELS " + bubble.ID);
+            }
+            foreach (Bubbles bubble in initialContainer.bubbles)
+            {
+                Console.WriteLine("BUBBLE ID IN INITIALCONTAINER " + bubble.ID);
+            }
             //Console.WriteLine("initialContainer info" + this.initialContainer.droplets[0].positionX);
             //restartSimulator(container, electrodesWithNeighbours, generatedActionQueue);
             //ArrayList containerConfigurations = new ArrayList();
@@ -44,6 +55,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             this.container = HelpfullRetreiveFunctions.createCopyAndResetContainer(this.initialContainer);
             this.actionQueue = new Queue<ActionQueueItem>(this.initialActionQueue);
             this.droplets = this.container.droplets;
+            foreach(Bubbles bubble in container.bubbles)
+            {
+                Console.WriteLine("BUBBLE ID " + bubble.ID);
+            }
+            
+            ((Heater)this.container.actuators[0]).SetTargetTemperature(100);
+            ((Heater)this.container.actuators[2]).SetTargetTemperature(100);
             simulatorRunAllModels();
 
 
@@ -308,6 +326,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                     if (bubble != null && bubble.toRemove == false)
                     {
+                        
                         handleBubbleSubscriber(container, bubble, bubbleSubscribersQueue);
                     }
                 }
@@ -812,6 +831,10 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             actionQueueInstructions.Enqueue(item2);
             actionQueueInstructions.Enqueue(item3);
             actionQueueInstructions.Enqueue(item4);
+
+            
+            
+
 
 
             return actionQueueInstructions;
