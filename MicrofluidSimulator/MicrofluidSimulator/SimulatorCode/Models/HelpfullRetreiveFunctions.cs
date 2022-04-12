@@ -8,6 +8,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
          * in the electrode array i needed
          * It first tries the id as index, if this dosent work it does a binary search*/
 
+        //droplet retreive functions
         public static int getIndexOfDropletByID(int ID, Container container)
         {
             List<Droplets> droplets = container.droplets;
@@ -23,7 +24,6 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return -1;
 
         }
-
         public static float getMassOfDropletGivenSubstance(Droplets caller)
         {
             switch (caller.substance_name)
@@ -36,21 +36,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return -1;
         }
-
-        public static double getDiameterOfBubble(double volumeFromDroplet)
-        {
-            double airDensity = 0.0012F;
-            double volume = volumeFromDroplet / airDensity;
-            double radius = Math.Pow((3 * volume / (4 * Math.PI)), (1.0 / 3.0));
-            return radius*2;
-        }
-
         public static float getAreaOfDroplet(Droplets caller)
         {
-            return (float) (Math.PI * (Math.Pow(caller.sizeX / 2, 2)));
-            
-        }
+            return (float)(Math.PI * (Math.Pow(caller.sizeX / 2, 2)));
 
+        }
         public static float getThermalConductivityOfDroplet(Droplets caller)
         {
             switch (caller.substance_name)
@@ -63,10 +53,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return -1;
 
-            
-            
-        }
 
+
+        }
         public static float getHeatCapacityOfDropletGivenSubstance(Droplets caller)
         {
             switch (caller.substance_name)
@@ -79,7 +68,71 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return -1;
         }
+        public static bool hasNeighbouringDroplet(Container container, int posX, int posY)
+        {
+            foreach (Droplets droplet in container.droplets)
+            {
+                int vecX = posX - droplet.positionX;
+                int vecY = posY - droplet.positionY;
+                double vecLength = Math.Sqrt(Math.Pow(vecX, 2) + Math.Pow(vecY, 2));
+                if (vecLength <= droplet.sizeX / 2)
+                {
+                    return true;
+                }
+            }
+            return false;
 
+        }
+        public static Droplets getDropletOnSensor(Container container, Sensors sensor)
+        {
+            foreach (Droplets droplet in container.droplets)
+            {
+
+                int minMarginX = droplet.positionX;
+                int maxMarginX = droplet.positionX + (droplet).sizeX;
+                int minMarginY = (droplet).positionY;
+                int maxMarginY = (droplet).positionY + (droplet).sizeY;
+
+                if (sensor.positionX <= minMarginX && sensor.positionX >= maxMarginX && sensor.positionY <= minMarginY && sensor.positionY >= maxMarginY)
+                {
+                    return droplet;
+                }
+            }
+            return null;
+        }
+
+        //bubble retreive functions
+        public static double getDiameterOfBubble(double volumeFromDroplet)
+        {
+            double airDensity = 0.0012F;
+            double volume = volumeFromDroplet / airDensity;
+            double radius = Math.Pow((3 * volume / (4 * Math.PI)), (1.0 / 3.0));
+            return radius*2;
+        }
+        public static Bubbles getBubbleById(Container container, int bubbleID)
+        {
+            foreach (Bubbles bubble in container.bubbles)
+            {
+                if (bubble.ID == bubbleID)
+                {
+                    return bubble;
+                }
+            }
+            return null;
+
+        }
+
+        public static ArrayList copyOfSubscribedBubbles(ArrayList subscribedBubbles)
+        {
+            ArrayList copyOfSubscribedBubbles = new ArrayList();
+            foreach (int bubbleID in subscribedBubbles)
+            {
+                copyOfSubscribedBubbles.Add(bubbleID);
+            }
+            return copyOfSubscribedBubbles;
+        }
+
+        //actuator retreive functions
         public static Heater getHeaterOnDroplet(Container container, Droplets caller)
         {
             foreach (Actuators actuator in container.actuators)
@@ -101,7 +154,56 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return null;
         }
+        public static int getIndexOfActuatorByID(int ID, Container container)
+        {
 
+            Actuators[] actuators = container.actuators;
+
+            if (actuators[ID].ID == ID)
+            {
+                return ID;
+            }
+
+            return binarySearchActuators(ID, container);
+        }
+        public static Actuators getActuatorById(Container container, int actuatorID)
+        {
+            foreach (Actuators actuator in container.actuators)
+            {
+                if (actuator.ID == actuatorID)
+                {
+                    return actuator;
+                }
+            }
+            return null;
+        }
+
+        public static int binarySearchActuators(int ID, Container container)
+        {
+            Actuators[] actuators = container.actuators;
+            int min = 0;
+            int max = actuators.Count() - 1;
+
+            while (min <= max)
+            {
+                int mid = (min + max) / 2;
+                if (ID == actuators[mid].ID)
+                {
+                    return mid;
+                }
+                else if (ID < actuators[mid].ID)
+                {
+                    max = mid - 1;
+                }
+                else
+                {
+                    min = mid + 1;
+                }
+            }
+            return -1;
+        }
+
+        //electrode retreive functions
         public static int getIdOfElectrodByElectrodId(int electrodeId, int driverId, Container container)
         {
             Electrode[] electrodes = container.electrodes;
@@ -140,7 +242,45 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             //return 0; 
             return binarySearchElectrode(ID, container);
         }
+        public static int getIDofElectrodeByPosition(int positionX, int positionY, Electrode[] electrodeBoard)
+        {
 
+            for (int i = 0; i < electrodeBoard.Length; i++)
+            {
+                Electrode electrode = electrodeBoard[i];
+                if (electrode.positionX <= positionX && electrode.positionX + electrode.sizeX >= positionX && electrode.positionY <= positionY && electrode.positionY + electrode.sizeY >= electrode.positionY)
+                {
+                    return electrodeBoard[i].ID;
+                }
+            }
+            return -1;
+        }
+        public static int binarySearchElectrode(int ID, Container container)
+        {
+            Electrode[] electrodes = container.electrodes;
+            int min = 0;
+            int max = electrodes.Count() - 1;
+
+            while (min <= max)
+            {
+                int mid = (min + max) / 2;
+                if (ID == electrodes[mid].ID)
+                {
+                    return mid;
+                }
+                else if (ID < electrodes[mid].ID)
+                {
+                    max = mid - 1;
+                }
+                else
+                {
+                    min = mid + 1;
+                }
+            }
+            return -1;
+        }
+
+        //function to copy the initial container, used for restarting the simulator
         public static Container createCopyAndResetContainer(Container container)
         {
             
@@ -242,151 +382,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
             return newContainer;
         }
-        public static int getIndexOfActuatorByID(int ID, Container container)
-        {
+        
+      
 
-            Actuators[] actuators = container.actuators;
-            
-            if (actuators[ID].ID == ID)
-            {
-                return ID;
-            }
-            
-            return binarySearchActuators(ID, container);
-        }
-
-        public static int getIDofElectrodeByPosition(int positionX, int positionY, Electrode[] electrodeBoard)
-        {
-            
-            for(int i = 0; i < electrodeBoard.Length; i++)
-            {
-                Electrode electrode = electrodeBoard[i];
-                if (electrode.positionX <= positionX && electrode.positionX+ electrode.sizeX >= positionX && electrode.positionY <= positionY && electrode.positionY + electrode.sizeY >= electrode.positionY)
-                {
-                    return electrodeBoard[i].ID;
-                }
-            }
-            return -1;
-        }
-
-        public static int binarySearchElectrode(int ID, Container container)
-        {
-            Electrode[] electrodes = container.electrodes;
-            int min = 0;
-            int max = electrodes.Count() - 1;
-
-            while (min <= max)
-            {
-                int mid = (min + max) / 2;
-                if (ID == electrodes[mid].ID)
-                {
-                    return mid;
-                }
-                else if (ID < electrodes[mid].ID)
-                {
-                    max = mid - 1;
-                }
-                else
-                {
-                    min = mid + 1;
-                }
-            }
-            return -1;
-        }
-
-        public static bool hasNeighbouringDroplet(Container container, int posX, int posY)
-        {
-            foreach(Droplets droplet in container.droplets)
-            {
-                int vecX = posX - droplet.positionX;
-                int vecY = posY - droplet.positionY;
-                double vecLength = Math.Sqrt(Math.Pow(vecX,2) + Math.Pow(vecY,2));
-                if(vecLength <= droplet.sizeX / 2)
-                {
-                    return true;
-                }
-            }
-            return false;
-            
-        }
-
-        internal static Bubbles getBubbleById(Container container, int bubbleID)
-        {
-            foreach (Bubbles bubble in container.bubbles)
-            {
-                if (bubble.ID == bubbleID)
-                {
-                    return bubble;
-                }
-            }
-            return null;
-            
-        }
-
-        internal static ArrayList copyOfSubscribedBubbles(ArrayList subscribedBubbles)
-        {
-            ArrayList copyOfSubscribedBubbles = new ArrayList();
-            foreach(int bubbleID in subscribedBubbles)
-            {
-                copyOfSubscribedBubbles.Add(bubbleID);
-            }
-            return copyOfSubscribedBubbles;
-        }
-
-        public static Actuators getActuatorById(Container container, int actuatorID)
-        {
-            foreach(Actuators actuator in container.actuators)
-            {
-                if(actuator.ID == actuatorID)
-                {
-                    return actuator;
-                }
-            }
-            return null;
-        }
-
-        public static int binarySearchActuators(int ID, Container container)
-        {
-            Actuators[] actuators = container.actuators;
-            int min = 0;
-            int max = actuators.Count() - 1;
-
-            while (min <= max)
-            {
-                int mid = (min + max) / 2;
-                if (ID == actuators[mid].ID)
-                {
-                    return mid;
-                }
-                else if (ID < actuators[mid].ID)
-                {
-                    max = mid - 1;
-                }
-                else
-                {
-                    min = mid + 1;
-                }
-            }
-            return -1;
-        }
-
-        public static Droplets getDropletOnSensor(Container container, Sensors sensor)
-        {
-            foreach (Droplets droplet in container.droplets)
-            {
-                
-                    int minMarginX = droplet.positionX;
-                    int maxMarginX = droplet.positionX + (droplet).sizeX;
-                    int minMarginY = (droplet).positionY;
-                    int maxMarginY = (droplet).positionY + (droplet).sizeY;
-
-                    if (sensor.positionX <= minMarginX && sensor.positionX >= maxMarginX && sensor.positionY <= minMarginY && sensor.positionY >= maxMarginY)
-                    {
-                        return droplet;
-                    }
-            }
-            return null;
-        }
+        
             
         
     }
