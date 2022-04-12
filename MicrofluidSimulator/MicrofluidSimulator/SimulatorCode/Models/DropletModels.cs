@@ -34,11 +34,44 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 }
      
             }
-
-            ArrayList newSubscribers = splitDroplet(container, toSplitToo, caller);
-            foreach(int subscriber in newSubscribers)
+            if(toSplitToo.Count > 0)
             {
-                subscribers.Add(subscriber);
+                ArrayList newSubscribers = splitDroplet(container, toSplitToo, caller);
+
+                foreach (int subscriber in newSubscribers)
+                {
+                    subscribers.Add(subscriber);
+                }
+                return subscribers;
+            }
+            else if(caller.subscriptions.Count > 5)
+            {
+                foreach(int sub in caller.subscriptions)
+                {
+                    Electrode tempElectrode = electrodeBoard[sub];
+                    if(tempElectrode.status == 1 && (ElectrodeModels.electrodeHasDroplet(tempElectrode, container) == null) && caller.volume > 1080)
+                    {
+
+                        int[] centerOfElectrode = ElectrodeModels.getCenterOfElectrode(tempElectrode);
+                        int electrodeCenterX = centerOfElectrode[0];
+                        int electrodeCenterY = centerOfElectrode[1];
+
+                        Random rnd = new Random();
+                        int id = rnd.Next(10000000);
+                        string color = caller.color;
+                        int diam = DropletUtillityFunctions.getDiameterOfDroplet(360);
+                        Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, diam, diam, color, caller.temperature, 360, tempElectrode.ID, id, caller.accumulatingBubbleSize);
+                        droplets.Add(newDroplet);
+                        subscribers.Add(newDroplet.ID);
+                        container.subscribedDroplets.Add(newDroplet.ID);
+                        int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(id, container);
+
+                        
+                        SubscriptionModels.dropletSubscriptions(container, newDroplet);
+
+                        DropletUtillityFunctions.updateGroupVolume(container, caller.group, -360);
+                    }
+                }
             }
             return subscribers;
 
