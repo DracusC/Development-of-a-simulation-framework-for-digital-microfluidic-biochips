@@ -615,12 +615,12 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
 
         // Utillity for VM
-        public int setActuatorTargetTemperature(int heaterID, int desiredValue)
+        public int setActuatorTargetTemperature(int heaterID, float desiredValue)
         {
             Heater heater = (Heater)HelpfullRetreiveFunctions.getActuatorById(container, heaterID);
             if(heater == null) { return 1; }
 
-            heater.valueDesiredTemperature = desiredValue;
+            heater.SetTargetTemperature(desiredValue);
             return 0;
         }
 

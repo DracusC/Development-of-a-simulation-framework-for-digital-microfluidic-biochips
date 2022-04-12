@@ -13,22 +13,21 @@ namespace MicrofluidSimulator.DumbVM
 
         public DumbVM(Simulator simulator)
         {
-            this.simulator = simulator
+            this.simulator = simulator;
         }
 
         // Main loop
         public static void Main(string[] args)
         {
-
+            //this.turnOnHeaterAtTime(10, 100, 727);
         }
 
-        private void turnOnHeaterAtTime(float time, int heaterID)
+        private void turnOnHeaterAtTime(float time, float desiredTemperature, int heaterID)
         {
             float currentSimulatorTime = simulator.container.currentTime;
             if(currentSimulatorTime == time)
             {
-                simulator.setActuatorTargetTemperature(heaterID, 100);
-                
+                simulator.setActuatorTargetTemperature(heaterID, desiredTemperature);
             }
         }
 
