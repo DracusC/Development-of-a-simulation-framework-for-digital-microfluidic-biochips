@@ -136,9 +136,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
             while (targetTime > container.currentTime || executeAStep)
             {
-                Electrode[] electrodes = container.electrodes;
-                Console.WriteLine("Electrode with id:" + electrodes[227].ID + " has this many subscribers: " + electrodes[227].subscriptions.Count + "at time :" + container.currentTime);
-
+               
                 ArrayList subscribers = new ArrayList();
                 
                 if (actionQueue.Count > 1)
@@ -227,7 +225,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                             }
                         }
 
-                        Console.WriteLine("Electrode with id:" + electrodes[227].ID + " has this many subscribers: " + electrodes[227].subscriptions.Count + "at time  :" + container.currentTime + "after step is run");
+                    
 
 
                     }
