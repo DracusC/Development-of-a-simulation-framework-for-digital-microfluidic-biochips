@@ -36,6 +36,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return -1;
         }
+
+        
+
         public static float getAreaOfDroplet(Droplets caller)
         {
             return (float)(Math.PI * (Math.Pow(caller.sizeX / 2, 2)));

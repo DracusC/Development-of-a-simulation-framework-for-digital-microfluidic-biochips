@@ -134,6 +134,7 @@
         //stopwatch.Reset();
         //stopwatch.Start();
         simulator.simulatorStep(timeStepAmount);
+        dumbVM.doApiCall();
         //stopwatch.Stop();
         //Console.WriteLine("SW1: " + stopwatch.ElapsedMilliseconds);
         if(PlayButtonText == "Play") { guibroker.animate_once(); }
@@ -275,6 +276,7 @@
 
     private Container? container;
     private static Simulator? simulator;
+    private static MicrofluidSimulator.DumbVM.DumbVM? dumbVM;
     private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
     protected override async void OnAfterRender(bool firstRender) {
         if (firstRender) {
@@ -285,6 +287,7 @@
             string actionQueueInstructions = await Http.GetStringAsync("sample-data/simple_paths_commands.txt");
 
             simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
+            dumbVM = new MicrofluidSimulator.DumbVM.DumbVM(simulator);
 
             guibroker.set_jsprocess(JSInProcessRuntime);
             guibroker.set_unmarshall(JSUnmarshalledRuntime);

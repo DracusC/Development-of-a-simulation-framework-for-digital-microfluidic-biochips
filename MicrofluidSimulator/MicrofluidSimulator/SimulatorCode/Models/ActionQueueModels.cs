@@ -8,10 +8,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static Queue<ActionQueueItem> pushActionQueueToStartOfOriginalActionQueue(Queue<ActionQueueItem> originalActionQueue, Queue<ActionQueueItem> actionQueueToPush, float timeSkip)
         {
             // traverse the queue
-            for(int i = 0; i < originalActionQueue.Count; i++)
+            foreach(ActionQueueItem itemToPush in originalActionQueue)
             {
-                ActionQueueItem itemToPush = originalActionQueue.Dequeue();
+                
                 itemToPush.time += timeSkip;
+                Console.WriteLine("DEQUING ITEM "+ itemToPush.action.actionName + " , " + itemToPush.action.actionOnID + ", " + itemToPush.time);
                 // add the original queues elements to the end of the new queue
                 actionQueueToPush.Enqueue(itemToPush);
             }

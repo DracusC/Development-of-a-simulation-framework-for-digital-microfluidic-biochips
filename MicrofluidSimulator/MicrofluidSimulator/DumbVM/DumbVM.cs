@@ -11,26 +11,78 @@ namespace MicrofluidSimulator.DumbVM
     public class DumbVM
     {
         private Simulator simulator;
+        private Queue<ActionQueueItem> queueToPush;
 
         public DumbVM(Simulator simulator)
         {
             this.simulator = simulator;
-            Queue<ActionQueueItem> queueToPush = generateTestQueue(simulator.container.currentTime);
-            Queue<ActionQueueItem> copyOfQueueToPush = new Queue<ActionQueueItem>(queueToPush);
-            float accumulatedTime = 0;
-            for (int i = 0; i < queueToPush.Count; i++)
-            {
-                accumulatedTime += queueToPush.Dequeue().time;
-            }
-            ActionQueueModels.pushActionQueueToStartOfOriginalActionQueue(simulator.actionQueue, copyOfQueueToPush, accumulatedTime);
-        }
+            this.queueToPush = generateTestQueue(simulator.container.currentTime);
+
+        }   
 
         // Main loop
-        public static void Main(string[] args)
+        public void doApiCall()
         {
-            //this.turnOnHeaterAtTime(10, 100, 727);
+
+            this.turnOnHeaterAtTime(10, 100, 727);
+            this.pushActionsAtTime(10, this.queueToPush);
+            Console.WriteLine("doApiCall CALLED");
             
-            
+
+        }
+
+        private void pushActionsAtTime(int time, Queue<ActionQueueItem> queueToPush)
+        {
+            if (simulator.container.currentTime == time)
+            {
+                Console.WriteLine("CURRENT TIME " + simulator.container.currentTime);
+                foreach(ActionQueueItem item in queueToPush)
+                {
+                    item.time += simulator.container.currentTime;
+                }
+                pushActionQueueToSimulatorActionQueue(queueToPush);
+            }
+        }
+
+        private void pushActionQueueToSimulatorActionQueue(Queue<ActionQueueItem> queueToPush)
+        {
+            Queue<ActionQueueItem> copyOfQueueToPush = new Queue<ActionQueueItem>(queueToPush);
+            float accumulatedTime = 0;
+
+            float min = Int32.MaxValue;
+            float max = Int32.MinValue;
+            for (int i = 0; i < queueToPush.Count; i++)
+            {
+
+                float tempMin = queueToPush.Dequeue().time;
+                float tempMax = tempMin;
+
+
+                if (tempMin < min)
+                {
+                    min = tempMin;
+                }
+                if (tempMax > max)
+                {
+                    max = tempMax;
+                }
+
+                accumulatedTime = max - min;
+            }
+
+            Console.WriteLine("ORIGINAL ACTIONQUEUE ACCUM TIME" + accumulatedTime );
+            foreach(ActionQueueItem item in simulator.actionQueue)
+            {
+                Console.WriteLine("ITEM IN  ACTIONQUEUE " + item.action.actionName + " , " + item.action.actionOnID + ", " + item.time);
+            }
+
+            simulator.actionQueue = ActionQueueModels.pushActionQueueToStartOfOriginalActionQueue(simulator.actionQueue, copyOfQueueToPush, accumulatedTime);
+            Console.WriteLine("AFTER CALL ACTIONQUEUE ");
+            foreach (ActionQueueItem item in simulator.actionQueue)
+            {
+                Console.WriteLine("ITEM IN  ACTIONQUEUE " + item.action.actionName + " , " + item.action.actionOnID + ", " + item.time);
+            }
+
         }
 
         private void turnOnHeaterAtTime(float time, float desiredTemperature, int heaterID)
@@ -127,7 +179,7 @@ namespace MicrofluidSimulator.DumbVM
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9);
+            item9 = new ActionQueueItem(action9, 9+ currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 131, 0);
