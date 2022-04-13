@@ -18,7 +18,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(container, electrodesWithNeighbours);
             this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
-
+            //this.actionQueue = generateTestQueue();
             this.droplets = container.droplets;
             Electrode[] electrodeBoard = container.electrodes;
 
@@ -155,6 +155,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
             while (targetTime > container.currentTime || executeAStep)
             {
+                Electrode[] electrodes = container.electrodes;
+                Console.WriteLine("Electrode with id:" + electrodes[227].ID + " has this many subscribers: " + electrodes[227].subscriptions.Count + "at time :" + container.currentTime);
+
                 ArrayList subscribers = new ArrayList();
                 
                 if (actionQueue.Count > 1)
@@ -174,7 +177,31 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                         //containerConfigurations.Add(container);
                         //Get the first action execute and get back the list of subscribers to the specific action
-                        subscribers = executeAction(action, container);
+                        //subscribers = executeAction(action, container);
+
+
+                        ArrayList extraSubscribers = executeAction(action, container);
+                        foreach (int subscriber in extraSubscribers)
+                        {
+                            int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+                            if (index != -1)
+                            {
+                                Droplets droplet = (Droplets)droplets[index];
+                                List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container, droplet.group);
+                                foreach (Droplets d in groupMembers)
+                                {
+                                    if (!subscribers.Contains(d.ID))
+                                    {
+                                        subscribers.Add(d.ID);
+                                    }
+                                }
+
+                            }
+
+
+                        }
+
+
                         executeAStep = false;
                         while (!noMoreActions)
                         {
@@ -184,7 +211,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                                 if (action.time == actionPeek.time)
                                 {
                                     ActionQueueItem nextAction = actionQueue.Dequeue();
-                                    ArrayList extraSubscribers = executeAction(nextAction, container);
+                                    extraSubscribers = executeAction(nextAction, container);
                                     foreach (int subscriber in extraSubscribers)
                                     {
                                         int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
@@ -218,7 +245,10 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                                 noMoreActions = true;
                             }
                         }
-                        
+
+                        Console.WriteLine("Electrode with id:" + electrodes[227].ID + " has this many subscribers: " + electrodes[227].subscriptions.Count + "at time  :" + container.currentTime + "after step is run");
+
+
                     }
                     else
                     {
@@ -443,7 +473,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             Console.WriteLine("This method was inacted based on an edit of variables!");
             List<Droplets> droplets = container.droplets;
             Electrode[] electrodes = container.electrodes;
-            Console.WriteLine("Electrode with id:"+ electrodes[194].ID + " has status: " + electrodes[194].status);
             foreach (Droplets droplet in droplets)
             {
                 SubscriptionModels.dropletSubscriptions(container, droplet);
