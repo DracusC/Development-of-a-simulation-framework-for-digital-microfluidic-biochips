@@ -18,6 +18,12 @@ window.update_board = (_container_string) => {
     let container_string = BINDING.conv_string(_container_string);
 
     var board = JSON.parse(container_string);
+
+    // Get the time for difference calculation
+    if (typeof gui_broker.board.currentTime != "undefined") {
+        gui_broker.simulator_prev_time = gui_broker.board.currentTime;
+    }
+
     gui_broker.board = board;
     gui_broker.droplets = board.droplets;
     gui_broker.electrodes = board.electrodes;
@@ -25,6 +31,7 @@ window.update_board = (_container_string) => {
     //information_panel_manager.draw_information(board.Electrodes[130]);
     gui_broker.prev_droplet_groups = gui_broker.droplet_groups;
     gui_broker.get_droplet_groups();
+    
 
     information_panel_manager.dynamic_update();
 
@@ -49,6 +56,7 @@ window.initialize_board = (information) => {
     var JSONinformation = JSON.parse(information);
     console.log(JSONinformation);
     gui_broker.init_board(JSONinformation.sizeX, JSONinformation.sizeY + 1);
+    
 
     gui_controller.showGUI();
     gui_controller.changeBoardName(JSONinformation.platform_name);
@@ -70,6 +78,10 @@ window.animate_once = () => {
 window.restart_board = () => {
     gui_broker.animate = false;
     lerp_amount = 1;
+}
+
+window.start_simulator_time = () => {
+    gui_broker.simulator_time = Date.now();
 }
 
 window.download_data = (jsonData) => {

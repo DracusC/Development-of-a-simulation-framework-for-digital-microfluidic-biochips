@@ -71,6 +71,8 @@ namespace MicrofluidSimulator.SimulatorCode.View
 
             Console.WriteLine("System.Text.Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");*/
 
+            // Start execution time.
+            start_simulator_time();
             _JSUnmarshalledRuntime.InvokeUnmarshalled<string, string>("update_board", Utf8Json.JsonSerializer.ToJsonString(container));
             //_JSInProcessRuntime.InvokeVoid("update_board", container);
         }
@@ -102,6 +104,11 @@ namespace MicrofluidSimulator.SimulatorCode.View
         {
             var result = _JSInProcessRuntime.Invoke<string>("get_selected_element");
             return result;
+        }
+
+        public void start_simulator_time()
+        {
+            _JSInProcessRuntime.InvokeVoid("start_simulator_time");
         }
 
 

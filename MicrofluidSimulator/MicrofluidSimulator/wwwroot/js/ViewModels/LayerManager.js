@@ -2,14 +2,14 @@
 
 
     layers: {
-        draw_droplets: {
-            name: "droplet_draw_call",
-            value: "droplet_draw_call",
-            id: "draw_droplet",
-            text: "Draw Droplets", // Will be shown in layer panel list
+        real_time: {
+            name: "real_time",
+            value: "real_time",
+            id: "real_time",
+            text: "Real-Time Execution", // Will be shown in layer panel list
             element: "insert",      // Reference - get toggled from here
             checkbox: "insert",
-            checked: false
+            checked: true
             //layer: "insert"         // Reference - pass to functions
         },
         draw_droplet_groups: {
@@ -26,7 +26,7 @@
             name: "draw_droplet_animations",
             value: "draw_droplet_animations",
             id: "draw_droplet_animations",
-            text: "Draw Droplet Animations", // Will be shown in layer panel list
+            text: "Animations", // Will be shown in layer panel list
             element: "insert",      // Reference - get toggled from here
             checkbox: "insert",
             checked: true
@@ -81,6 +81,16 @@
             checkbox: "insert",
             checked: false,
             layer: "insert"         // Reference - pass to functions
+        },
+        draw_droplets: {
+            name: "droplet_draw_call",
+            value: "droplet_draw_call",
+            id: "draw_droplet",
+            text: "Draw Droplets", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: false
+            //layer: "insert"         // Reference - pass to functions
         }
 
     },

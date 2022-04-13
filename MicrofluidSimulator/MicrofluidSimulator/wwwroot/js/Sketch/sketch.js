@@ -77,15 +77,13 @@ let sketch = function (p) {
         //console.time("DrawTime");
         if ((gui_broker.play_status && layer_manager.layers.draw_droplet_animations.checkbox.checked) || gui_broker.animate) {
             lerp_amount += 0.07; // Maybe make an animation object, or global variables
-        } //else if (!gui_broker.animate) { lerp_amount = 0; }
+        }
 
+        /* Redraw the canvas */
         p.background(240);
 
         /* Draw calls */
-        //draw_electrodes();
         p.image(layer_electrode_shape, 0, 0);
-
-
 
         if (layer_manager.layers.draw_active_electrodes.checkbox.checked) { draw_active_electrodes(); }
 
@@ -94,7 +92,7 @@ let sketch = function (p) {
 
         //if (layer_manager.layers.draw_actuators.checkbox.checked) { draw_actuators(); }
 
-        if (layer_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
+        
 
         if (layer_manager.layers.draw_selected_element.checkbox.checked) { draw_selected_element(layer_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
 
@@ -104,29 +102,51 @@ let sketch = function (p) {
 
         draw_bubbles();
 
+        // Controls animations
         if (layer_manager.layers.draw_droplet_animations.checkbox.checked) {
-            let c_lerp_amount = p.constrain(lerp_amount, 0, 1);
+
+            let on_time_lerp = ((Date.now() - gui_broker.simulator_time) / 1000) / (gui_broker.board.currentTime - gui_broker.simulator_prev_time);
+            let on_count_lerp = p.constrain(lerp_amount, 0, 1);
+
+            let c_lerp_amount = p.constrain(p.max(on_time_lerp, on_count_lerp), 0, 1);
+
+            // For same groups
             for (i in gui_broker.droplet_groups) {
                 lerpGroupVertices(i, c_lerp_amount);
             }
 
+            // For group splits
             let new_groups = findGroupSplit(0);
             for (i in new_groups) {
-                //console.log(new_groups[i]);
                 lerpGroupVertices(new_groups[i], c_lerp_amount, 0);
             }
         }
 
-        // Get next simulator step
-        if (gui_broker.play_status && lerp_amount >= 1.3) {
+        // Control animation
+        if (gui_broker.play_status && lerp_amount >= 1.3 && !layer_manager.layers.real_time.checkbox.checked && layer_manager.layers.draw_droplet_animations.checkbox.checked) {
             gui_broker.next_simulator_step();
             lerp_amount = 0;
+            gui_broker.animate = false;
+
         } else if (gui_broker.play_status && !layer_manager.layers.draw_droplet_animations.checkbox.checked) {
             gui_broker.next_simulator_step();
-        } else if (gui_broker.animate && lerp_amount >= 1.3) {
-            console.log("********************************************************************* HI");
+
+        } else if (gui_broker.animate && lerp_amount >= 1) {
             gui_broker.animate = false;
+
         }
+
+
+        if (layer_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
+
+
+        // Get next simulator step
+        if (gui_broker.play_status && (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time) >= gui_broker.board.currentTime) {
+            console.log("Ellapsed time: " + ((Date.now() - gui_broker.simulator_time) / 1000) + " seconds", (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time), gui_broker.simulator_prev_time, gui_broker.board.currentTime);
+            lerp_amount = 1;
+            gui_broker.next_simulator_step();
+        }
+
     }
 
 
@@ -143,7 +163,6 @@ let sketch = function (p) {
             for (j in cur_group) {
 
                 if (prev_group[i].ID != cur_group[j].ID) {
-                    console.log("IN HERE", prev_group[i].ID);
                     possible_split_droplets.push(prev_group[i].ID);
                 }
             }
@@ -158,7 +177,6 @@ let sketch = function (p) {
             }
         }
 
-        //console.log(new_groups);
         return new_groups;
     }
 
