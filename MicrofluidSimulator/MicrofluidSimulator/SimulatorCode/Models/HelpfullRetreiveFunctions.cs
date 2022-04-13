@@ -101,16 +101,24 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
             foreach (Droplets droplet in container.droplets)
             {
+                double vecX = droplet.positionX - sensor.positionX;
+                double vecY = droplet.positionY - sensor.positionY;
 
-                int minMarginX = droplet.positionX;
-                int maxMarginX = droplet.positionX + (droplet).sizeX;
-                int minMarginY = (droplet).positionY;
-                int maxMarginY = (droplet).positionY + (droplet).sizeY;
+                double vecLength = Math.Sqrt(Math.Pow(vecX, 2) + Math.Pow(vecY, 2));
 
-                if (sensor.positionX <= minMarginX && sensor.positionX >= maxMarginX && sensor.positionY <= minMarginY && sensor.positionY >= maxMarginY)
+                if(vecLength <= GlobalVariables.RECTANGULARELECTRODESIZE/2)
                 {
                     return droplet;
                 }
+                //int minMarginX = droplet.positionX;
+                //int maxMarginX = droplet.positionX + (droplet).sizeX;
+                //int minMarginY = (droplet).positionY;
+                //int maxMarginY = (droplet).positionY + (droplet).sizeY;
+
+                //if (sensor.positionX <= minMarginX && sensor.positionX >= maxMarginX && sensor.positionY <= minMarginY && sensor.positionY >= maxMarginY)
+                //{
+                //    return droplet;
+                //}
             }
             return null;
         }
