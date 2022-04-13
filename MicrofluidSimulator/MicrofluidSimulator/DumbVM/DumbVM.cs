@@ -35,26 +35,29 @@ namespace MicrofluidSimulator.DumbVM
         {
             if (simulator.container.currentTime == time)
             {
+
+                Queue<ActionQueueItem> copyOfQueueToPush = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(queueToPush);
+                Queue<ActionQueueItem> copyOfQueueToPushForTimeCalculation = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(queueToPush);
                 Console.WriteLine("CURRENT TIME " + simulator.container.currentTime);
-                foreach(ActionQueueItem item in queueToPush)
+                foreach(ActionQueueItem item in copyOfQueueToPush)
                 {
                     item.time += simulator.container.currentTime;
                 }
-                pushActionQueueToSimulatorActionQueue(queueToPush);
+                pushActionQueueToSimulatorActionQueue(copyOfQueueToPush, copyOfQueueToPushForTimeCalculation);
             }
         }
 
-        private void pushActionQueueToSimulatorActionQueue(Queue<ActionQueueItem> queueToPush)
+        private void pushActionQueueToSimulatorActionQueue(Queue<ActionQueueItem> copyOfQueueToPush, Queue<ActionQueueItem> copyOfQueueToPushForTimeCalculation)
         {
-            Queue<ActionQueueItem> copyOfQueueToPush = new Queue<ActionQueueItem>(queueToPush);
+            
             float accumulatedTime = 0;
 
             float min = Int32.MaxValue;
             float max = Int32.MinValue;
-            for (int i = 0; i < queueToPush.Count; i++)
+            for (int i = 0; i < copyOfQueueToPushForTimeCalculation.Count; i++)
             {
 
-                float tempMin = queueToPush.Dequeue().time;
+                float tempMin = copyOfQueueToPushForTimeCalculation.Dequeue().time;
                 float tempMax = tempMin;
 
 

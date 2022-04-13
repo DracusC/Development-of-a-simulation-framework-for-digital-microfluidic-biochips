@@ -7,8 +7,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         // method to add an action queue in the front of the original action queue
         public static Queue<ActionQueueItem> pushActionQueueToStartOfOriginalActionQueue(Queue<ActionQueueItem> originalActionQueue, Queue<ActionQueueItem> actionQueueToPush, float timeSkip)
         {
+            Queue<ActionQueueItem> originalActionQueueToPush = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(originalActionQueue);
             // traverse the queue
-            foreach(ActionQueueItem itemToPush in originalActionQueue)
+            foreach (ActionQueueItem itemToPush in originalActionQueueToPush)
             {
                 
                 itemToPush.time += timeSkip;

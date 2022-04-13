@@ -43,7 +43,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
             foreach(ActionQueueItem item in actionQueue)
             {
-                SimulatorAction newAction = new SimulatorAction(item.action.actionName, item.action.actionOnID, item.action.actionOnID);
+                SimulatorAction newAction = new SimulatorAction(item.action.actionName, item.action.actionOnID, item.action.actionChange);
                 ActionQueueItem newItem = new ActionQueueItem(newAction, item.time);
                 copyOfQueue.Enqueue(newItem);
             }
