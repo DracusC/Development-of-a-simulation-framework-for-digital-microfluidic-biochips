@@ -129,7 +129,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 {
                     int electrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
                     Electrode electrode = electrodeBoard[electrodeIndex];
-                    if (electrode.status != 0 || (ElectrodeModels.electrodeHasDroplet(electrode, container) != null))
+                    if ((ElectrodeModels.electrodeHasDroplet(electrode, container) != null))
                     {
                         return subscribers;
                     }
@@ -138,28 +138,63 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 {
                     Electrode tempElectrode = electrodeBoard[sub];
                     Droplets otherDroplet = ElectrodeModels.electrodeHasDroplet(tempElectrode, container);
-                    if (tempElectrode.status == 0 && (otherDroplet != null))
+                    if ((otherDroplet != null))
                     {
-                        if (DropletUtillityFunctions.getGroupVolume(container,caller.group) > DropletUtillityFunctions.getGroupVolume(container, otherDroplet.group))
+                        if (tempElectrode.status == 0 )
                         {
-                            ArrayList dropletSubscritions = otherDroplet.subscriptions;
-                            foreach (int n in dropletSubscritions)
+                            if (DropletUtillityFunctions.getGroupVolume(container, caller.group) > DropletUtillityFunctions.getGroupVolume(container, otherDroplet.group))
                             {
+                                ArrayList dropletSubscritions = otherDroplet.subscriptions;
+                                foreach (int n in dropletSubscritions)
+                                {
 
-                                electrodeBoard[n].subscriptions.Remove(otherDroplet.ID);
+                                    electrodeBoard[n].subscriptions.Remove(otherDroplet.ID);
+                                }
+                                container.subscribedDroplets.Remove(otherDroplet.ID);
+                                //caller.Subscriptions = new ArrayList();
+                                float volume = otherDroplet.volume;
+                                int groupId = otherDroplet.group;
+
+                                droplets.Remove(otherDroplet);
+                                Console.WriteLine("removed a droplet");
+                                DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
                             }
-                            container.subscribedDroplets.Remove(otherDroplet.ID);
-                            //caller.Subscriptions = new ArrayList();
-                            float volume = otherDroplet.volume;
-                            int groupId = otherDroplet.group;
-
-                            droplets.Remove(otherDroplet);
-                            Console.WriteLine("removed a droplet");
-                            DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
                         }
-                        
+                        else
+                        {
+                            bool allowMergeOnOnelectrode = true;
 
+                            foreach (int neighbour in tempElectrode.neighbours)
+                            {
+                                int indexForElectrode = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
+                                Electrode neigbourElectrode = electrodeBoard[indexForElectrode];
+                                if (!DropletUtillityFunctions.dropletOverlapElectrode(container, caller, neigbourElectrode))
+                                {
+                                    allowMergeOnOnelectrode = false;
+                                    break;
+                                }
+                            }
+                            if(allowMergeOnOnelectrode)
+                            {
+                                ArrayList dropletSubscritions = otherDroplet.subscriptions;
+                                foreach (int n in dropletSubscritions)
+                                {
+
+                                    electrodeBoard[n].subscriptions.Remove(otherDroplet.ID);
+                                }
+                                container.subscribedDroplets.Remove(otherDroplet.ID);
+                                //caller.Subscriptions = new ArrayList();
+                                float volume = otherDroplet.volume;
+                                int groupId = otherDroplet.group;
+
+                                droplets.Remove(otherDroplet);
+                                Console.WriteLine("removed a droplet");
+                                DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
+                            }
+
+                        }
                     }
+                    
                 }
 
 
