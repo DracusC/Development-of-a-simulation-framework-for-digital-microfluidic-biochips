@@ -174,6 +174,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                                     break;
                                 }
                             }
+                            allowMergeOnOnelectrode = false;
                             if(allowMergeOnOnelectrode)
                             {
                                 ArrayList dropletSubscritions = otherDroplet.subscriptions;
