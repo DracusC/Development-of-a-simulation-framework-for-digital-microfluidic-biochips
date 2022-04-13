@@ -9,14 +9,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             Droplets droplet = HelpfullRetreiveFunctions.getDropletOnSensor(container, sensor);
             if(droplet == null)
             {
-                Console.WriteLine("DIDNT FIND DROPLET");
-                return null;
+                
+                return new int[] {-1, -1, -1};
             }
             else
             {
-                Console.WriteLine("FOUND DROPLET WITH ID" + droplet.ID);
-                Color color = Color.FromName(droplet.color);
-                Console.WriteLine("FOUND DROPLET WITH COLOR 1" + color.R);
+                
+                Color color = ColorTranslator.FromHtml(droplet.color);
+                
                 return new int[] { color.R, color.G, color.B };
             }
         }

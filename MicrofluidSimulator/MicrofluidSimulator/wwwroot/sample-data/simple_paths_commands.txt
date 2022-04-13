@@ -46,5 +46,19 @@ Sent: setel 0 303 207 66
 Sent: setel 1 3 174 382 220 
 Sent: clrel 0 293 217 184 
 Sent: clrel 1 4 164 381 221 
-Sent: setel 0 313 208 76 
+Sent: setel 0 313 206 76 
 Sent: setel 1 2 175 383 219 
+Sent: clrel 0 303 207 66 
+Sent: clrel 1 3 174 382 220 
+Sent: setel 0 205 
+Sent: setel 0 205 
+Sent: clrel 0 206 
+Sent: clrel 0 206 
+Sent: setel 0 195 
+Sent: setel 0 195 
+Sent: clrel 0 205 
+Sent: clrel 0 205 
+Sent: setel 0 313 
+Sent: setel 0 313 
+Sent: clrel 0 195 
+Sent: clrel 0 195 
