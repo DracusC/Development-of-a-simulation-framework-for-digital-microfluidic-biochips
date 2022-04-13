@@ -37,9 +37,17 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return -1;
         }
 
-        internal static Queue<ActionQueueItem>? createDeepCopyOfActionQueue(Queue<ActionQueueItem> actionQueue)
+        public static Queue<ActionQueueItem>? createDeepCopyOfActionQueue(Queue<ActionQueueItem> actionQueue)
         {
-            throw new NotImplementedException();
+            Queue<ActionQueueItem> copyOfQueue = new Queue<ActionQueueItem>();
+
+            foreach(ActionQueueItem item in actionQueue)
+            {
+                SimulatorAction newAction = new SimulatorAction(item.action.actionName, item.action.actionOnID, item.action.actionOnID);
+                ActionQueueItem newItem = new ActionQueueItem(newAction, item.time);
+                copyOfQueue.Enqueue(newItem);
+            }
+            return copyOfQueue;
         }
 
         public static float getAreaOfDroplet(Droplets caller)

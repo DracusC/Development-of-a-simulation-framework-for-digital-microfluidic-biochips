@@ -27,7 +27,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
             this.container = container;
             this.initialActionQueue = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(this.actionQueue);
-            this.initialActionQueue = new Queue<ActionQueueItem>(this.actionQueue);
+            //this.initialActionQueue = new Queue<ActionQueueItem>(this.actionQueue);
             this.initialContainer = HelpfullRetreiveFunctions.createCopyAndResetContainer(container);
             
             
