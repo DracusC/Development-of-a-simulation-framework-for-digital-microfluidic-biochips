@@ -28,7 +28,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                     if (dist < (radius1 + radius2))
                     {
-                        Console.WriteLine("IN HERE2");
+                        
                         bubble.sizeX += bubbles[i].sizeX;
                         bubble.sizeY += bubbles[i].sizeY;
 
@@ -180,7 +180,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             if (droplet.temperature >= 90 && (container.timeStep >= 0.5 || droplet.accumulatingBubbleSize >= 0.5) )
             {
                 droplet.accumulatingBubbleSize += container.timeStep;
-                Console.WriteLine("SPLITTING FOR DROPLET " + droplet.ID);
+                
                 Random rnd = new Random();
                 
                     
@@ -191,7 +191,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     splitSize = droplet.sizeX * 0.8;
                 }
 
-                Console.WriteLine("SPLITSIZE" + splitSize);
+                
                 int signX = rnd.Next(3);
                 int signY = rnd.Next(3);
 

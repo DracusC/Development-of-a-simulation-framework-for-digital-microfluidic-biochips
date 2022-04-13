@@ -13,7 +13,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             {
                 
                 itemToPush.time += timeSkip;
-                Console.WriteLine("DEQUING ITEM "+ itemToPush.action.actionName + " , " + itemToPush.action.actionOnID + ", " + itemToPush.time);
+                
                 // add the original queues elements to the end of the new queue
                 actionQueueToPush.Enqueue(itemToPush);
             }

@@ -26,7 +26,7 @@ namespace MicrofluidSimulator.DumbVM
 
             this.turnOnHeaterAtTime(10, 100, 727);
             this.pushActionsAtTime(10, this.queueToPush);
-            Console.WriteLine("doApiCall CALLED");
+            
             
 
         }
@@ -38,7 +38,7 @@ namespace MicrofluidSimulator.DumbVM
 
                 Queue<ActionQueueItem> copyOfQueueToPush = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(queueToPush);
                 Queue<ActionQueueItem> copyOfQueueToPushForTimeCalculation = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(queueToPush);
-                Console.WriteLine("CURRENT TIME " + simulator.container.currentTime);
+                
                 foreach(ActionQueueItem item in copyOfQueueToPush)
                 {
                     item.time += simulator.container.currentTime;
@@ -73,18 +73,10 @@ namespace MicrofluidSimulator.DumbVM
                 accumulatedTime = max - min;
             }
 
-            Console.WriteLine("ORIGINAL ACTIONQUEUE ACCUM TIME" + accumulatedTime );
-            foreach(ActionQueueItem item in simulator.actionQueue)
-            {
-                Console.WriteLine("ITEM IN  ACTIONQUEUE " + item.action.actionName + " , " + item.action.actionOnID + ", " + item.time);
-            }
+            
 
             simulator.actionQueue = ActionQueueModels.pushActionQueueToStartOfOriginalActionQueue(simulator.actionQueue, copyOfQueueToPush, accumulatedTime);
-            Console.WriteLine("AFTER CALL ACTIONQUEUE ");
-            foreach (ActionQueueItem item in simulator.actionQueue)
-            {
-                Console.WriteLine("ITEM IN  ACTIONQUEUE " + item.action.actionName + " , " + item.action.actionOnID + ", " + item.time);
-            }
+            
 
         }
 
