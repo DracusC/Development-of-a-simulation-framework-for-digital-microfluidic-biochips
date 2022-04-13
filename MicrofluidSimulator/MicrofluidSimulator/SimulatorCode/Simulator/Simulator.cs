@@ -792,12 +792,17 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         private Queue<ActionQueueItem> generateTestQueueFromReader(string generatedActionQueue, Container container)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
+
+            SimulatorAction dummyAction = new SimulatorAction("electrode", 1, 0);
+            ActionQueueItem dummyItem = new ActionQueueItem(dummyAction, 1);
+            //actionQueueInstructions.Enqueue(dummyItem);
+
             int counter = 0;
-            int timeStep = 0;
+            int timeStep = 1;
             foreach (string line in generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             { 
             
-                if (counter % 2 == 0)
+                if (counter % 2 == 0 && counter != 0)
                 {
                     timeStep++;
                 }

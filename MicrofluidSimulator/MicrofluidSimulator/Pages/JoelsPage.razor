@@ -126,6 +126,7 @@
         PlayButtonText = PlayButtonText.Equals("Play") ? "Pause" : "Play";
         InvokeAsync(() => StateHasChanged());
         guibroker.change_play_status();
+        guibroker.start_simulator_time();
     }
 
     [JSInvokable]
@@ -138,6 +139,7 @@
         //stopwatch.Stop();
         //Console.WriteLine("SW1: " + stopwatch.ElapsedMilliseconds);
         if(PlayButtonText == "Play") { guibroker.animate_once(); }
+        Console.WriteLine("SIM CUR TIME: " + simulator.container.currentTime);
         guibroker.update_board(simulator.container);
     }
     [JSInvokable]
@@ -166,7 +168,7 @@
         nextStepTime((float)sliderValue);
     }
 
-    public void Restart()
+    public static void Restart()
     {
         simulator.restartSimulator();
         guibroker.update_board(simulator.container);
@@ -174,30 +176,36 @@
     }
 
     // Download data - Doesnt quite work yet
-    public void DownloadData()
+    [JSInvokable]
+    public static void DownloadData()
     {
         Restart();
 
         // TEST
-        List<Container> dataList = new List<Container>();
+        //List<Container> dataList = new List<Container>();
 
         while(simulator.actionQueue.Count > 1)
         {
-            Console.WriteLine(simulator.actionQueue.Count);
-            Console.WriteLine("Current Time: " + simulator.container.currentTime);
+            //Console.WriteLine(simulator.actionQueue.Count);
+            //Console.WriteLine("Current Time: " + simulator.container.currentTime);
 
-            Container copy = new Container(simulator.container);
+            //Container copy = new Container(simulator.container);
 
-            Console.WriteLine("COPY CURRENT TIME ", copy.currentTime);
+            //Console.WriteLine("COPY CURRENT TIME ", copy.currentTime);
 
-            dataList.Add(copy);
+            //dataList.Add(copy);
+            string jsonStringForDownload = Utf8Json.JsonSerializer.ToJsonString(simulator.container);
+
+            //Console.WriteLine(jsonStringForDownload);
+
+            guibroker.send_download_data(jsonStringForDownload);
 
             nextStepTime(-1f);
         }
 
-        string jsonStringForDownload = Utf8Json.JsonSerializer.ToJsonString(dataList);
+        //string jsonStringForDownload = Utf8Json.JsonSerializer.ToJsonString(dataList);
 
-        guibroker.download_data(jsonStringForDownload);
+        guibroker.download_data();
 
         Restart();
 
@@ -292,6 +300,7 @@
             guibroker.set_jsprocess(JSInProcessRuntime);
             guibroker.set_unmarshall(JSUnmarshalledRuntime);
             guibroker.start_update_timer();
+            //Console.WriteLine(simulator.actionQueue.Peek().time);
             guibroker.update_board(simulator.container);
             guibroker.initialize_board(container.information);
         }

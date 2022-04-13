@@ -77,6 +77,7 @@ window.animate_once = () => {
 
 window.restart_board = () => {
     gui_broker.animate = false;
+    gui_broker.simulator_prev_time = 0;
     lerp_amount = 1;
 }
 
@@ -84,12 +85,21 @@ window.start_simulator_time = () => {
     gui_broker.simulator_time = Date.now();
 }
 
-window.download_data = (jsonData) => {
+window.download_data = () => {
+    let jsonData = JSON.stringify(gui_broker.data_to_download);
+
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonData);
     var dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href", dataStr);
     dlAnchorElem.setAttribute("download", "data.json");
     dlAnchorElem.click();
+
+    gui_broker.data_to_download = [];
+}
+
+window.send_download_data = (jsonData) => {
+    let obj = JSON.parse(jsonData);
+    gui_broker.data_to_download.push(obj);
 }
 
 window.gui_broker = gui_broker;

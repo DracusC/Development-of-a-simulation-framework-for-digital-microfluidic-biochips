@@ -128,7 +128,7 @@ let sketch = function (p) {
             lerp_amount = 0;
             gui_broker.animate = false;
 
-        } else if (gui_broker.play_status && !layer_manager.layers.draw_droplet_animations.checkbox.checked) {
+        } else if (gui_broker.play_status && !layer_manager.layers.draw_droplet_animations.checkbox.checked && !layer_manager.layers.real_time.checkbox.checked) {
             gui_broker.next_simulator_step();
 
         } else if (gui_broker.animate && lerp_amount >= 1) {
@@ -142,9 +142,9 @@ let sketch = function (p) {
 
         // Get next simulator step
         if (gui_broker.play_status && (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time) >= gui_broker.board.currentTime) {
-            console.log("Ellapsed time: " + ((Date.now() - gui_broker.simulator_time) / 1000) + " seconds", (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time), gui_broker.simulator_prev_time, gui_broker.board.currentTime);
+            console.log("Ellapsed time: " + ((Date.now() - gui_broker.simulator_time) / 1000) + " seconds", "Actual time: " + (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time),"Previous time: " + gui_broker.simulator_prev_time,"Current time: " + gui_broker.board.currentTime);
             lerp_amount = 1;
-            gui_broker.next_simulator_step();
+            gui_broker.next_simulator_step_time(-1);
         }
 
     }
