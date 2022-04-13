@@ -26,8 +26,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
             
             this.container = container;
-            //this.initialActionQueue = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(this.actionQueue);
-            this.initialActionQueue = new Queue<ActionQueueItem>(this.actionQueue);
+            this.initialActionQueue = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(this.actionQueue);
+            //this.initialActionQueue = new Queue<ActionQueueItem>(this.actionQueue);
             this.initialContainer = HelpfullRetreiveFunctions.createCopyAndResetContainer(container);
             
             
@@ -638,6 +638,15 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 return new int[] { -1, -1, -1 };
             } else
             {
+                int[] colorArray = ColorSensorModels.colorSensor(this.container, colorSensor);
+                if(colorArray != null)
+                {
+                    colorSensor.valueRed = colorArray[0];
+                    colorSensor.valueGreen = colorArray[1];
+                    colorSensor.valueBlue = colorArray[2];
+                    return colorSensor.GetColor();
+                }
+                
                 return colorSensor.GetColor();
              }
         }
@@ -792,12 +801,17 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         private Queue<ActionQueueItem> generateTestQueueFromReader(string generatedActionQueue, Container container)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
+
+            SimulatorAction dummyAction = new SimulatorAction("electrode", 1, 0);
+            ActionQueueItem dummyItem = new ActionQueueItem(dummyAction, 1);
+            //actionQueueInstructions.Enqueue(dummyItem);
+
             int counter = 0;
-            int timeStep = 0;
+            int timeStep = 1;
             foreach (string line in generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             { 
             
-                if (counter % 2 == 0)
+                if (counter % 2 == 0 && counter != 0)
                 {
                     timeStep++;
                 }
