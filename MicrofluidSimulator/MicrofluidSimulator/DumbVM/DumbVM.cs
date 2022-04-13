@@ -25,13 +25,19 @@ namespace MicrofluidSimulator.DumbVM
         {
 
             this.turnOnHeaterAtTime(10, 100, 727);
-            this.pushActionsAtTime(10, this.queueToPush);
+            Console.WriteLine("COLOR 1 " + this.readRGBValueOfColorSensorAtTime(simulator.container.currentTime, 725)[0]);
+            if (Enumerable.SequenceEqual(this.readRGBValueOfColorSensorAtTime(simulator.container.currentTime, 725), new int[] {255, 66, 0 })){
+                Console.WriteLine("READ COLOR " + 255 + ", " + 66 + ", " + 0);
+                this.pushActionsAtTime(simulator.container.currentTime, this.queueToPush);
+            }
             
-            
+
+
+
 
         }
 
-        private void pushActionsAtTime(int time, Queue<ActionQueueItem> queueToPush)
+        private void pushActionsAtTime(float time, Queue<ActionQueueItem> queueToPush)
         {
             if (simulator.container.currentTime == time)
             {
@@ -85,6 +91,7 @@ namespace MicrofluidSimulator.DumbVM
             float currentSimulatorTime = simulator.container.currentTime;
             if(currentSimulatorTime == time)
             {
+                
                 simulator.setActuatorTargetTemperature(heaterID, desiredTemperature);
             }
         }
@@ -102,139 +109,139 @@ namespace MicrofluidSimulator.DumbVM
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
             SimulatorAction action1 = new SimulatorAction("electrode", 100, 1);
-            ActionQueueItem item1 = new ActionQueueItem(action1, 1+ currentTime);
+            ActionQueueItem item1 = new ActionQueueItem(action1, 0.1F+ currentTime);
             actionQueueInstructions.Enqueue(item1);
 
             SimulatorAction action2 = new SimulatorAction("electrode", 101, 1);
-            ActionQueueItem item2 = new ActionQueueItem(action2, 1+ currentTime);
+            ActionQueueItem item2 = new ActionQueueItem(action2, 0.1F+ currentTime);
             actionQueueInstructions.Enqueue(item2);
 
             SimulatorAction action3 = new SimulatorAction("electrode", 34, 1);
-            ActionQueueItem item3 = new ActionQueueItem(action3, 3+ currentTime);
+            ActionQueueItem item3 = new ActionQueueItem(action3, 0.3F+ currentTime);
             actionQueueInstructions.Enqueue(item3);
 
             SimulatorAction action4 = new SimulatorAction("electrode", 2, 1);
-            ActionQueueItem item4 = new ActionQueueItem(action4, 4+ currentTime);
+            ActionQueueItem item4 = new ActionQueueItem(action4, 0.4F+ currentTime);
             actionQueueInstructions.Enqueue(item4);
 
             SimulatorAction action5 = new SimulatorAction("electrode", 2, 0);
-            ActionQueueItem item5 = new ActionQueueItem(action5, 5+ currentTime);
+            ActionQueueItem item5 = new ActionQueueItem(action5, 0.5F+ currentTime);
             actionQueueInstructions.Enqueue(item5);
 
             SimulatorAction action6 = new SimulatorAction("electrode", 100, 1);
-            ActionQueueItem item6 = new ActionQueueItem(action6, 6+ currentTime);
+            ActionQueueItem item6 = new ActionQueueItem(action6, 0.6F+ currentTime);
             actionQueueInstructions.Enqueue(item6);
 
             SimulatorAction action7 = new SimulatorAction("electrode", 102, 1);
-            ActionQueueItem item7 = new ActionQueueItem(action7, 7+ currentTime);
+            ActionQueueItem item7 = new ActionQueueItem(action7, 0.7F+ currentTime);
             actionQueueInstructions.Enqueue(item7);
 
             SimulatorAction action8 = new SimulatorAction("electrode", 103, 1);
-            ActionQueueItem item8 = new ActionQueueItem(action8, 8+ currentTime);
+            ActionQueueItem item8 = new ActionQueueItem(action8, 0.8F+ currentTime);
             actionQueueInstructions.Enqueue(item8);
 
             SimulatorAction action9 = new SimulatorAction("electrode", 104, 1);
-            ActionQueueItem item9 = new ActionQueueItem(action9, 9+ currentTime);
+            ActionQueueItem item9 = new ActionQueueItem(action9, 0.9F+ currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             SimulatorAction action10 = new SimulatorAction("electrode", 101, 1);
-            ActionQueueItem item10 = new ActionQueueItem(action10, 10+ currentTime);
+            ActionQueueItem item10 = new ActionQueueItem(action10, 0.10F+ currentTime);
             actionQueueInstructions.Enqueue(item10);
 
             action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F+ currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
             action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9+ currentTime);
+            item9 = new ActionQueueItem(action9, 0.9F + currentTime);
             actionQueueInstructions.Enqueue(item9);
 
 

@@ -638,6 +638,15 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 return new int[] { -1, -1, -1 };
             } else
             {
+                int[] colorArray = ColorSensorModels.colorSensor(this.container, colorSensor);
+                if(colorArray != null)
+                {
+                    colorSensor.valueRed = colorArray[0];
+                    colorSensor.valueGreen = colorArray[1];
+                    colorSensor.valueBlue = colorArray[2];
+                    return colorSensor.GetColor();
+                }
+                
                 return colorSensor.GetColor();
              }
         }

@@ -175,13 +175,38 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
             ArrayList subscribtions = new ArrayList();
 
-            
-            
-            if (droplet.temperature >= 90 && (container.timeStep >= 0.5 || droplet.accumulatingBubbleSize >= 0.5) )
+            Random rnd = new Random();
+            if (droplet.temperature >= 90 && droplet.volume <= 10)
             {
+
+                ArrayList dropletSubscritions = droplet.subscriptions;
+                foreach (int n in dropletSubscritions)
+                {
+
+                    container.electrodes[n].subscriptions.Remove(droplet.ID);
+                }
+                container.subscribedDroplets.Remove(droplet.ID);
+                //caller.Subscriptions = new ArrayList();
+                float volume = droplet.volume;
+                
+                int removedDropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(droplet.electrodeID, container);
+                Electrode removedDropletElectrode = container.electrodes[removedDropletElectrodeIndex];
+
+                double splitAmount = droplet.volume;
+                double splitSize = HelpfullRetreiveFunctions.getDiameterOfBubble(splitAmount);
+                
+                int id = rnd.Next(10000000);
+                Bubbles bubble = new Bubbles("test bubble", id, droplet.positionX, droplet.positionY, (int)splitSize, (int)splitSize);
+                container.bubbles.Add(bubble);
+                container.subscribedBubbles.Add(bubble.ID);
+                container.droplets.Remove(droplet);
+                return subscribtions;
+            }
+            else if (droplet.temperature >= 90 && (container.timeStep >= 0.5 || droplet.accumulatingBubbleSize >= 0.5) )
+            {
+                
                 droplet.accumulatingBubbleSize += container.timeStep;
                 
-                Random rnd = new Random();
                 
                     
                 double splitAmount = 0.1 * droplet.sizeX * droplet.accumulatingBubbleSize;
@@ -192,8 +217,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 }
 
                 
-                int signX = rnd.Next(3);
-                int signY = rnd.Next(3);
+                int signX = rnd.Next(2);
+                int signY = rnd.Next(2);
 
                 int toAddX = (-2 * signX) + 1;
                 int toAddY = (-2 * signY) + 1;
@@ -207,7 +232,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 droplet.sizeX = DropletUtillityFunctions.getDiameterOfDroplet(droplet.volume);
                 droplet.sizeY = DropletUtillityFunctions.getDiameterOfDroplet(droplet.volume);
                 
-                bubble.subscriptions.Add(droplet.ID);
+                //bubble.subscriptions.Add(droplet.ID);
 
                 // move bubble
                 moveBubbleAccordingToGroup(container, droplet, bubble);
