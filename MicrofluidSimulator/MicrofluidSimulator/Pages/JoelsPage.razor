@@ -278,7 +278,8 @@
                 break;
         }
 
-        simulator.simulatorRunAllModels();
+        simulator.simulatorStep(-2);
+        //simulator.simulatorRunAllModels();
         guibroker.update_board(simulator.container);
     }
 

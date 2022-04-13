@@ -9,6 +9,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     {
         public static ArrayList dropletSplit(Container container, Droplets caller)
         {   
+            //split function for the droplet
             ArrayList subscribers = new ArrayList();   
             subscribers.Add(caller.ID);
 
@@ -28,7 +29,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 
 
                 
-                if (tempElectrode.status > 0 && (ElectrodeModels.electrodeHasDroplet(tempElectrode,container) == null) && allowSplit(container,caller) && DropletUtillityFunctions.dropletOverlapElectrode(container,caller,tempElectrode))
+                if (tempElectrode.status > 0 && (ElectrodeModels.electrodeHasDroplet(tempElectrode,container) == null) && DropletUtillityFunctions.dropletOverlapElectrode(container,caller,tempElectrode))
                 {
                     toSplitToo.Add(indexForElectrode);
                 }
@@ -44,6 +45,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 }
                 return subscribers;
             }
+            //Part of the code that allows big droplets to split off smaller droplets
             else if(caller.subscriptions.Count > 5)
             {
                 foreach(int sub in caller.subscriptions)
@@ -51,25 +53,39 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     Electrode tempElectrode = electrodeBoard[sub];
                     if(tempElectrode.status == 1 && (ElectrodeModels.electrodeHasDroplet(tempElectrode, container) == null) && caller.volume > 1080)
                     {
+                        bool allowBorderSplit  = false;
+                        foreach(int neighbour in tempElectrode.neighbours)
+                        {
+                            int indexForElectrode = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
+                            Electrode neigbourElectrode = electrodeBoard[indexForElectrode];
+                            if (!DropletUtillityFunctions.dropletOverlapElectrode(container,caller, neigbourElectrode))
+                            {
+                                allowBorderSplit = true;
+                                break;
+                            }
+                        }
+                        if (allowBorderSplit)
+                        {
+                            int[] centerOfElectrode = ElectrodeModels.getCenterOfElectrode(tempElectrode);
+                            int electrodeCenterX = centerOfElectrode[0];
+                            int electrodeCenterY = centerOfElectrode[1];
 
-                        int[] centerOfElectrode = ElectrodeModels.getCenterOfElectrode(tempElectrode);
-                        int electrodeCenterX = centerOfElectrode[0];
-                        int electrodeCenterY = centerOfElectrode[1];
+                            Random rnd = new Random();
+                            int id = rnd.Next(10000000);
+                            string color = caller.color;
+                            int diam = DropletUtillityFunctions.getDiameterOfDroplet(360);
+                            Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, diam, diam, color, caller.temperature, 360, tempElectrode.ID, id, caller.accumulatingBubbleSize);
+                            droplets.Add(newDroplet);
+                            subscribers.Add(newDroplet.ID);
+                            container.subscribedDroplets.Add(newDroplet.ID);
+                            int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(id, container);
 
-                        Random rnd = new Random();
-                        int id = rnd.Next(10000000);
-                        string color = caller.color;
-                        int diam = DropletUtillityFunctions.getDiameterOfDroplet(360);
-                        Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, diam, diam, color, caller.temperature, 360, tempElectrode.ID, id, caller.accumulatingBubbleSize);
-                        droplets.Add(newDroplet);
-                        subscribers.Add(newDroplet.ID);
-                        container.subscribedDroplets.Add(newDroplet.ID);
-                        int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(id, container);
 
+                            SubscriptionModels.dropletSubscriptions(container, newDroplet);
+
+                            DropletUtillityFunctions.updateGroupVolume(container, caller.group, -360);
+                        }
                         
-                        SubscriptionModels.dropletSubscriptions(container, newDroplet);
-
-                        DropletUtillityFunctions.updateGroupVolume(container, caller.group, -360);
                     }
                 }
             }
@@ -79,26 +95,24 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         public static ArrayList splitDroplet(Container container, ArrayList toSplitToo, Droplets origin)
         {
+            // function that creates the new droplets based on the logic from dropletSplit
             List<Droplets> droplets = container.droplets;
             Electrode[] electrodeBoard = container.electrodes;
 
             ArrayList subscribers = new ArrayList();
-            //float totalAreaToSplitToo = 0;
-            //foreach (int i in toSplitToo)
-            //{
-            //    Electrode tempElectrode = electrodeBoard[i];
-            //    totalAreaToSplitToo += ElectrodeModels.getAreaOfElectrode(tempElectrode);
-            //}
 
             int indexForElectrode = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(origin.electrodeID, container);
             Electrode dropletElectrode = electrodeBoard[indexForElectrode];
 
+            //Check that ensures that a sufficent amount of electrodes are on, in case of a big droplet
+            //Fx a big droplet will need multiple electrodes to move it
             if (DropletUtillityFunctions.getAreaOfDroplet(origin)/3 > DropletUtillityFunctions.findAreaAllConnectedElectrodes(container, dropletElectrode, new ArrayList()))
             {
                 return subscribers;
             }
 
             {
+                //Spawns the new droplets
                 foreach (int i in toSplitToo)
                 {
 
@@ -108,19 +122,24 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     int electrodeCenterX = centerOfElectrode[0];
                     int electrodeCenterY = centerOfElectrode[1];
 
+                    //give a random id to the new droplet
                     Random rnd = new Random();
                     int id = rnd.Next(10000000);
                     string color = origin.color;
 
+                    //creates the droplet and adds it to the data in container
                     Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, origin.temperature, 0, tempElectrode.ID, origin.group, origin.accumulatingBubbleSize);
                     droplets.Add(newDroplet);
                     subscribers.Add(newDroplet.ID);
                     container.subscribedDroplets.Add(newDroplet.ID);
                     int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(id, container);
 
+                    //Initialize subscriptions of the new droplet
                     SubscriptionModels.dropletSubscriptions(container, newDroplet);
                 }
+                //Update group number origin droplet and all connected droplet, this is in case that the split have connected two groups together
                 DropletUtillityFunctions.updateGroupNumber(container, origin, origin.group);
+                //New droplets are spawned with volume 0, this call ensueres that all droplet in a group get their respective share of the volume
                 DropletUtillityFunctions.updateGroupVolume(container, origin.group, 0);
             }
 

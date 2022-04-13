@@ -29,9 +29,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             this.initialActionQueue = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(this.actionQueue);
             //this.initialActionQueue = new Queue<ActionQueueItem>(this.actionQueue);
             this.initialContainer = HelpfullRetreiveFunctions.createCopyAndResetContainer(container);
-            
-            
-            simulatorRunAllModels();
+
+
+            simulatorStep(-2);
             
             
         }
@@ -42,8 +42,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             this.container = HelpfullRetreiveFunctions.createCopyAndResetContainer(this.initialContainer);
             this.actionQueue = new Queue<ActionQueueItem>(this.initialActionQueue);
             this.droplets = this.container.droplets;
-            
-            simulatorRunAllModels();
+
+
+            simulatorStep(-2);
 
 
 
@@ -57,50 +58,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
         public Container initialContainer { get; set; }
 
-        //public void simulatorRun(Queue<ActionQueueItem> actionQueue)
-        //{
-        //    //test queue
-        //    actionQueue = generateTestQueue();
-
-        //    //Initialize all data, board of electrodes, droplets etc.
-        //    Initialize.Initialize init = new Initialize.Initialize();
-        //    Container container = init.initialize();
-        //    Droplets[] droplets = container.Droplets;
-        //    Electrodes[] electrodeBoard = container.Electrodes;   
-
-        //    //Loop that runs for all actions in the actionQueue
-        //    foreach(ActionQueueItem action in actionQueue)
-        //    {
-        //        Console.WriteLine("action number " + action.Time);
-
-        //        //Get the first action execute and get back the list of subscribers to the specific action
-        //        ArrayList subscribers = executeAction(action, container);
-        //        ArrayList subscribersCopy = new ArrayList();
-        //        foreach (int subscriber in subscribers)
-        //        {
-        //            subscribersCopy.Add(subscriber);
-        //        }
-
-        //        foreach (int subscriber in subscribersCopy)
-        //        {
-        //            Droplets droplet = droplets[subscriber];
-        //            MicrofluidSimulator.SimulatorCode.Models.DropletModels.dropletMovement(container, droplet);
-        //            Models.SubscriptionModels.dropletSubscriptions(container, droplet);
-        //            Console.WriteLine(droplet.ToString());
-        //            ArrayList dropletSubscritions = droplet.Subscriptions;
-        //        }
-        //    }
-        //    //DataTypes.ActionQueueItem action = actionQueue[0];
-        //    //executeAction(action, initValues);
-        //}
-
-        // called from joelspage
-
-        //double splitTime = 0;
-        //double mergeTime = 0;
-        //double tempTime = 0;
-        //double colorTime = 0;
-        //double bubbleTime = 0;
+       
         public void simulatorStep(float timeStepLength)
         {
             float maximumTimeStep = 0.1f;
@@ -108,8 +66,20 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             float targetTime = container.currentTime + timeStepLength;
             bool executeAStep = false;
             bool mustRunAllModels = false;
+            bool mustRunAllModelsOnInputFromGui = false;
 
-            
+
+            if (timeStepLength == -2)
+            {
+                mustRunAllModelsOnInputFromGui = true;
+                targetTime = container.currentTime;
+                List<Droplets> droplets = container.droplets;
+                foreach (Droplets droplet in droplets)
+                {
+                    SubscriptionModels.dropletSubscriptions(container, droplet);
+                }
+            }
+
             if (timeStepLength == -1)
             {
                 if (actionQueue.Count > 1)
@@ -134,7 +104,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             //var stopwatchO = new System.Diagnostics.Stopwatch();
             //stopwatchO.Start();
 
-            while (targetTime > container.currentTime || executeAStep)
+            while (targetTime > container.currentTime || executeAStep || mustRunAllModelsOnInputFromGui)
             {
                
                 ArrayList subscribers = new ArrayList();
@@ -274,7 +244,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 foreach (int subscriber in subscribers)
                 {
                     subscriberQueue.Enqueue(subscriber);
-                    if (!mustRunAllModels)
+                    if (!mustRunAllModels && !mustRunAllModelsOnInputFromGui)
                     {
                         int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
                         Droplets droplet = (Droplets)droplets[index];
@@ -363,9 +333,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     }
 
                 }
-                
 
-                
+
+                mustRunAllModelsOnInputFromGui = false;
                 container.currentTime = container.currentTime + container.timeStep;
 
             }
@@ -447,46 +417,46 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
      
 
-        public void simulatorRunAllModels()
-        {
-            Console.WriteLine("This method was inacted based on an edit of variables!");
-            List<Droplets> droplets = container.droplets;
-            Electrode[] electrodes = container.electrodes;
-            foreach (Droplets droplet in droplets)
-            {
-                SubscriptionModels.dropletSubscriptions(container, droplet);
-            }
+        //public void simulatorRunAllModels()
+        //{
+        //    Console.WriteLine("This method was inacted based on an edit of variables!");
+        //    List<Droplets> droplets = container.droplets;
+        //    Electrode[] electrodes = container.electrodes;
+        //    foreach (Droplets droplet in droplets)
+        //    {
+        //        SubscriptionModels.dropletSubscriptions(container, droplet);
+        //    }
 
-            container.timeStep = 0;
-            ArrayList subscribers = container.subscribedDroplets;
-            Queue<int> subscriberQueue = new Queue<int>();
-            foreach (int subscriber in subscribers)
-            {
-                subscriberQueue.Enqueue(subscriber);
-                //Console.WriteLine("ENQUING " + subscriber);
-            }
+        //    container.timeStep = 0;
+        //    ArrayList subscribers = container.subscribedDroplets;
+        //    Queue<int> subscriberQueue = new Queue<int>();
+        //    foreach (int subscriber in subscribers)
+        //    {
+        //        subscriberQueue.Enqueue(subscriber);
+        //        //Console.WriteLine("ENQUING " + subscriber);
+        //    }
 
-            //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
-            while (subscriberQueue.Count() > 0)
-            {
-                int subscriber = subscriberQueue.Dequeue();
-                int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
-                if (index != -1)
-                {
-                    Droplets droplet = (Droplets)droplets[index];
-                    handelSubscriber(container, droplet, subscriberQueue);
-                }
-            }
+        //    //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
+        //    while (subscriberQueue.Count() > 0)
+        //    {
+        //        int subscriber = subscriberQueue.Dequeue();
+        //        int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
+        //        if (index != -1)
+        //        {
+        //            Droplets droplet = (Droplets)droplets[index];
+        //            handelSubscriber(container, droplet, subscriberQueue);
+        //        }
+        //    }
 
             
 
-            int num = 0;
-            foreach(int i in container.subscribedDroplets)
-            {
-                num++;
-            }
-            Console.WriteLine("there are now :" + num + " droplets");
-        }
+        //    int num = 0;
+        //    foreach(int i in container.subscribedDroplets)
+        //    {
+        //        num++;
+        //    }
+        //    Console.WriteLine("there are now :" + num + " droplets");
+        //}
 
         private void handelSubscriber(Container container, Droplets caller, Queue<int> subscriber)
         {

@@ -14,9 +14,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
             Electrode dropletElectrode = electrodeBoard[dropletElectrodeIndex];
 
+            //Merge in case a droplet merges into another droplet, the status of the lectrode must be off
             if (dropletElectrode.status == 0)
             {
-
+                //find out how many it must merge to
                 ArrayList onNeighbours = new ArrayList();
                 foreach (int neighbour in dropletElectrode.neighbours)
                 {
@@ -27,6 +28,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                         onNeighbours.Add(neighbour);
                     }
                 }
+                //if there are neigbouring droplets that are on ON electrodes merge is initiated
                 if (onNeighbours.Count > 0)
                 {
                     ArrayList dropletSubscritions = caller.subscriptions;
