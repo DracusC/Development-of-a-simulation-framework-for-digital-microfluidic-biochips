@@ -40,19 +40,21 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
 
         public void SetPowerStatus()
         {
-            if (this.valueDesiredTemperature == this.valueActualTemperature)
+            if (this.valueActualTemperature == this.valueDesiredTemperature)
             {
                 this.valuePowerStatus = 0;
             }
             else if (this.valueActualTemperature < this.valueDesiredTemperature)
             {
                 
-                this.valuePowerStatus = 1;
+                this.valuePowerStatus = 0.78F;
                 
             }
             else
             {
-                this.valuePowerStatus = -1;
+               
+                //currently we are using a negative powerstatus to decrease the temperature of the heater
+                this.valuePowerStatus = - -0.58F;
                 
             }
         }
