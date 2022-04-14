@@ -31,6 +31,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 //if there are neigbouring droplets that are on ON electrodes merge is initiated
                 if (onNeighbours.Count > 0)
                 {
+                    
+                    DropletTemperatureModels.updateGroupTemperature(container, caller.group, caller);
                     ArrayList dropletSubscritions = caller.subscriptions;
                     foreach (int n in dropletSubscritions)
                     {
@@ -40,12 +42,13 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     container.subscribedDroplets.Remove(caller.ID);
                     //caller.Subscriptions = new ArrayList();
                     float volume = caller.volume;
-                    Color color = ColorTranslator.FromHtml(caller.color);
                     int groupId = caller.group;
+                    Color color = ColorTranslator.FromHtml(caller.color);
+                    
                     int removedDropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
                     Electrode removedDropletElectrode = electrodeBoard[removedDropletElectrodeIndex];
 
-
+                    
                     droplets.Remove(caller);
 
 
@@ -152,6 +155,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                                 if (dist < (caller.sizeX/2 + otherDroplet.sizeX/2))
                                 {
+                                    DropletTemperatureModels.updateGroupTemperature(container, caller.group, otherDroplet);
                                     ArrayList dropletSubscritions = otherDroplet.subscriptions;
                                     foreach (int n in dropletSubscritions)
                                     {
@@ -194,6 +198,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                             {
                                 if (DropletUtillityFunctions.getGroupVolume(container, caller.group) > DropletUtillityFunctions.getGroupVolume(container, otherDroplet.group))
                                 {
+                                    DropletTemperatureModels.updateGroupTemperature(container, caller.group, otherDroplet);
                                     ArrayList dropletSubscritions = otherDroplet.subscriptions;
                                     foreach (int n in dropletSubscritions)
                                     {

@@ -57,7 +57,38 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         }
 
         
+        public static void updateGroupTemperature(Container container, int group, Droplets droplet)
+        {
+            
+            float groupMassTempHeatCapacity = 0;
+            float groupMassHeatCapacity = 0;
+                
 
-        
+            List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container, group);
+
+            foreach (Droplets dropletInGroup in groupMembers)
+            {
+                if(dropletInGroup.ID != droplet.ID)
+                {
+                    float temperatureOfDropletInGroup = dropletInGroup.temperature;
+                    float massOfDropletInGroup = HelpfullRetreiveFunctions.getMassOfDropletGivenSubstance(dropletInGroup);
+                    float heatCapacityOfDropletInGroup = HelpfullRetreiveFunctions.getHeatCapacityOfDropletGivenSubstance(dropletInGroup);
+
+                    groupMassTempHeatCapacity += temperatureOfDropletInGroup * massOfDropletInGroup * heatCapacityOfDropletInGroup;
+                    groupMassHeatCapacity += massOfDropletInGroup * heatCapacityOfDropletInGroup;
+                }
+                
+            }
+            float dropletMassTempHeatCapacity = droplet.temperature * HelpfullRetreiveFunctions.getMassOfDropletGivenSubstance(droplet) * HelpfullRetreiveFunctions.getHeatCapacityOfDropletGivenSubstance(droplet);
+            float dropletMassHeatCapacity = HelpfullRetreiveFunctions.getMassOfDropletGivenSubstance(droplet) * HelpfullRetreiveFunctions.getHeatCapacityOfDropletGivenSubstance(droplet);
+            float newTemperature = (groupMassTempHeatCapacity + dropletMassTempHeatCapacity) / (groupMassHeatCapacity + dropletMassHeatCapacity);
+            foreach (Droplets dropletInGroup in groupMembers)
+            {
+                dropletInGroup.temperature = newTemperature;
+            }
+            droplet.temperature = newTemperature;
+        }
+
+
     }
 }
