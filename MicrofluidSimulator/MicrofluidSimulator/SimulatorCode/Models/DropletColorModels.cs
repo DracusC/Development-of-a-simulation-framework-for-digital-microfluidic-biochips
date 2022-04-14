@@ -6,7 +6,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class DropletColorModels
     {
-        public static ArrayList dropletColorChange(Container container, Droplets caller)
+        public static ArrayList deprecatedDropletColorChange(Container container, Droplets caller)
         {
 
             ArrayList groupColors = new ArrayList();
@@ -33,11 +33,22 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             foreach (Droplets droplet in groupMembers)
             {
                 droplet.color = $"#{r:X2}{g:X2}{b:X2}";
+            
             }
 
 
             //return $"#{r:X2}{g:X2}{b:X2}";
             
+            ArrayList subscribers = new ArrayList();
+            subscribers.Add(caller.ID);
+            return subscribers;
+        }
+
+        public static ArrayList dropletColorChange(Container container, Droplets caller)
+        {
+            Color color = ColorTranslator.FromHtml(caller.color);
+            DropletUtillityFunctions.updateGroupColor(container, caller.group, color, 0);
+
             ArrayList subscribers = new ArrayList();
             subscribers.Add(caller.ID);
             return subscribers;

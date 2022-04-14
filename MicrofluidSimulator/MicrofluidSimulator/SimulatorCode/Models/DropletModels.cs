@@ -139,7 +139,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 }
                 //Update group number origin droplet and all connected droplet, this is in case that the split have connected two groups together
                 DropletUtillityFunctions.updateGroupNumber(container, origin, origin.group);
+                
+                
+                Color originColor = ColorTranslator.FromHtml(origin.color);
                 //New droplets are spawned with volume 0, this call ensueres that all droplet in a group get their respective share of the volume
+                DropletUtillityFunctions.updateGroupColor(container, origin.group, originColor, 0);
                 DropletUtillityFunctions.updateGroupVolume(container, origin.group, 0);
             }
 

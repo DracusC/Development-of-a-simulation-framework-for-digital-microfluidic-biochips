@@ -819,19 +819,17 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             ActionQueueItem item1 = new ActionQueueItem(action1, timeStep+2);
             SimulatorAction action13 = new SimulatorAction("electrode", 419, 0);
             ActionQueueItem item13 = new ActionQueueItem(action13, timeStep+3);
-            SimulatorAction action2 = new SimulatorAction("electrode", 483, 1);
-            ActionQueueItem item2 = new ActionQueueItem(action2, timeStep+4);
+            
             SimulatorAction action3 = new SimulatorAction("electrode", 451, 0);
             ActionQueueItem item3 = new ActionQueueItem(action3, timeStep+5);
-            SimulatorAction action4 = new SimulatorAction("electrode", 483, 0);
-            ActionQueueItem item4 = new ActionQueueItem(action3, timeStep + 6);
+            
 
             actionQueueInstructions.Enqueue(item12);
             actionQueueInstructions.Enqueue(item1);
             actionQueueInstructions.Enqueue(item13);
-            actionQueueInstructions.Enqueue(item2);
+           
             actionQueueInstructions.Enqueue(item3);
-            actionQueueInstructions.Enqueue(item4);
+            
 
             
             

@@ -40,6 +40,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     container.subscribedDroplets.Remove(caller.ID);
                     //caller.Subscriptions = new ArrayList();
                     float volume = caller.volume;
+                    Color color = ColorTranslator.FromHtml(caller.color);
                     int groupId = caller.group;
                     int removedDropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
                     Electrode removedDropletElectrode = electrodeBoard[removedDropletElectrodeIndex];
@@ -106,6 +107,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                         foreach (Droplets droplet in neighbouringDroplets)
                         {
+                            DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
                             DropletUtillityFunctions.updateGroupVolume(container, droplet.group, volume / neighbouringDroplets.Count);
 
                         }
@@ -154,9 +156,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                                 //caller.Subscriptions = new ArrayList();
                                 float volume = otherDroplet.volume;
                                 int groupId = otherDroplet.group;
-
+                                Color color = ColorTranslator.FromHtml(otherDroplet.color);
                                 droplets.Remove(otherDroplet);
                                 Console.WriteLine("removed a droplet");
+                                DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
                                 DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
                             }
                         }
@@ -186,10 +189,13 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                                 container.subscribedDroplets.Remove(otherDroplet.ID);
                                 //caller.Subscriptions = new ArrayList();
                                 float volume = otherDroplet.volume;
+                                Color color = ColorTranslator.FromHtml(otherDroplet.color);
                                 int groupId = otherDroplet.group;
-
+                                
+                                
                                 droplets.Remove(otherDroplet);
                                 Console.WriteLine("removed a droplet");
+                                DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
                                 DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
                             }
 

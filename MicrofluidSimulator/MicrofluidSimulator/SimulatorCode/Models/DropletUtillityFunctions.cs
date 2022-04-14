@@ -1,5 +1,6 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
 using System.Collections;
+using System.Drawing;
 namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class DropletUtillityFunctions
@@ -236,6 +237,48 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return minIndex;
         }
 
+        public static void updateGroupColor(Container container, int group, Color color, float volume)
+        {
+            ArrayList groupColors = new ArrayList();
+            float groupVolume = DropletUtillityFunctions.getGroupVolume(container, group);
+            List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container, group);
+
+            foreach (Droplets dropletInGroup in groupMembers)
+            {
+                groupColors.Add(ColorTranslator.FromHtml(dropletInGroup.color));
+            }
+
+            int r = 0;
+            int g = 0;
+            int b = 0;
+            foreach (Color c in groupColors)
+            {
+                r += c.R;
+                g += c.G;
+                b += c.B;
+            }
+            r /= groupColors.Count;
+            g /= groupColors.Count;
+            b /= groupColors.Count;
+            
+            float amount = volume / groupVolume;
+
+            //Console.WriteLine("AMOUNT AND R G B " + amount + ", {" + r + ", " + g + ", " + b + "}");
+            // https://stackoverflow.com/questions/3722307/is-there-an-easy-way-to-blend-two-system-drawing-color-values
+
+            float red = (color.R * amount + r * (1 - amount));
+            float green = (color.G * amount + g * (1 - amount));
+            float blue = (color.B * amount + b * (1 - amount));
+
+
+            //Console.WriteLine("AMOUNT AND RED GREEN BLUE " + amount + ", {" + red + ", " + green + ", " + blue + "}");
+            foreach (Droplets droplet in groupMembers)
+            {
+                //Console.WriteLine("DROPLET ID BEFORE COLOR " + droplet.ID + ", " + droplet.color);
+                droplet.color = $"#{(int)red:X2}{(int)green:X2}{(int)blue:X2}";
+                //Console.WriteLine("DROPLET ID AFTER COLOR " + droplet.ID + ", " + droplet.color);
+            }
+        }
         // minimum distance from point to line segement
         //https://www.geeksforgeeks.org/minimum-distance-from-a-point-to-the-line-segment-using-vectors/
         static double minDistance(Point A, Point B, Point E)
