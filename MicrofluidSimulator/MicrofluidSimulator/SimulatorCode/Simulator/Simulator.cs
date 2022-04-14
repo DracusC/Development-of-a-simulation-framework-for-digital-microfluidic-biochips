@@ -77,6 +77,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 foreach (Droplets droplet in droplets)
                 {
                     SubscriptionModels.dropletSubscriptions(container, droplet);
+                    int diam = DropletUtillityFunctions.getDiameterOfDroplet(droplet.volume);
+                    droplet.sizeX = diam;
+                    droplet.sizeY = diam;
                 }
             }
 

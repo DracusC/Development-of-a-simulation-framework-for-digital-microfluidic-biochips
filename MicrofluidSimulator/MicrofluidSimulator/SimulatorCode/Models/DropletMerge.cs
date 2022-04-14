@@ -107,7 +107,6 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                         foreach (Droplets droplet in neighbouringDroplets)
                         {
-                            DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
                             DropletUtillityFunctions.updateGroupVolume(container, droplet.group, volume / neighbouringDroplets.Count);
 
                         }
@@ -146,57 +145,71 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                         {
                             if (DropletUtillityFunctions.getGroupVolume(container, caller.group) > DropletUtillityFunctions.getGroupVolume(container, otherDroplet.group))
                             {
-                                ArrayList dropletSubscritions = otherDroplet.subscriptions;
-                                foreach (int n in dropletSubscritions)
-                                {
+                                double x = Math.Pow(caller.positionX - otherDroplet.positionX, 2);
+                                double y = Math.Pow(caller.positionY - otherDroplet.positionY, 2);
 
-                                    electrodeBoard[n].subscriptions.Remove(otherDroplet.ID);
+                                double dist = Math.Sqrt(x + y);
+
+                                if (dist < (caller.sizeX/2 + otherDroplet.sizeX/2))
+                                {
+                                    ArrayList dropletSubscritions = otherDroplet.subscriptions;
+                                    foreach (int n in dropletSubscritions)
+                                    {
+
+                                        electrodeBoard[n].subscriptions.Remove(otherDroplet.ID);
+                                    }
+                                    container.subscribedDroplets.Remove(otherDroplet.ID);
+                                    //caller.Subscriptions = new ArrayList();
+                                    float volume = otherDroplet.volume;
+                                    int groupId = otherDroplet.group;
+                                    Color color = ColorTranslator.FromHtml(otherDroplet.color);
+                                    droplets.Remove(otherDroplet);
+                                    Console.WriteLine("removed a droplet");
+                                    DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
+                                    DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
                                 }
-                                container.subscribedDroplets.Remove(otherDroplet.ID);
-                                //caller.Subscriptions = new ArrayList();
-                                float volume = otherDroplet.volume;
-                                int groupId = otherDroplet.group;
-                                Color color = ColorTranslator.FromHtml(otherDroplet.color);
-                                droplets.Remove(otherDroplet);
-                                Console.WriteLine("removed a droplet");
-                                DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
-                                DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
+                                
                             }
                         }
                         else
                         {
-                            bool allowMergeOnOnelectrode = true;
+                            //bool allowMergeOnOnelectrode = true;
 
-                            foreach (int neighbour in tempElectrode.neighbours)
-                            {
-                                int indexForElectrode = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
-                                Electrode neigbourElectrode = electrodeBoard[indexForElectrode];
-                                if (!DropletUtillityFunctions.dropletOverlapElectrode(container, caller, neigbourElectrode))
-                                {
-                                    allowMergeOnOnelectrode = false;
-                                    break;
-                                }
-                            }
-                            allowMergeOnOnelectrode = false;
-                            if(allowMergeOnOnelectrode)
-                            {
-                                ArrayList dropletSubscritions = otherDroplet.subscriptions;
-                                foreach (int n in dropletSubscritions)
-                                {
+                            //foreach (int neighbour in tempElectrode.neighbours)
+                            //{
+                            //    int indexForElectrode = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
+                            //    Electrode neigbourElectrode = electrodeBoard[indexForElectrode];
+                            //    if (!DropletUtillityFunctions.dropletOverlapElectrode(container, caller, neigbourElectrode))
+                            //    {
+                            //        allowMergeOnOnelectrode = false;
+                            //        break;
+                            //    }
+                            //}
+                            double x = Math.Pow(caller.positionX - otherDroplet.positionX, 2);
+                            double y = Math.Pow(caller.positionY - otherDroplet.positionY, 2);
 
-                                    electrodeBoard[n].subscriptions.Remove(otherDroplet.ID);
+                            double dist = Math.Sqrt(x + y);
+
+                            if (dist + (otherDroplet.sizeX / 2)  < caller.sizeX/2)
+                            {
+                                if (DropletUtillityFunctions.getGroupVolume(container, caller.group) > DropletUtillityFunctions.getGroupVolume(container, otherDroplet.group))
+                                {
+                                    ArrayList dropletSubscritions = otherDroplet.subscriptions;
+                                    foreach (int n in dropletSubscritions)
+                                    {
+
+                                        electrodeBoard[n].subscriptions.Remove(otherDroplet.ID);
+                                    }
+                                    container.subscribedDroplets.Remove(otherDroplet.ID);
+                                    //caller.Subscriptions = new ArrayList();
+                                    float volume = otherDroplet.volume;
+                                    int groupId = otherDroplet.group;
+                                    Color color = ColorTranslator.FromHtml(otherDroplet.color);
+                                    droplets.Remove(otherDroplet);
+                                    Console.WriteLine("removed a droplet");
+                                    DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
+                                    DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
                                 }
-                                container.subscribedDroplets.Remove(otherDroplet.ID);
-                                //caller.Subscriptions = new ArrayList();
-                                float volume = otherDroplet.volume;
-                                Color color = ColorTranslator.FromHtml(otherDroplet.color);
-                                int groupId = otherDroplet.group;
-                                
-                                
-                                droplets.Remove(otherDroplet);
-                                Console.WriteLine("removed a droplet");
-                                DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
-                                DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
                             }
 
                         }
