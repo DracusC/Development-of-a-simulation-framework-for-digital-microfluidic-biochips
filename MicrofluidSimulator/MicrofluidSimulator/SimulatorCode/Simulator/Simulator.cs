@@ -252,7 +252,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
                         Droplets droplet = (Droplets)droplets[index];
 
-                        droplet.nextModel = 2;
+                        droplet.nextModel = 3;
                     }
                 }
 

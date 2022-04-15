@@ -23,7 +23,7 @@ namespace MicrofluidSimulator.SimulatorCode
             this.subscriptions = new ArrayList();
             this.accumulatingBubbleSize = accumulatingBubbleSize;
             nextModel = 0;
-            modelOrder = new string[] {"split", "merge", "color", "temperature", "makeBubble"};
+            modelOrder = new string[] {"split", "merge", "split", "color", "temperature", "makeBubble"};
         }
 
         public Droplets()
