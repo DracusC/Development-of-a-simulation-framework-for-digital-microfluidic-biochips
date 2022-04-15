@@ -54,7 +54,7 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
             {
                
                 //currently we are using a negative powerstatus to decrease the temperature of the heater
-                this.valuePowerStatus = - -0.58F;
+                this.valuePowerStatus = -0.58F;
                 
             }
         }
