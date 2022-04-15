@@ -39,6 +39,6 @@
         public int valueRed { get; set; }
         public int valueGreen { get; set; }
         public int valueBlue { get; set; }
-        public int valueTemperature { get; set; }
+        public float valueTemperature { get; set; }
     }
 }

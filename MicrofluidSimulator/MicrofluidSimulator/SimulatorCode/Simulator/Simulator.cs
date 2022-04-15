@@ -354,6 +354,32 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             //Console.WriteLine("While SubQ: " + stopwatchO.ElapsedMilliseconds + " ms");
 
         }
+
+        public float getTemperatureOfSensorWithID(int sensorID)
+        {
+            // -1 might not be the best option for a return value, reconsider
+            TemperatureSensor temperatureSensor = (TemperatureSensor)HelpfullRetreiveFunctions.getSensorByID(container, sensorID);
+            if (temperatureSensor == null)
+            {
+                return -1;
+            }
+            else
+            {
+                float temp = TemperatureSensorModels.temperatureSensor(this.container, temperatureSensor);
+                Droplets droplet = HelpfullRetreiveFunctions.getDropletOnSensor(container, temperatureSensor);
+                if (temp != -1)
+                {
+                    temperatureSensor.valueTemperature = temp;
+                    return temperatureSensor.GetTemperature();
+                }
+                else if (droplet == null)
+                {
+                    return -1;
+                }
+
+                return temperatureSensor.GetTemperature();
+            }
+        }
         private void handleBubbleSubscriber(Container container, Bubbles bubble, Queue<int> subscriber)
         {
             if (bubble.nextModel < bubble.modelOrder.Count())

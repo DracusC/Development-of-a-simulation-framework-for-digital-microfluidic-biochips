@@ -109,7 +109,6 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
         private DataTypes.Actuators[] initializeActuators(Actuators[] actuators)
         {
-            //List<MicrofluidSimulator.SimulatorCode.DataTypes.Actuators> actuatorsInitial = new List<MicrofluidSimulator.SimulatorCode.DataTypes.Actuators>();
             
             DataTypes.Actuators[] actuatorsInitial = new DataTypes.Actuators[actuators.Length];
             
@@ -145,31 +144,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             //Electrode[] electrodeBoard = new Electrode[electrodes.Count];
             for (int i = 0; i < electrodes.Length; i++)
             {
-                //electrodeBoard[i] = new Electrodes("arrel", i, i, i, 0, (i % 32) * 20, (i / 32) * 20, 20, 20, 0, null);
-
-
-
-
-
-
-                //int[,] cornersGetter = new int[electrodes[i].corners.Count, 2];
-                //for (int j = 0; j < electrodes[i].corners.Count; j++)
-                //{
-
-                //    var res = System.Text.Json.JsonSerializer.Deserialize<List<int>>(electrodes[i].corners[j].ToString());
-                //    for (int k = 0; k < 2; k++)
-                //    {
-                //        cornersGetter[j, k] = res[k];
-                //    }
-                //}
-
-
-
-
-
-                //electrodeBoard[i] = new Electrode(electrodes[i].name, electrodes[i].ID, electrodes[i].electrodeID, electrodes[i].driverID, electrodes[i].shape,
-                //electrodes[i].positionX, electrodes[i].positionY, electrodes[i].sizeX, electrodes[i].sizeY, electrodes[i].status, electrodes[i].corners);
-
+                
                 if (electrodesWithNeighbours != null)
                 {
                     
@@ -178,20 +153,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                         electrodes[i].neighbours.Add(electrodesWithNeighbours[i].Neighbours[j]);
                     }
                     
-                    //int[] neighboursGetter = new int[electrodesWithNeighbours[i].Neighbours.Count];
-                    //for (int j = 0; j < electrodesWithNeighbours[i].Neighbours.Count; j++)
-                    //{
-
-                    //    var res = System.Text.Json.JsonSerializer.Deserialize<List<int>>(electrodesWithNeighbours[i].Neighbours[j].ToString());
-
-                    //    for(int k = 0; k < res.Count; k++)
-                    //    {
-                    //        neighboursGetter[k] = res[k];
-                    //    }
-
-                    //    electrodeBoard[i].Neighbours.Add(neighboursGetter[j]);
-
-                    //}
+                    
 
                 }
                 
@@ -217,17 +179,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                 i++;
             }
             
-            //    droplets.Add(new Droplets("test droplet", 0, "h20", 120, 10, 15, 15, "blue", 20, DropletModels.getVolumeOfDroplet(15, 1), 0));
-            //((Droplets)droplets[0]).ElectrodeID = 1;
-
-            //droplets.Add(new Droplets("test droplet", 1, "h20", 30, 10, 15, 15, "blue", 20));
-            //((Droplets)droplets[0]).ElectrodeID = 1;
-
-            //droplets.Add(new Droplets("test droplet", 2, "h20", 50, 10, 15, 15, "blue", 20));
-            //((Droplets)droplets[0]).ElectrodeID = 2;
-
-            //droplets.Add(new Droplets("test droplet2", 3, "h20", 160, 70, 15, 15, "yellow", 20, DropletModels.getVolumeOfDroplet(15, 1), 1));
-            //((Droplets) droplets[1]).ElectrodeID = 99;
+            
             return dropletsArray;
         }
 
