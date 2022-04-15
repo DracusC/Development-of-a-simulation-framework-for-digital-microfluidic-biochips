@@ -23,6 +23,7 @@ namespace MicrofluidSimulator.SimulatorCode
             this.subscriptions = new ArrayList();
             this.accumulatingBubbleSize = accumulatingBubbleSize;
             nextModel = 0;
+            beginOfTimeSensitiveModels = 3;
             modelOrder = new string[] {"split", "merge", "split", "color", "temperature", "makeBubble"};
         }
 
@@ -45,6 +46,8 @@ namespace MicrofluidSimulator.SimulatorCode
         public float volume { get; set; }
         public int group { get; set; }
         public int nextModel { get; set; }
+
+        public int beginOfTimeSensitiveModels { get; set; }
         public string[] modelOrder { get; set; }
 
         public override string ToString()

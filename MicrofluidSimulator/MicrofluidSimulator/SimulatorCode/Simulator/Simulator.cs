@@ -58,7 +58,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
         public Container initialContainer { get; set; }
 
-       
+        //Simulator step allows the user to run the simulator for a given time amount
         public void simulatorStep(float timeStepLength)
         {
             float maximumTimeStep = 0.1f;
@@ -68,7 +68,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             bool mustRunAllModels = false;
             bool mustRunAllModelsOnInputFromGui = false;
 
-
+            //If the simulator is called with -2 run all models for all droplets, aswell as update their subscripitions etc.
+            // This is for use at for example use input change to data
             if (timeStepLength == -2)
             {
                 mustRunAllModelsOnInputFromGui = true;
@@ -83,6 +84,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
             }
 
+            //If the simulator is called with -1 the simulator will run until the next action on the queue is executed
+            //if there are no more actions it steps 1 second
             if (timeStepLength == -1)
             {
                 if (actionQueue.Count > 1)
@@ -93,7 +96,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
                 else
                 {
-                    targetTime = container.currentTime;
+                    targetTime = container.currentTime + 1;
                     executeAStep = false;
                 }
             }
@@ -107,6 +110,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             //var stopwatchO = new System.Diagnostics.Stopwatch();
             //stopwatchO.Start();
 
+            //Loop that allows the simulator to exectue the models multiple times, until the requested time is reached
             while (targetTime > container.currentTime || executeAStep || mustRunAllModelsOnInputFromGui)
             {
                
@@ -123,13 +127,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                         bool noMoreActions = false;
                         ActionQueueItem action = actionQueue.Dequeue();
-
-                        // print the timestamp of the action we're about to execute
-                        Console.WriteLine("action number " + action.time);
-
-                        //containerConfigurations.Add(container);
-                        //Get the first action execute and get back the list of subscribers to the specific action
-                        //subscribers = executeAction(action, container);
 
 
                         ArrayList extraSubscribers = executeAction(action, container);
@@ -169,8 +166,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                                         int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
                                         if (index != -1)
                                         {
-                                            //Console.WriteLine("INDEX " + index);
-                                            //Console.WriteLine("DROPLETS LENGTH" + droplets.Count);
                                             Droplets droplet = (Droplets)droplets[index];
                                             
                                             List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container,droplet.group);
@@ -204,8 +199,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     }
                     else
                     {
-                        //get subscribers to delta time
-                        //subscribers = new ArrayList();
                         subscribers = container.subscribedDroplets;
                         if(actionPeekForTime.time > targetTime)
                         {
@@ -242,7 +235,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
  
                 
 
-
+                //If no action has occured, or if ther is an order frm gui to run all models, then start the model when the time sensetive models start in order to save time
                 Queue<int> subscriberQueue = new Queue<int>();
                 foreach (int subscriber in subscribers)
                 {
@@ -251,8 +244,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     {
                         int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
                         Droplets droplet = (Droplets)droplets[index];
-
-                        droplet.nextModel = 3;
+                        //set the next model to where the time sensetive models start
+                        droplet.nextModel = droplet.beginOfTimeSensitiveModels;
                     }
                 }
 
@@ -260,16 +253,12 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                 
 
-                //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
                 while (subscriberQueue.Count() > 0)
                 {
                     int subscriber = subscriberQueue.Dequeue();
-                    //Console.WriteLine("SUBSCRIBERS " + subscriber);
                     int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
                     if (index != -1)
                     {
-                        //Console.WriteLine("INDEX " + index);
-                        //Console.WriteLine("DROPLETS LENGTH" + droplets.Count);
                         Droplets droplet = (Droplets)droplets[index];
                         handelSubscriber(container, droplet, subscriberQueue);
                     }

@@ -45,7 +45,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 }
                 return subscribers;
             }
-            //Part of the code that allows big droplets to split off smaller droplets
+            //Part of the code that allows big droplets to split off smaller droplets, if a droplet is subscribed to more than 5 electrodes.
             else if(caller.subscriptions.Count > 5)
             {
                 foreach(int sub in caller.subscriptions)
@@ -54,6 +54,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     if(tempElectrode.status == 1 && (ElectrodeModels.electrodeHasDroplet(tempElectrode, container) == null) && caller.volume > 1080)
                     {
                         bool allowBorderSplit  = false;
+                        //loop that ensures the electrode want to split to is on the border of the big droplet,
+                        // by checking all neigbouring electrodes and see if the droplet also overlapps them
                         foreach(int neighbour in tempElectrode.neighbours)
                         {
                             int indexForElectrode = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
