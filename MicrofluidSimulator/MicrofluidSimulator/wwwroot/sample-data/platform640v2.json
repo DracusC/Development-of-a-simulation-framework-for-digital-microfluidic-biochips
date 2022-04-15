@@ -9900,6 +9900,17 @@
       "positionY": 170,
       "sizeX": 40,
       "sizeY": 40
+    },
+    {
+      "valueTemperature": 20,
+      "name": "tempsensor2",
+      "ID": 727,
+      "sensorID": 3,
+      "type": "temperature",
+      "positionX": 520,
+      "positionY": 170,
+      "sizeX": 40,
+      "sizeY": 40
     }
   ],
   "inputs": [],
