@@ -115,11 +115,12 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             {
                
                 ArrayList subscribers = new ArrayList();
-                
+                //if there is actions on the queue
                 if (actionQueue.Count > 1)
                 {
                     container.timeStep = 0;
                     ActionQueueItem actionPeekForTime = actionQueue.Peek();
+                    // if the action on the queue is at the current time
                     if (actionPeekForTime.time == container.currentTime)
                     {
                         // store the first action in the queue and dequeue it
@@ -128,8 +129,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         bool noMoreActions = false;
                         ActionQueueItem action = actionQueue.Dequeue();
 
-
+                        //execute the action and and get all subscribers to the it
                         ArrayList extraSubscribers = executeAction(action, container);
+                        //For each of the subscribers check that they exist and store them along with their entiry group.
                         foreach (int subscriber in extraSubscribers)
                         {
                             int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
@@ -150,17 +152,20 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                         }
 
-
-                        executeAStep = false;
+                        
+                        //Check if there are other actions that have to be executed on the same time
                         while (!noMoreActions)
                         {
                             if (actionQueue.Count > 0)
                             {
                                 ActionQueueItem actionPeek = actionQueue.Peek();
+                                // if the action on the queue is at the current time
                                 if (action.time == actionPeek.time)
                                 {
                                     ActionQueueItem nextAction = actionQueue.Dequeue();
+                                    //execute the action and and get all subscribers to the it
                                     extraSubscribers = executeAction(nextAction, container);
+                                    //For each of the subscribers check that they exist and store them along with their entiry group.
                                     foreach (int subscriber in extraSubscribers)
                                     {
                                         int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
@@ -193,10 +198,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                             }
                         }
 
-                    
+                        //executeAStep  is set to false, since the actions on the current time is executed
+                        executeAStep = false;
 
 
                     }
+                    //if there is not an action at current time increment the time step, to the target time
+                    // or if there is an action before that, set the time increment to this time
                     else
                     {
                         subscribers = container.subscribedDroplets;
@@ -207,6 +215,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                             executeAStep = false;
                         }else 
                         {
+                            //if there is a action between current time, and target time, set time step to this and set executeASTep to true
                             container.timeStep = actionPeekForTime.time - container.currentTime;
                             mustRunAllModels = false;
 
@@ -216,8 +225,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
                 else
                 {
-                    //get subscribers to delta time
-                    //subscribers = new ArrayList();
+                    //there are no actions on the queue'
+
+                    //get subscribers to delta time, this is often all droplets
                     container.timeStep = targetTime - container.currentTime;
                     subscribers = container.subscribedDroplets;
                     mustRunAllModels = false;
@@ -226,7 +236,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
 
 
-                //check if we step a too large time amount
+                //check if we step a too large time amount, if it is set it to the maximum amount
                 if (container.timeStep > maximumTimeStep)
                 {
                     container.timeStep = maximumTimeStep;
@@ -252,7 +262,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 
 
                 
-
+                //Keep runing models for droplets as long as there is subscribed droplets on the queue
                 while (subscriberQueue.Count() > 0)
                 {
                     int subscriber = subscriberQueue.Dequeue();
@@ -476,18 +486,21 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         //    Console.WriteLine("there are now :" + num + " droplets");
         //}
 
+        //Function that takes a subscribed droplet, and execute the next model for it in order.
         private void handelSubscriber(Container container, Droplets caller, Queue<int> subscriber)
         {
+
             if(caller.nextModel < caller.modelOrder.Count())
             {
+                //Get the action from the droplets own list of models
                 String nextModel = caller.modelOrder[caller.nextModel];
                 caller.nextModel++;
 
-                
-
+                //switch on the model recieved from the droplet
                 ArrayList newSubscribers = executeModel(container,caller,nextModel);
                 
-
+                //If the model returns subscribers add these to the queue
+                //if not reset the models order
                 if (newSubscribers != null)
                 {
                     if (newSubscribers.Count > 0)
