@@ -34,7 +34,7 @@
         <div id="input_panel">
             <div id="button_div">
                 <div>
-                    <button id="nextStep" class="btn btn-primary" @onclick="JSSimulatorNextStep">Next Step</button>
+                    <button id="nextStep" class="btn btn-primary" @onclick="gotoTime">Next Step</button>
                     <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
                     <button class="btn btn-primary" @onclick="Restart">Restart</button>
                     
@@ -134,7 +134,7 @@
         guibroker.start_update_timer();
         //stopwatch.Reset();
         //stopwatch.Start();
-        simulator.simulatorStep(timeStepAmount);
+        simulator.simulatorStep(-1f);
         dumbVM.doApiCall();
         //stopwatch.Stop();
         //Console.WriteLine("SW1: " + stopwatch.ElapsedMilliseconds);
@@ -159,13 +159,66 @@
         simulator.restartSimulator();
         simulator.simulatorStep(deltaTime);
         guibroker.update_board(simulator.container);
-
     }
+
+    public void gotoTime()
+    {
+        float startSimulatorTime = simulator.container.currentTime;
+
+        while(simulator.container.currentTime < timeStepAmount + startSimulatorTime)
+        {
+
+            if(simulator.actionQueue.Count == 1) { Console.WriteLine("QUE 0"); break; }
+
+            Console.WriteLine(timeStepAmount + startSimulatorTime + " : " + simulator.container.currentTime);
+            Console.WriteLine(simulator.actionQueue.Count);
+            float simulatorTimeStep = simulator.actionQueue.Peek().time;
+            if(simulatorTimeStep > timeStepAmount)
+            {
+                Console.WriteLine(timeStepAmount);
+                simulator.simulatorStep(timeStepAmount);
+                dumbVM.doApiCall();
+            } else
+            {
+                simulator.simulatorStep(-1f);
+                dumbVM.doApiCall();
+            }
+        }
+
+        if(timeStepAmount <= 0)
+        {
+            simulator.simulatorStep(-1f);
+            dumbVM.doApiCall();
+        }
+
+        Console.WriteLine("SIM CUR TIME: " + simulator.container.currentTime);
+
+        guibroker.update_board(simulator.container);
+    }
+
 
     public void GotoSliderTime()
     {
         Restart();
-        nextStepTime((float)sliderValue);
+        //nextStepTime((float)sliderValue);
+        float startSimulatorTime = simulator.container.currentTime;
+        while(simulator.container.currentTime < (float)sliderValue + startSimulatorTime)
+        {
+            Console.WriteLine((float)sliderValue + startSimulatorTime + " : " + simulator.container.currentTime);
+            float simulatorTimeStep = simulator.actionQueue.Peek().time;
+            if(simulatorTimeStep > (float)sliderValue)
+            {
+                Console.WriteLine((float)sliderValue);
+                simulator.simulatorStep((float)sliderValue);
+                dumbVM.doApiCall();
+            } else
+            {
+                simulator.simulatorStep(-1f);
+                dumbVM.doApiCall();
+            }
+        }
+
+        guibroker.update_board(simulator.container);
     }
 
     public static void Restart()
