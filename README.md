@@ -1,11 +1,15 @@
 
-# Microfluidic Biochip Simulation Framework
+# MBSF
+
+*Microfluidic Biochip Simulation Framework*
 
 <br>
 
 ## Background
 
 ***MB : `Microfluidic Biochip`***
+
+<br>
 
 Our research group currently works on **MB** <br>
 software & hardware, including firmware.
