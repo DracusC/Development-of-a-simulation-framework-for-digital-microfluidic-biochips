@@ -1,4 +1,11 @@
-﻿let information_panel_manager = {
+﻿/* BEGIN InformationPanelManager.js */
+
+
+/*
+ * The information_panel_manager object is used to store both information
+ * and logic, for which information about the sketch elements can be displayed.
+ */
+let information_panel_manager = {
     saveclose_button_div: null,
     edit_button: null,
     save_button: null,
@@ -10,6 +17,11 @@
     information_element: null,
     editing: false,
     before_edit_values: {},
+
+    /*
+    * The object display_info stores the information that will be displayed
+    * in the information panel, and which values can be edited.
+    */
     display_info: {
         Droplet: {
             ID: "",
@@ -64,6 +76,14 @@
         },
         Sensor_editable: []
     },
+
+    /**
+     * The function information_filer will take the type of element, the element
+     * and filter it, such that only the information we choose is displayed.
+     *
+     * There are two other arguments, namely the element, and groupID for group type. 
+     * @param {any} type
+     */
     information_filter: function (type) {
         let returnVal;
         this.selected_element_type = type;
@@ -151,27 +171,40 @@
                 break;
         }
     },
-    draw_multiple_selection: function (p) {
+
+    /**
+     * This function controls the condition, where the user can select multiple
+     * elements with a double click, this can happen if more than one element
+     * is stacked in the sketch.
+     * @param {any} layer
+     */
+    draw_multiple_selection: function (layer) {
 
         let s_list = [];
         for (let i = 0; i < Object.keys(information_panel_manager.multiple_selection).length; i++) {
             s_list.push((i + 1) + " " + Object.keys(information_panel_manager.multiple_selection)[i]);
         }
 
-        p.textSize(14);
-        p.fill("#1b6ec2");
-        let max_width = Math.max.apply(Math, s_list.map(function (o) { return p.textWidth(o); }))
-        let max_height = p.textAscent(s_list[0]) * s_list.length + 10 + 5 * s_list.length;
+        layer.textSize(14);
+        layer.fill("#1b6ec2");
+        let max_width = Math.max.apply(Math, s_list.map(function (o) { return layer.textWidth(o); }))
+        let max_height = layer.textAscent(s_list[0]) * s_list.length + 10 + 5 * s_list.length;
 
-        p.stroke("#000000");
-        p.rect(p.mouseX, p.mouseY, max_width + 20, max_height, 5);
+        layer.stroke("#000000");
+        layer.rect(layer.mouseX, layer.mouseY, max_width + 20, max_height, 5);
 
-        p.noStroke();
-        p.fill("#ffffff");
+        layer.noStroke();
+        layer.fill("#ffffff");
         for (let i in s_list) {
-            p.text(s_list[i], p.mouseX + 10, p.mouseY + (p.textAscent(s_list[i]) * (parseInt(i) + 1)) + 5 * (parseInt(i) + 1));
+            layer.text(s_list[i], layer.mouseX + 10, layer.mouseY + (layer.textAscent(s_list[i]) * (parseInt(i) + 1)) + 5 * (parseInt(i) + 1));
         }
     },
+
+    /**
+     * This function will take an element and display the correct information
+     * in the information panel.
+     * @param {any} element
+     */
     draw_information: function (element) {
 
         this.onCancel();
@@ -200,6 +233,10 @@
 
         informationView.append(div);
     },
+
+    /**
+     * This function controls the logic of editing values of an element.
+     */
     onEdit: function () {
 
         if (this.selected_element == null) { return; }
@@ -233,6 +270,10 @@
             }
         }
     },
+
+    /**
+     * This function controls the logic of canceling an edit on an element.
+     */
     onCancel: function () {
         this.edit_button.style.visibility = "visible";
         this.saveclose_button_div.style.visibility = "hidden";
@@ -261,6 +302,11 @@
             }
         }
     },
+
+    /**
+     * The function onSave controls the logic for saving the edit of element values,
+     * and will call upon the gui_broker to send the information to the simulator.
+     */
     onSave: function () {
         
         this.edit_button.style.visibility = "visible";
@@ -290,7 +336,6 @@
                 input.classList.add("input_readonly");
 
                 // TODO: Check if the input value is ok!
-                this.selected_element[attribute] = input.value;
                 values_to_send[attribute] = input.value;
             }
         }
@@ -298,7 +343,6 @@
         if (this.selected_element_type == "Group") {
             values_to_send.droplets = this.selected_element.droplets;
             values_to_send.groupID = this.selected_element.groupID;
-            //console.log(gui_broker.board[this.selected_element_type + "s"].find(o => o.ID1 === this.selected_element.ID1));
         } else {
             values_to_send.ID = this.selected_element.ID;
         }
@@ -306,8 +350,13 @@
         
         //values_to_send = this.selected_element;
 
+        // Send the new element values to the simulator
         gui_broker.update_simulator_container(this.selected_element_type, JSON.stringify(values_to_send));
     },
+
+    /**
+     * The clear function will clear the information panel from any selected element.
+     */
     clear: function () {
         this.editing = false;
         this.edit_button.style.visibility = "visible";
@@ -320,6 +369,12 @@
         let div = document.querySelector("#informationElements");
         div.innerHTML = "";
     },
+
+    /**
+     * The dynamic_update function allows of the selection of elements,
+     * even when the simulation is running and the elements of the GUI are updating.
+     * This allows realtime viewing of the attributes changing.
+     */
     dynamic_update: function () {
 
         if (this.selected_element == null) { return; }
@@ -344,7 +399,7 @@
             })
         }
 
-        // If the element is deleted
+        // If the element is deleted clear the panel
         if (new_element == null) { this.clear(); return; }
 
         // Update information
@@ -354,3 +409,5 @@
     }
 
 }
+
+/* END InformationPanelManager.js */

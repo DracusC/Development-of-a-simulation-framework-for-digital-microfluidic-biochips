@@ -1,4 +1,8 @@
 ﻿
+/**
+ * This file contains the styling for the GUI except the sketch element.
+ */
+
 /* GUI sketch panel + layer panel */
 #simulatorGUI {
     visibility:hidden;

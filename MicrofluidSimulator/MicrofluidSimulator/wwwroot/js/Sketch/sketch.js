@@ -1,5 +1,8 @@
 ﻿/* 
  * Written by Joel A. V. Madsen
+ * This file contains the main graphical user interface components,
+ * it uses p5js as the framework, for which we can initialize a canvas
+ * and draw onto it.
  */
 
 
@@ -12,8 +15,7 @@ let simulator_electrodes = [];
 let lerp_amount = 0;     // Used to interpolate between droplet positions.
 
 
-// TODO: Refrator into a layer array, that will automatically create them
-//let layer_electrode_id;
+// Layer for electrodes, since their placement are static
 let layer_electrode_shape;
 
 

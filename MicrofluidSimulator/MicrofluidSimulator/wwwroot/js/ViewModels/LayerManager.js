@@ -1,16 +1,25 @@
-﻿let layer_manager = {
+﻿/* BEGIN LayerManager.js */
 
+/*
+ * The layer_manager object stores information about the different layers,
+ * that are present in the sketch, these layers can be toggled off or on in
+ * the selection panel.
+ */
+let layer_manager = {
 
+    /*
+     * The layers object stores information about each layer in the GUI.
+     */
     layers: {
         real_time: {
             name: "real_time",
             value: "real_time",
             id: "real_time",
-            text: "Real-Time Execution", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
+            text: "Real-Time Execution",    // Will be shown in layer panel list
+            element: "insert",              // Reference - get toggled from here
             checkbox: "insert",
             checked: true
-            //layer: "insert"         // Reference - pass to functions
+            //layer: "insert"               // Reference - pass to functions
         },
         draw_droplet_groups: {
             name: "droplet_group_draw_call",
@@ -95,6 +104,10 @@
 
     },
 
+    /**
+     * The function initialize_layers will create toggles and layers
+     * for each of the layers contained in the layers property.
+     */
     initialize_layers: function () {
 
         for (let layer in this.layers) {
@@ -110,6 +123,10 @@
         }
     },
 
+    /**
+     * The function draw_layers will draw the layers in the sketch.
+     * @param {any} sketch
+     */
     draw_layers: function (sketch) {
         for (let layer in this.layers) {
             if (this.layers[layer].hasOwnProperty("layer") && this.layers[layer].checkbox.checked) {
@@ -119,3 +136,5 @@
         }
     }
 }
+
+/* END LayerManager.js */
