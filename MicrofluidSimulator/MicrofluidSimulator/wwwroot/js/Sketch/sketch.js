@@ -232,10 +232,10 @@ let sketch = function (p) {
         p.fill(gui_broker.droplet_groups[groupID][0].color);
         drawRounded(p, points_vector, 50);
 
-        p.fill("black");
+        /*p.fill("black");
         for (let j = 0; j < gui_broker.droplet_groups[groupID].vertices.length; j++) {
             p.ellipse(gui_broker.droplet_groups[groupID].vertices[j][0], gui_broker.droplet_groups[groupID].vertices[j][1], 3, 3);
-        }
+        }*/
     }
 
     function getGroupVertexPairsForLerp(groupID, prevGroupID) {
