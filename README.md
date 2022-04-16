@@ -1,5 +1,5 @@
 
-# MBSF
+# MBSF [![Badge License]][License]
 
 *Microfluidic Biochip Simulation Framework*
 
@@ -104,3 +104,10 @@ A comparison between the ***simulated*** and the ***real*** <br>
 ## Team
 
 Our research group consists of three students.
+
+
+<!----------------------------------------------------------------------------->
+
+[Badge License]: https://img.shields.io/badge/License-Unknown-darkgray?style=for-the-badge
+
+[License]: #
