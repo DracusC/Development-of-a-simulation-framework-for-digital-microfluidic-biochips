@@ -60,6 +60,7 @@ window.initialize_board = (information) => {
 
     gui_controller.showGUI();
     gui_controller.changeBoardName(JSONinformation.platform_name);
+    document.querySelector("#edit_button").style.visibility = "visible";
 
     //document.querySelector("#defaultCanvas0").style.width = "1000px";
 

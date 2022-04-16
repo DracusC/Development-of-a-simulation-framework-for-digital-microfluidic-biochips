@@ -1,4 +1,4 @@
-/* 
+﻿/* 
  * Written by Joel A. V. Madsen
  */
 
@@ -55,7 +55,7 @@ let sketch = function (p) {
         edit_button.mousePressed(() => {
             information_panel_manager.onEdit();
         });
-        edit_button.style("visibility", "visible");
+        //edit_button.style("visibility", "visible");
 
         let cancel_button = p.select("#cancel_button");
         cancel_button.mousePressed(() => {
