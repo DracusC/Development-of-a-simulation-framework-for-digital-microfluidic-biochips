@@ -568,7 +568,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     //a = Models.BubbleModels.makeBubble(container, caller);
                     //bubbleTime += stopwatch4.Elapsed.TotalMilliseconds;
                     //Console.WriteLine("Bubble time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
-                    return Models.BubbleModels.makeBubble(container, caller);
+                    return Models.DropletEvaporationModels.makeBubble(container, caller);
             }
             return null;
         }

@@ -153,12 +153,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return subscribers;
         }
 
-        
-
-        
-
-        
-
+       
         private static bool allowSplit(Container container, Droplets caller)
         {
             Electrode[] electrodeBoard = container.electrodes;
@@ -174,15 +169,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return false;
         }
 
-
-
-
-       
-
-
-
         
 
-       
+
+
+
+
+
+
+
+
     }
 }
