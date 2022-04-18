@@ -202,14 +202,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 container.droplets.Remove(droplet);
                 return subscribtions;
             }
-            else if (droplet.temperature >= 90 && (container.timeStep >= 0.5 || droplet.accumulatingBubbleSize >= 0.5) )
+            else if (droplet.temperature >= 90 && (container.timeStep >= 0.5 || droplet.accumulatingBubbleEscapeVolume >= 0.5) )
             {
                 
-                droplet.accumulatingBubbleSize += container.timeStep;
+                droplet.accumulatingBubbleEscapeVolume += container.timeStep;
                 
                 
                     
-                double splitAmount = 0.1 * droplet.sizeX * droplet.accumulatingBubbleSize;
+                double splitAmount = 0.1 * droplet.sizeX * droplet.accumulatingBubbleEscapeVolume;
                 double splitSize = HelpfullRetreiveFunctions.getDiameterOfBubble(splitAmount);
                 if (splitSize > droplet.sizeX * 0.8)
                 {
@@ -242,11 +242,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
 
                 subscribtions.Add(droplet.ID);
-                droplet.accumulatingBubbleSize = 0;
+                droplet.accumulatingBubbleEscapeVolume = 0;
                 return subscribtions;
             }else if(droplet.temperature >= 90)
             {
-                droplet.accumulatingBubbleSize += container.timeStep;
+                droplet.accumulatingBubbleEscapeVolume += container.timeStep;
                 subscribtions.Add(droplet.ID);
                 return subscribtions;
             }

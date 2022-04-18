@@ -76,7 +76,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                             int id = rnd.Next(10000000);
                             string color = caller.color;
                             int diam = DropletUtillityFunctions.getDiameterOfDroplet(360);
-                            Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, diam, diam, color, caller.temperature, 360, tempElectrode.ID, id, caller.accumulatingBubbleSize);
+                            Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, diam, diam, color, caller.temperature, 360, tempElectrode.ID, id, caller.accumulatingBubbleEscapeVolume);
                             droplets.Add(newDroplet);
                             subscribers.Add(newDroplet.ID);
                             container.subscribedDroplets.Add(newDroplet.ID);
@@ -130,7 +130,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     string color = origin.color;
 
                     //creates the droplet and adds it to the data in container
-                    Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, origin.temperature, 0, tempElectrode.ID, origin.group, origin.accumulatingBubbleSize);
+                    Droplets newDroplet = new Droplets("test droplet", id, "h20", electrodeCenterX, electrodeCenterY, 0, 0, color, origin.temperature, 0, tempElectrode.ID, origin.group, origin.accumulatingBubbleEscapeVolume);
                     droplets.Add(newDroplet);
                     subscribers.Add(newDroplet.ID);
                     container.subscribedDroplets.Add(newDroplet.ID);
