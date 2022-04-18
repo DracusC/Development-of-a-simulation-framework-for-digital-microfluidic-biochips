@@ -66,20 +66,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return false;
 
-            //double vecVX = bubble.positionX - droplet.positionX;
-            //double vecVY = bubble.positionY - droplet.positionY;
-
-            //double dist = Math.Sqrt(Math.Pow(vecVX, 2) + Math.Pow(vecVY, 2));
-
-            //double radius1 = droplet.sizeX / 2;
-            //double radius2 = bubble.sizeX / 2;
-
-            //if (dist < (radius1 + radius2))
-            //{
-            //    return true;
-
-            //}
-            //return false;
+            
         }
         public static ArrayList moveBubble(Container container, Bubbles bubble)
         {
