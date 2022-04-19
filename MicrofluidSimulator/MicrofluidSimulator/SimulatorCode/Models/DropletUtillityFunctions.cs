@@ -29,7 +29,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
         }
 
-        public static int findAreaAllConnectedElectrodes(Container container, Electrode electrode, ArrayList alreadyChecked)
+        public static int findAreaOfAllConnectedElectrodes(Container container, Electrode electrode, ArrayList alreadyChecked)
         {
             //Recursivly find all connected electrodes that are ON, by running through the neigbours of electrodes
             // And sum the area for return.

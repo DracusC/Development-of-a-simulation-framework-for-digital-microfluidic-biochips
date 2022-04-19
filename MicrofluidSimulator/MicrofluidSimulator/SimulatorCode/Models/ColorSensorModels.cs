@@ -14,9 +14,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             else
             {
-                
                 Color color = ColorTranslator.FromHtml(droplet.color);
-                
                 return new int[] { color.R, color.G, color.B };
             }
         }
