@@ -44,13 +44,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                 if (tempElectrode.status > 0 && !alreadyChecked.Contains(tempElectrode.ID))
                 {
-                    area += findAreaAllConnectedElectrodes(container, tempElectrode, alreadyChecked);
+                    area += findAreaOfAllConnectedElectrodes(container, tempElectrode, alreadyChecked);
                 }
             }
             return area;
         }
-
-
 
         public static void findAllConnectedDroplets(Container container, Droplets caller, ArrayList members)
         {

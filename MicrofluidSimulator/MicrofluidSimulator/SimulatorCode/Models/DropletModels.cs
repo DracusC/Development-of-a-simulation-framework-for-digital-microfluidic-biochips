@@ -108,7 +108,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
             //Check that ensures that a sufficent amount of electrodes are on, in case of a big droplet
             //Fx a big droplet will need multiple electrodes to move it
-            if (DropletUtillityFunctions.getAreaOfDroplet(origin)/3 > DropletUtillityFunctions.findAreaAllConnectedElectrodes(container, dropletElectrode, new ArrayList()))
+            if (DropletUtillityFunctions.getAreaOfDroplet(origin)/3 > DropletUtillityFunctions.findAreaOfAllConnectedElectrodes(container, dropletElectrode, new ArrayList()))
             {
                 return subscribers;
             }
