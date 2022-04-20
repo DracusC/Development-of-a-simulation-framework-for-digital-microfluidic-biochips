@@ -5,7 +5,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class ElectrodeModels
     {
-        public static ArrayList electrodeOnOff(Container values, Electrode electrode, DataTypes.SimulatorAction action)
+        public static ArrayList electrodeOnOff(Container values, Electrode electrode, SimulatorAction action)
         {
             // electrode on/off
             electrode.status = action.actionChange;
