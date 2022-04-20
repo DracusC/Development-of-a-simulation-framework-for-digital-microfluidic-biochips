@@ -1,7 +1,6 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
 using System.Collections;
 using MicrofluidSimulator.SimulatorCode.Models;
-using System.Reflection;
 
 namespace MicrofluidSimulator.SimulatorCode.Simulator
 {
@@ -263,7 +262,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                 
                 //Keep runing models for droplets as long as there is subscribed droplets on the queue
-                while (subscriberQueue.Count() > 0)
+                while (subscriberQueue.Count > 0)
                 {
                     int subscriber = subscriberQueue.Dequeue();
                     int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
@@ -299,7 +298,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
 
                 //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
-                while (bubbleSubscribersQueue.Count() > 0)
+                while (bubbleSubscribersQueue.Count > 0)
                 {
                     int subscriber = bubbleSubscribersQueue.Dequeue();
                     //Console.WriteLine("SUBSCRIBERS " + subscriber);
@@ -307,7 +306,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                     if (bubble != null && bubble.toRemove == false)
                     {
-                        
+
                         handleBubbleSubscriber(container, bubble, bubbleSubscribersQueue);
                     }
                 }
@@ -379,9 +378,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 return temperatureSensor.GetTemperature();
             }
         }
-        private void handleBubbleSubscriber(Container container, Bubbles bubble, Queue<int> subscriber)
+        private static void handleBubbleSubscriber(Container container, Bubbles bubble, Queue<int> subscriber)
         {
-            if (bubble.nextModel < bubble.modelOrder.Count())
+            if (bubble.nextModel < bubble.modelOrder.Length)
             {
                 String nextModel = bubble.modelOrder[bubble.nextModel];
                 bubble.nextModel++;
@@ -416,7 +415,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
 
         }
-        private ArrayList executeBubbleModel(Container container, Bubbles caller, String model)
+        private static ArrayList executeBubbleModel(Container container, Bubbles caller, String model)
         {
             switch (model)
             {
@@ -429,7 +428,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             return null;
         }
 
-        private void executeActuatorModel(Container container, Actuators actuator)
+        private static void executeActuatorModel(Container container, Actuators actuator)
         {
             
             switch (actuator.type)
@@ -487,10 +486,10 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         //}
 
         //Function that takes a subscribed droplet, and execute the next model for it in order.
-        private void handelSubscriber(Container container, Droplets caller, Queue<int> subscriber)
+        private static void handelSubscriber(Container container, Droplets caller, Queue<int> subscriber)
         {
 
-            if(caller.nextModel < caller.modelOrder.Count())
+            if(caller.nextModel < caller.modelOrder.Length)
             {
                 //Get the action from the droplets own list of models
                 String nextModel = caller.modelOrder[caller.nextModel];
@@ -529,7 +528,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
         }
 
-        private ArrayList executeModel(Container container, Droplets caller, String model)
+        private static ArrayList executeModel(Container container, Droplets caller, String model)
         {
             switch (model)
             {
@@ -574,7 +573,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         }
 
         /* Switch that reads the action and determines what needs to be calles*/
-        private ArrayList executeAction(ActionQueueItem action, Container container)
+        private static ArrayList executeAction(ActionQueueItem action, Container container)
         {
             String actionName = action.action.actionName;
             float lastHeaterCallTime = 0;
@@ -582,12 +581,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             {
                 case "electrode":
                     return executeElectrodeAction(action, container);
-                    break;
-                //case "heater":
-
-                //    return executeHeaterAction(action, container, lastHeaterCallTime);
-                // this should be called by an api instead
-                    break;
 
             }
             return null;
@@ -608,7 +601,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         //}
 
 
-        private ArrayList executeElectrodeAction(ActionQueueItem actionQueueItem, Container container)
+        private static ArrayList executeElectrodeAction(ActionQueueItem actionQueueItem, Container container)
         {
             // get the electrodes
             Electrode[] electrodeBoard = container.electrodes;
@@ -653,7 +646,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         }
 
 
-        private Queue<ActionQueueItem> generateTestQueue()
+        private static Queue<ActionQueueItem> generateTestQueue()
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
             SimulatorAction action1 = new SimulatorAction("electrode", 100, 1);
@@ -799,7 +792,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
             return actionQueueInstructions;
         }
-        private Queue<ActionQueueItem> generateTestQueueFromReader(string generatedActionQueue, Container container)
+        private static Queue<ActionQueueItem> generateTestQueueFromReader(string generatedActionQueue, Container container)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
 

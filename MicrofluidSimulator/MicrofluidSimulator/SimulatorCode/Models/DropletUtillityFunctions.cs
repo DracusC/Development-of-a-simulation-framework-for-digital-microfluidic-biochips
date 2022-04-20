@@ -13,7 +13,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             float volume = 0;
             foreach (Droplets droplet in droplets)
             {
-                volume = volume + droplet.volume;
+                volume += droplet.volume;
             }
             return volume;
         }
@@ -53,7 +53,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static void findAllConnectedDroplets(Container container, Droplets caller, ArrayList members)
         {
             //Recursicly find all connected droplets using the neigbours of electrodes
-            List<Droplets> droplets = container.droplets;
+            
             Electrode[] electrodeBoard = container.electrodes;
             int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
             Electrode dropletElectrode = electrodeBoard[dropletElectrodeIndex];
@@ -93,7 +93,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static void updateGroupVolume(Container container, int groupID, float extraVolume)
         {
             // given a group id all droplets in the group gets their respective share of the total volume, based on the size of the electrodes they are on
-            List<Droplets> droplets = container.droplets;
+            
             List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container, groupID);
             Electrode[] electrodeBoard = container.electrodes;
             int totalAreaOfElectrode = 0;
@@ -153,7 +153,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return (diam / 2) * (diam / 2) * pi;
         }
 
-        public static bool dropletOverlapElectrode(Container container, Droplets droplet, Electrode electrode)
+        public static bool dropletOverlapElectrode(Droplets droplet, Electrode electrode)
         {
             //function that determines if a droplet overlaps and electrode fully or partially
             Point dropletCenter = new Point(droplet.positionX, droplet.positionY);
@@ -283,19 +283,25 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
 
             // vector AB
-            Point AB = new Point();
-            AB.x = B.x - A.x;
-            AB.y = B.y - A.y;
+            Point AB = new Point
+            {
+                x = B.x - A.x,
+                y = B.y - A.y
+            };
 
             // vector BP
-            Point BE = new Point();
-            BE.x = E.x - B.x;
-            BE.y = E.y - B.y;
+            Point BE = new Point
+            {
+                x = E.x - B.x,
+                y = E.y - B.y
+            };
 
             // vector AP
-            Point AE = new Point();
-            AE.x = E.x - A.x;
-            AE.y = E.y - A.y;
+            Point AE = new Point
+            {
+                x = E.x - A.x,
+                y = E.y - A.y
+            };
 
             // Variables to store dot product
             double AB_BE, AB_AE;

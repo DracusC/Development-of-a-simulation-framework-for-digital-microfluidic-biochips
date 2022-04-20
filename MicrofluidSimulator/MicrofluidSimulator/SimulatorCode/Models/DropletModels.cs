@@ -8,10 +8,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     public class DropletModels
     {
         public static ArrayList dropletSplit(Container container, Droplets caller)
-        {   
+        {
             //split function for the droplet
-            ArrayList subscribers = new ArrayList();   
-            subscribers.Add(caller.ID);
+            ArrayList subscribers = new ArrayList
+            {
+                caller.ID
+            };
 
             int minimalSplitVolume = 0;
             List<Droplets> droplets = container.droplets;
@@ -29,7 +31,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 
 
                 
-                if (tempElectrode.status > 0 && (ElectrodeModels.electrodeHasDroplet(tempElectrode,container) == null) && DropletUtillityFunctions.dropletOverlapElectrode(container,caller,tempElectrode))
+                if (tempElectrode.status > 0 && (ElectrodeModels.electrodeHasDroplet(tempElectrode,container) == null) && DropletUtillityFunctions.dropletOverlapElectrode(caller,tempElectrode))
                 {
                     toSplitToo.Add(indexForElectrode);
                 }
@@ -60,7 +62,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                         {
                             int indexForElectrode = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
                             Electrode neigbourElectrode = electrodeBoard[indexForElectrode];
-                            if (!DropletUtillityFunctions.dropletOverlapElectrode(container,caller, neigbourElectrode))
+                            if (!DropletUtillityFunctions.dropletOverlapElectrode(caller, neigbourElectrode))
                             {
                                 allowBorderSplit = true;
                                 break;

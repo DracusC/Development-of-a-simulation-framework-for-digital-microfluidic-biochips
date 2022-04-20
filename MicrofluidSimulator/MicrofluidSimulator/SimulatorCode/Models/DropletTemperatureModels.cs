@@ -7,8 +7,10 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     {
         public static ArrayList dropletTemperatureChange(Container container, Droplets caller)
         {
-            ArrayList subscribers = new ArrayList();
-            subscribers.Add(caller.ID);
+            ArrayList subscribers = new ArrayList
+            {
+                caller.ID
+            };
             //return subscribers;
 
             Heater heater = HelpfullRetreiveFunctions.getHeaterOnDroplet(container, caller);
@@ -50,9 +52,6 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 
                 return subscribers;
             }
-            
-            
-            return subscribers;
 
         }
 

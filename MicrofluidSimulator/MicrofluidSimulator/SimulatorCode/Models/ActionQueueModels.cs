@@ -41,7 +41,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         }
 
 
-        public String getJsonDescriptionOfElementById(Container container, int id)
+        public static String getJsonDescriptionOfElementById(Container container, int id)
         {
             // traverse the elecrodes linearly
             for(int i = 0; i < container.electrodes.Length; i++)

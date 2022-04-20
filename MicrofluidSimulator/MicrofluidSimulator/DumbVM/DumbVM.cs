@@ -202,17 +202,17 @@ namespace MicrofluidSimulator.DumbVM
         }
         private static Queue<ActionQueueItem> generateRedTestQueue(float currentTime)
         {
-            Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
-            SimulatorAction action1 = new SimulatorAction("electrode", 266, 1);
-            ActionQueueItem item1 = new ActionQueueItem(action1, 1 + currentTime);
+            Queue<ActionQueueItem> actionQueueInstructions = new();
+            SimulatorAction action1 = new("electrode", 266, 1);
+            ActionQueueItem item1 = new(action1, 1 + currentTime);
             actionQueueInstructions.Enqueue(item1);
 
-            SimulatorAction action2 = new SimulatorAction("electrode", 298, 0);
-            ActionQueueItem item2 = new ActionQueueItem(action2, 2 + currentTime);
+            SimulatorAction action2 = new("electrode", 298, 0);
+            ActionQueueItem item2 = new(action2, 2 + currentTime);
             actionQueueInstructions.Enqueue(item2);
 
-            SimulatorAction action3 = new SimulatorAction("electrode", 234, 1);
-            ActionQueueItem item3 = new ActionQueueItem(action3, 3 + currentTime);
+            SimulatorAction action3 = new("electrode", 234, 1);
+            ActionQueueItem item3 = new(action3, 3 + currentTime);
             actionQueueInstructions.Enqueue(item3);
 
             SimulatorAction action4 = new SimulatorAction("electrode", 266, 0);

@@ -8,9 +8,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static void dropletSubscriptions(Container container, Droplets caller)
         {
             // Gets the needed data out of the container
-            List<Droplets> droplets = container.droplets;
+            
             Electrode[] electrodeBoard = container.electrodes;
-            Actuators[] actuators = container.actuators;
+            
 
             // Clear all previous subscriptions before adding new to avoid duplicates
             // and deprecated subscriptions
@@ -70,7 +70,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             {
                 alreadyChecked.Add(electrode.ID);
                 //If the droplet overlaps an electrode
-                if (DropletUtillityFunctions.dropletOverlapElectrode(container, droplet, electrode))
+                if (DropletUtillityFunctions.dropletOverlapElectrode(droplet, electrode))
                 {
                     //Add the droplet as a subscriber to the electrode
                     electrode.subscriptions.Add(droplet.ID);

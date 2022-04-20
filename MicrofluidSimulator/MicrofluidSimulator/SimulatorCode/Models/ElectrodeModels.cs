@@ -66,9 +66,9 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             
             for(int i = 0; i < electrode.corners.Count-1; i++)
             {
-                area = area + (electrode.corners[i][0] * electrode.corners[i+1][1] - electrode.corners[i+1][0] * electrode.corners[i][1]);
+                area += (electrode.corners[i][0] * electrode.corners[i+1][1] - electrode.corners[i+1][0] * electrode.corners[i][1]);
             }
-            area = area + (electrode.corners[0][0] * electrode.corners[electrode.corners.Count - 2][1] - electrode.corners[electrode.corners.Count - 2][0] * electrode.corners[0][1]);
+            area += electrode.corners[0][0] * electrode.corners[electrode.corners.Count - 2][1] - electrode.corners[electrode.corners.Count - 2][0] * electrode.corners[0][1];
             return area/2;
         }
 

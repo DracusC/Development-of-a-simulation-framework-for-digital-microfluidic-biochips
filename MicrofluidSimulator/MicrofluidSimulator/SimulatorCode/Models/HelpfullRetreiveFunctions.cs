@@ -63,7 +63,6 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 case "h20":
 
                     return 0.598F;
-                    break;
             }
             return -1;
 
@@ -78,7 +77,6 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 case "h20":
                     int waterHeatCapacity = 4182;
                     return waterHeatCapacity;
-                    break;
             }
             return -1;
         }
@@ -223,7 +221,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
             Actuators[] actuators = container.actuators;
             int min = 0;
-            int max = actuators.Count() - 1;
+            int max = actuators.Length - 1;
 
             while (min <= max)
             {
@@ -300,7 +298,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
             Electrode[] electrodes = container.electrodes;
             int min = 0;
-            int max = electrodes.Count() - 1;
+            int max = electrodes.Length - 1;
 
             while (min <= max)
             {
