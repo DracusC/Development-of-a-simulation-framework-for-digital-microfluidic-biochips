@@ -171,25 +171,25 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             points.Add(p4);
 
             double distance1 = distanceBetweenPoints(dropletCenter, p1);
-            if (distance1 < dropletRadius)
+            if (distance1 < dropletRadius/2)
             {
                 return true;
             }
             disctances.Add(distance1);
             double distance2 = distanceBetweenPoints(dropletCenter, p2);
-            if (distance2 < dropletRadius)
+            if (distance2 < dropletRadius/2)
             {
                 return true;
             }
             disctances.Add(distance2);
             double distance3 = distanceBetweenPoints(dropletCenter, p3);
-            if (distance3 < dropletRadius)
+            if (distance3 < dropletRadius/2)
             {
                 return true;
             }
             disctances.Add(distance3);
             double distance4 = distanceBetweenPoints(dropletCenter, p4);
-            if (distance1 < dropletRadius)
+            if (distance1 < dropletRadius/2)
             {
                 return true;
             }
