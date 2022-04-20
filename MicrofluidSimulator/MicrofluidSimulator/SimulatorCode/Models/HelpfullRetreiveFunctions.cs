@@ -32,7 +32,6 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 case "h20":
                     float waterDensity = 0.997F;
                     return (caller.volume/1000) * waterDensity;
-                    break;
             }
             return -1;
         }
