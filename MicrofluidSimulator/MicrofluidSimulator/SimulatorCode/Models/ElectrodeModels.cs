@@ -5,7 +5,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class ElectrodeModels
     {
-        public static ArrayList electrodeOnOff(Container values, Electrode electrode, SimulatorAction action)
+        public static ArrayList electrodeOnOff(Container container, Electrode electrode, SimulatorAction action)
         {
             // electrode on/off
             electrode.status = action.actionChange;
@@ -55,11 +55,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             else
             {
-                return (int) getAreaOfIregularShapedElectrode(electrode);
+                return (int) getAreaOfIrregularShapedElectrode(electrode);
             }
         }
 
-        private static float getAreaOfIregularShapedElectrode(Electrode electrode)
+        private static float getAreaOfIrregularShapedElectrode(Electrode electrode)
         {
             
             float area = 0;

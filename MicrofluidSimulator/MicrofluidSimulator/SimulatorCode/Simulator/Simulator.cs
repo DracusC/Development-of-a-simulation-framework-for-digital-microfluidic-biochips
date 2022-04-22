@@ -279,7 +279,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 
                 foreach (int actuatorID in container.subscribedActuators)
                 {
-                    Actuators actuator = HelpfullRetreiveFunctions.getActuatorById(container, actuatorID);
+                    Actuators actuator = HelpfullRetreiveFunctions.getActuatorByID(container, actuatorID);
                     if(actuator != null)
                     {
                         executeActuatorModel(container, actuator);
@@ -302,7 +302,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 {
                     int subscriber = bubbleSubscribersQueue.Dequeue();
                     //Console.WriteLine("SUBSCRIBERS " + subscriber);
-                    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleById(container, subscriber);
+                    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleByID(container, subscriber);
 
                     if (bubble != null && bubble.toRemove == false)
                     {
@@ -326,7 +326,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 ArrayList subscribedBubbles = HelpfullRetreiveFunctions.copyOfSubscribedBubbles(container.subscribedBubbles);
                 foreach (int bubbleID in subscribedBubbles)
                 {
-                    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleById(container, bubbleID);
+                    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleByID(container, bubbleID);
                     if (bubble != null && bubble.toRemove == true)
                     {
                         container.bubbles.Remove(bubble);
@@ -619,7 +619,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         // Utillity for VM
         public int setActuatorTargetTemperature(int heaterID, float desiredValue)
         {
-            Heater heater = (Heater)HelpfullRetreiveFunctions.getActuatorById(container, heaterID);
+            Heater heater = (Heater)HelpfullRetreiveFunctions.getActuatorByID(container, heaterID);
             if(heater == null) { return 1; }
 
             heater.SetTargetTemperature(desiredValue);
@@ -816,7 +816,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     if (words[1].Equals("setel"))
                     {
                         
-                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodId(Int32.Parse(words[i]), Int32.Parse(words[2]), container);
+                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[2]), container);
                         SimulatorAction action = new SimulatorAction("electrode", electrodeId, 1);
                         ActionQueueItem item = new ActionQueueItem(action, timeStep);
                         actionQueueInstructions.Enqueue(item);
@@ -824,7 +824,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     else if (words[1].Equals("clrel"))
                     {
                         
-                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodId(Int32.Parse(words[i]), Int32.Parse(words[2]), container);
+                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[2]), container);
                         SimulatorAction action = new SimulatorAction("electrode", electrodeId, 0);
                         ActionQueueItem item = new ActionQueueItem(action, timeStep);
                         actionQueueInstructions.Enqueue(item);

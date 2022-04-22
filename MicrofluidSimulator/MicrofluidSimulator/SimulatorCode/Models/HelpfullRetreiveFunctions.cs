@@ -126,15 +126,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     }
                     return droplet;
                 }
-                //int minMarginX = droplet.positionX;
-                //int maxMarginX = droplet.positionX + (droplet).sizeX;
-                //int minMarginY = (droplet).positionY;
-                //int maxMarginY = (droplet).positionY + (droplet).sizeY;
-
-                //if (sensor.positionX <= minMarginX && sensor.positionX >= maxMarginX && sensor.positionY <= minMarginY && sensor.positionY >= maxMarginY)
-                //{
-                //    return droplet;
-                //}
+                
             }
             return null;
         }
@@ -147,7 +139,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             double radius = Math.Pow((3 * volume / (4 * Math.PI)), (1.0 / 3.0));
             return radius*2;
         }
-        public static Bubbles getBubbleById(Container container, int bubbleID)
+        public static Bubbles getBubbleByID(Container container, int bubbleID)
         {
             foreach (Bubbles bubble in container.bubbles)
             {
@@ -204,7 +196,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
             return binarySearchActuators(ID, container);
         }
-        public static Actuators getActuatorById(Container container, int actuatorID)
+        public static Actuators getActuatorByID(Container container, int actuatorID)
         {
             foreach (Actuators actuator in container.actuators)
             {
@@ -242,7 +234,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         }
 
         //electrode retreive functions
-        public static int getIdOfElectrodByElectrodId(int electrodeId, int driverId, Container container)
+        public static int getIdOfElectrodByElectrodID(int electrodeId, int driverId, Container container)
         {
             Electrode[] electrodes = container.electrodes;
 
@@ -260,24 +252,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         {
 
             Electrode[] electrodes = container.electrodes;
-            //if (ID < electrodes.Count())
-            //{
+            
                 if (electrodes[ID].ID == ID)
                 {
                     return ID;
                 }
-                //for (int i = 0; i < electrodes.Count(); i++)
-                //{
-                //    if (electrodes[i].ID1 == ID)
-                //    {
-                //        return i;
-                //    }
-                //}
-
-
-            //}
-            //Console.WriteLine("WFT!" + ID);
-            //return 0; 
+                
             return binarySearchElectrode(ID, container);
         }
         public static int getIDofElectrodeByPosition(int positionX, int positionY, Electrode[] electrodeBoard)

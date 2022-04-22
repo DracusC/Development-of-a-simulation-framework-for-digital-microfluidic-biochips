@@ -8,14 +8,19 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static float temperatureSensor(Container container, Sensors sensor)
         {
             Droplets droplet = HelpfullRetreiveFunctions.getDropletOnSensor(container, sensor);
-            if (droplet == null)
+            if(sensor.type == "temperature")
             {
-                return -1;
+                if (droplet == null)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return droplet.temperature;
+                }
             }
-            else
-            {
-                return droplet.temperature;
-            }
+            return -1;
+            
         }
 
     }
