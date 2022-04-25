@@ -53,29 +53,20 @@ namespace MicrofluidSimulator.DumbVM
             {
 
                 this.pushActionsAtTime(simulator.container.currentTime, this.redQueuePush);
-                //foreach (ActionQueueItem action in simulator.actionQueue)
-                //{
-                //    Console.WriteLine("ACTION " + action.action.actionName + ", " + action.action.actionOnID + ", " + action.time);
-                //}
+                
             }
 
             if (Enumerable.SequenceEqual(colorRead, cyanArray))
             {
 
                 this.pushActionsAtTime(simulator.container.currentTime, this.cyanQueuePush);
-                //foreach (ActionQueueItem action in simulator.actionQueue)
-                //{
-                //    Console.WriteLine("ACTION " + action.action.actionName + ", " + action.action.actionOnID + ", " + action.time);
-                //}
+                
             }
             float temperatureHot = this.readTemperatureOfTemperatureSensorAtTime(simulator.container.currentTime, 726);
 
             if(temperatureHot >= 60){
                 this.pushActionsAtTime(simulator.container.currentTime, this.temperature1QueuePush);
-                //foreach(ActionQueueItem action in simulator.actionQueue)
-                //{
-                //    Console.WriteLine("ACTION " + action.action.actionName + ", " + action.action.actionOnID + ", " + action.time);
-                //}
+                
             }
 
             float temperatureCold = this.readTemperatureOfTemperatureSensorAtTime(simulator.container.currentTime, 727);
@@ -83,10 +74,7 @@ namespace MicrofluidSimulator.DumbVM
             if (temperatureCold <= 30 && temperatureCold >= 20)
             {
                 this.pushActionsAtTime(simulator.container.currentTime, this.temperature2QueuePush);
-                //foreach (ActionQueueItem action in simulator.actionQueue)
-                //{
-                //    Console.WriteLine("ACTION " + action.action.actionName + ", " + action.action.actionOnID + ", " + action.time);
-                //}
+                
             }
 
         }
@@ -109,16 +97,6 @@ namespace MicrofluidSimulator.DumbVM
 
         private void pushActionQueueToSimulatorActionQueue(Queue<ActionQueueItem> copyOfQueueToPush, Queue<ActionQueueItem> copyOfQueueToPushForTimeCalculation)
         {
-            Console.WriteLine("COPY OF QUEUE ");
-            foreach (ActionQueueItem action in copyOfQueueToPush)
-            {
-                Console.WriteLine("ACTION " + action.action.actionName + ", " + action.action.actionOnID + ", " + action.time);
-            }
-            Console.WriteLine("COPY OF QUEUE  FOR TIME ");
-            foreach (ActionQueueItem action in copyOfQueueToPushForTimeCalculation)
-            {
-                Console.WriteLine("ACTION " + action.action.actionName + ", " + action.action.actionOnID + ", " + action.time);
-            }
             float accumulatedTime = 0;
 
 
@@ -129,22 +107,22 @@ namespace MicrofluidSimulator.DumbVM
 
                 float tempMin = copyOfQueueToPushForTimeCalculation.ElementAt(i).time;
                 float tempMax = tempMin;
-                Console.WriteLine("MIN AND MAX" + tempMin);
+                
 
                 if (tempMin < min)
                 {
                     min = tempMin;
-                    Console.WriteLine("MIN TIME " + min);
+                    
                 }
                 if (tempMax > max)
                 {
                     max = tempMax;
-                    Console.WriteLine("MAX TIME " + max);
+                    
                 }
 
                 accumulatedTime = max - min;
             }
-            Console.WriteLine("ACCUMULATED TIME " + accumulatedTime);
+            
 
 
             simulator.actionQueue = ActionQueueModels.pushActionQueueToStartOfOriginalActionQueue(simulator.actionQueue, copyOfQueueToPush, accumulatedTime);
@@ -191,10 +169,10 @@ namespace MicrofluidSimulator.DumbVM
                 float temperature = simulator.getTemperatureOfSensorWithID(sensorID);
                 if (temperature != -1 && temperature != 20)
                 {
-                    Console.WriteLine("temperature == " + temperature);
+                    
                     temperatureSensorCalled = true;
                 }
-                Console.WriteLine("temperature -1  == -1");
+               
                 return temperature;
             }
             temperatureSensorCalled = false;
