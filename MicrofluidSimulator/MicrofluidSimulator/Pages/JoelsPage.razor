@@ -138,7 +138,7 @@
         //stopwatch.Stop();
         //Console.WriteLine("SW1: " + stopwatch.ElapsedMilliseconds);
         if(PlayButtonText == "Play") { guibroker.animate_once(); }
-        Console.WriteLine("SIM CUR TIME: " + simulator.container.currentTime);
+        //Console.WriteLine("SIM CUR TIME: " + simulator.container.currentTime);
         guibroker.update_board(simulator.container);
     }
     [JSInvokable]
@@ -190,7 +190,7 @@
             dumbVM.doApiCall();
         }
 
-        Console.WriteLine("SIM CUR TIME: " + simulator.container.currentTime);
+        //Console.WriteLine("SIM CUR TIME: " + simulator.container.currentTime);
 
         guibroker.update_board(simulator.container);
     }
