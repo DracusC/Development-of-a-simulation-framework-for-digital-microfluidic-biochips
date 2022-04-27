@@ -14,23 +14,23 @@ namespace MicrofluidSimulator.DumbVM
         private Simulator simulator;
         private Queue<ActionQueueItem> redQueuePush;
         private Queue<ActionQueueItem> cyanQueuePush;
-        private Queue<ActionQueueItem> temperature1QueuePush;
-        private Queue<ActionQueueItem> temperature2QueuePush;
+        private Queue<ActionQueueItem> hotTemperatureQueuePush;
+        private Queue<ActionQueueItem> coldTemperatureQueuePush;
 
         private bool rgbSensorCalled;
         private bool temperatureSensorCalled;
-        private bool heater1Called;
-        private bool heater2Called;
+        private bool heater727Called;
+        private bool heater729Called;
         public DumbVM(Simulator simulator)
         {
             this.simulator = simulator;
             this.redQueuePush = generateRedTestQueue(simulator.container.currentTime);
             this.cyanQueuePush = generateBlueTestQueue(simulator.container.currentTime);
-            this.temperature1QueuePush = generateTemperature1TestQueue(simulator.container.currentTime);
-            this.temperature2QueuePush = generateTemperature2TestQueue(simulator.container.currentTime);
+            this.hotTemperatureQueuePush = generateHotTemperatureTestQueue(simulator.container.currentTime);
+            this.coldTemperatureQueuePush = generateColdTemperatureTestQueue(simulator.container.currentTime);
 
-            this.heater1Called = false;
-            this.heater2Called = false;
+            this.heater727Called = false;
+            this.heater729Called = false;
             this.rgbSensorCalled = false;
             this.temperatureSensorCalled = false;
         }
@@ -46,8 +46,8 @@ namespace MicrofluidSimulator.DumbVM
             Color cyan = ColorTranslator.FromHtml("#00FFFF");
             int[] redArray = new int[] { red.R, red.G, red.B };
             int[] cyanArray = new int[] { cyan.R, cyan.G, cyan.B };
-            this.turnOnHeaterAtTime(10, 70, 727, heater1Called);
-            this.turnOnHeaterAtTime(1, 70, 729, heater2Called);
+            this.turnOnHeaterAtTime(10, 70, 727, heater727Called);
+            this.turnOnHeaterAtTime(1, 70, 729, heater729Called);
             int[] colorRead = this.readRGBValueOfColorSensorAtTime(simulator.container.currentTime, 725);
             if (Enumerable.SequenceEqual(colorRead, redArray))
             {
@@ -65,7 +65,7 @@ namespace MicrofluidSimulator.DumbVM
             float temperatureHot = this.readTemperatureOfTemperatureSensorAtTime(simulator.container.currentTime, 726);
 
             if(temperatureHot >= 60){
-                this.pushActionsAtTime(simulator.container.currentTime, this.temperature1QueuePush);
+                this.pushActionsAtTime(simulator.container.currentTime, this.hotTemperatureQueuePush);
                 
             }
 
@@ -73,7 +73,7 @@ namespace MicrofluidSimulator.DumbVM
 
             if (temperatureCold <= 30 && temperatureCold >= 20)
             {
-                this.pushActionsAtTime(simulator.container.currentTime, this.temperature2QueuePush);
+                this.pushActionsAtTime(simulator.container.currentTime, this.coldTemperatureQueuePush);
                 
             }
 
@@ -164,7 +164,7 @@ namespace MicrofluidSimulator.DumbVM
         private float readTemperatureOfTemperatureSensorAtTime(float time, int sensorID)
         {
             float currentSimulatorTime = simulator.container.currentTime;
-            if (currentSimulatorTime == time && rgbSensorCalled == false)
+            if (currentSimulatorTime == time && temperatureSensorCalled == false)
             {
                 float temperature = simulator.getTemperatureOfSensorWithID(sensorID);
                 if (temperature != -1 && temperature != 20)
@@ -269,7 +269,7 @@ namespace MicrofluidSimulator.DumbVM
 
             return actionQueueInstructions;
         }
-        private static Queue<ActionQueueItem> generateTemperature1TestQueue(float currentTime)
+        private static Queue<ActionQueueItem> generateHotTemperatureTestQueue(float currentTime)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
             SimulatorAction action1 = new SimulatorAction("electrode", 306, 1);
@@ -315,7 +315,7 @@ namespace MicrofluidSimulator.DumbVM
 
             return actionQueueInstructions;
         }
-        private static Queue<ActionQueueItem> generateTemperature2TestQueue(float currentTime)
+        private static Queue<ActionQueueItem> generateColdTemperatureTestQueue(float currentTime)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
             SimulatorAction action1 = new SimulatorAction("electrode", 309, 1);
