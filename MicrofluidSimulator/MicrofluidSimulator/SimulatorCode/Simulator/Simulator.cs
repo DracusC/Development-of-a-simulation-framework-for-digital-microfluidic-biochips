@@ -364,13 +364,17 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             else
             {
                 float temp = TemperatureSensorModels.temperatureSensor(this.container, temperatureSensor);
-                
+                Droplets droplet = HelpfullRetreiveFunctions.getDropletOnSensor(container, temperatureSensor);
                 if (temp != -1)
                 {
                     temperatureSensor.valueTemperature = temp;
                     return temperatureSensor.GetTemperature();
                 }
-                
+                else if (droplet == null)
+                {
+                    return -1;
+                }
+
 
                 return temperatureSensor.GetTemperature();
             }
