@@ -7,9 +7,9 @@ using MicrofluidSimulator.SimulatorCode.Models;
 using MicrofluidSimulator.SimulatorCode.DataTypes;
 using MicrofluidSimulator.SimulatorCode.Simulator;
 
-namespace MicrofluidSimulator.DumbVM
+namespace MicrofluidSimulator.SimpleVM
 {
-    public class DumbVM
+    public class SimpleVM
     {
         private Simulator simulator;
         private Queue<ActionQueueItem> redQueuePush;
@@ -21,7 +21,7 @@ namespace MicrofluidSimulator.DumbVM
         private bool temperatureSensorCalled;
         private bool heater727Called;
         private bool heater729Called;
-        public DumbVM(Simulator simulator)
+        public SimpleVM(Simulator simulator)
         {
             this.simulator = simulator;
             this.redQueuePush = generateRedTestQueue(simulator.container.currentTime);

@@ -336,7 +336,7 @@
 
     private Container? container;
     private static Simulator? simulator;
-    private static MicrofluidSimulator.DumbVM.DumbVM? dumbVM;
+    private static MicrofluidSimulator.SimpleVM.SimpleVM? dumbVM;
     private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
 
     /// <summary>
@@ -352,7 +352,7 @@
             string actionQueueInstructions = await Http.GetStringAsync("sample-data/simple_paths_commands.txt");
 
             simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
-            dumbVM = new MicrofluidSimulator.DumbVM.DumbVM(simulator);
+            dumbVM = new MicrofluidSimulator.SimpleVM.SimpleVM(simulator);
 
             guibroker.set_jsprocess(JSInProcessRuntime);
             guibroker.set_unmarshall(JSUnmarshalledRuntime);

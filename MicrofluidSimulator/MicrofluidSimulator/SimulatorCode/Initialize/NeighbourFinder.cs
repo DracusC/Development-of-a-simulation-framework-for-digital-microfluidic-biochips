@@ -1,7 +1,11 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
 using System.Collections;
-using System.Text.Json;
+using System.IO;
 using Newtonsoft.Json;
+using System;
+using System.Text;
+
+using System.Security.AccessControl;
 namespace MicrofluidSimulator.SimulatorCode.Initialize
 {
     public class NeighbourFinder
@@ -32,18 +36,34 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             }
             string electrodesWithNeighbours = JsonConvert.SerializeObject(container.electrodes);
             Console.WriteLine(electrodesWithNeighbours);
-            //for (int i = 0; i < container.Electrodes.Length; i++)
-            //{
-            //    if(container.Electrodes[i].ID1 == 66)
-            //    {
-            //        for (int j = 0; j < container.Electrodes[i].Neighbours.Count; j++)
-            //        {
-            //            Console.WriteLine("neighbours for  " + container.Electrodes[i].ID1 + " : " + container.Electrodes[i].Neighbours[j]);
-            //        }
-            //    }
 
+            // https://docs.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-6.0
+            // https://stackoverflow.com/questions/16921652/how-to-write-a-json-file-in-c
+            
+            
+            try
+            {
+                // Create the file, or overwrite if the file exists.
+                
+                // Add some information to the file.
+                File.WriteAllText("../../wwwroot/sample-data/neighbours.json", electrodesWithNeighbours);
 
-            //}
+                Console.WriteLine("CURRENT DIRECTORY " + Directory.GetCurrentDirectory());
+
+                
+            }
+
+            catch (Exception ex)
+            {
+                DirectoryInfo di = Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/BLABLA");
+                Console.WriteLine("The directory was created successfully at",
+                    Directory.GetDirectories(Directory.GetCurrentDirectory() + "/BLABLA"));
+                
+                File.WriteAllText(Directory.GetCurrentDirectory() + "/BLABLA", electrodesWithNeighbours);
+                Console.WriteLine("Couldn't write electrodesWithNeighbours to given path");
+            }
+            
+            
 
 
             return container;

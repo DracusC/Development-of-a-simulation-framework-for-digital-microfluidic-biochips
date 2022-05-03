@@ -11,8 +11,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         
         public Simulator(Queue<ActionQueueItem> actionQueue, Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours, string generatedActionQueue)
         {
-            
 
+            Console.WriteLine("CURRENT DIRECTORY " + Directory.GetCurrentDirectory());
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(container, electrodesWithNeighbours);
