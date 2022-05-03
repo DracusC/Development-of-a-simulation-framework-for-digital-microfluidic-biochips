@@ -10,8 +10,8 @@
  * Declaration of script "global" variables.
  * These variables are used by both the global functions but also by the p5js script.
  */
-let simulator_droplets = [];
-let simulator_electrodes = [];
+let simulator_droplets = []; // Not used
+let simulator_electrodes = []; // Not used
 let lerp_amount = 0;     // Used to interpolate between droplet positions.
 
 
@@ -102,7 +102,8 @@ let sketch = function (p) {
 
         if (information_panel_manager.double_clicked) { information_panel_manager.draw_multiple_selection(p); }
 
-        draw_bubbles();
+        if (layer_manager.layers.draw_bubbles.checkbox.checked) { draw_bubbles(); }
+        
 
         // Controls animations
         if (layer_manager.layers.draw_droplet_animations.checkbox.checked) {
@@ -124,7 +125,7 @@ let sketch = function (p) {
             }
         }
 
-        // Control animation
+        // Control simulator stepping
         if (gui_broker.play_status && lerp_amount >= 1.3 && !layer_manager.layers.real_time.checkbox.checked && layer_manager.layers.draw_droplet_animations.checkbox.checked) {
             gui_broker.next_simulator_step();
             lerp_amount = 0;
@@ -780,7 +781,7 @@ let sketch = function (p) {
     }
     gui_broker.init_board = init_board; // Attach the function to the GUI broker.
 
-
+    // TODO: Move to layer_panel manager????
     /**
      * Draws the selected element
      * @param {any} layer
@@ -958,77 +959,3 @@ let sketch = function (p) {
     }
 
 };
-
-
-
-/*
- function getVerticesOppositeDirection(groupID) {
-
-        let cur_group = gui_broker.droplet_groups[groupID];
-        let prev_group = gui_broker.prev_droplet_groups[groupID];
-        if (typeof cur_group == "undefined" || typeof prev_group == "undefined") { return; }
-
-        let cur_dir_vertices = [];
-        let prev_dir_vertices = [];
-
-
-
-        // Get direction of droplet group
-        let dir = getDirectionOfDropletGroup(groupID);
-        switch (dir) {
-            case ("right"):
-
-                break;
-        }
-
-
-    }
-
-    function getDirectionOfDropletGroup(groupID) {
-
-        let cur_group = gui_broker.droplet_groups[groupID];
-        if (typeof cur_group == "undefined" || typeof gui_broker.prev_droplet_groups[groupID] == "undefined") { return; }
-
-        let prev_group = gui_broker.prev_droplet_groups[groupID];
-
-        let cur_mid_pos = getMiddleOfDropletGroup(cur_group);
-        let prev_mid_pos = getMiddleOfDropletGroup(prev_group);
-
-        //console.log(cur_mid_pos, prev_mid_pos);
-
-        if (cur_mid_pos[0] != prev_mid_pos[0] || cur_mid_pos[1] != prev_mid_pos[1]) {
-            if (cur_mid_pos[0] < prev_mid_pos[0]) { return "left"; }
-            else if (cur_mid_pos[0] > prev_mid_pos[0]) { return "right"; }
-            else if (cur_mid_pos[1] < prev_mid_pos[1]) { return "up"; }
-            else if (cur_mid_pos[1] > prev_mid_pos[1]) { return "down"; }
-        } else {
-            return "none";
-        }
-
-        //console.log(cur_group, prev_group);
-    }
-
-    function getMiddleOfDropletGroup(droplet_group) {
-        if (typeof droplet_group == "undefined") { return [0, 0]; }
-
-        let sumX = 0;
-        let sumY = 0;
-        for (i in droplet_group) {
-            if (typeof droplet_group[i].ID == "undefined") { continue; }
-            sumX += droplet_group[i].positionX;
-            sumY += droplet_group[i].positionY;
-        }
-
-        let posX = sumX / droplet_group.length;
-        let posY = sumY / droplet_group.length;
-
-        return [posX, posY];
-    }
- 
- 
- 
- 
- 
- 
- 
- */

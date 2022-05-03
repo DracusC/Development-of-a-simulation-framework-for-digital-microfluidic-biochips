@@ -71,6 +71,16 @@ let layer_manager = {
             checked: true,
             layer: "insert"         // Reference - pass to functions
         },
+        draw_bubbles: {
+            name: "draw_bubbles",
+            value: "draw_bubbles",
+            id: "draw_bubbles",
+            text: "Draw Bubbles", // Will be shown in layer panel list
+            element: "insert",      // Reference - get toggled from here
+            checkbox: "insert",
+            checked: false
+            //layer: "insert"         // Reference - pass to functions
+        },
         draw_selected_element: {
             name: "draw_selected_element",
             value: "draw_selected_element",
