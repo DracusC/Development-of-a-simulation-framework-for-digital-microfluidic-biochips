@@ -438,7 +438,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             {
                 case "heater":
                     
-                    ((Heater)actuator).SetPowerStatus();
+                    
                     HeaterActuatorModels.heaterTemperatureChange(container, (Heater) actuator);
                     break;
             }

@@ -8,7 +8,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         
         public static ArrayList heaterTemperatureChange(Container container, Heater heater)
         {
-            
+            heater.SetPowerStatus();
             heater.valueActualTemperature = (heater.valueActualTemperature + container.timeStep * heater.valuePowerStatus);
             
             return heater.subscriptions;
