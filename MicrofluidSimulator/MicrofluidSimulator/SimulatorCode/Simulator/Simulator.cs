@@ -1,4 +1,5 @@
 ﻿using MicrofluidSimulator.SimulatorCode.DataTypes;
+using System.Globalization;
 using System.Collections;
 using MicrofluidSimulator.SimulatorCode.Models;
 
@@ -16,7 +17,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(container, electrodesWithNeighbours);
-            this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
+            this.actionQueue = generateSimplePathsQueueFromReader(generatedActionQueue, container);
+            //this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
             //this.actionQueue = generateTestQueue();
             this.droplets = container.droplets;
             Electrode[] electrodeBoard = container.electrodes;
@@ -860,6 +862,59 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
 
 
+
+            return actionQueueInstructions;
+
+        }
+
+        private static Queue<ActionQueueItem> generateSimplePathsQueueFromReader(string generatedActionQueue, Container container)
+        {
+            Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
+            
+            string firstLine = generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)[0];
+            string[] firstWords = firstLine.Split(' ');
+            double timeToSubtract = Convert.ToDouble(firstWords[4].Replace(".", ",")); // float.Parse(firstWords[4], CultureInfo.InvariantCulture);
+            Console.WriteLine("TIMETOSUBTRACT " + (timeToSubtract));
+
+            foreach (string line in generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            {
+
+                
+                string[] words = line.Split(' ');
+                
+                    
+                    
+                
+                for (int i = 9; i < words.Length; i++)
+                {
+
+                    if (words[7].Equals("setel"))
+                    {
+
+                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[8]), container);
+                        SimulatorAction action = new SimulatorAction("electrode", electrodeId, 1);
+                        ActionQueueItem item = new ActionQueueItem(action, (float)((Convert.ToDouble(words[4].Replace(".", ",")) - timeToSubtract)*0.001));
+                        
+                        actionQueueInstructions.Enqueue(item);
+                    }
+                    else if (words[7].Equals("clrel"))
+                    {
+
+                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[8]), container);
+                        SimulatorAction action = new SimulatorAction("electrode", electrodeId, 0);
+                        ActionQueueItem item = new ActionQueueItem(action, (float) ((Convert.ToDouble(words[4].Replace(".", ",")) - timeToSubtract)*0.001));
+                        
+                        actionQueueInstructions.Enqueue(item);
+                    }
+
+
+
+
+                }
+
+                
+            }
+            
 
             return actionQueueInstructions;
 
