@@ -16,7 +16,7 @@ let lerp_amount = 0;     // Used to interpolate between droplet positions.
 
 
 // Layer for electrodes, since their placement are static
-let layer_electrode_shape;
+let layer_electrode;
 
 
 /*
@@ -43,7 +43,7 @@ let sketch = function (p) {
 
         // Create layers
         //layer_electrode_id = p.createGraphics(1, 1);
-        layer_electrode_shape = p.createGraphics(1, 1);
+        layer_electrode = p.createGraphics(1, 1);
         console.log("setup");
 
         //p.frameRate(10);
@@ -85,7 +85,7 @@ let sketch = function (p) {
         p.background(240);
 
         /* Draw calls */
-        p.image(layer_electrode_shape, 0, 0);
+        p.image(layer_electrode, 0, 0);
 
         if (layer_manager.layers.draw_active_electrodes.checkbox.checked) { draw_active_electrodes(); }
 
@@ -147,7 +147,7 @@ let sketch = function (p) {
         if (gui_broker.play_status && (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time) >= gui_broker.board.currentTime) {
             console.log("Ellapsed time: " + ((Date.now() - gui_broker.simulator_time) / 1000) + " seconds", "Actual time: " + (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time),"Previous time: " + gui_broker.simulator_prev_time,"Current time: " + gui_broker.board.currentTime);
             lerp_amount = 1;
-            gui_broker.next_simulator_step_time(-1);
+            gui_broker.next_simulator_step_time(gui_broker.simulator_time_step);
         }
 
     }
@@ -775,9 +775,9 @@ let sketch = function (p) {
         draw_actuators(layer_manager.layers.draw_actuators.layer);
         draw_sensors(layer_manager.layers.draw_sensors.layer);
 
-        layer_electrode_shape = p.createGraphics(sizeX + 1, sizeY);
+        layer_electrode = p.createGraphics(sizeX + 1, sizeY);
 
-        draw_electrodes_shapes();
+        draw_electrodes();
     }
     gui_broker.init_board = init_board; // Attach the function to the GUI broker.
 
@@ -843,31 +843,31 @@ let sketch = function (p) {
     }
 
     /* Call to draw electrode shapes */
-    function draw_electrodes_shapes() {
+    function draw_electrodes() {
         for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
 
-            layer_electrode_shape.stroke(draw_config.electrode.borderColor);
-            layer_electrode_shape.strokeWeight(draw_config.electrode.borderWidth);
-            layer_electrode_shape.fill(draw_config.electrode.backgroundColor);
+            layer_electrode.stroke(draw_config.electrode.borderColor);
+            layer_electrode.strokeWeight(draw_config.electrode.borderWidth);
+            layer_electrode.fill(draw_config.electrode.backgroundColor);
             //if (electrode.status != 0) { layer_electrode_shape.fill("red"); }
 
             // Check the electrode shape
             if (electrode.shape == 1) {
                 draw_polygon_electrode_shapes(electrode.positionX, electrode.positionY, electrode.corners);
             } else {
-                layer_electrode_shape.rect(electrode.positionX, electrode.positionY, electrode.sizeX, electrode.sizeY);
+                layer_electrode.rect(electrode.positionX, electrode.positionY, electrode.sizeX, electrode.sizeY);
             }
         }
     }
 
     /* Call to draw polygonal shaped electrode shapes */
     function draw_polygon_electrode_shapes(posX, posY, corners) {
-        layer_electrode_shape.beginShape();
+        layer_electrode.beginShape();
         for (let i = 0; i < corners.length; i++) {
-            layer_electrode_shape.vertex(posX + corners[i][0] + 0.5, posY + corners[i][1] + 0.5);
+            layer_electrode.vertex(posX + corners[i][0] + 0.5, posY + corners[i][1] + 0.5);
         }
-        layer_electrode_shape.endShape(layer_electrode_shape.CLOSE);
+        layer_electrode.endShape(layer_electrode.CLOSE);
     }
 
     /* Call to draw droplets */

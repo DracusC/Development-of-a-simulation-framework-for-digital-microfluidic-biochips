@@ -11,6 +11,7 @@ let gui_broker = {
     animate: false,
     simulator_time: 0,
     simulator_prev_time: 0,
+    simulator_time_step: -1,
     data_to_download: [],
     board: {},
     droplets: [],
