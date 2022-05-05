@@ -873,7 +873,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
             string firstLine = generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)[0];
             string[] firstWords = firstLine.Split(' ');
-            double timeToSubtract = Convert.ToDouble(firstWords[4]); // float.Parse(firstWords[4], CultureInfo.InvariantCulture);
+            double timeToSubtract = Convert.ToDouble(firstWords[4].Replace(".", ",")); // float.Parse(firstWords[4], CultureInfo.InvariantCulture);
             Console.WriteLine("TIMETOSUBTRACT " + (timeToSubtract));
 
             foreach (string line in generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
@@ -893,7 +893,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                         int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[8]), container);
                         SimulatorAction action = new SimulatorAction("electrode", electrodeId, 1);
-                        ActionQueueItem item = new ActionQueueItem(action, (float)((Convert.ToDouble(words[4]) - timeToSubtract)*0.001));
+                        ActionQueueItem item = new ActionQueueItem(action, (float)((Convert.ToDouble(words[4].Replace(".", ",")) - timeToSubtract)*0.001));
                         
                         actionQueueInstructions.Enqueue(item);
                     }
@@ -902,7 +902,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                         int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[8]), container);
                         SimulatorAction action = new SimulatorAction("electrode", electrodeId, 0);
-                        ActionQueueItem item = new ActionQueueItem(action, (float) ((Convert.ToDouble(words[4]) - timeToSubtract)*0.001));
+                        ActionQueueItem item = new ActionQueueItem(action, (float) ((Convert.ToDouble(words[4].Replace(".", ",")) - timeToSubtract)*0.001));
                         
                         actionQueueInstructions.Enqueue(item);
                     }
