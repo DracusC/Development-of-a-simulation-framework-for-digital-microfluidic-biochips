@@ -872,14 +872,12 @@ let sketch = function (p) {
 
     /* Call to draw droplets */
     function draw_droplet() {
-
         for (let i = 0; i < gui_broker.droplets.length; i++) {
             let droplet = gui_broker.droplets[i];
             p.fill(droplet.color);
             p.stroke(draw_config.droplet.borderColor);
             p.strokeWeight(draw_config.droplet.borderWidth);
             p.ellipse(droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY);
-            //anim_move(droplet, i);
         }
     }
 
