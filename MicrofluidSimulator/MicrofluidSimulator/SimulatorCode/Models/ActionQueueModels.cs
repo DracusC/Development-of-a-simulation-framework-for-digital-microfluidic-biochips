@@ -86,5 +86,49 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return "not found";
         }
+
+        public static Queue<ActionQueueItem> pushActionQueueToStartOfOriginalActionQueueV2(Queue<ActionQueueItem> originalActionQueue, Queue<ActionQueueItem> actionQueueToPush)
+        {
+            Queue<ActionQueueItem> newQueue = new Queue<ActionQueueItem>();
+    
+            // traverse the queue
+            while(originalActionQueue.Count > 0 && actionQueueToPush.Count > 0)
+            {
+                Console.WriteLine("oAQ time " + originalActionQueue.Peek().time + " AND AQTIME " + actionQueueToPush.Peek().time);
+                if(originalActionQueue.Peek().time > actionQueueToPush.Peek().time)
+                {
+                    newQueue.Enqueue(actionQueueToPush.Dequeue());
+                }else if(originalActionQueue.Peek().time <= actionQueueToPush.Peek().time)
+                {
+                    newQueue.Enqueue(originalActionQueue.Dequeue());
+                }
+
+                if(!(originalActionQueue.Count > 0))
+                {
+                    while(actionQueueToPush.Count > 0) { 
+                        newQueue.Enqueue(actionQueueToPush.Dequeue());
+                    }
+                    return newQueue;
+                }else if(!(actionQueueToPush.Count > 0))
+                {
+                    while(originalActionQueue.Count > 0) { 
+                        newQueue.Enqueue(originalActionQueue.Dequeue());
+                    }
+                    return newQueue;
+                }
+                Console.WriteLine("ENDLESS LOOP=");
+            }
+
+            if(!(originalActionQueue.Count > 0))
+            {
+                while (actionQueueToPush.Count > 0)
+                {
+                    newQueue.Enqueue(actionQueueToPush.Dequeue());
+                }
+            }
+            
+
+            return newQueue;
+        }
     }
 }

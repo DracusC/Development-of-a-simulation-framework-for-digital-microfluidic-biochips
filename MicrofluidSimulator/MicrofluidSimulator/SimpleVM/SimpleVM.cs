@@ -91,7 +91,7 @@ namespace MicrofluidSimulator.SimpleVM
                 {
                     item.time += simulator.container.currentTime;
                 }
-                pushActionQueueToSimulatorActionQueue(copyOfQueueToPush, copyOfQueueToPushForTimeCalculation);
+                pushActionQueueToSimulatorActionQueueV2(copyOfQueueToPush);
             }
         }
 
@@ -126,6 +126,14 @@ namespace MicrofluidSimulator.SimpleVM
 
 
             simulator.actionQueue = ActionQueueModels.pushActionQueueToStartOfOriginalActionQueue(simulator.actionQueue, copyOfQueueToPush, accumulatedTime);
+
+
+        }
+
+        private void pushActionQueueToSimulatorActionQueueV2(Queue<ActionQueueItem> copyOfQueueToPush)
+        {
+            
+            simulator.actionQueue = ActionQueueModels.pushActionQueueToStartOfOriginalActionQueueV2(simulator.actionQueue, copyOfQueueToPush);
 
 
         }
@@ -311,6 +319,8 @@ namespace MicrofluidSimulator.SimpleVM
             SimulatorAction action10 = new SimulatorAction("electrode", 309, 0);
             ActionQueueItem item10 = new ActionQueueItem(action10, 10 + currentTime);
             actionQueueInstructions.Enqueue(item10);
+
+
 
 
             return actionQueueInstructions;

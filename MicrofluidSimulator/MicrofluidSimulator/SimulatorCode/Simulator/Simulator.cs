@@ -17,8 +17,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(container, electrodesWithNeighbours);
-            this.actionQueue = generateSimplePathsQueueFromReader(generatedActionQueue, container);
-            //this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
+            //this.actionQueue = generateSimplePathsQueueFromReader(generatedActionQueue, container);
+            this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
             //this.actionQueue = generateTestQueue();
             this.droplets = container.droplets;
             Electrode[] electrodeBoard = container.electrodes;
@@ -89,7 +89,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             //if there are no more actions it steps 1 second
             if (timeStepLength == -1)
             {
-                if (actionQueue.Count > 1)
+                if (actionQueue.Count > 0)
                 {
                     ActionQueueItem actionPeek = actionQueue.Peek();
                     targetTime = actionPeek.time;
@@ -117,7 +117,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                
                 ArrayList subscribers = new ArrayList();
                 //if there is actions on the queue
-                if (actionQueue.Count > 1)
+                if (actionQueue.Count > 0)
                 {
                     container.timeStep = 0;
                     ActionQueueItem actionPeekForTime = actionQueue.Peek();
