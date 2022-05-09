@@ -163,24 +163,28 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         }
 
         //actuator retreive functions
-        public static Heater getHeaterOnDroplet(Container container, Droplets caller)
+        public static Actuators getActuatorOnDroplet(Container container, Droplets caller, string actuatorType)
         {
+            
             foreach (Actuators actuator in container.actuators)
             {
-                if (actuator.type.Equals("heater"))
+                if (actuator.type.Equals(actuatorType))
                 {
+
                     
-                    int minMarginX = ((Heater)actuator).positionX;
-                    int maxMarginX = ((Heater)actuator).positionX + ((Heater)actuator).sizeX;
-                    int minMarginY = ((Heater)actuator).positionY;
-                    int maxMarginY = ((Heater)actuator).positionY + ((Heater)actuator).sizeY;
+                    
+                    int minMarginX = actuator.positionX;
+                    int maxMarginX = actuator.positionX + (actuator).sizeX;
+                    int minMarginY = actuator.positionY;
+                    int maxMarginY = actuator.positionY + (actuator).sizeY;
 
                     if (caller.positionX >= minMarginX && caller.positionX <= maxMarginX && caller.positionY >= minMarginY && caller.positionY <= maxMarginY)
                     {
                         
-                        return (Heater)actuator;
+                        return actuator;
                     }
                 }
+
             }
             return null;
         }

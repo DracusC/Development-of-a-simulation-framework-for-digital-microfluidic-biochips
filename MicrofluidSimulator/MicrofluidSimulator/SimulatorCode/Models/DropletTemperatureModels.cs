@@ -13,7 +13,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             };
             //return subscribers;
 
-            Heater heater = HelpfullRetreiveFunctions.getHeaterOnDroplet(container, caller);
+            Heater heater = (Heater) HelpfullRetreiveFunctions.getActuatorOnDroplet(container, caller, "heater");
             
             if(heater == null)
             {
