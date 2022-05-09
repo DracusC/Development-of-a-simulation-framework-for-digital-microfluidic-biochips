@@ -7,15 +7,18 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         public static int[] colorSensor(Container container, Sensors sensor)
         {
             Droplets droplet = HelpfullRetreiveFunctions.getDropletOnSensor(container, sensor);
-            if(droplet == null)
+            if (sensor.type == "RGB_color")
             {
-                
-                return new int[] {-1, -1, -1};
-            }
-            else
-            {
-                Color color = ColorTranslator.FromHtml(droplet.color);
-                return new int[] { color.R, color.G, color.B };
+                if (droplet == null)
+                {
+
+                    return new int[] { -1, -1, -1 };
+                }
+                else
+                {
+                    Color color = ColorTranslator.FromHtml(droplet.color);
+                    return new int[] { color.R, color.G, color.B };
+                }
             }
         }
     }
