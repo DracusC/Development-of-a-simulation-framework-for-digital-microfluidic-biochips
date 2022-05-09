@@ -20,6 +20,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     return new int[] { color.R, color.G, color.B };
                 }
             }
+            return new int[] { -1, -1, -1 };
         }
     }
 }
