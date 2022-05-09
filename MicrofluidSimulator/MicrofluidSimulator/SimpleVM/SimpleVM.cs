@@ -85,58 +85,19 @@ namespace MicrofluidSimulator.SimpleVM
             {
 
                 Queue<ActionQueueItem> copyOfQueueToPush = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(queueToPush);
-                Queue<ActionQueueItem> copyOfQueueToPushForTimeCalculation = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(queueToPush);
+                
 
                 foreach (ActionQueueItem item in copyOfQueueToPush)
                 {
                     item.time += simulator.container.currentTime;
                 }
-                pushActionQueueToSimulatorActionQueueV2(copyOfQueueToPush);
+                simulator.actionQueue = ActionQueueModels.pushActionQueueToOriginalActionQueue(simulator.actionQueue, copyOfQueueToPush);
             }
         }
 
-        private void pushActionQueueToSimulatorActionQueue(Queue<ActionQueueItem> copyOfQueueToPush, Queue<ActionQueueItem> copyOfQueueToPushForTimeCalculation)
-        {
-            float accumulatedTime = 0;
+        
 
-
-            float min = Int32.MaxValue;
-            float max = Int32.MinValue;
-            for (int i = 0; i < copyOfQueueToPushForTimeCalculation.Count; i++)
-            {
-
-                float tempMin = copyOfQueueToPushForTimeCalculation.ElementAt(i).time;
-                float tempMax = tempMin;
-                
-
-                if (tempMin < min)
-                {
-                    min = tempMin;
-                    
-                }
-                if (tempMax > max)
-                {
-                    max = tempMax;
-                    
-                }
-
-                accumulatedTime = max - min;
-            }
-            
-
-
-            simulator.actionQueue = ActionQueueModels.pushActionQueueToStartOfOriginalActionQueue(simulator.actionQueue, copyOfQueueToPush, accumulatedTime);
-
-
-        }
-
-        private void pushActionQueueToSimulatorActionQueueV2(Queue<ActionQueueItem> copyOfQueueToPush)
-        {
-            
-            simulator.actionQueue = ActionQueueModels.pushActionQueueToStartOfOriginalActionQueueV2(simulator.actionQueue, copyOfQueueToPush);
-
-
-        }
+    
 
         private void turnOnHeaterAtTime(float time, float desiredTemperature, int heaterID, bool heaterCalled)
         {

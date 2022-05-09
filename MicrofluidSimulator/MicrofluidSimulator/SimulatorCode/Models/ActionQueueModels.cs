@@ -87,7 +87,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return "not found";
         }
 
-        public static Queue<ActionQueueItem> pushActionQueueToStartOfOriginalActionQueueV2(Queue<ActionQueueItem> originalActionQueue, Queue<ActionQueueItem> actionQueueToPush)
+        public static Queue<ActionQueueItem> pushActionQueueToOriginalActionQueue(Queue<ActionQueueItem> originalActionQueue, Queue<ActionQueueItem> actionQueueToPush)
         {
             Queue<ActionQueueItem> newQueue = new Queue<ActionQueueItem>();
     
