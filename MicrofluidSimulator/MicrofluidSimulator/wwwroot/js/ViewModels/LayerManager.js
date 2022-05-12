@@ -78,7 +78,7 @@ let layer_manager = {
             text: "Draw Bubbles", // Will be shown in layer panel list
             element: "insert",      // Reference - get toggled from here
             checkbox: "insert",
-            checked: false
+            checked: true
             //layer: "insert"         // Reference - pass to functions
         },
         draw_selected_element: {

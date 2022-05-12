@@ -198,6 +198,44 @@ let information_panel_manager = {
         for (let i in s_list) {
             layer.text(s_list[i], layer.mouseX + 10, layer.mouseY + (layer.textAscent(s_list[i]) * (parseInt(i) + 1)) + 5 * (parseInt(i) + 1));
         }
+        layer.stroke("#000000");
+    },
+    // TODO: Move to layer_panel manager????
+    /**
+     * Draws the selected element
+     * @param {any} layer
+     * @param {any} element
+     */
+    draw_selected_element: function(layer, element) {
+        layer.clear();
+        if (element == null) { return; }
+
+        if (typeof element.status != "undefined") {
+
+            // Electrode
+            for (let i = 0; i < gui_broker.electrodes.length; i++) {
+                let electrode = gui_broker.electrodes[i];
+
+                if (electrode.ID != element.ID) { continue; }
+
+                layer.noFill();
+                layer.stroke("blue");
+                layer.strokeWeight(3);
+
+                // Check the electrode shape
+                if (electrode.shape == 1) {
+                    layer.beginShape();
+                    for (let i = 0; i < electrode.corners.length; i++) {
+                        layer.vertex(electrode.positionX + electrode.corners[i][0] + 0.5, electrode.positionY + electrode.corners[i][1] + 0.5);
+                    }
+                    layer.endShape(layer.CLOSE);
+                } else {
+                    layer.rect(electrode.positionX, electrode.positionY, electrode.sizeX, electrode.sizeY);
+                }
+            }
+        } else {
+
+        }
     },
 
     /**
@@ -383,7 +421,6 @@ let information_panel_manager = {
         let new_element = null;
         let type = this.selected_element_type.toLowerCase();
         let groupID = (typeof cur_element.groupID === 'undefined') ? null : cur_element.groupID;
-        console.log(groupID);
 
         if (type == "group") {
             let group_list = gui_broker.droplet_groups;

@@ -96,7 +96,7 @@ let sketch = function (p) {
 
         
 
-        if (layer_manager.layers.draw_selected_element.checkbox.checked) { draw_selected_element(layer_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
+        if (layer_manager.layers.draw_selected_element.checkbox.checked) { information_panel_manager.draw_selected_element(layer_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
 
         if (layer_manager.layers.draw_droplet_groups.checkbox.checked || layer_manager.layers.draw_droplet_animations.checkbox.checked) { draw_grouped_droplets(); }
 
@@ -272,6 +272,19 @@ let sketch = function (p) {
     }
 
     function getGroupVerticesToLerp(groupID, prevGroupID) {
+        let cur_group = gui_broker.droplet_groups[groupID];
+
+        if (typeof prevGroupID == "undefined") { prevGroupID = groupID }
+        let prev_group = gui_broker.prev_droplet_groups[prevGroupID];
+
+        if (typeof cur_group == "undefined" || typeof prev_group == "undefined") { return; }
+
+        let difference = prev_group.vertices.filter(x => !cur_group.vertices.includes(x));
+
+        return difference;
+    }
+
+    function getGroupVerticesToLerp2(groupID, prevGroupID) {
         let cur_group = gui_broker.droplet_groups[groupID];
 
         if (typeof prevGroupID == "undefined") { prevGroupID = groupID }
@@ -781,44 +794,7 @@ let sketch = function (p) {
     }
     gui_broker.init_board = init_board; // Attach the function to the GUI broker.
 
-    // TODO: Move to layer_panel manager????
-    /**
-     * Draws the selected element
-     * @param {any} layer
-     * @param {any} element
-     */
-    function draw_selected_element(layer, element) {
-        layer.clear();
-        if (element == null) { return; }
-
-        
-        if (element.status != "undefined") {
-
-            // Electrode
-            for (let i = 0; i < gui_broker.electrodes.length; i++) {
-                let electrode = gui_broker.electrodes[i];
-
-                if (electrode.ID != element.ID) { continue; }
-
-                layer.noFill();
-                layer.stroke("blue");
-                layer.strokeWeight(3);
-
-                // Check the electrode shape
-                if (electrode.shape == 1) {
-                    layer.beginShape();
-                    for (let i = 0; i < electrode.corners.length; i++) {
-                        layer.vertex(electrode.positionX + electrode.corners[i][0] + 0.5, electrode.positionY + electrode.corners[i][1] + 0.5);
-                    }
-                    layer.endShape(layer.CLOSE);
-                } else {
-                    layer.rect(electrode.positionX, electrode.positionY, electrode.sizeX, electrode.sizeY);
-                }
-            }
-        } else {
-            
-        }
-    }
+    
 
     /* Call to draw active electrodes */
     function draw_active_electrodes() {
