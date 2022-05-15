@@ -63,15 +63,17 @@ let gui_broker = {
      * from the droplet data.
      */
     get_droplet_groups: function () {
-        this.droplet_groups = {};
+        //this.droplet_groups = {};
+        let droplet_groups_for_return = {};
 
         for (let i = 0; i < this.droplets.length; i++) {
-            if (typeof this.droplet_groups[this.droplets[i].group] == "undefined") {
-                this.droplet_groups[this.droplets[i].group] = [(this.droplets[i])];
+            if (typeof droplet_groups_for_return[this.droplets[i].group] == "undefined") {
+                droplet_groups_for_return[this.droplets[i].group] = [(this.droplets[i])];
             } else {
-                this.droplet_groups[this.droplets[i].group].push(this.droplets[i]);
+                droplet_groups_for_return[this.droplets[i].group].push(this.droplets[i]);
             }
         }
+        return droplet_groups_for_return;
     }
 };
 

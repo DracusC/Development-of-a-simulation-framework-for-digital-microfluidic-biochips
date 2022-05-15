@@ -279,6 +279,7 @@ let sketch = function (p) {
 
         if (typeof cur_group == "undefined" || typeof prev_group == "undefined") { return; }
 
+        if (typeof prev_group.vertices == "undefined") { return; }
         let difference = prev_group.vertices.filter(x => !cur_group.vertices.includes(x));
 
         return difference;

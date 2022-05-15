@@ -47,7 +47,7 @@ window.update_board = (_container_string) => {
     gui_broker.droplets = board.droplets;
     gui_broker.electrodes = board.electrodes;
     gui_broker.prev_droplet_groups = gui_broker.droplet_groups;
-    gui_broker.get_droplet_groups();
+    gui_broker.droplet_groups = gui_broker.get_droplet_groups();
     
     /* Allow dynamic selection */
     information_panel_manager.dynamic_update();
@@ -155,7 +155,9 @@ window.download_data = () => {
  */
 window.send_download_data = (jsonData) => {
     let obj = JSON.parse(jsonData);
+    obj.droplet_groups = gui_broker.get_droplet_groups();
     gui_broker.data_to_download.push(obj);
+    console.log(obj);
 }
 
 /* Make the gui_broker a global object */
