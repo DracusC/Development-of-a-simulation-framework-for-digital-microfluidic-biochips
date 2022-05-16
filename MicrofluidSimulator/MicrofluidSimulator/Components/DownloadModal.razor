@@ -1,0 +1,76 @@
+﻿@* Adapted from https://www.puresourcecode.com/dotnet/blazor/modal-dialog-component-for-blazor/ *@
+
+@using MicrofluidSimulator.SimulatorCode
+@using MicrofluidSimulator.SimulatorCode.View
+@using System.Dynamic
+
+
+
+<div class="modal fade show" id="myModal" style="display:block; background-color: rgba(10,10,10,.8);"
+     aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Download Data</h4>
+                <button type="button" class="btn-close" @onclick="ModalCancel"></button>
+            </div>
+            <div class="modal-body">
+                <p>Input a time (float value) in seconds, which is the end time of the simulation data, that will be downloaded, and a time step, which is the simulation call frequency.</p>
+                <div>
+                    Input end time:
+                    <RadzenNumeric @bind-Value="Time" TValue="float" Step="0.1" Placeholder="Input a time (float)" Min="0" Change="onInputChange" ></RadzenNumeric>
+                </div>
+                <div>
+                    Input time step:
+                    <RadzenNumeric @bind-Value="TimeStep" TValue="float" Step="0.1" Placeholder="Input a time step (float)" Min="0" Change="onInputChange" ></RadzenNumeric>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick=@ModalSubmit>Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<bool> OnClose { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnSubmit { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnOpen { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Text { get; set; }
+
+    public float Time { get; set; }
+    public float TimeStep { get; set; }
+
+
+    private Task ModalCancel()
+    {
+        return OnClose.InvokeAsync(false);
+    }
+    private Task ModalSubmit()
+    {
+        return OnSubmit.InvokeAsync(false);
+    }
+
+    public async void ModalOpen()
+    {
+
+    }
+
+    private void onInputChange()
+    {
+        if(Time < 0)
+        {
+            Time = 0;
+        }
+    }
+}

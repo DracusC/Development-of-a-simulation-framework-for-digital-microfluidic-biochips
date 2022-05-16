@@ -1,5 +1,4 @@
-﻿@page "/"
-@page "/JoelsPage"
+﻿@page "/SimulatorPage"
 @using MicrofluidSimulator.Components
 @using MicrofluidSimulator.SimulatorCode.DataTypes
 @using Microsoft.JSInterop
@@ -16,6 +15,13 @@
 @using System.Reflection
 
 @using System.Net
+
+
+@if(ModalOpen){
+    <DownloadModal  @ref=downloadModal Title="Information editor" Text = "INSERT" OnClose="@CloseDownloadModal" OnSubmit="@SubmitDownloadModal"/>
+}
+
+
 
 <div id="simulatorGUI">
     <div id="simulatorContainer">
@@ -77,7 +83,7 @@
 </div>
 
 
-<button id="" class="btn btn-primary" @onclick="DownloadData">Download</button>
+<button id="" class="btn btn-primary" @onclick="DownloadDataButton">Download</button>
 <a id="downloadAnchorElem" style="display:none"></a>
 
 @functions{
@@ -87,6 +93,80 @@
 }
 
 @code {
+
+
+    // Download Modal Code START
+    DownloadModal downloadModal;
+    public bool ModalOpen { get; set; }
+    private async Task CloseDownloadModal(bool accepted)
+    {
+        ModalOpen = false;
+        StateHasChanged();
+    }
+    private async void OpenDownloadModal()
+    {
+        ModalOpen = true;
+        StateHasChanged();
+    }
+    private async Task SubmitDownloadModal(bool accepted)
+    {
+        ModalOpen = false;
+        Console.WriteLine("DOWNLOAD SUBMIT " + downloadModal.Time + " " + downloadModal.TimeStep);
+        DownloadData(downloadModal.Time, downloadModal.TimeStep);
+        StateHasChanged();
+    }
+
+    private void DownloadDataButton()
+    {
+        OpenDownloadModal();
+    }
+
+    /// <summary>
+    /// Download simulation data
+    /// </summary>
+    [JSInvokable]
+    public static void DownloadData(float endTime, float timeStep)
+    {
+        // Get the current time
+        float timeBeforeDownload = simulator.container.currentTime;
+
+        if(timeStep <= 0 && timeStep != -1)
+        {
+            timeStep = 0.1f;
+        }
+
+        // Restart simulation
+        Restart();
+
+        // TODO: make a modal and make the download able to be done to a time.
+        // Run the simulation and send the simulation data
+        /*while(simulator.actionQueue.Count > 1)
+            {
+            string jsonStringForDownload = Utf8Json.JsonSerializer.ToJsonString(simulator.container);
+
+            guibroker.send_download_data(jsonStringForDownload);
+
+            nextStepTime(-1f);
+        }*/
+        while(simulator.container.currentTime <= endTime)
+        {
+            string jsonStringForDownload = Utf8Json.JsonSerializer.ToJsonString(simulator.container);
+
+            guibroker.send_download_data(jsonStringForDownload);
+
+            nextStepTime(timeStep);
+        }
+
+        // Flag data ready for download
+        guibroker.download_data();
+
+        // TODO: Change to go back to previous step
+        Restart();
+        gotoSimulatorTimeStep(timeBeforeDownload);
+
+    }
+
+    // Download Modal Code END
 
     int sliderValue = 0;
     static float timeStepAmount = -1;
@@ -224,32 +304,7 @@
         guibroker.restart_board();
     }
 
-    /// <summary>
-    /// Download simulation data
-    /// </summary>
-    [JSInvokable]
-    public static void DownloadData()
-    {
-        // Restart simulation
-        Restart();
-
-        // Run the simulation and send the simulation data
-        while(simulator.actionQueue.Count > 1)
-        {
-            string jsonStringForDownload = Utf8Json.JsonSerializer.ToJsonString(simulator.container);
-
-            guibroker.send_download_data(jsonStringForDownload);
-
-            nextStepTime(-1f);
-        }
-
-        // Flag data ready for download
-        guibroker.download_data();
-
-        // TODO: Change to go back to previous step
-        Restart();
-
-    }
+    
 
     
     /// <summary>
