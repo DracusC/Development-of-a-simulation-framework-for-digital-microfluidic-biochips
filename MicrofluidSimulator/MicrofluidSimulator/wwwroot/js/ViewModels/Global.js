@@ -99,7 +99,7 @@ window.initialize_board = (information) => {
 
     //document.querySelector("#defaultCanvas0").style.width = "1000px";
 
-    layer_manager.initialize_layers();
+    selection_manager.initialize_layers();
 }
 
 window.get_selected_element = () => {

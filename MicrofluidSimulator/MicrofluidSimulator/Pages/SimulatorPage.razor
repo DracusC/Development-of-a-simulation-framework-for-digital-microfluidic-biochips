@@ -42,7 +42,7 @@
                     <button id="nextStep" class="btn btn-primary" @onclick="gotoTime">Next Step</button>
                     <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
                     <button class="btn btn-primary" @onclick="Restart">Restart</button>
-                    
+                    <button id="" class="btn btn-primary" @onclick="DownloadDataButton">Download</button>
                 </div>
                 <div>
                     <span>TimeStep amount:</span>
@@ -82,15 +82,8 @@
     </div>
 </div>
 
-
-<button id="" class="btn btn-primary" @onclick="DownloadDataButton">Download</button>
 <a id="downloadAnchorElem" style="display:none"></a>
 
-@functions{
-    void setP5() {
-        JSInProcessRuntime.Invoke<object>("setp5"); // ADD TO GUI BROKER CS
-    }
-}
 
 @code {
 
@@ -398,7 +391,7 @@
     protected override async void OnAfterRender(bool firstRender) {
         if (firstRender) {
 
-            setP5();
+            
             container = await Http.GetFromJsonAsync<Container>("sample-data/platform640v2.json");
             electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v2neighbours.json");
             string actionQueueInstructions = await Http.GetStringAsync("sample-data/simple_paths_commands.txt");
@@ -408,8 +401,8 @@
 
             guibroker.set_jsprocess(JSInProcessRuntime);
             guibroker.set_unmarshall(JSUnmarshalledRuntime);
+            guibroker.setP5();
             guibroker.start_update_timer();
-            //Console.WriteLine(simulator.actionQueue.Peek().time);
             guibroker.update_board(simulator.container);
             guibroker.initialize_board(container.information);
         }

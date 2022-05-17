@@ -40,6 +40,12 @@ namespace MicrofluidSimulator.SimulatorCode.View
             _JSUnmarshalledRuntime = JSUnmarshalledRuntime;
         }
 
+
+        public void setP5()
+        {
+            _JSInProcessRuntime.Invoke<object>("setp5"); // ADD TO GUI BROKER CS
+        }
+
         /// <summary>
         /// The function initialize_board is used to initialize the GUI with
         /// initial board information.

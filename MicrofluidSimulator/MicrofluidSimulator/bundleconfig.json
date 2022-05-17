@@ -5,9 +5,9 @@
       "wwwroot/js/Config/DrawConfig.js",
       "wwwroot/js/ViewModels/GUIBroker.js",
       "wwwroot/js/ViewModels/GUIController.js",
-      "wwwroot/js/ViewModels/LayerManager.js",
+      "wwwroot/js/ViewModels/SelectionPanelManager.js",
       "wwwroot/js/ViewModels/InformationPanelManager.js",
-      "wwwroot/js/Sketch/sketch.js",
+      "wwwroot/js/Sketch/SketchPanelManager.js",
       "wwwroot/js/ViewModels/Global.js"
     ],
     "minify": {

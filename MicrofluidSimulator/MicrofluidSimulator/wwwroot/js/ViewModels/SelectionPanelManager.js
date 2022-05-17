@@ -5,7 +5,7 @@
  * that are present in the sketch, these layers can be toggled off or on in
  * the selection panel.
  */
-let layer_manager = {
+let selection_manager = {
 
     /*
      * The layers object stores information about each layer in the GUI.
