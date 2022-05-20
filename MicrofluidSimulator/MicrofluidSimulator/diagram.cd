@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.Actuators">
+    <Position X="4.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAgABAEAAAIAAAAAAFABQAEACAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Actuators.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.ColorSensor">
+    <Position X="0.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\ColorSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.Heater">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAEAIAIAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Heater.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.Sensors">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAABAAAhAAAAAAAIAAAAAAFAAAAEACAAAhAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Sensors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.TemperatureSensor">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\TemperatureSensor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.SimulatorAction">
+    <Position X="10.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQCAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Action.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.ActionQueueItem">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\ActionQueueItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.Container">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAABAUAAACgAIIAAAAAAAAABCQAAAIEAQAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Container.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours">
+    <Position X="12.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAEAAAEAAAAgAAgAAAAgEQAAAAABIAAAAAEABAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\ElectrodesWithNeighbours.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.GlobalVariables">
+    <Position X="14.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAABAQAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\GlobalVariables.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.DataTypes.Subscriptions">
+    <Position X="10.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Subscriptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Bubbles">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgAAAAACAIAAAAAAEAAQAEBCAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Bubbles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Droplets">
+    <Position X="14.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAACAAhAAEAACAIAAAAIAEgCSAEASAAAACAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Droplets.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Electrode">
+    <Position X="9" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQAAAAhACAQAAAIAAAAAAEAAQAEACAAAAABAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Electrode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.GroupDroplets">
+    <Position X="16" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAACCAAAQIAAACAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\GroupDroplets.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Information">
+    <Position X="14.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAABAAAAAAAAAAAAAAAAEACAAIAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Information.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Inputs">
+    <Position X="7.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAEAIAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Inputs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Outputs">
+    <Position X="10.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAIAAAAAAEAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\DataTypes\Outputs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Initialize.Initialize">
+    <Position X="16" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAMECAAAAAAAQAAABAAAAAAACAA=</HashCode>
+      <FileName>SimulatorCode\Initialize\Initialize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Initialize.JSONReader">
+    <Position X="9" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAQAAAAAAAAAAAAACAAAAAgA=</HashCode>
+      <FileName>SimulatorCode\Initialize\JSONReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Initialize.NeighbourFinder">
+    <Position X="10.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAABIACAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>SimulatorCode\Initialize\NeighbourFinder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.ActionQueueModels">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAQAAAQAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\ActionQueueModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.BubbleModels">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAIAAAAAAAABAAAAAAAACAAAAAAABA=</HashCode>
+      <FileName>SimulatorCode\Models\BubbleModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.ColorSensorModels">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\ColorSensorModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.DropletColorModels">
+    <Position X="7.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\DropletColorModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.DropletEvaporationModels">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\DropletEvaporationModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.DropletMerge">
+    <Position X="10.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\DropletMerge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.DropletModels">
+    <Position X="12.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAEAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>SimulatorCode\Models\DropletModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.DropletTemperatureModels">
+    <Position X="16" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\DropletTemperatureModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions">
+    <Position X="7.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAADACAEDAggAAABAIAAAAAIAgAAAAAQAAAAAgAA=</HashCode>
+      <FileName>SimulatorCode\Models\DropletUtillityFunctions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.Point">
+    <Position X="14.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\DropletUtillityFunctions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.ElectrodeModels">
+    <Position X="10.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAQAAAQAAAAAAAAAAAAQQAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\ElectrodeModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.HeaterActuatorModels">
+    <Position X="10.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\HeaterActuatorModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions">
+    <Position X="12.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAIAJCAQAwAAABRBAAAAAAAAgABgIBAIAAAAQAA=</HashCode>
+      <FileName>SimulatorCode\Models\HelpfullRetreiveFunctions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.SubscriptionModels">
+    <Position X="9" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\SubscriptionModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Models.TemperatureSensorModels">
+    <Position X="14.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>SimulatorCode\Models\TemperatureSensorModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.Simulator.Simulator">
+    <Position X="16" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FAAEAAAAAAQogAAAAABACAAAAAkQCAAABAAICAAAAQk=</HashCode>
+      <FileName>SimulatorCode\Simulator\Simulator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.View.GUIInfo">
+    <Position X="9" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAABAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>SimulatorCode\View\GUIBroker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimulatorCode.View.GUIBroker">
+    <Position X="7.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAFABAAAAAAAEQAIABAAAAEAAgAAAASAAgAkECAAA=</HashCode>
+      <FileName>SimulatorCode\View\GUIBroker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MicrofluidSimulator.SimpleVM.SimpleVM">
+    <Position X="17.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAICAAAADIAABAIAAAAAAAARgAAAAQKACAAQAAA=</HashCode>
+      <FileName>SimpleVM\SimpleVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
