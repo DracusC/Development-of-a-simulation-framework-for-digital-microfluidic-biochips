@@ -25,8 +25,8 @@
 
 <div id="simulatorGUI">
     <div id="simulatorContainer">
-        <div id="mainContent">
 
+        <div id="sketchPanel">
             <div id="simulatorView">
                 <div id="simulatorHeader">
                     <span>BOARD NAME</span>
@@ -36,7 +36,7 @@
             </div>
         </div>
         
-        <div id="input_panel">
+        <div id="controlPanel">
             <div id="button_div">
                 <div>
                     <button id="nextStep" class="btn btn-primary" @onclick="gotoTime">Next Step</button>
@@ -69,8 +69,8 @@
                 </div>
             </div>
 
-            <div id="layerPanel">
-                <span>Layer Panel</span>
+            <div id="selectionPanel">
+                <span>Selection Panel</span>
                 <form name="layer">
 
                 </form>
@@ -131,16 +131,7 @@
         // Restart simulation
         Restart();
 
-        // TODO: make a modal and make the download able to be done to a time.
         // Run the simulation and send the simulation data
-        /*while(simulator.actionQueue.Count > 1)
-            {
-            string jsonStringForDownload = Utf8Json.JsonSerializer.ToJsonString(simulator.container);
-
-            guibroker.send_download_data(jsonStringForDownload);
-
-            nextStepTime(-1f);
-        }*/
         while(simulator.container.currentTime <= endTime)
         {
             string jsonStringForDownload = Utf8Json.JsonSerializer.ToJsonString(simulator.container);
@@ -153,7 +144,7 @@
         // Flag data ready for download
         guibroker.download_data();
 
-        // TODO: Change to go back to previous step
+        // Go back to previous time
         Restart();
         gotoSimulatorTimeStep(timeBeforeDownload);
 
@@ -187,8 +178,6 @@
     static Stopwatch stopwatch = new Stopwatch();
 
     private void NextStep() {
-        //if(test) { stopwatch.Start(); test = false; } else {stopwatch.Stop(); Console.WriteLine("SW: " + stopwatch.ElapsedMilliseconds); stopwatch.Reset(); test = true; }
-
         simulator.simulatorStep(-1);
         guibroker.update_board(simulator.container);
     }
@@ -204,14 +193,9 @@
     [JSInvokable]
     public static void JSSimulatorNextStep() {
         guibroker.start_update_timer();
-        //stopwatch.Reset();
-        //stopwatch.Start();
         simulator.simulatorStep(-1);
         dumbVM.doApiCall();
-        //stopwatch.Stop();
-        //Console.WriteLine("SW1: " + stopwatch.ElapsedMilliseconds);
         if(PlayButtonText == "Play") { guibroker.animate_once(); }
-        //Console.WriteLine("SIM CUR TIME: " + simulator.container.currentTime);
         guibroker.update_board(simulator.container);
     }
     [JSInvokable]
@@ -241,7 +225,12 @@
         {
             Console.WriteLine(timeStepAmount + startSimulatorTime + " : " + simulator.container.currentTime);
             Console.WriteLine(simulator.actionQueue.Count);
-            float simulatorTimeStep = simulator.actionQueue.Peek().time;
+
+            float simulatorTimeStep = 0;
+            if(simulator.actionQueue.Count != 0) {
+                simulatorTimeStep = simulator.actionQueue.Peek().time;
+            }
+
             if(simulatorTimeStep > timeStepAmount)
             {
                 Console.WriteLine(timeStepAmount);
@@ -260,8 +249,6 @@
             dumbVM.doApiCall();
         }
 
-        //Console.WriteLine("SIM CUR TIME: " + simulator.container.currentTime);
-
         guibroker.update_board(simulator.container);
     }
 
@@ -271,10 +258,16 @@
         Restart();
         //nextStepTime((float)sliderValue);
         float startSimulatorTime = simulator.container.currentTime;
+        float simulatorTimeStep = 0;
         while(simulator.container.currentTime < (float)sliderValue + startSimulatorTime)
         {
             Console.WriteLine((float)sliderValue + startSimulatorTime + " : " + simulator.container.currentTime);
-            float simulatorTimeStep = simulator.actionQueue.Peek().time;
+
+
+            if(simulator.actionQueue.Count != 0) {
+                simulatorTimeStep = simulator.actionQueue.Peek().time;
+            }
+
             if(simulatorTimeStep > (float)sliderValue)
             {
                 Console.WriteLine((float)sliderValue);
@@ -288,8 +281,13 @@
         }
 
         guibroker.update_board(simulator.container);
+        simulator.simulatorStep(-2f);
+        guibroker.update_board(simulator.container);
     }
 
+    /// <summary>
+    /// Restarts the simulation
+    /// </summary>
     public static void Restart()
     {
         simulator.restartSimulator();

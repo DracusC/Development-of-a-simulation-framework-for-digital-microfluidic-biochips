@@ -25,8 +25,6 @@ let layer_electrode;
  */
 let sketch = function (p) {
 
-    let step; // Used to increment the interpolation between droplet positions.
-
     /*
      * Setup is called once on start of the sketch.
      */
@@ -47,7 +45,6 @@ let sketch = function (p) {
         console.log("setup");
 
         //p.frameRate(10);
-        step = 0.05;
 
         let saveclose_button_div = p.select("#saveclose_button_div");
         information_panel_manager.saveclose_button_div = saveclose_button_div.elt;
@@ -92,17 +89,13 @@ let sketch = function (p) {
         // Draw all direct layers
         selection_manager.draw_layers(p);
 
-        // Custom draw selections
+        // Draw selected electrodes
         if (selection_manager.layers.draw_selected_element.checkbox.checked) { information_panel_manager.draw_selected_element(selection_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
 
+        // Draw droplet groups
         if (selection_manager.layers.draw_droplet_groups.checkbox.checked || selection_manager.layers.draw_droplet_animations.checkbox.checked) { draw_droplet_groups(); }
 
-        if (information_panel_manager.double_clicked) { information_panel_manager.draw_multiple_selection(p); }
-
-        if (selection_manager.layers.draw_bubbles.checkbox.checked) { draw_bubbles(); }
-        
-
-        // Controls animations
+        // Draw and control animations
         if (selection_manager.layers.draw_droplet_animations.checkbox.checked) {
 
             let on_time_lerp = ((Date.now() - gui_broker.simulator_time) / 1000) / (gui_broker.board.currentTime - gui_broker.simulator_prev_time);
@@ -116,13 +109,23 @@ let sketch = function (p) {
             }
 
             // For group splits
-            let new_groups = findGroupSplit(0);
-            for (i in new_groups) {
-                lerpGroupVertices(new_groups[i], c_lerp_amount, 0);
+            for (groupID in gui_broker.droplet_groups) {
+                let new_groups = findGroupSplit(groupID);
+                for (i in new_groups) {
+                    lerpGroupVertices(new_groups[i], c_lerp_amount, groupID);
+                }
             }
+
+            
         }
 
-        // Control simulator stepping
+        // Draw bubbles
+        if (selection_manager.layers.draw_bubbles.checkbox.checked) { draw_bubbles(); }
+
+        // Draw multiple selection
+        if (information_panel_manager.double_clicked) { information_panel_manager.draw_multiple_selection(p); }
+
+        // Control non real-time execution
         if (gui_broker.play_status && lerp_amount >= 1.3 && !selection_manager.layers.real_time.checkbox.checked && selection_manager.layers.draw_droplet_animations.checkbox.checked) {
             gui_broker.next_simulator_step();
             lerp_amount = 0;
@@ -140,7 +143,7 @@ let sketch = function (p) {
         if (selection_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
 
 
-        // Get next simulator step
+        // Control real-time execution
         if (gui_broker.play_status && (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time) >= gui_broker.board.currentTime) {
             console.log("Ellapsed time: " + ((Date.now() - gui_broker.simulator_time) / 1000) + " seconds", "Actual time: " + (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time),"Previous time: " + gui_broker.simulator_prev_time,"Current time: " + gui_broker.board.currentTime);
             lerp_amount = 1;

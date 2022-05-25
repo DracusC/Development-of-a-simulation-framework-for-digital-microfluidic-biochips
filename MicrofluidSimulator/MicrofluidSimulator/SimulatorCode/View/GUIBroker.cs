@@ -154,6 +154,14 @@ namespace MicrofluidSimulator.SimulatorCode.View
             _JSInProcessRuntime.InvokeVoid("start_simulator_time");
         }
 
+        /// <summary>
+        /// The function is used to set the simulator time in the GUI to a specific time.
+        /// </summary>
+        /// <param name="time"></param>
+        public void set_simulator_time(float time)
+        {
+            _JSInProcessRuntime.InvokeVoid("start_simulator_time", time);
+        }
 
         // Used for debugging
         public void start_update_timer()

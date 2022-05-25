@@ -132,6 +132,13 @@ window.start_simulator_time = () => {
 }
 
 /**
+ * The function start_simulator_time is used to set the simulator time to a specific time
+ */
+window.set_simulator_time = (time) => {
+    gui_broker.simulator_time = time;
+}
+
+/**
  * The function download_data is used to download simulator data,
  * into JSON format.
  */
