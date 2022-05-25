@@ -226,21 +226,35 @@
             Console.WriteLine(timeStepAmount + startSimulatorTime + " : " + simulator.container.currentTime);
             Console.WriteLine(simulator.actionQueue.Count);
 
+
+
             float simulatorTimeStep = 0;
             if(simulator.actionQueue.Count != 0) {
                 simulatorTimeStep = simulator.actionQueue.Peek().time;
             }
 
-            if(simulatorTimeStep > timeStepAmount)
+            Console.WriteLine("TIME HERE: " + (simulatorTimeStep - simulator.container.currentTime));
+
+            if(((startSimulatorTime + timeStepAmount) - simulator.container.currentTime) < (simulatorTimeStep - simulator.container.currentTime))
             {
-                Console.WriteLine(timeStepAmount);
-                simulator.simulatorStep(timeStepAmount);
+                simulator.simulatorStep((startSimulatorTime + timeStepAmount) - simulator.container.currentTime);
                 dumbVM.doApiCall();
             } else
             {
                 simulator.simulatorStep(-1f);
                 dumbVM.doApiCall();
             }
+
+            //if(simulatorTimeStep > timeStepAmount)
+            //{
+            //    Console.WriteLine(timeStepAmount);
+            //    simulator.simulatorStep(timeStepAmount);
+            //    dumbVM.doApiCall();
+            //} else
+            //{
+            //simulator.simulatorStep(-1f);
+            //dumbVM.doApiCall();
+            //}
         }
 
         if(timeStepAmount <= 0)
