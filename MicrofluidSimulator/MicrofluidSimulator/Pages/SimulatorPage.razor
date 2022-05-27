@@ -406,7 +406,7 @@
             
             container = await Http.GetFromJsonAsync<Container>("sample-data/platform640v2.json");
             electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v2neighbours.json");
-            string actionQueueInstructions = await Http.GetStringAsync("sample-data/simple_paths_commands.txt");
+            string actionQueueInstructions = await Http.GetStringAsync("sample-data/center_path.txt");
 
             simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
             dumbVM = new MicrofluidSimulator.SimpleVM.SimpleVM(simulator);
