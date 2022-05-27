@@ -94,16 +94,20 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             // traverse the queue
             while(originalActionQueue.Count > 0 && actionQueueToPush.Count > 0)
             {
-                Console.WriteLine("oAQ time " + originalActionQueue.Peek().time + " AND AQTIME " + actionQueueToPush.Peek().time);
+                //Console.WriteLine("oAQ time " + originalActionQueue.Peek().time + " AND AQTIME " + actionQueueToPush.Peek().time);
                 if(originalActionQueue.Peek().time > actionQueueToPush.Peek().time)
                 {
                     newQueue.Enqueue(actionQueueToPush.Dequeue());
-                }else if(originalActionQueue.Peek().time <= actionQueueToPush.Peek().time)
+                }else if(originalActionQueue.Peek().time < actionQueueToPush.Peek().time)
                 {
                     newQueue.Enqueue(originalActionQueue.Dequeue());
+                }else if (originalActionQueue.Peek().time == actionQueueToPush.Peek().time)
+                {
+                    newQueue.Enqueue(originalActionQueue.Dequeue());
+                    newQueue.Enqueue(actionQueueToPush.Dequeue());
                 }
 
-                if(!(originalActionQueue.Count > 0))
+                if (!(originalActionQueue.Count > 0))
                 {
                     while(actionQueueToPush.Count > 0) { 
                         newQueue.Enqueue(actionQueueToPush.Dequeue());

@@ -1,0 +1,46 @@
+﻿DMF command 0 at 0 ms : setel 0 170 72 102 4 34
+DMF command 1 at 200 ms : setel 0 160 190 92 122 24
+DMF command 2 at 400 ms : clrel 0 170 72 102 4 34
+DMF command 3 at 600 ms : setel 0 150 180 82 112 14
+DMF command 4 at 800 ms : clrel 0 160 190 92 122 24
+DMF command 5 at 1000 ms : setel 0 140 170 72 102 4
+DMF command 6 at 1200 ms : clrel 0 150 180 82 112 14
+DMF command 7 at 1400 ms : setel 0 245 160 190 92 122
+DMF command 8 at 1600 ms : clrel 0 140 170 72 102 4
+DMF command 9 at 1800 ms : setel 0 235 150 180 82 112
+DMF command 10 at 2000 ms : clrel 0 245 160 190 92 122
+DMF command 11 at 2200 ms : setel 0 225 140 170 72 102
+DMF command 12 at 2400 ms : clrel 0 235 150 180 82 112
+DMF command 13 at 2600 ms : setel 0 215 245 160 190 92
+DMF command 14 at 2800 ms : clrel 0 225 140 170 72 102
+DMF command 15 at 3000 ms : setel 0 205 235 150 180 82
+DMF command 16 at 3200 ms : clrel 0 215 245 160 190 92
+DMF command 17 at 3400 ms : setel 0 195 225 140 170 72
+DMF command 18 at 3600 ms : clrel 0 205 235 150 180 82
+DMF command 19 at 3800 ms : setel 0 313 215 245 160 190
+DMF command 20 at 4000 ms : clrel 0 195 225 140 170 72
+DMF command 21 at 4200 ms : setel 0 205 235 150 180
+DMF command 22 at 4400 ms : clrel 0 215 245 160 190
+DMF command 23 at 4600 ms : setel 0 195 225 140 170
+DMF command 24 at 4800 ms : clrel 0 205 235 150 180
+DMF command 25 at 5000 ms : setel 0 313 215 245 160
+DMF command 26 at 5200 ms : clrel 0 195 225 140 170
+DMF command 27 at 5400 ms : setel 0 205 235 150
+DMF command 28 at 5600 ms : clrel 0 215 245 160
+DMF command 29 at 5800 ms : setel 0 195 225 140
+DMF command 30 at 6000 ms : clrel 0 205 235 150
+DMF command 31 at 6200 ms : setel 0 313 215 245
+DMF command 32 at 6400 ms : clrel 0 195 225 140
+DMF command 33 at 6600 ms : setel 0 205 235
+DMF command 34 at 6800 ms : clrel 0 215 245
+DMF command 35 at 7000 ms : setel 0 195 225
+DMF command 36 at 7200 ms : clrel 0 205 235
+DMF command 37 at 7400 ms : setel 0 313 215
+DMF command 38 at 7600 ms : clrel 0 195 225
+DMF command 39 at 7800 ms : setel 0 205
+DMF command 40 at 8000 ms : clrel 0 215
+DMF command 41 at 8200 ms : setel 0 195
+DMF command 42 at 8400 ms : clrel 0 205
+DMF command 43 at 8600 ms : setel 0 313
+DMF command 44 at 8800 ms : clrel 0 195
+
