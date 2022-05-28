@@ -46,7 +46,7 @@
                 </div>
                 <div>
                     <span>TimeStep amount:</span>
-                    <RadzenNumeric @bind-Value="timeStepAmount" TValue="float" Step="0.1" Placeholder="Enter or clear value" Change="onTimeStepChange"></RadzenNumeric>
+                    <RadzenNumeric @bind-Value="timeStepAmount" TValue="decimal" Step="0.1" Placeholder="Enter or clear value" Change="onTimeStepChange"></RadzenNumeric>
                 </div>
             </div>
             <div id="slider_div">
@@ -118,14 +118,14 @@
     /// Download simulation data
     /// </summary>
     [JSInvokable]
-    public static void DownloadData(float endTime, float timeStep)
+    public static void DownloadData(decimal endTime, decimal timeStep)
     {
         // Get the current time
-        float timeBeforeDownload = simulator.container.currentTime;
+        decimal timeBeforeDownload = simulator.container.currentTime;
 
         if(timeStep <= 0 && timeStep != -1)
         {
-            timeStep = 0.1f;
+            timeStep = 0.1m;
         }
 
         // Restart simulation
@@ -153,7 +153,7 @@
     // Download Modal Code END
 
     int sliderValue = 0;
-    static float timeStepAmount = -1;
+    static decimal timeStepAmount = -1;
     static float actualTimeStepAmount = 0;
 
     public void onTimeStepChange()
@@ -198,9 +198,9 @@
         guibroker.update_board(simulator.container);
     }
     [JSInvokable]
-    public static void nextStepTime(float deltaTime)
+    public static void nextStepTime(decimal deltaTime)
     {
-        float tempTimeStep = timeStepAmount;
+        decimal tempTimeStep = timeStepAmount;
         timeStepAmount = deltaTime;
         gotoTime(timeStepAmount);
         timeStepAmount = tempTimeStep;
@@ -209,16 +209,16 @@
         //guibroker.update_board(simulator.container);
     }
     [JSInvokable]
-    public static void gotoSimulatorTimeStep(float deltaTime)
+    public static void gotoSimulatorTimeStep(decimal deltaTime)
     {
         simulator.restartSimulator();
         simulator.simulatorStep(deltaTime);
         guibroker.update_board(simulator.container);
     }
 
-    public static void gotoTime(float timeStepAmount)
+    public static void gotoTime(decimal timeStepAmount)
     {
-        float startSimulatorTime = simulator.container.currentTime;
+        decimal startSimulatorTime = simulator.container.currentTime;
 
         while(simulator.container.currentTime < timeStepAmount + startSimulatorTime)
         {
@@ -227,7 +227,7 @@
 
 
 
-            float simulatorTimeStep = 0;
+            decimal simulatorTimeStep = 0;
             if(simulator.actionQueue.Count != 0) {
                 simulatorTimeStep = simulator.actionQueue.Peek().time;
             }
@@ -239,7 +239,7 @@
                 dumbVM.doApiCall();
             } else
             {
-                simulator.simulatorStep(-1f);
+                simulator.simulatorStep(-1);
                 dumbVM.doApiCall();
             }
 
@@ -247,7 +247,7 @@
 
         if(timeStepAmount <= 0)
         {
-            simulator.simulatorStep(-1f);
+            simulator.simulatorStep(-1);
             dumbVM.doApiCall();
         }
 
@@ -259,10 +259,10 @@
     {
         Restart();
 
-        gotoTime((float)sliderValue);
+        gotoTime((decimal)sliderValue);
 
         guibroker.update_board(simulator.container);
-        simulator.simulatorStep(-2f);
+        simulator.simulatorStep(-2);
         guibroker.update_board(simulator.container);
 
         /*

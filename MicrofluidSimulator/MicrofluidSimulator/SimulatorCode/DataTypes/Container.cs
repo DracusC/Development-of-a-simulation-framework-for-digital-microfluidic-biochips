@@ -37,7 +37,7 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
         }
 
 
-        public Container(Electrode[] electrodes, List<Droplets> droplets, Actuators[] actuators, Sensors[] sensors, Information information, List<Bubbles> bubbles, float currentTime)
+        public Container(Electrode[] electrodes, List<Droplets> droplets, Actuators[] actuators, Sensors[] sensors, Information information, List<Bubbles> bubbles, decimal currentTime)
         {
             this.electrodes = electrodes;
             this.droplets = droplets;
@@ -59,8 +59,8 @@ namespace MicrofluidSimulator.SimulatorCode.DataTypes
         public Actuators[] actuators { get; set; }
         public Sensors[] sensors { get; set; }
         public Information information { get; set; }
-        public float currentTime { get; set; }
-        public float timeStep { get; set; }
+        public decimal currentTime { get; set; }
+        public decimal timeStep { get; set; }
         public ArrayList subscribedDroplets { get; set; }
         public ArrayList subscribedActuators { get; set; }
         public ArrayList subscribedBubbles { get; set; }

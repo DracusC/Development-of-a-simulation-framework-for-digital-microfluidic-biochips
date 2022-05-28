@@ -21,7 +21,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 float hC = HelpfullRetreiveFunctions.getHeatCapacityOfDropletGivenSubstance(caller);
                 float k = HelpfullRetreiveFunctions.getThermalConductivityOfDroplet(caller);
                 float A = HelpfullRetreiveFunctions.getAreaOfDroplet(caller);
-                float heatTransfer = k * A * (GlobalVariables.ROOMTEMPERATURE - caller.temperature) * container.timeStep;
+                float heatTransfer = k * A * (GlobalVariables.ROOMTEMPERATURE - caller.temperature) * (float) container.timeStep;
 
                 float temperatureChange = heatTransfer / (mass * hC);
 
@@ -39,7 +39,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 float hC = HelpfullRetreiveFunctions.getHeatCapacityOfDropletGivenSubstance(caller);
                 float k = HelpfullRetreiveFunctions.getThermalConductivityOfDroplet(caller);
                 float A = HelpfullRetreiveFunctions.getAreaOfDroplet(caller);
-                float heatTransfer = k * A * (heater.valueActualTemperature - caller.temperature) * container.timeStep;
+                float heatTransfer = k * A * (heater.valueActualTemperature - caller.temperature) * (float) container.timeStep;
                 
                 float temperatureChange = heatTransfer / (mass * hC);
                 

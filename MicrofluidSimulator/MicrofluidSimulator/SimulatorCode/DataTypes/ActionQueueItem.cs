@@ -4,13 +4,13 @@
     {
         
         // an actionqueue item contains the action itself as well as the time of which it should be executed
-        public ActionQueueItem(SimulatorAction action, float time)
+        public ActionQueueItem(SimulatorAction action, decimal time)
         {
             this.action = action;
             this.time = time;
         }
 
         public DataTypes.SimulatorAction action { get; set; }
-        public float time { get; set; }
+        public decimal time { get; set; }
     }
 }

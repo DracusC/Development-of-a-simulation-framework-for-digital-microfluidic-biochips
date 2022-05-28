@@ -35,15 +35,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 container.droplets.Remove(droplet);
                 return subscribtions;
             }
-            else if (droplet.temperature >= 90 && (container.timeStep >= 0.5 || droplet.accumulatingBubbleEscapeVolume >= 0.5))
+            else if (droplet.temperature >= 90 && (container.timeStep >= 0.5m || droplet.accumulatingBubbleEscapeVolume >= 0.5m))
             {
 
                 droplet.accumulatingBubbleEscapeVolume += container.timeStep;
 
 
 
-                double splitAmount = 0.1 * droplet.sizeX * droplet.accumulatingBubbleEscapeVolume;
-                double splitSize = HelpfullRetreiveFunctions.getDiameterOfBubble(splitAmount);
+                decimal splitAmount = 0.1m * droplet.sizeX * droplet.accumulatingBubbleEscapeVolume;
+                double splitSize = HelpfullRetreiveFunctions.getDiameterOfBubble((double)splitAmount);
                 if (splitSize > droplet.sizeX * 0.8)
                 {
                     splitSize = droplet.sizeX * 0.8;

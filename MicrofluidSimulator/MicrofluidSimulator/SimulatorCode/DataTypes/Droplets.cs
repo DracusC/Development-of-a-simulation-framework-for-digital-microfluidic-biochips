@@ -6,7 +6,7 @@ namespace MicrofluidSimulator.SimulatorCode
         
 
 
-        public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature, float volume, int electrodeID, int group, double accumulatingBubbleEscapeVolume)
+        public Droplets(string name, int ID, string substance_name, int positionX, int positionY, int sizeX, int sizeY, string color, float temperature, float volume, int electrodeID, int group, decimal accumulatingBubbleEscapeVolume)
         {
             this.name = name;
             this.substance_name = substance_name;
@@ -31,7 +31,7 @@ namespace MicrofluidSimulator.SimulatorCode
         {
         }
 
-        public double accumulatingBubbleEscapeVolume { get; set; }
+        public decimal accumulatingBubbleEscapeVolume { get; set; }
         public string name { get; set; }
         public string substance_name { get; set; }
         public string color { get; set; }

@@ -312,7 +312,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             Actuators[] actuators  = new Actuators[container.actuators.Length];
             Sensors[] sensors = new Sensors[container.sensors.Length];
             Information information = container.information;
-            float currentTime = 0;
+            decimal currentTime = 0;
             
             for (int i = 0; i < electrodes.Length; i++)
             {
