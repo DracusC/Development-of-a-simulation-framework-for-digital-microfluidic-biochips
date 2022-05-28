@@ -39,7 +39,7 @@
         <div id="controlPanel">
             <div id="button_div">
                 <div>
-                    <button id="nextStep" class="btn btn-primary" @onclick="gotoTime">Next Step</button>
+                    <button id="nextStep" class="btn btn-primary" @onclick="NextStep">Next Step</button>
                     <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
                     <button class="btn btn-primary" @onclick="Restart">Restart</button>
                     <button id="" class="btn btn-primary" @onclick="DownloadDataButton">Download</button>
@@ -178,8 +178,7 @@
     static Stopwatch stopwatch = new Stopwatch();
 
     private void NextStep() {
-        simulator.simulatorStep(-1);
-        guibroker.update_board(simulator.container);
+        gotoTime(timeStepAmount);
     }
 
     public static string PlayButtonText { get; set; } = "Play";
@@ -203,7 +202,7 @@
     {
         float tempTimeStep = timeStepAmount;
         timeStepAmount = deltaTime;
-        gotoTime();
+        gotoTime(timeStepAmount);
         timeStepAmount = tempTimeStep;
 
         //simulator.simulatorStep(deltaTime);
@@ -217,7 +216,7 @@
         guibroker.update_board(simulator.container);
     }
 
-    public static void gotoTime()
+    public static void gotoTime(float timeStepAmount)
     {
         float startSimulatorTime = simulator.container.currentTime;
 
@@ -233,7 +232,6 @@
                 simulatorTimeStep = simulator.actionQueue.Peek().time;
             }
 
-            Console.WriteLine("TIME HERE: " + (simulatorTimeStep - simulator.container.currentTime));
 
             if(((startSimulatorTime + timeStepAmount) - simulator.container.currentTime) < (simulatorTimeStep - simulator.container.currentTime))
             {
@@ -245,16 +243,6 @@
                 dumbVM.doApiCall();
             }
 
-            //if(simulatorTimeStep > timeStepAmount)
-            //{
-            //    Console.WriteLine(timeStepAmount);
-            //    simulator.simulatorStep(timeStepAmount);
-            //    dumbVM.doApiCall();
-            //} else
-            //{
-            //simulator.simulatorStep(-1f);
-            //dumbVM.doApiCall();
-            //}
         }
 
         if(timeStepAmount <= 0)
@@ -269,6 +257,15 @@
 
     public void GotoSliderTime()
     {
+        Restart();
+
+        gotoTime((float)sliderValue);
+
+        guibroker.update_board(simulator.container);
+        simulator.simulatorStep(-2f);
+        guibroker.update_board(simulator.container);
+
+        /*
         Restart();
         //nextStepTime((float)sliderValue);
         float startSimulatorTime = simulator.container.currentTime;
@@ -297,6 +294,7 @@
         guibroker.update_board(simulator.container);
         simulator.simulatorStep(-2f);
         guibroker.update_board(simulator.container);
+        */
     }
 
     /// <summary>

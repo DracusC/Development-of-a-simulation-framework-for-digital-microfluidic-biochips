@@ -304,7 +304,6 @@ let information_panel_manager = {
                 this.before_edit_values[attribute] = input.value;
                 input.readOnly = false;
                 input.classList.remove("input_readonly");
-                // TODO: Add a write class
             }
         }
     },
@@ -384,9 +383,6 @@ let information_panel_manager = {
         } else {
             values_to_send.ID = this.selected_element.ID;
         }
-
-        
-        //values_to_send = this.selected_element;
 
         // Send the new element values to the simulator
         gui_broker.update_simulator_container(this.selected_element_type, JSON.stringify(values_to_send));
