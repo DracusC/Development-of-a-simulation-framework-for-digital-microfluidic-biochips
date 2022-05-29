@@ -143,16 +143,17 @@ window.set_simulator_time = (time) => {
  * into JSON format.
  */
 window.download_data = () => {
-    let jsonData = JSON.stringify(gui_broker.data_to_download);
+    gui_controller.download_data();
+    //let jsonData = JSON.stringify(gui_broker.data_to_download);
 
-    /* Download the data by forcing a click on an anchor element. */
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonData);
-    var dlAnchorElem = document.getElementById('downloadAnchorElem');
-    dlAnchorElem.setAttribute("href", dataStr);
-    dlAnchorElem.setAttribute("download", "data.json");
-    dlAnchorElem.click();
+    ///* Download the data by forcing a click on an anchor element. */
+    //var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonData);
+    //var dlAnchorElem = document.getElementById('downloadAnchorElem');
+    //dlAnchorElem.setAttribute("href", dataStr);
+    //dlAnchorElem.setAttribute("download", "data.json");
+    //dlAnchorElem.click();
 
-    gui_broker.data_to_download = [];
+    //gui_broker.data_to_download = [];
 }
 
 /**
@@ -161,9 +162,10 @@ window.download_data = () => {
  * @param {any} jsonData
  */
 window.send_download_data = (jsonData) => {
-    let obj = JSON.parse(jsonData);
-    obj.droplet_groups = gui_broker.get_droplet_groups();
-    gui_broker.data_to_download.push(obj);
+    gui_controller.store_download_data(jsonData);
+    //let obj = JSON.parse(jsonData);
+    //obj.droplet_groups = gui_broker.get_droplet_groups();
+    //gui_broker.data_to_download.push(obj);
 }
 
 /* Make the gui_broker a global object */

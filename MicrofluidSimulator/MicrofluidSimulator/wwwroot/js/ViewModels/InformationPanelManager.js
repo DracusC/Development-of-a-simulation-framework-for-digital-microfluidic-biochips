@@ -200,7 +200,6 @@ let information_panel_manager = {
         }
         layer.stroke("#000000");
     },
-    // TODO: Move to layer_panel manager????
     /**
      * Draws the selected element
      * @param {any} layer
@@ -247,7 +246,7 @@ let information_panel_manager = {
 
         this.onCancel();
 
-        let informationPanel = gui_controller.getInformaitonPanel();
+        let informationPanel = document.querySelector("#simulatorGUI").querySelector("#information");
         let informationView = informationPanel.querySelector("#informationElements");
         informationView.innerHTML = "";
 

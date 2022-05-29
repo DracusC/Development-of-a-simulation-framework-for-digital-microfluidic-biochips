@@ -129,7 +129,7 @@ let selection_manager = {
             this.layers[layer].checkbox = div.querySelector('input');
             this.layers[layer].checkbox.checked = this.layers[layer].checked;
 
-            gui_controller.getLayerPanel().querySelector('form').append(div);
+            document.querySelector("#simulatorGUI").querySelector("#selectionPanel").querySelector('form').append(div);
         }
     },
 
