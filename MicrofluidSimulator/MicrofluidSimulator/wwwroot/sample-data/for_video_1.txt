@@ -1,0 +1,16 @@
+﻿DMF command 0 at 0 ms : setel 0 263
+DMF command 1 at 200 ms : setel 0 273
+DMF command 2 at 400 ms : setel 0 283
+DMF command 3 at 600 ms : setel 0 293
+DMF command 4 at 800 ms : setel 0 303
+DMF command 5 at 1000 ms : clrel 0 293
+DMF command 6 at 1200 ms : setel 0 293
+DMF command 7 at 1400 ms : clrel 0 303
+DMF command 7 at 1600 ms : clrel 0 293
+DMF command 6 at 1800 ms : setel 1 102
+DMF command 6 at 2000 ms : clrel 0 263 273 283
+DMF command 6 at 2000 ms : clrel 1 102
+DMF command 6 at 2000 ms : setel 1 122 112 102
+DMF command 6 at 2200 ms : setel 1 101
+
+
