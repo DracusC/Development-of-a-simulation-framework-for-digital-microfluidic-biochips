@@ -1,0 +1,155 @@
+﻿DMF command 0 at 63789504556777.2749 ms : setel 0 148
+DMF command 1 at 63789504556918.0561 ms : clrel 0 149
+DMF command 2 at 63789504557543.1753 ms : setel 0 147
+DMF command 3 at 63789504557668.1047 ms : clrel 0 148
+DMF command 4 at 63789504558466.105 ms : setel 0 146
+DMF command 5 at 63789504558622.3789 ms : clrel 0 147
+DMF command 6 at 63789504559606.7482 ms : setel 0 145
+DMF command 7 at 63789504559731.717 ms : clrel 0 146
+DMF command 8 at 63789504562999.7382 ms : setel 0 155
+DMF command 9 at 63789504563125.6552 ms : clrel 0 145
+DMF command 10 at 63789504563750.6442 ms : setel 0 165
+DMF command 11 at 63789504563875.5805 ms : clrel 0 155
+DMF command 12 at 63789504564375.551 ms : setel 0 175
+DMF command 13 at 63789504564500.4281 ms : clrel 0 165
+DMF command 14 at 63789504565422.1822 ms : setel 0 185
+DMF command 15 at 63789504565609.603 ms : clrel 0 175
+DMF command 16 at 63789504566532.5674 ms : setel 0 175
+DMF command 17 at 63789504566657.5673 ms : clrel 0 185
+DMF command 18 at 63789504567271.1986 ms : setel 0 165
+DMF command 19 at 63789504567458.6533 ms : clrel 0 175
+DMF command 20 at 63789504568208.473 ms : setel 0 155
+DMF command 21 at 63789504568333.4961 ms : clrel 0 165
+DMF command 22 at 63789504569381.1941 ms : setel 0 145
+DMF command 23 at 63789504569443.6801 ms : clrel 0 155
+DMF command 24 at 63789504570068.5279 ms : setel 0 155
+DMF command 25 at 63789504570255.9827 ms : clrel 0 145
+DMF command 26 at 63789504570568.4349 ms : setel 0 165
+DMF command 27 at 63789504570724.6203 ms : clrel 0 155
+DMF command 28 at 63789504570974.5607 ms : setel 0 175
+DMF command 29 at 63789504571162.02 ms : clrel 0 165
+DMF command 30 at 63789504587069.0857 ms : setel 0 138
+DMF command 31 at 63789504587194.0506 ms : clrel 0 139
+DMF command 32 at 63789504587507.7098 ms : setel 0 137
+DMF command 33 at 63789504587632.7202 ms : clrel 0 138
+DMF command 34 at 63789504587945.1047 ms : setel 0 136
+DMF command 35 at 63789504588132.639 ms : clrel 0 137
+DMF command 36 at 63789504588445.1923 ms : setel 0 135
+DMF command 37 at 63789504588570.0346 ms : clrel 0 136
+DMF command 38 at 63789504590164.672 ms : setel 0 145
+DMF command 39 at 63789504590289.6422 ms : clrel 0 135
+DMF command 40 at 63789504591711.1741 ms : setel 0 165
+DMF command 41 at 63789504591898.634 ms : clrel 0 175
+DMF command 42 at 63789504593270.7734 ms : setel 0 155
+DMF command 43 at 63789504593411.3693 ms : clrel 0 165
+DMF command 44 at 63789504598590.3277 ms : setel 0 135
+DMF command 45 at 63789504598715.3052 ms : clrel 0 145
+DMF command 46 at 63789504603280.6208 ms : setel 0 250
+DMF command 47 at 63789504603405.5864 ms : clrel 0 135
+DMF command 48 at 63789504605283.0787 ms : setel 0 165
+DMF command 49 at 63789504605408.0255 ms : clrel 0 155
+DMF command 50 at 63789504607142.0647 ms : setel 0 155
+DMF command 51 at 63789504607267.0288 ms : clrel 0 165
+DMF command 52 at 63789504607580.6308 ms : setel 0 145
+DMF command 53 at 63789504607768.0727 ms : clrel 0 155
+DMF command 54 at 63789504608018.0205 ms : setel 0 135
+DMF command 55 at 63789504608191.1813 ms : clrel 0 145
+DMF command 56 at 63789504610066.981 ms : setel 0 250
+DMF command 57 at 63789504610192.0322 ms : clrel 0 135
+DMF command 58 at 63789504610863.6875 ms : setel 0 135
+DMF command 59 at 63789504613011.0003 ms : setel 0 240
+DMF command 60 at 63789504613137.2693 ms : clrel 0 250
+DMF command 61 at 63789504618343.8368 ms : setel 0 145
+DMF command 62 at 63789504618421.8239 ms : clrel 0 135
+DMF command 63 at 63789504621890.9563 ms : setel 0 230
+DMF command 64 at 63789504622015.9258 ms : clrel 0 240
+DMF command 65 at 63789504623695.9119 ms : setel 0 240
+DMF command 66 at 63789504623898.9884 ms : clrel 0 230
+DMF command 67 at 63789504624337.7311 ms : setel 0 250
+DMF command 68 at 63789504624462.6258 ms : clrel 0 240
+DMF command 69 at 63789504624947.0393 ms : setel 0 135
+DMF command 70 at 63789504625134.4995 ms : clrel 0 145
+DMF command 71 at 63789504626557.323 ms : setel 0 240
+DMF command 72 at 63789504626682.2877 ms : clrel 0 250
+DMF command 73 at 63789504631657.7086 ms : setel 0 145
+DMF command 74 at 63789504631782.796 ms : clrel 0 135
+DMF command 75 at 63789504636799.8043 ms : setel 0 155
+DMF command 76 at 63789504636924.7581 ms : clrel 0 145
+DMF command 77 at 63789504640348.2952 ms : setel 0 165
+DMF command 78 at 63789504640521.2455 ms : clrel 0 155
+DMF command 79 at 63789504641442.9416 ms : setel 0 155
+DMF command 80 at 63789504641630.4753 ms : clrel 0 165
+DMF command 81 at 63789504641942.8679 ms : setel 0 145
+DMF command 82 at 63789504642069.1916 ms : clrel 0 155
+DMF command 83 at 63789504644103.5956 ms : setel 0 135
+DMF command 84 at 63789504644244.2945 ms : clrel 0 145
+DMF command 85 at 63789504644556.6739 ms : setel 0 250
+DMF command 86 at 63789504644681.6134 ms : clrel 0 135
+DMF command 87 at 63789504645479.4738 ms : setel 0 135
+DMF command 88 at 63789504645604.4212 ms : clrel 0 250
+DMF command 89 at 63789504646088.8337 ms : setel 0 145
+DMF command 90 at 63789504646293.7345 ms : clrel 0 135
+DMF command 91 at 63789504647496.5712 ms : setel 0 230
+DMF command 92 at 63789504647621.511 ms : clrel 0 240
+DMF command 93 at 63789504648763.4258 ms : setel 0 240
+DMF command 94 at 63789504648935.2592 ms : clrel 0 230
+DMF command 95 at 63789504650436.1313 ms : setel 0 230 155
+DMF command 96 at 63789504650623.5873 ms : clrel 0 240 145
+DMF command 97 at 63789504651857.7765 ms : setel 0 240 145
+DMF command 98 at 63789504652045.3424 ms : clrel 0 230 155
+DMF command 99 at 63789504653108.8859 ms : setel 0 250 135
+DMF command 100 at 63789504653235.2075 ms : clrel 0 240 145
+DMF command 101 at 63789504654016.1867 ms : setel 0 240 145
+DMF command 102 at 63789504654203.7156 ms : clrel 0 250 135
+DMF command 103 at 63789504665495.3181 ms : shv 1 290
+DMF command 104 at 63789504665604.6721 ms : hvpoe 1 1
+DMF command 105 at 63789504670887.6999 ms : setel 0 230 155
+DMF command 106 at 63789504671074.851 ms : clrel 0 240 145
+DMF command 107 at 63789504672465.117 ms : setel 0 240
+DMF command 108 at 63789504672590.0875 ms : clrel 0 230
+DMF command 109 at 63789504673545.3938 ms : setel 0 145
+DMF command 110 at 63789504673671.7199 ms : clrel 0 155
+DMF command 111 at 63789504674171.601 ms : setel 0 250 135
+DMF command 112 at 63789504674359.0574 ms : clrel 0 240 145
+DMF command 113 at 63789504675734.9651 ms : setel 0 240 145
+DMF command 114 at 63789504675861.1661 ms : clrel 0 250 135
+DMF command 115 at 63789504676347.0674 ms : setel 0 230 155
+DMF command 116 at 63789504676472.0373 ms : clrel 0 240 145
+DMF command 117 at 63789504677253.3729 ms : setel 0 240 145
+DMF command 118 at 63789504677440.8576 ms : clrel 0 230 155
+DMF command 119 at 63789504678206.3074 ms : setel 0 250
+DMF command 120 at 63789504678332.3809 ms : setel 0 135
+DMF command 121 at 63789504678410.5189 ms : clrel 0 240
+DMF command 122 at 63789504678535.5808 ms : clrel 0 145
+DMF command 123 at 63789504683489.2401 ms : shv 1 299
+DMF command 124 at 63789504683551.6694 ms : hvpoe 1 1
+DMF command 125 at 63789504687662.4798 ms : setel 0 240
+DMF command 126 at 63789504687850.2433 ms : setel 0 145
+DMF command 127 at 63789504687912.5375 ms : clrel 0 250
+DMF command 128 at 63789504687974.9099 ms : clrel 0 135
+DMF command 129 at 63789504691229.5009 ms : setel 0 155
+DMF command 130 at 63789504691416.9567 ms : clrel 0 145
+DMF command 131 at 63789504692277.4202 ms : setel 0 145
+DMF command 132 at 63789504692466.0775 ms : clrel 0 155
+DMF command 133 at 63789504693403.3548 ms : setel 0 135
+DMF command 134 at 63789504693528.3245 ms : clrel 0 145
+DMF command 135 at 63789504694028.6007 ms : setel 0 250
+DMF command 136 at 63789504694153.1757 ms : clrel 0 135
+DMF command 137 at 63789504695419.6333 ms : setel 0 230 135
+DMF command 138 at 63789504695544.603 ms : clrel 0 240 250
+DMF command 139 at 63789504701938.3307 ms : setel 0 220
+DMF command 140 at 63789504702063.3026 ms : clrel 0 230
+DMF command 141 at 63789504703000.6603 ms : setel 0 230
+DMF command 142 at 63789504703181.6356 ms : clrel 0 220
+DMF command 143 at 63789504703931.5694 ms : setel 0 240
+DMF command 144 at 63789504704119.0368 ms : clrel 0 230
+DMF command 145 at 63789504705791.6084 ms : setel 0 250
+DMF command 146 at 63789504705978.963 ms : clrel 0 240
+DMF command 147 at 63789504706543.289 ms : setel 0 240
+DMF command 148 at 63789504706730.779 ms : clrel 0 250
+DMF command 149 at 63789504708309.8064 ms : setel 0 230
+DMF command 150 at 63789504708434.8841 ms : clrel 0 240
+DMF command 151 at 63789504721176.0688 ms : setel 0 145
+DMF command 152 at 63789504721363.772 ms : clrel 0 135
+DMF command 153 at 63789504729397.9484 ms : setel 0 220
+DMF command 154 at 63789504729585.4039 ms : clrel 0 230
