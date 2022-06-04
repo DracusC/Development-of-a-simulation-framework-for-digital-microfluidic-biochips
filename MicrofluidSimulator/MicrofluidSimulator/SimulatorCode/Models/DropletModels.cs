@@ -84,6 +84,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                             container.subscribedDroplets.Add(newDroplet.ID);
                             int index = HelpfullRetreiveFunctions.getIndexOfDropletByID(id, container);
 
+                            DropletUtillityFunctions.updateGroupNumber(container, newDroplet, newDroplet.group);
+
                             DropletTemperatureModels.updateGroupTemperature(container, caller.group, caller);
                             SubscriptionModels.dropletSubscriptions(container, newDroplet);
 

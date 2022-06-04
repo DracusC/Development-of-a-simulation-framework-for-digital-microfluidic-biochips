@@ -124,6 +124,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                 }
             }
+            // part of the merge that allows large droplet to absorb small droplets
             if (caller.subscriptions.Count > 5)
             {
                 //subscribers.Add(caller.ID);
@@ -138,6 +139,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                         return subscribers;
                     }
                 }
+                //The large droplet can only absorb where it overlaps the electrode the subscribtions hold all electrodes it overlaps
                 foreach (int sub in caller.subscriptions)
                 {
                     Electrode tempElectrode = electrodeBoard[sub];
@@ -177,18 +179,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                         }
                         else
                         {
-                            //bool allowMergeOnOnelectrode = true;
 
-                            //foreach (int neighbour in tempElectrode.neighbours)
-                            //{
-                            //    int indexForElectrode = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
-                            //    Electrode neigbourElectrode = electrodeBoard[indexForElectrode];
-                            //    if (!DropletUtillityFunctions.dropletOverlapElectrode(container, caller, neigbourElectrode))
-                            //    {
-                            //        allowMergeOnOnelectrode = false;
-                            //        break;
-                            //    }
-                            //}
                             double x = Math.Pow(caller.positionX - otherDroplet.positionX, 2);
                             double y = Math.Pow(caller.positionY - otherDroplet.positionY, 2);
 
