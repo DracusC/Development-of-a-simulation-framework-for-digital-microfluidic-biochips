@@ -146,7 +146,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     if ((otherDroplet != null))
                     {
 
-
+                        //Check to see if a droplet should be absorbed or stay on the edge due to pull of nearby electrodes
                         onNeighbours = new ArrayList();
                         foreach (int neighbour in tempElectrode.neighbours)
                         {
