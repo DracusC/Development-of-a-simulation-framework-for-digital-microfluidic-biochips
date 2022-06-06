@@ -4,10 +4,14 @@ using System.Collections;
 using System.Drawing;
 namespace MicrofluidSimulator.SimulatorCode.Models
 {
+    /// <summary>
+    /// Model for merging droplets
+    /// </summary>
     public class DropletMerge
     {
         public static ArrayList dropletMerge(Container container, Droplets caller)
         {
+            int callerID = caller.ID;
             ArrayList subscribers = new ArrayList();
             List<Droplets> droplets = container.droplets;
             Electrode[] electrodeBoard = container.electrodes;
@@ -116,12 +120,6 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     }
 
 
-
-
-
-
-
-
                 }
             }
             // part of the merge that allows large droplet to absorb small droplets
@@ -142,10 +140,32 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 //The large droplet can only absorb where it overlaps the electrode the subscribtions hold all electrodes it overlaps
                 foreach (int sub in caller.subscriptions)
                 {
+
                     Electrode tempElectrode = electrodeBoard[sub];
                     Droplets otherDroplet = ElectrodeModels.electrodeHasDroplet(tempElectrode, container);
                     if ((otherDroplet != null))
                     {
+
+
+                        onNeighbours = new ArrayList();
+                        foreach (int neighbour in tempElectrode.neighbours)
+                        {
+                            int electrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(neighbour, container);
+                            Electrode electrode = electrodeBoard[electrodeIndex];
+                            if ((ElectrodeModels.electrodeHasDroplet(electrode, container) != null))
+                            {
+                                return subscribers;
+                            }
+                        }
+
+                        if(onNeighbours.Count > 0)
+                        {
+                            subscribers.Add(callerID);
+                            return subscribers;
+                        }
+
+
+                        //if the droplet is on an OFF electrode it only need to be partyally overlapped to be merged, if the electrod is on in must be ompletely overlapped
                         if (tempElectrode.status == 0 )
                         {
                             if (DropletUtillityFunctions.getGroupVolume(container, caller.group) > DropletUtillityFunctions.getGroupVolume(container, otherDroplet.group))
@@ -157,22 +177,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
                                 if (dist < (caller.sizeX/2 + otherDroplet.sizeX/2))
                                 {
-                                    DropletTemperatureModels.updateGroupTemperature(container, caller.group, otherDroplet);
-                                    ArrayList dropletSubscritions = otherDroplet.subscriptions;
-                                    foreach (int n in dropletSubscritions)
-                                    {
+                                    absorbDropletAndUpdateVariables(container, caller, otherDroplet);
 
-                                        electrodeBoard[n].subscriptions.Remove(otherDroplet.ID);
-                                    }
-                                    container.subscribedDroplets.Remove(otherDroplet.ID);
-                                    //caller.Subscriptions = new ArrayList();
-                                    float volume = otherDroplet.volume;
-                                    int groupId = otherDroplet.group;
-                                    Color color = ColorTranslator.FromHtml(otherDroplet.color);
-                                    droplets.Remove(otherDroplet);
-                                    Console.WriteLine("removed a droplet");
-                                    DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
-                                    DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
                                 }
                                 
                             }
@@ -189,22 +195,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                             {
                                 if (DropletUtillityFunctions.getGroupVolume(container, caller.group) > DropletUtillityFunctions.getGroupVolume(container, otherDroplet.group))
                                 {
-                                    DropletTemperatureModels.updateGroupTemperature(container, caller.group, otherDroplet);
-                                    ArrayList dropletSubscritions = otherDroplet.subscriptions;
-                                    foreach (int n in dropletSubscritions)
-                                    {
+                                    absorbDropletAndUpdateVariables(container, caller, otherDroplet);
 
-                                        electrodeBoard[n].subscriptions.Remove(otherDroplet.ID);
-                                    }
-                                    container.subscribedDroplets.Remove(otherDroplet.ID);
-                                    //caller.Subscriptions = new ArrayList();
-                                    float volume = otherDroplet.volume;
-                                    int groupId = otherDroplet.group;
-                                    Color color = ColorTranslator.FromHtml(otherDroplet.color);
-                                    droplets.Remove(otherDroplet);
-                                    Console.WriteLine("removed a droplet");
-                                    DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
-                                    DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
                                 }
                             }
 
@@ -219,8 +211,33 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             {
                 //subscribers.Add(caller.ID);
             }
-            subscribers.Add(caller.ID);
+            subscribers.Add(callerID);
             return subscribers;
+        }
+
+        private static void absorbDropletAndUpdateVariables(Container container, Droplets caller, Droplets otherDroplet)
+        {
+
+            List<Droplets> droplets = container.droplets;
+            Electrode[] electrodeBoard = container.electrodes;
+            DropletTemperatureModels.updateGroupTemperature(container, caller.group, otherDroplet);
+            //Cleanup before removing droplet
+
+            ArrayList dropletSubscritions = otherDroplet.subscriptions;
+            foreach (int n in dropletSubscritions)
+            {
+
+                electrodeBoard[n].subscriptions.Remove(otherDroplet.ID);
+            }
+            container.subscribedDroplets.Remove(otherDroplet.ID);
+            float volume = otherDroplet.volume;
+            int groupId = otherDroplet.group;
+            Color color = ColorTranslator.FromHtml(otherDroplet.color);
+            droplets.Remove(otherDroplet);
+
+
+            DropletUtillityFunctions.updateGroupColor(container, caller.group, color, volume);
+            DropletUtillityFunctions.updateGroupVolume(container, caller.group, volume);
         }
     }
 }
