@@ -131,6 +131,18 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return null;
         }
 
+        public static Queue<string> createDeepCopyOfColorQueue(Queue<string> colorQueue)
+        {
+            Queue<string> copyOfQueue = new Queue<string>();
+
+            foreach (string item in colorQueue)
+            {
+                
+                copyOfQueue.Enqueue(item);
+            }
+            return copyOfQueue;
+        }
+
         //bubble retreive functions
         public static double getDiameterOfBubble(double volumeFromDroplet)
         {

@@ -20,6 +20,7 @@ namespace MicrofluidSimulator.SimpleVM
         private Queue<ActionQueueItem> hotTemperatureQueuePush;
         private Queue<ActionQueueItem> coldTemperatureQueuePush;
         private Queue<string> colorQueue;
+        Queue<string> copyOfColorQueue;
 
         private bool rgbSensorCalled;
         private bool temperatureSensorCalled;
@@ -41,6 +42,7 @@ namespace MicrofluidSimulator.SimpleVM
             this.temperatureSensorCalled = false;
 
             this.colorQueue = new Queue<string>();
+            this.copyOfColorQueue = new Queue<string>();
 
             colorQueue.Enqueue("#000000");
             colorQueue.Enqueue("#FF4200");
@@ -82,10 +84,17 @@ namespace MicrofluidSimulator.SimpleVM
             this.turnOnHeaterAtTime(10, 70, 727, heater727Called);
             this.turnOnHeaterAtTime(1, 70, 729, heater729Called);
             int[] colorRead = this.readRGBValueOfColorSensorAtTime(simulator.container.currentTime, 725);
-
-            if((simulator.container.currentTime*100) % 512 == 0 && simulator.container.currentTime != 0 && this.colorQueue.Count > 0)
+            
+            
+            if (simulator.container.currentTime == 0.16m)
+            {  
+                copyOfColorQueue = HelpfullRetreiveFunctions.createDeepCopyOfColorQueue(this.colorQueue);
+            }
+           
+            if ((simulator.container.currentTime*100) % 496 == 0 && simulator.container.currentTime != 0 && copyOfColorQueue.Count > 0)
             {
-                Droplets newDroplet = new Droplets("test droplet", (int)simulator.container.currentTime, "h20", 700, 190, 22, 22, this.colorQueue.Dequeue(),
+               
+                Droplets newDroplet = new Droplets("test droplet", (int)simulator.container.currentTime, "h20", 700, 190, 22, 22, copyOfColorQueue.Dequeue(),
                 20, 380, 318, (int)simulator.container.currentTime, 0);
 
                 simulator.container.droplets.Add(newDroplet);
