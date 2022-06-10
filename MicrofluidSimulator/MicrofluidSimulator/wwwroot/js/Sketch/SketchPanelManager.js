@@ -74,7 +74,7 @@ let sketch = function (p) {
     
     p.draw = function () {
         //console.time("DrawTime");
-        if ((gui_broker.play_status && selection_manager.layers.draw_droplet_animations.checkbox.checked) || gui_broker.animate) {
+        if ((gui_broker.play_status && selection_manager.selection_list.draw_droplet_animations.checkbox.checked) || gui_broker.animate) {
             lerp_amount += 0.07; // Maybe make an animation object, or global variables
         }
 
@@ -84,19 +84,19 @@ let sketch = function (p) {
         /* Draw calls */
         p.image(layer_electrode, 0, 0);
 
-        if (selection_manager.layers.draw_active_electrodes.checkbox.checked) { draw_active_electrodes(); }
+        if (selection_manager.selection_list.draw_active_electrodes.checkbox.checked) { draw_active_electrodes(); }
 
         // Draw all direct layers
-        selection_manager.draw_layers(p);
+        selection_manager.draw_selection_list(p);
 
         // Draw selected electrodes
-        if (selection_manager.layers.draw_selected_element.checkbox.checked) { information_panel_manager.draw_selected_element(selection_manager.layers.draw_selected_element.layer, information_panel_manager.selected_element); }
+        if (selection_manager.selection_list.draw_selected_element.checkbox.checked) { information_panel_manager.draw_selected_element(selection_manager.selection_list.draw_selected_element.layer, information_panel_manager.selected_element); }
 
         // Draw droplet groups
-        if (selection_manager.layers.draw_droplet_groups.checkbox.checked || selection_manager.layers.draw_droplet_animations.checkbox.checked) { draw_droplet_groups(); }
+        if (selection_manager.selection_list.draw_droplet_groups.checkbox.checked || selection_manager.selection_list.draw_droplet_animations.checkbox.checked) { draw_droplet_groups(); }
 
         // Draw and control animations
-        if (selection_manager.layers.draw_droplet_animations.checkbox.checked) {
+        if (selection_manager.selection_list.draw_droplet_animations.checkbox.checked) {
 
             let on_time_lerp = ((Date.now() - gui_broker.simulator_time) / 1000) / (gui_broker.board.currentTime - gui_broker.simulator_prev_time);
             let on_count_lerp = p.constrain(lerp_amount, 0, 1);
@@ -120,18 +120,18 @@ let sketch = function (p) {
         }
 
         // Draw bubbles
-        if (selection_manager.layers.draw_bubbles.checkbox.checked) { draw_bubbles(); }
+        if (selection_manager.selection_list.draw_bubbles.checkbox.checked) { draw_bubbles(); }
 
         // Draw multiple selection
         if (information_panel_manager.double_clicked) { information_panel_manager.draw_multiple_selection(p); }
 
         // Control non real-time execution
-        if (gui_broker.play_status && lerp_amount >= 1.3 && !selection_manager.layers.real_time.checkbox.checked && selection_manager.layers.draw_droplet_animations.checkbox.checked) {
+        if (gui_broker.play_status && lerp_amount >= 1.3 && !selection_manager.selection_list.real_time.checkbox.checked && selection_manager.selection_list.draw_droplet_animations.checkbox.checked) {
             gui_broker.next_simulator_step();
             lerp_amount = 0;
             gui_broker.animate = false;
 
-        } else if (gui_broker.play_status && !selection_manager.layers.draw_droplet_animations.checkbox.checked && !selection_manager.layers.real_time.checkbox.checked) {
+        } else if (gui_broker.play_status && !selection_manager.selection_list.draw_droplet_animations.checkbox.checked && !selection_manager.selection_list.real_time.checkbox.checked) {
             gui_broker.next_simulator_step();
 
         } else if (gui_broker.animate && lerp_amount >= 1) {
@@ -140,12 +140,18 @@ let sketch = function (p) {
         }
 
 
-        if (selection_manager.layers.draw_droplets.checkbox.checked) { draw_droplet(); }
+        if (selection_manager.selection_list.draw_droplets.checkbox.checked) { draw_droplet(); }
 
 
         // Control real-time execution
         if (gui_broker.play_status && (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time) >= gui_broker.board.currentTime) {
-            console.log("Ellapsed time: " + ((Date.now() - gui_broker.simulator_time) / 1000) + " seconds", "Actual time: " + (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time),"Previous time: " + gui_broker.simulator_prev_time,"Current time: " + gui_broker.board.currentTime);
+
+            console.log("Ellapsed time: " + ((Date.now() - gui_broker.simulator_time) / 1000) + " seconds\n",
+                        "Actual time: " + (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time) + "\n",
+                        "Previous time: " + gui_broker.simulator_prev_time + "\n",
+                        "Time difference: " + (gui_broker.board.currentTime - gui_broker.simulator_prev_time) + "\n",
+                        "Current time: " + gui_broker.board.currentTime);
+
             lerp_amount = 1;
             gui_broker.next_simulator_step_time(gui_broker.simulator_time_step);
         }
@@ -351,7 +357,7 @@ let sketch = function (p) {
         information_panel_manager.multiple_selection = null;
 
         // Handle click on droplet group
-        if (selection_manager.layers.draw_droplet_groups.checkbox.checked) {
+        if (selection_manager.selection_list.draw_droplet_groups.checkbox.checked) {
             for (let i in gui_broker.droplet_groups) {
                 if (polygon_contains(gui_broker.droplet_groups[i].vertices, p.mouseX, p.mouseY)) {
                     information_panel_manager.selected_element = information_panel_manager.information_filter("Group", gui_broker.droplet_groups[i], i);
@@ -363,7 +369,7 @@ let sketch = function (p) {
         }
 
         // Handle click on droplet
-        if (selection_manager.layers.draw_droplets.checkbox.checked) {
+        if (selection_manager.selection_list.draw_droplets.checkbox.checked) {
             for (let i in gui_broker.droplets) {
                 let droplet = gui_broker.droplets[i];
 
@@ -378,7 +384,7 @@ let sketch = function (p) {
         }
 
         // Handle click on sensor
-        if (selection_manager.layers.draw_sensors.checkbox.checked) {
+        if (selection_manager.selection_list.draw_sensors.checkbox.checked) {
             for (let i in gui_broker.board.sensors) {
                 let sensor = gui_broker.board.sensors[i];
                 let vertexes = [[sensor.positionX, sensor.positionY], [sensor.positionX + sensor.sizeX, sensor.positionY], [sensor.positionX + sensor.sizeX, sensor.positionY + sensor.sizeY], [sensor.positionX, sensor.positionY + sensor.sizeY]];
@@ -393,7 +399,7 @@ let sketch = function (p) {
         }
 
         // Handle click on actuator
-        if (selection_manager.layers.draw_actuators.checkbox.checked) {
+        if (selection_manager.selection_list.draw_actuators.checkbox.checked) {
             for (let i in gui_broker.board.actuators) {
                 let actuator = gui_broker.board.actuators[i];
                 let vertexes = [[actuator.positionX, actuator.positionY], [actuator.positionX + actuator.sizeX, actuator.positionY], [actuator.positionX + actuator.sizeX, actuator.positionY + actuator.sizeY], [actuator.positionX, actuator.positionY + actuator.sizeY]];
@@ -424,7 +430,7 @@ let sketch = function (p) {
 
         let list_of_elements = {};
         // Handle click on droplet group
-        if (selection_manager.layers.draw_droplet_groups.checkbox.checked) {
+        if (selection_manager.selection_list.draw_droplet_groups.checkbox.checked) {
             for (let i in gui_broker.droplet_groups) {
                 if (polygon_contains(gui_broker.droplet_groups[i].vertices, p.mouseX, p.mouseY)) {
                     list_of_elements["Group"] = gui_broker.droplet_groups[i];
@@ -433,7 +439,7 @@ let sketch = function (p) {
         }
 
         // Handle click on droplet
-        if (selection_manager.layers.draw_droplets.checkbox.checked) {
+        if (selection_manager.selection_list.draw_droplets.checkbox.checked) {
             for (let i in gui_broker.droplets) {
                 let droplet = gui_broker.droplets[i];
 
@@ -445,7 +451,7 @@ let sketch = function (p) {
         }
 
         // Handle click on sensor
-        if (selection_manager.layers.draw_sensors.checkbox.checked) {
+        if (selection_manager.selection_list.draw_sensors.checkbox.checked) {
             for (let i in gui_broker.board.sensors) {
                 let sensor = gui_broker.board.sensors[i];
                 let vertexes = [[sensor.positionX, sensor.positionY], [sensor.positionX + sensor.sizeX, sensor.positionY], [sensor.positionX + sensor.sizeX, sensor.positionY + sensor.sizeY], [sensor.positionX, sensor.positionY + sensor.sizeY]];
@@ -457,7 +463,7 @@ let sketch = function (p) {
         }
 
         // Handle click on actuator
-        if (selection_manager.layers.draw_actuators.checkbox.checked) {
+        if (selection_manager.selection_list.draw_actuators.checkbox.checked) {
             for (let i in gui_broker.board.actuators) {
                 let actuator = gui_broker.board.actuators[i];
                 let vertexes = [[actuator.positionX, actuator.positionY], [actuator.positionX + actuator.sizeX, actuator.positionY], [actuator.positionX + actuator.sizeX, actuator.positionY + actuator.sizeY], [actuator.positionX, actuator.positionY + actuator.sizeY]];
@@ -475,7 +481,6 @@ let sketch = function (p) {
                 list_of_elements["Electrode"] = (electrode);
             }
         }
-        console.log("double clicked", list_of_elements);
 
         if (Object.keys(list_of_elements).length > 1) {
             information_panel_manager.selected_element = null;
@@ -694,7 +699,7 @@ let sketch = function (p) {
             //console.log(points_vector);
             gui_broker.droplet_groups[current_droplet.group].vertices = points_to_draw;
 
-            if (!selection_manager.layers.draw_droplet_animations.checkbox.checked) {
+            if (!selection_manager.selection_list.draw_droplet_animations.checkbox.checked) {
                 draw_rounded(p, points_vector, 50);
             }
 
@@ -770,18 +775,18 @@ let sketch = function (p) {
         //layer_electrode_id = p.createGraphics(sizeX + 1, sizeY);
 
 
-        for (let layer in selection_manager.layers) {
-            if (selection_manager.layers[layer].hasOwnProperty("layer")) {
-                selection_manager.layers[layer].layer = p.createGraphics(sizeX + 1, sizeY);
+        for (let layer in selection_manager.selection_list) {
+            if (selection_manager.selection_list[layer].hasOwnProperty("layer")) {
+                selection_manager.selection_list[layer].layer = p.createGraphics(sizeX + 1, sizeY);
             }
         }
         for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
-            debug_electrode_text(selection_manager.layers.debug_electrode_text.layer, electrode);
+            debug_electrode_text(selection_manager.selection_list.debug_electrode_text.layer, electrode);
         }
 
-        draw_actuators(selection_manager.layers.draw_actuators.layer);
-        draw_sensors(selection_manager.layers.draw_sensors.layer);
+        draw_actuators(selection_manager.selection_list.draw_actuators.layer);
+        draw_sensors(selection_manager.selection_list.draw_sensors.layer);
 
         layer_electrode = p.createGraphics(sizeX + 1, sizeY);
 

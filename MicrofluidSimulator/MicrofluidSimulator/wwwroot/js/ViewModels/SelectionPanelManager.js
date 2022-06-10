@@ -10,7 +10,7 @@ let selection_manager = {
     /*
      * The layers object stores information about each layer in the GUI.
      */
-    layers: {
+    selection_list: {
         real_time: {
             name: "real_time",
             value: "real_time",
@@ -118,16 +118,16 @@ let selection_manager = {
      * The function initialize_layers will create toggles and layers
      * for each of the layers contained in the layers property.
      */
-    initialize_layers: function () {
+    initialize_selection_list: function () {
 
-        for (let layer in this.layers) {
+        for (let layer in this.selection_list) {
             var div = document.createElement('div');
             div.classList.add("form-check");
-            div.innerHTML = `<input type='checkbox' name='${this.layers[layer].name}' value='${this.layers[layer].value}' id='${this.layers[layer].id}' class='form-check-input'/>
-                             <label for='${this.layers[layer].name}' class='form-check-label'>${this.layers[layer].text}</label>`;
-            this.layers[layer].element = div;
-            this.layers[layer].checkbox = div.querySelector('input');
-            this.layers[layer].checkbox.checked = this.layers[layer].checked;
+            div.innerHTML = `<input type='checkbox' name='${this.selection_list[layer].name}' value='${this.selection_list[layer].value}' id='${this.selection_list[layer].id}' class='form-check-input'/>
+                             <label for='${this.selection_list[layer].name}' class='form-check-label'>${this.selection_list[layer].text}</label>`;
+            this.selection_list[layer].element = div;
+            this.selection_list[layer].checkbox = div.querySelector('input');
+            this.selection_list[layer].checkbox.checked = this.selection_list[layer].checked;
 
             document.querySelector("#simulatorGUI").querySelector("#selectionPanel").querySelector('form').append(div);
         }
@@ -137,11 +137,11 @@ let selection_manager = {
      * The function draw_layers will draw the layers in the sketch.
      * @param {any} sketch
      */
-    draw_layers: function (sketch) {
-        for (let layer in this.layers) {
-            if (this.layers[layer].hasOwnProperty("layer") && this.layers[layer].checkbox.checked) {
+    draw_selection_list: function (sketch) {
+        for (let layer in this.selection_list) {
+            if (this.selection_list[layer].hasOwnProperty("layer") && this.selection_list[layer].checkbox.checked) {
                 // Draw
-                sketch.image(this.layers[layer].layer, 0, 0);
+                sketch.image(this.selection_list[layer].layer, 0, 0);
             }
         }
     }

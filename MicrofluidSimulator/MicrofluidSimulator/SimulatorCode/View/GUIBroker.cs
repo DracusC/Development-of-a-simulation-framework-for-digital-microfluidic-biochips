@@ -53,19 +53,6 @@ namespace MicrofluidSimulator.SimulatorCode.View
         /// </summary>
         /// <param name="container"></param>
         public void initialize_board(Information container) {
-            /*var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            string jsonuft = Utf8Json.JsonSerializer.ToJsonString(container);
-            stopwatch.Stop();
-
-            Console.WriteLine("Init Utf8Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");
-
-            stopwatch.Reset();
-            stopwatch.Start();
-            string json = JsonSerializer.Serialize(container);
-            stopwatch.Stop();
-
-            Console.WriteLine("Init System.Text.Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");*/
 
             var json_string = Utf8Json.JsonSerializer.ToJsonString(container);
             _JSInProcessRuntime.InvokeVoid("initialize_board", json_string);
@@ -77,20 +64,7 @@ namespace MicrofluidSimulator.SimulatorCode.View
         /// </summary>
         /// <param name="container"></param>
         public void update_board(Container container) {
-            /*var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            string jsonuft = Utf8Json.JsonSerializer.ToJsonString(container);
-            stopwatch.Stop();
             
-            Console.WriteLine("Utf8Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");*/
-            /*
-            stopwatch.Reset();
-            stopwatch.Start();
-            string json = JsonSerializer.Serialize(container);
-            stopwatch.Stop();
-
-            Console.WriteLine("System.Text.Json serialize time: " + stopwatch.ElapsedMilliseconds + " ms");*/
-
             // Start execution time.
             start_simulator_time();
             _JSUnmarshalledRuntime.InvokeUnmarshalled<string, string>("update_board", Utf8Json.JsonSerializer.ToJsonString(container));
@@ -198,7 +172,7 @@ namespace MicrofluidSimulator.SimulatorCode.View
                     Electrode JSONElectrode = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrode>(JSONString);
 
                     ID = JSONElectrode.ID;
-                    index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.container);
+                    index =  Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.container);
 
                     Electrode electrode = simulator.container.electrodes[index];
 
@@ -207,13 +181,13 @@ namespace MicrofluidSimulator.SimulatorCode.View
                     break;
 
                 case ("Droplet"):
-                    MicrofluidSimulator.SimulatorCode.Droplets JSONDroplet = Newtonsoft.Json.JsonConvert.DeserializeObject<MicrofluidSimulator.SimulatorCode.Droplets>(JSONString);
+                    Droplets JSONDroplet = Newtonsoft.Json.JsonConvert.DeserializeObject<Droplets>(JSONString);
                     ID = JSONDroplet.ID;
-                    index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(ID, simulator.container);
+                    index = Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(ID, simulator.container);
 
                     Console.WriteLine("ID: " + ID + ", index: " + index);
 
-                    MicrofluidSimulator.SimulatorCode.Droplets droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
+                    Droplets droplet = (Droplets)simulator.container.droplets[index];
 
                     // Change values
                     droplet.color = JSONDroplet.color;
@@ -229,22 +203,22 @@ namespace MicrofluidSimulator.SimulatorCode.View
 
                     foreach (int dropletID in JSONGroupDroplets.droplets)
                     {
-                        index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(dropletID, simulator.container);
-                        droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
+                        index = Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(dropletID, simulator.container);
+                        droplet = (Droplets)simulator.container.droplets[index];
 
                         // Change values for each droplet in a group
                         droplet.color = JSONGroupDroplets.color;
                         droplet.temperature = JSONGroupDroplets.temperature;
                     }
 
-                    float prevVolume = MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID);
+                    float prevVolume = Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID);
 
                     float deltaVolume = JSONGroupDroplets.volume - prevVolume;
                     Console.WriteLine("PrevVolume " + prevVolume + " , diff " + deltaVolume + " GID " + JSONGroupDroplets.groupID);
 
-                    MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.updateGroupVolume(simulator.container, JSONGroupDroplets.groupID, deltaVolume);
+                    Models.DropletUtillityFunctions.updateGroupVolume(simulator.container, JSONGroupDroplets.groupID, deltaVolume);
 
-                    Console.WriteLine("Updated Volume: " + MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID));
+                    Console.WriteLine("Updated Volume: " + Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID));
 
                     break;
             }

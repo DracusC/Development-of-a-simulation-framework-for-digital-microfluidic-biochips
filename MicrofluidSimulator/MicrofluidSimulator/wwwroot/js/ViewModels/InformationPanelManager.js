@@ -38,6 +38,8 @@ let information_panel_manager = {
         Electrode: {
             name: "",
             ID: "",
+            electrodeID: "",
+            driverID: "",
             status: 0,
             positionX: 0,
             positionY: 0,
