@@ -164,7 +164,7 @@ namespace MicrofluidSimulator.SimpleVM
             if (currentSimulatorTime >= time && heaterCalled == false)
             {
                 heaterCalled = true;
-                simulator.setActuatorTargetTemperature(heaterID, desiredTemperature);
+                SimpleVMUtilityFunctions.setActuatorTargetTemperature(heaterID, desiredTemperature, simulator.container);
             }
             else if (currentSimulatorTime < time)
             {
@@ -178,7 +178,7 @@ namespace MicrofluidSimulator.SimpleVM
             decimal currentSimulatorTime = simulator.container.currentTime;
             if (currentSimulatorTime == time && rgbSensorCalled == false)
             {
-                int[] colorArray = simulator.getColorOfSensorWithID(sensorID);
+                int[] colorArray = SimpleVMUtilityFunctions.getColorOfSensorWithID(sensorID, simulator.container);
                 if (!Enumerable.SequenceEqual(colorArray, new int[] { -1, -1, -1 }) && !Enumerable.SequenceEqual(colorArray, new int[] { 0, 0, 0 }))
                 {
                     rgbSensorCalled = true;
@@ -194,7 +194,7 @@ namespace MicrofluidSimulator.SimpleVM
             decimal currentSimulatorTime = simulator.container.currentTime;
             if (currentSimulatorTime == time && temperatureSensorCalled == false)
             {
-                float temperature = simulator.getTemperatureOfSensorWithID(sensorID);
+                float temperature = SimpleVMUtilityFunctions.getTemperatureOfSensorWithID(sensorID, simulator.container);
                 if (temperature != -1 && temperature != 20)
                 {
                     
