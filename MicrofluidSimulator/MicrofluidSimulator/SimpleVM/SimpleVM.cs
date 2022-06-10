@@ -6,6 +6,7 @@ using System.Drawing;
 using MicrofluidSimulator.SimulatorCode.Models;
 using MicrofluidSimulator.SimulatorCode.DataTypes;
 using MicrofluidSimulator.SimulatorCode.Simulator;
+using MicrofluidSimulator.SimulatorCode;
 
 namespace MicrofluidSimulator.SimpleVM
 {
@@ -13,11 +14,12 @@ namespace MicrofluidSimulator.SimpleVM
     {
         private Simulator simulator;
         private Queue<ActionQueueItem> redQueuePush;
-        private Queue<ActionQueueItem> cyanQueuePush;
-        private Queue<ActionQueueItem> yellowQueuePush;
-        private Queue<ActionQueueItem> orangeQueuePush;
+        private Queue<ActionQueueItem> blueQueuePush;
+        private Queue<ActionQueueItem> greenQueuePush;
+        private Queue<ActionQueueItem> blackQueuePush;
         private Queue<ActionQueueItem> hotTemperatureQueuePush;
         private Queue<ActionQueueItem> coldTemperatureQueuePush;
+        private Queue<string> colorQueue;
 
         private bool rgbSensorCalled;
         private bool temperatureSensorCalled;
@@ -27,9 +29,9 @@ namespace MicrofluidSimulator.SimpleVM
         {
             this.simulator = simulator;
             this.redQueuePush = generateRedTestQueue(simulator.container.currentTime);
-            this.cyanQueuePush = generateCyanTestQueue(simulator.container.currentTime);
-            this.yellowQueuePush = generateYellowTestQueue(simulator.container.currentTime);
-            this.orangeQueuePush = generateOrangeTestQueue(simulator.container.currentTime);
+            this.blueQueuePush = generateBlueTestQueue(simulator.container.currentTime);
+            this.greenQueuePush = generateGreenTestQueue(simulator.container.currentTime);
+            this.blackQueuePush = generateBlackTestQueue(simulator.container.currentTime);
             this.hotTemperatureQueuePush = generateHotTemperatureTestQueue(simulator.container.currentTime);
             this.coldTemperatureQueuePush = generateColdTemperatureTestQueue(simulator.container.currentTime);
 
@@ -37,6 +39,32 @@ namespace MicrofluidSimulator.SimpleVM
             this.heater729Called = false;
             this.rgbSensorCalled = false;
             this.temperatureSensorCalled = false;
+
+            this.colorQueue = new Queue<string>();
+
+            colorQueue.Enqueue("#000000");
+            colorQueue.Enqueue("#FF4200");
+            colorQueue.Enqueue("#00FF00");
+            colorQueue.Enqueue("#0000FF");
+            colorQueue.Enqueue("#FF4200");
+            colorQueue.Enqueue("#0000FF");
+            colorQueue.Enqueue("#000000");
+            colorQueue.Enqueue("#000000");
+            colorQueue.Enqueue("#0000FF");
+            colorQueue.Enqueue("#00FF00");
+            colorQueue.Enqueue("#00FF00");
+            colorQueue.Enqueue("#FF4200");
+            colorQueue.Enqueue("#FF4200");
+            colorQueue.Enqueue("#00FF00");
+            colorQueue.Enqueue("#0000FF");
+            colorQueue.Enqueue("#000000");
+            colorQueue.Enqueue("#000000");
+            colorQueue.Enqueue("#FF4200");
+            colorQueue.Enqueue("#00FF00");
+            colorQueue.Enqueue("#0000FF");
+
+
+
         }
 
 
@@ -44,39 +72,51 @@ namespace MicrofluidSimulator.SimpleVM
         public void doApiCall()
         {
             Color red = ColorTranslator.FromHtml("#FF4200");
-            Color cyan = ColorTranslator.FromHtml("#00FFFF");
-            Color yellow = ColorTranslator.FromHtml("#FFFF00");
-            Color orange = ColorTranslator.FromHtml("#FFA500");
+            Color blue = ColorTranslator.FromHtml("#0000FF");
+            Color green = ColorTranslator.FromHtml("#00FF00");
+            Color black = ColorTranslator.FromHtml("#000000");
             int[] redArray = new int[] { red.R, red.G, red.B };
-            int[] cyanArray = new int[] { cyan.R, cyan.G, cyan.B };
-            int[] yellowArray = new int[] { yellow.R, yellow.G, yellow.B };
-            int[] orangeArray = new int[] { orange.R, orange.G, orange.B };
+            int[] blueArray = new int[] { blue.R, blue.G, blue.B };
+            int[] greenArray = new int[] { green.R, green.G, green.B };
+            int[] blackArray = new int[] { black.R, black.G, black.B };
             this.turnOnHeaterAtTime(10, 70, 727, heater727Called);
             this.turnOnHeaterAtTime(1, 70, 729, heater729Called);
             int[] colorRead = this.readRGBValueOfColorSensorAtTime(simulator.container.currentTime, 725);
+
+            if((simulator.container.currentTime*100) % 512 == 0 && simulator.container.currentTime != 0 && this.colorQueue.Count > 0)
+            {
+                Droplets newDroplet = new Droplets("test droplet", (int)simulator.container.currentTime, "h20", 700, 190, 22, 22, this.colorQueue.Dequeue(),
+                20, 380, 318, (int)simulator.container.currentTime, 0);
+
+                simulator.container.droplets.Add(newDroplet);
+                simulator.container.subscribedDroplets.Add(newDroplet.ID);
+                SubscriptionModels.dropletSubscriptions(simulator.container, newDroplet);
+            }
+            
+
             if (Enumerable.SequenceEqual(colorRead, redArray))
             {
 
                 this.pushActionsAtTime(simulator.container.currentTime, this.redQueuePush);
                 
             }
-            if (Enumerable.SequenceEqual(colorRead, cyanArray))
+            if (Enumerable.SequenceEqual(colorRead, blueArray))
             {
 
-                this.pushActionsAtTime(simulator.container.currentTime, this.cyanQueuePush);
+                this.pushActionsAtTime(simulator.container.currentTime, this.blueQueuePush);
 
             }
-            if (Enumerable.SequenceEqual(colorRead, yellowArray))
+            if (Enumerable.SequenceEqual(colorRead, greenArray))
             {
 
-                this.pushActionsAtTime(simulator.container.currentTime, this.yellowQueuePush);
+                this.pushActionsAtTime(simulator.container.currentTime, this.greenQueuePush);
 
             }
 
-            if (Enumerable.SequenceEqual(colorRead, orangeArray))
+            if (Enumerable.SequenceEqual(colorRead, blackArray))
             {
 
-                this.pushActionsAtTime(simulator.container.currentTime, this.orangeQueuePush);
+                this.pushActionsAtTime(simulator.container.currentTime, this.blackQueuePush);
 
             }
 
@@ -169,247 +209,101 @@ namespace MicrofluidSimulator.SimpleVM
         private static Queue<ActionQueueItem> generateRedTestQueue(decimal currentTime)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new();
-            SimulatorAction action1 = new("electrode", 266, 1);
-            ActionQueueItem item1 = new(action1, 0.2m + currentTime);
-            actionQueueInstructions.Enqueue(item1);
+            int[] electrodeOrder = new int[] { 297, 298, 296, 297, 295, 296, 294, 295, 293, 294, 261, 293, 229, 261, 197, 229,
+            165, 197, 133, 165, 101, 133};
 
-            SimulatorAction action2 = new("electrode", 298, 0);
-            ActionQueueItem item2 = new(action2, 0.4m + currentTime);
-            actionQueueInstructions.Enqueue(item2);
+            for (int i = 0; i < 22; i++)
+            {
+                
+                if (i % 2 == 0)
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 1, i * 0.16m));
+                }
+                else
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 0, i * 0.16m));
+                }
 
-            SimulatorAction action3 = new("electrode", 234, 1);
-            ActionQueueItem item3 = new(action3, 0.6m + currentTime);
-            actionQueueInstructions.Enqueue(item3);
-
-            SimulatorAction action4 = new SimulatorAction("electrode", 266, 0);
-            ActionQueueItem item4 = new ActionQueueItem(action4, 0.8m + currentTime);
-            actionQueueInstructions.Enqueue(item4);
-
-            SimulatorAction action5 = new SimulatorAction("electrode", 202, 1);
-            ActionQueueItem item5 = new ActionQueueItem(action5, 1m + currentTime);
-            actionQueueInstructions.Enqueue(item5);
-
-            SimulatorAction action6 = new SimulatorAction("electrode", 234, 0);
-            ActionQueueItem item6 = new ActionQueueItem(action6, 1.2m + currentTime);
-            actionQueueInstructions.Enqueue(item6);
-
-            SimulatorAction action7 = new SimulatorAction("electrode", 170, 1);
-            ActionQueueItem item7 = new ActionQueueItem(action7, 1.4m + currentTime);
-            actionQueueInstructions.Enqueue(item7);
-
-            SimulatorAction action8 = new SimulatorAction("electrode", 202, 0);
-            ActionQueueItem item8 = new ActionQueueItem(action8, 1.6m + currentTime);
-            actionQueueInstructions.Enqueue(item8);
-
-            SimulatorAction action9 = new SimulatorAction("electrode", 138, 1);
-            ActionQueueItem item9 = new ActionQueueItem(action9, 1.8m + currentTime);
-            actionQueueInstructions.Enqueue(item9);
-
-            SimulatorAction action10 = new SimulatorAction("electrode", 170, 0);
-            ActionQueueItem item10 = new ActionQueueItem(action10, 2m + currentTime);
-            actionQueueInstructions.Enqueue(item10);
-
-            SimulatorAction action11 = new SimulatorAction("electrode", 139, 1);
-            ActionQueueItem item11 = new ActionQueueItem(action11, 2.2m + currentTime);
-            actionQueueInstructions.Enqueue(item11);
-
-            SimulatorAction action12 = new SimulatorAction("electrode", 138, 0);
-            ActionQueueItem item12 = new ActionQueueItem(action12, 2.4m + currentTime);
-            actionQueueInstructions.Enqueue(item12);
-
-            SimulatorAction action13 = new SimulatorAction("electrode", 140, 1);
-            ActionQueueItem item13 = new ActionQueueItem(action13, 2.6m + currentTime);
-            actionQueueInstructions.Enqueue(item13);
-
-            SimulatorAction action14 = new SimulatorAction("electrode", 139, 0);
-            ActionQueueItem item14 = new ActionQueueItem(action14, 2.8m + currentTime);
-            actionQueueInstructions.Enqueue(item14);
+            }
+            
+          
 
             return actionQueueInstructions;
         }
 
-        private static Queue<ActionQueueItem> generateCyanTestQueue(decimal currentTime)
-        {
-            Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
-            SimulatorAction action1 = new SimulatorAction("electrode", 330, 1);
-            ActionQueueItem item1 = new ActionQueueItem(action1, 0.2m + currentTime);
-            actionQueueInstructions.Enqueue(item1);
-
-            SimulatorAction action2 = new SimulatorAction("electrode", 298, 0);
-            ActionQueueItem item2 = new ActionQueueItem(action2, 0.4m + currentTime);
-            actionQueueInstructions.Enqueue(item2);
-
-            SimulatorAction action3 = new SimulatorAction("electrode", 362, 1);
-            ActionQueueItem item3 = new ActionQueueItem(action3, 0.6m + currentTime);
-            actionQueueInstructions.Enqueue(item3);
-
-            SimulatorAction action4 = new SimulatorAction("electrode", 330, 0);
-            ActionQueueItem item4 = new ActionQueueItem(action4, 0.8m + currentTime);
-            actionQueueInstructions.Enqueue(item4);
-
-            SimulatorAction action5 = new SimulatorAction("electrode", 394, 1);
-            ActionQueueItem item5 = new ActionQueueItem(action5, 1m + currentTime);
-            actionQueueInstructions.Enqueue(item5);
-
-            SimulatorAction action6 = new SimulatorAction("electrode", 362, 0);
-            ActionQueueItem item6 = new ActionQueueItem(action6, 1.2m + currentTime);
-            actionQueueInstructions.Enqueue(item6);
-
-            SimulatorAction action7 = new SimulatorAction("electrode", 426, 1);
-            ActionQueueItem item7 = new ActionQueueItem(action7, 1.4m + currentTime);
-            actionQueueInstructions.Enqueue(item7);
-
-            SimulatorAction action8 = new SimulatorAction("electrode", 394, 0);
-            ActionQueueItem item8 = new ActionQueueItem(action8, 1.6m + currentTime);
-            actionQueueInstructions.Enqueue(item8);
-
-            SimulatorAction action9 = new SimulatorAction("electrode", 458, 1);
-            ActionQueueItem item9 = new ActionQueueItem(action9, 1.8m + currentTime);
-            actionQueueInstructions.Enqueue(item9);
-
-            SimulatorAction action10 = new SimulatorAction("electrode", 426, 0);
-            ActionQueueItem item10 = new ActionQueueItem(action10, 2m + currentTime);
-            actionQueueInstructions.Enqueue(item10);
-
-            SimulatorAction action11 = new SimulatorAction("electrode", 459, 1);
-            ActionQueueItem item11 = new ActionQueueItem(action11, 2.2m + currentTime);
-            actionQueueInstructions.Enqueue(item11);
-
-            SimulatorAction action12 = new SimulatorAction("electrode", 458, 0);
-            ActionQueueItem item12 = new ActionQueueItem(action12, 2.4m + currentTime);
-            actionQueueInstructions.Enqueue(item12);
-
-            SimulatorAction action13 = new SimulatorAction("electrode", 460, 1);
-            ActionQueueItem item13 = new ActionQueueItem(action13, 2.6m + currentTime);
-            actionQueueInstructions.Enqueue(item13);
-
-            SimulatorAction action14 = new SimulatorAction("electrode", 459, 0);
-            ActionQueueItem item14 = new ActionQueueItem(action14, 2.8m + currentTime);
-            actionQueueInstructions.Enqueue(item14);
-
-            return actionQueueInstructions;
-        }
-
-        private Queue<ActionQueueItem> generateOrangeTestQueue(decimal currentTime)
-        {
-            Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
-            SimulatorAction action1 = new SimulatorAction("electrode", 330, 1);
-            ActionQueueItem item1 = new ActionQueueItem(action1, 0.2m + currentTime);
-            actionQueueInstructions.Enqueue(item1);
-
-            SimulatorAction action2 = new SimulatorAction("electrode", 298, 0);
-            ActionQueueItem item2 = new ActionQueueItem(action2, 0.4m + currentTime);
-            actionQueueInstructions.Enqueue(item2);
-
-            SimulatorAction action3 = new SimulatorAction("electrode", 362, 1);
-            ActionQueueItem item3 = new ActionQueueItem(action3, 0.6m + currentTime);
-            actionQueueInstructions.Enqueue(item3);
-
-            SimulatorAction action4 = new SimulatorAction("electrode", 330, 0);
-            ActionQueueItem item4 = new ActionQueueItem(action4, 0.8m + currentTime);
-            actionQueueInstructions.Enqueue(item4);
-
-            SimulatorAction action5 = new SimulatorAction("electrode", 394, 1);
-            ActionQueueItem item5 = new ActionQueueItem(action5, 1m + currentTime);
-            actionQueueInstructions.Enqueue(item5);
-
-            SimulatorAction action6 = new SimulatorAction("electrode", 362, 0);
-            ActionQueueItem item6 = new ActionQueueItem(action6, 1.2m + currentTime);
-            actionQueueInstructions.Enqueue(item6);
-
-            SimulatorAction action7 = new SimulatorAction("electrode", 426, 1);
-            ActionQueueItem item7 = new ActionQueueItem(action7, 1.4m + currentTime);
-            actionQueueInstructions.Enqueue(item7);
-
-            SimulatorAction action8 = new SimulatorAction("electrode", 394, 0);
-            ActionQueueItem item8 = new ActionQueueItem(action8, 1.6m + currentTime);
-            actionQueueInstructions.Enqueue(item8);
-
-            SimulatorAction action9 = new SimulatorAction("electrode", 458, 1);
-            ActionQueueItem item9 = new ActionQueueItem(action9, 1.8m + currentTime);
-            actionQueueInstructions.Enqueue(item9);
-
-            SimulatorAction action10 = new SimulatorAction("electrode", 426, 0);
-            ActionQueueItem item10 = new ActionQueueItem(action10, 2m + currentTime);
-            actionQueueInstructions.Enqueue(item10);
-
-            SimulatorAction action11 = new SimulatorAction("electrode", 457, 1);
-            ActionQueueItem item11 = new ActionQueueItem(action11, 2.2m + currentTime);
-            actionQueueInstructions.Enqueue(item11);
-
-            SimulatorAction action12 = new SimulatorAction("electrode", 458, 0);
-            ActionQueueItem item12 = new ActionQueueItem(action12, 2.4m + currentTime);
-            actionQueueInstructions.Enqueue(item12);
-
-            SimulatorAction action13 = new SimulatorAction("electrode", 456, 1);
-            ActionQueueItem item13 = new ActionQueueItem(action13, 2.6m + currentTime);
-            actionQueueInstructions.Enqueue(item13);
-
-            SimulatorAction action14 = new SimulatorAction("electrode", 457, 0);
-            ActionQueueItem item14 = new ActionQueueItem(action14, 2.8m + currentTime);
-            actionQueueInstructions.Enqueue(item14);
-
-            return actionQueueInstructions;
-        }
-
-        private Queue<ActionQueueItem> generateYellowTestQueue(decimal currentTime)
+        private static Queue<ActionQueueItem> generateBlueTestQueue(decimal currentTime)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new();
-            SimulatorAction action1 = new("electrode", 266, 1);
-            ActionQueueItem item1 = new(action1, 0.2m + currentTime);
-            actionQueueInstructions.Enqueue(item1);
+            int[] electrodeOrder = new int[] {297, 298, 296, 297, 295, 296, 294, 295, 293, 294, 325, 293, 357, 325, 389, 357, 421, 389, 453,
+            421, 485, 453};
 
-            SimulatorAction action2 = new("electrode", 298, 0);
-            ActionQueueItem item2 = new(action2, 0.4m + currentTime);
-            actionQueueInstructions.Enqueue(item2);
+            for (int i = 0; i < 22; i++)
+            {
 
-            SimulatorAction action3 = new("electrode", 234, 1);
-            ActionQueueItem item3 = new(action3, 0.6m + currentTime);
-            actionQueueInstructions.Enqueue(item3);
+                if (i % 2 == 0)
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 1, i * 0.16m));
+                }
+                else
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 0, i * 0.16m));
+                }
 
-            SimulatorAction action4 = new SimulatorAction("electrode", 266, 0);
-            ActionQueueItem item4 = new ActionQueueItem(action4, 0.8m + currentTime);
-            actionQueueInstructions.Enqueue(item4);
+            }
 
-            SimulatorAction action5 = new SimulatorAction("electrode", 202, 1);
-            ActionQueueItem item5 = new ActionQueueItem(action5, 1m + currentTime);
-            actionQueueInstructions.Enqueue(item5);
+            
 
-            SimulatorAction action6 = new SimulatorAction("electrode", 234, 0);
-            ActionQueueItem item6 = new ActionQueueItem(action6, 1.2m + currentTime);
-            actionQueueInstructions.Enqueue(item6);
+            return actionQueueInstructions;
+        }
 
-            SimulatorAction action7 = new SimulatorAction("electrode", 170, 1);
-            ActionQueueItem item7 = new ActionQueueItem(action7, 1.4m + currentTime);
-            actionQueueInstructions.Enqueue(item7);
+        private Queue<ActionQueueItem> generateBlackTestQueue(decimal currentTime)
+        {
+            
 
-            SimulatorAction action8 = new SimulatorAction("electrode", 202, 0);
-            ActionQueueItem item8 = new ActionQueueItem(action8, 1.6m + currentTime);
-            actionQueueInstructions.Enqueue(item8);
+            Queue<ActionQueueItem> actionQueueInstructions = new();
+            int[] electrodeOrder = new int[] {330, 298, 362, 330, 394, 362, 426, 394, 458, 426, 490, 458, 491, 490, 492, 491, 493, 492,
+            494, 493, 495, 494};
 
-            SimulatorAction action9 = new SimulatorAction("electrode", 138, 1);
-            ActionQueueItem item9 = new ActionQueueItem(action9, 1.8m + currentTime);
-            actionQueueInstructions.Enqueue(item9);
+            for (int i = 0; i < 22; i++)
+            {
 
-            SimulatorAction action10 = new SimulatorAction("electrode", 170, 0);
-            ActionQueueItem item10 = new ActionQueueItem(action10, 2m + currentTime);
-            actionQueueInstructions.Enqueue(item10);
+                if (i % 2 == 0)
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 1, i * 0.16m));
+                }
+                else
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 0, i * 0.16m));
+                }
 
-            SimulatorAction action11 = new SimulatorAction("electrode", 137, 1);
-            ActionQueueItem item11 = new ActionQueueItem(action11, 2.2m + currentTime);
-            actionQueueInstructions.Enqueue(item11);
+            }
 
-            SimulatorAction action12 = new SimulatorAction("electrode", 138, 0);
-            ActionQueueItem item12 = new ActionQueueItem(action12, 2.4m + currentTime);
-            actionQueueInstructions.Enqueue(item12);
 
-            SimulatorAction action13 = new SimulatorAction("electrode", 136, 1);
-            ActionQueueItem item13 = new ActionQueueItem(action13, 2.6m + currentTime);
-            actionQueueInstructions.Enqueue(item13);
 
-            SimulatorAction action14 = new SimulatorAction("electrode", 137, 0);
-            ActionQueueItem item14 = new ActionQueueItem(action14, 2.8m + currentTime);
-            actionQueueInstructions.Enqueue(item14);
+            return actionQueueInstructions;
+        }
+
+        private Queue<ActionQueueItem> generateGreenTestQueue(decimal currentTime)
+        {
+            Queue<ActionQueueItem> actionQueueInstructions = new();
+            int[] electrodeOrder = new int[] {266, 298, 234, 266, 202, 234, 170, 202, 138, 170, 106, 138, 107, 106, 108, 107, 109,
+                108, 110, 109, 111, 110};
+
+            for (int i = 0; i < 22; i++)
+            {
+
+                if (i % 2 == 0)
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 1, i * 0.16m));
+                }
+                else
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 0, i * 0.16m));
+                }
+
+            }
+            
+
 
             return actionQueueInstructions;
         }
@@ -461,6 +355,15 @@ namespace MicrofluidSimulator.SimpleVM
 
 
             return actionQueueInstructions;
+        }
+
+        private static ActionQueueItem generateAction(int actionOnID, int actionChange, decimal time)
+        {
+            SimulatorAction action = new SimulatorAction("electrode", actionOnID, actionChange);
+            ActionQueueItem item = new ActionQueueItem(action, time);
+
+            return item;
+
         }
         private static Queue<ActionQueueItem> generateColdTemperatureTestQueue(decimal currentTime)
         {

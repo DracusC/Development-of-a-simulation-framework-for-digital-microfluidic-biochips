@@ -18,7 +18,8 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(container, electrodesWithNeighbours);
             this.actionQueue = generateSimplePathsQueueFromReader(generatedActionQueue, container);
-            //this.actionQueue = generateTestQueueFromReader(generatedActionQueue, container);
+
+
             //this.actionQueue = generateTestQueue();
             this.droplets = container.droplets;
             Electrode[] electrodeBoard = container.electrodes;
@@ -651,150 +652,63 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
         private static Queue<ActionQueueItem> generateTestQueue()
         {
+
+
+            Queue<ActionQueueItem> finalizedQueue = generateTestQueueHelper(0);
+
+            for (int i = 1; i < 50; i++)
+            {
+
+                finalizedQueue = ActionQueueModels.pushActionQueueToOriginalActionQueue(finalizedQueue, generateTestQueueHelper(i * 18 * 0.16m));
+
+            }
+
+
+
+
+
+            return finalizedQueue;
+        }
+
+        private static Queue<ActionQueueItem> generateTestQueueHelper(decimal timeIncrement)
+        {
+
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
-            SimulatorAction action1 = new SimulatorAction("electrode", 100, 1);
-            ActionQueueItem item1 = new ActionQueueItem(action1, 1);
-            actionQueueInstructions.Enqueue(item1);
+            int[] electrodeOrder = new int[] {318, 317, 318, 316, 317, 315, 316, 314, 315, 313, 314, 312, 313, 311, 312, 310, 311, 309, 310,
+            308, 309, 307, 308, 306, 307, 305, 306, 304, 305, 303, 304, 302, 303, 301, 302, 300, 301, 299, 300, 298, 299, 298};
 
-            SimulatorAction action2 = new SimulatorAction("electrode", 101, 1);
-            ActionQueueItem item2 = new ActionQueueItem(action2, 1);
-            actionQueueInstructions.Enqueue(item2);
+            for (int i = 0; i < 42; i++)
+            {
+                if (i < 2)
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 1, i * 0.16m + timeIncrement));
+                }else if(i == 41)
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 0, i * 0.16m + timeIncrement));
+                }
+                else if (i % 2 == 0)
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 0, i * 0.16m + timeIncrement));
+                }
+                else
+                {
+                    actionQueueInstructions.Enqueue(generateAction(electrodeOrder[i], 1, i * 0.16m + timeIncrement));
+                }
 
-            SimulatorAction action3 = new SimulatorAction("electrode", 34, 1);
-            ActionQueueItem item3 = new ActionQueueItem(action3, 3);
-            actionQueueInstructions.Enqueue(item3);
-
-            SimulatorAction action4 = new SimulatorAction("electrode", 2, 1);
-            ActionQueueItem item4 = new ActionQueueItem(action4, 4);
-            actionQueueInstructions.Enqueue(item4);
-
-            SimulatorAction action5 = new SimulatorAction("electrode", 2, 0);
-            ActionQueueItem item5 = new ActionQueueItem(action5, 5);
-            actionQueueInstructions.Enqueue(item5);
-
-            SimulatorAction action6 = new SimulatorAction("electrode", 100, 1);
-            ActionQueueItem item6 = new ActionQueueItem(action6, 6);
-            actionQueueInstructions.Enqueue(item6);
-
-            SimulatorAction action7 = new SimulatorAction("electrode", 102, 1);
-            ActionQueueItem item7 = new ActionQueueItem(action7, 7);
-            actionQueueInstructions.Enqueue(item7);
-
-            SimulatorAction action8 = new SimulatorAction("electrode", 103, 1);
-            ActionQueueItem item8 = new ActionQueueItem(action8, 8);
-            actionQueueInstructions.Enqueue(item8);
-
-            SimulatorAction action9 = new SimulatorAction("electrode", 104, 1);
-            ActionQueueItem item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            SimulatorAction action10 = new SimulatorAction("electrode", 101, 1);
-            ActionQueueItem item10 = new ActionQueueItem(action10, 10);
-            actionQueueInstructions.Enqueue(item10);
-
-            action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 132, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 100, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 131, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-            action9 = new SimulatorAction("electrode", 99, 0);
-            item9 = new ActionQueueItem(action9, 9);
-            actionQueueInstructions.Enqueue(item9);
-
-
-
-
-
+            }
 
             return actionQueueInstructions;
         }
+
+        private static ActionQueueItem generateAction(int actionOnID, int actionChange, decimal time)
+        {
+            SimulatorAction action = new SimulatorAction("electrode", actionOnID, actionChange);
+            ActionQueueItem item = new ActionQueueItem(action, time);
+
+            return item;
+            
+        }
+
         private static Queue<ActionQueueItem> generateTestQueueFromReader(string generatedActionQueue, Container container)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
@@ -876,15 +790,39 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             double timeToSubtract = Convert.ToDouble(firstWords[4].Replace(".", ",")); // float.Parse(firstWords[4], CultureInfo.InvariantCulture);
             Console.WriteLine("TIMETOSUBTRACT " + (timeToSubtract));
 
+
+            //int initialMs = 0;
+            //string empty = "";
             foreach (string line in generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {
 
-                
+
                 string[] words = line.Split(' ');
-                
-                    
-                    
-                
+                //for (int i = 0; i < words.Length; i++)
+                //{
+                //    if (i == 4)
+                //    {
+                //        empty += initialMs + " ";
+
+                //        initialMs += 160;
+                //    }
+                //    else if (i != words.Length - 1)
+                //    {
+                //        empty += words[i] + " ";
+
+                //    }
+                //    else
+                //    {
+                //        empty += words[i];
+
+                //    }
+                //    ;
+                //}
+                //empty += "\n";
+
+
+
+
                 for (int i = 9; i < words.Length; i++)
                 {
 
@@ -914,11 +852,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                 
             }
-            
 
+            //Console.WriteLine(empty);
             return actionQueueInstructions;
 
         }
+
+        
     }
 
     

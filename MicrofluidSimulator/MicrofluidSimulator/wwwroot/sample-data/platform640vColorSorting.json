@@ -9842,66 +9842,6 @@
   "inputs": [],
   "outputs": [],
   "droplets": [
-    {
-      "name": "test droplet",
-      "ID": 0,
-      "substance_name": "h20",
-      "positionX": 500,
-      "positionY": 190,
-      "sizeX": 22,
-      "sizeY": 22,
-      "color": "#FF4200",
-      "temperature": 20,
-      "electrodeID": 308
-    },
-    {
-      "name": "test droplet",
-      "ID": 1,
-      "substance_name": "h20",
-      "positionX": 560,
-      "positionY": 190,
-      "sizeX": 22,
-      "sizeY": 22,
-      "color": "#00FFFF",
-      "temperature": 20,
-      "electrodeID": 311
-    },
-    {
-      "name": "test droplet",
-      "ID": 2,
-      "substance_name": "h20",
-      "positionX": 620,
-      "positionY": 190,
-      "sizeX": 22,
-      "sizeY": 22,
-      "color": "#FFFF00",
-      "temperature": 20,
-      "electrodeID": 314
-    },
-    {
-      "name": "test droplet",
-      "ID": 3,
-      "substance_name": "h20",
-      "positionX": 680,
-      "positionY": 190,
-      "sizeX": 22,
-      "sizeY": 22,
-      "color": "#FFA500",
-      "temperature": 20,
-      "electrodeID": 317
-    },
-    {
-      "name": "test droplet",
-      "ID": 4,
-      "substance_name": "h20",
-      "positionX": 740,
-      "positionY": 190,
-      "sizeX": 22,
-      "sizeY": 22,
-      "color": "#FF4200",
-      "temperature": 20,
-      "electrodeID": 320
-    }
   ],
   "bubbles": [
   ],
