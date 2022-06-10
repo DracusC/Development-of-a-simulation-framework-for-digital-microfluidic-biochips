@@ -5,6 +5,7 @@ using Microsoft.JSInterop;
 using System.Text.Json;
 using System.Diagnostics;
 using MicrofluidSimulator.SimulatorCode.DataTypes;
+using MicrofluidSimulator.SimulatorCode.Simulator;
 
 namespace MicrofluidSimulator.SimulatorCode.View
 {
@@ -171,6 +172,87 @@ namespace MicrofluidSimulator.SimulatorCode.View
         public void end_update_timer()
         {
             _JSInProcessRuntime.InvokeVoid("end_update_timer");
+        }
+
+
+
+        /// <summary>
+        /// The function updateSimulatorContainer is used to update the simulator elements,
+        /// based on edited values from the GUI.
+        /// </summary>
+        /// <param name="Type"></param>
+        /// <param name="JSONString"></param>
+        /// <param name="simulator"></param>
+        public void updateSimulatorContainer(string Type, string JSONString, Simulator.Simulator simulator)
+        {
+            // [(key -> value)] [ID1 -> 1, "Status" -> 1]
+            Console.WriteLine(Type);
+            Console.WriteLine(JSONString);
+
+            int ID;
+            int index;
+
+            switch (Type)
+            {
+                case ("Electrode"):
+                    Electrode JSONElectrode = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrode>(JSONString);
+
+                    ID = JSONElectrode.ID;
+                    index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.container);
+
+                    Electrode electrode = simulator.container.electrodes[index];
+
+                    // Change values
+                    electrode.status = JSONElectrode.status;
+                    break;
+
+                case ("Droplet"):
+                    MicrofluidSimulator.SimulatorCode.Droplets JSONDroplet = Newtonsoft.Json.JsonConvert.DeserializeObject<MicrofluidSimulator.SimulatorCode.Droplets>(JSONString);
+                    ID = JSONDroplet.ID;
+                    index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(ID, simulator.container);
+
+                    Console.WriteLine("ID: " + ID + ", index: " + index);
+
+                    MicrofluidSimulator.SimulatorCode.Droplets droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
+
+                    // Change values
+                    droplet.color = JSONDroplet.color;
+                    droplet.temperature = JSONDroplet.temperature;
+                    droplet.volume = JSONDroplet.volume;
+                    break;
+
+                case ("Group"):
+                    Console.WriteLine(JSONString);
+                    GroupDroplets JSONGroupDroplets = Newtonsoft.Json.JsonConvert.DeserializeObject<GroupDroplets>(JSONString);
+
+                    List<Droplets> dropletList = new List<Droplets>();
+
+                    foreach (int dropletID in JSONGroupDroplets.droplets)
+                    {
+                        index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(dropletID, simulator.container);
+                        droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
+
+                        // Change values for each droplet in a group
+                        droplet.color = JSONGroupDroplets.color;
+                        droplet.temperature = JSONGroupDroplets.temperature;
+                    }
+
+                    float prevVolume = MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID);
+
+                    float deltaVolume = JSONGroupDroplets.volume - prevVolume;
+                    Console.WriteLine("PrevVolume " + prevVolume + " , diff " + deltaVolume + " GID " + JSONGroupDroplets.groupID);
+
+                    MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.updateGroupVolume(simulator.container, JSONGroupDroplets.groupID, deltaVolume);
+
+                    Console.WriteLine("Updated Volume: " + MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID));
+
+                    break;
+            }
+
+            // -2 signals an update on models not time
+            simulator.simulatorStep(-2);
+
+            this.update_board(simulator.container);
         }
     }
 }

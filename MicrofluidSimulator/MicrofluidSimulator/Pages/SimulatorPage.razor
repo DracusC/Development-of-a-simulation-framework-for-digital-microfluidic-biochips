@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div id="slider_div">
-                <RadzenSlider id="time_slider" @bind-Value=@sliderValue TValue="int" Min="0" Max=@GlobalVariables.maxSliderValue Change="onSliderChange"></RadzenSlider>
+                <RadzenSlider id="time_slider" @bind-Value=@sliderValue TValue="int" Min="0" Max=@GlobalVariables.maxSliderValue></RadzenSlider>
                 <button class="btn btn-primary" @onclick="GotoSliderTime">Goto Time: @sliderValue</button>
             </div>
         </div>
@@ -104,7 +104,6 @@
     private async Task SubmitDownloadModal(bool accepted)
     {
         ModalOpen = false;
-        Console.WriteLine("DOWNLOAD SUBMIT " + downloadModal.Time + " " + downloadModal.TimeStep);
         DownloadData(downloadModal.Time, downloadModal.TimeStep);
         StateHasChanged();
     }
@@ -147,10 +146,12 @@
         // Go back to previous time
         Restart();
         gotoSimulatorTimeStep(timeBeforeDownload);
-
     }
 
     // Download Modal Code END
+
+
+
 
     int sliderValue = 0;
     static decimal timeStepAmount = -1;
@@ -162,12 +163,6 @@
         {
             timeStepAmount = -1;
         }
-    }
-
-    public void onSliderChange()
-    {
-        //Restart();
-        //nextStepTime((float)sliderValue);
     }
 
 
@@ -216,6 +211,10 @@
         guibroker.update_board(simulator.container);
     }
 
+    /// <summary>
+    /// Is used to go to a specific time point in the simulation
+    /// </summary>
+    /// <param name="timeStepAmount"></param>
     public static void gotoTime(decimal timeStepAmount)
     {
         decimal startSimulatorTime = simulator.container.currentTime;
@@ -264,37 +263,6 @@
         guibroker.update_board(simulator.container);
         simulator.simulatorStep(-2);
         guibroker.update_board(simulator.container);
-
-        /*
-        Restart();
-        //nextStepTime((float)sliderValue);
-        float startSimulatorTime = simulator.container.currentTime;
-        float simulatorTimeStep = 0;
-        while(simulator.container.currentTime < (float)sliderValue + startSimulatorTime)
-        {
-            Console.WriteLine((float)sliderValue + startSimulatorTime + " : " + simulator.container.currentTime);
-
-
-            if(simulator.actionQueue.Count != 0) {
-                simulatorTimeStep = simulator.actionQueue.Peek().time;
-            }
-
-            if(simulatorTimeStep > (float)sliderValue)
-            {
-                Console.WriteLine((float)sliderValue);
-                simulator.simulatorStep((float)sliderValue);
-                dumbVM.doApiCall();
-            } else
-            {
-                simulator.simulatorStep(-1f);
-                dumbVM.doApiCall();
-            }
-        }
-
-        guibroker.update_board(simulator.container);
-        simulator.simulatorStep(-2f);
-        guibroker.update_board(simulator.container);
-        */
     }
 
     /// <summary>
@@ -307,9 +275,9 @@
         guibroker.restart_board();
     }
 
-    
 
-    
+
+
     /// <summary>
     /// The function updateSimulatorContainer is used to update the simulator elements,
     /// based on edited values from the GUI.
@@ -319,74 +287,7 @@
     [JSInvokable]
     public static void updateSimulatorContainer(string Type, string JSONString)
     {
-        // [(key -> value)] [ID1 -> 1, "Status" -> 1]
-        Console.WriteLine(Type);
-        Console.WriteLine(JSONString);
-
-        int ID;
-        int index;
-
-        switch (Type)
-        {
-            case ("Electrode"):
-                Electrode JSONElectrode = Newtonsoft.Json.JsonConvert.DeserializeObject<Electrode>(JSONString);
-
-                ID = JSONElectrode.ID;
-                index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfElectrodeByID(ID, simulator.container);
-
-                Electrode electrode = simulator.container.electrodes[index];
-
-                // Change values
-                electrode.status = JSONElectrode.status;
-                break;
-
-            case ("Droplet"):
-                MicrofluidSimulator.SimulatorCode.Droplets JSONDroplet = Newtonsoft.Json.JsonConvert.DeserializeObject<MicrofluidSimulator.SimulatorCode.Droplets>(JSONString);
-                ID = JSONDroplet.ID;
-                index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(ID, simulator.container);
-
-                Console.WriteLine("ID: " + ID + ", index: " + index);
-
-                MicrofluidSimulator.SimulatorCode.Droplets droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
-
-                // Change values
-                droplet.color = JSONDroplet.color;
-                droplet.temperature = JSONDroplet.temperature;
-                droplet.volume = JSONDroplet.volume;
-                break;
-
-            case ("Group"):
-                Console.WriteLine(JSONString);
-                GroupDroplets JSONGroupDroplets = Newtonsoft.Json.JsonConvert.DeserializeObject<GroupDroplets>(JSONString);
-
-                List<Droplets> dropletList = new List<Droplets>();
-
-                foreach (int dropletID in JSONGroupDroplets.droplets)
-                {
-                    index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(dropletID, simulator.container);
-                    droplet = (MicrofluidSimulator.SimulatorCode.Droplets)simulator.container.droplets[index];
-
-                    // Change values for each droplet in a group
-                    droplet.color = JSONGroupDroplets.color;
-                    droplet.temperature = JSONGroupDroplets.temperature;
-                }
-
-                float prevVolume = MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID);
-
-                float deltaVolume = JSONGroupDroplets.volume - prevVolume;
-                Console.WriteLine("PrevVolume " + prevVolume + " , diff " + deltaVolume + " GID " + JSONGroupDroplets.groupID);
-
-                MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.updateGroupVolume(simulator.container, JSONGroupDroplets.groupID, deltaVolume);
-
-                Console.WriteLine("Updated Volume: " + MicrofluidSimulator.SimulatorCode.Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID));
-
-                break;
-        }
-
-        // -2 signals an update on models not time
-        simulator.simulatorStep(-2);
-
-        guibroker.update_board(simulator.container);
+        guibroker.updateSimulatorContainer(Type, JSONString, simulator);
     }
 
     private Container? container;
