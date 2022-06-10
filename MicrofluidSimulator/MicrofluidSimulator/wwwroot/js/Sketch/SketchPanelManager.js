@@ -683,14 +683,8 @@ let sketch = function (p) {
 
             p.fill(current_droplet.color);
 
-            // Check to see if the droplet group is selected
-            if (information_panel_manager.selected_element != null && typeof information_panel_manager.selected_element.groupID != "undefined" && information_panel_manager.selected_element.groupID == current_droplet.group) {
-                p.stroke(draw_config.group.selectedBorderColor);
-                p.strokeWeight(draw_config.group.selectedBorderWidth);
-            } else {
-                p.stroke(draw_config.group.borderColor);
-                p.strokeWeight(draw_config.group.borderWidth);
-            }
+            p.stroke(draw_config.group.borderColor);
+            p.strokeWeight(draw_config.group.borderWidth);
 
             let points_vector = [];
             for (let j = 0; j < points_to_draw.length; j++) {
