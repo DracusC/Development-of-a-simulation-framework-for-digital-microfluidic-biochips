@@ -6,14 +6,18 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     public class DropletTemperatureModels
     {
 
-        
+        /// <summary>
+        /// Models that changes the temperature of the droplet
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <returns></returns>
         public static ArrayList dropletTemperatureChange(Container container, Droplets caller)
         {
             ArrayList subscribers = new ArrayList
             {
                 caller.ID
             };
-            //return subscribers;
 
             Heater heater = (Heater) HelpfullRetreiveFunctions.getActuatorOnDroplet(container, caller, "heater");
             
@@ -54,7 +58,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         }
 
-        
+        /// <summary>
+        /// Function that takes all group members based on a group ID and update their temperature weigted
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="group"></param>
+        /// <param name="droplet"></param>
         public static void updateGroupTemperature(Container container, int group, Droplets droplet)
         {
             

@@ -286,7 +286,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 
 
                 
-                
+                // Run models for actuators
                 foreach (int actuatorID in container.subscribedActuators)
                 {
                     Actuators actuator = HelpfullRetreiveFunctions.getActuatorByID(container, actuatorID);
@@ -337,16 +337,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
             }
 
-
-            //stopwatchO.Stop();
-            //Console.WriteLine("Split time: " + tempTime + " ms");
-            //Console.WriteLine("Merge time: " + tempTime + " ms");
-            //Console.WriteLine("Temp time: " + tempTime + " ms");
-            //Console.WriteLine("Color time: " + tempTime + " ms");
-            //Console.WriteLine("Bubble time: " + tempTime + " ms");
-
-            //Console.WriteLine("While SubQ: " + stopwatchO.ElapsedMilliseconds + " ms");
-
         }
 
         
@@ -393,6 +383,14 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
 
         }
+        /// <summary>
+        /// Switch for executing models for bubbles
+        /// New models should be added to switch in order to be run correctly
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         private static ArrayList executeBubbleModel(Container container, Bubbles caller, String model)
         {
             switch (model)
@@ -405,7 +403,12 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             }
             return null;
         }
-
+        /// <summary>
+        /// Switch for executing models for Actuators
+        /// New models should be added to switch in order to be run correctly
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="actuator"></param>
         private static void executeActuatorModel(Container container, Actuators actuator)
         {
             
@@ -420,48 +423,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
         }
 
-        //public void simulatorRunAllModels()
-        //{
-        //    Console.WriteLine("This method was inacted based on an edit of variables!");
-        //    List<Droplets> droplets = container.droplets;
-        //    Electrode[] electrodes = container.electrodes;
-        //    foreach (Droplets droplet in droplets)
-        //    {
-        //        SubscriptionModels.dropletSubscriptions(container, droplet);
-        //    }
 
-        //    container.timeStep = 0;
-        //    ArrayList subscribers = container.subscribedDroplets;
-        //    Queue<int> subscriberQueue = new Queue<int>();
-        //    foreach (int subscriber in subscribers)
-        //    {
-        //        subscriberQueue.Enqueue(subscriber);
-        //        //Console.WriteLine("ENQUING " + subscriber);
-        //    }
-
-        //    //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
-        //    while (subscriberQueue.Count() > 0)
-        //    {
-        //        int subscriber = subscriberQueue.Dequeue();
-        //        int index = MicrofluidSimulator.SimulatorCode.Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(subscriber, container);
-        //        if (index != -1)
-        //        {
-        //            Droplets droplet = (Droplets)droplets[index];
-        //            handelSubscriber(container, droplet, subscriberQueue);
-        //        }
-        //    }
-
-            
-
-        //    int num = 0;
-        //    foreach(int i in container.subscribedDroplets)
-        //    {
-        //        num++;
-        //    }
-        //    Console.WriteLine("there are now :" + num + " droplets");
-        //}
-
-        //Function that takes a subscribed droplet, and execute the next model for it in order.
+        /// <summary>
+        /// Function that takes a subscribed droplet, and execute the next model for it in order.
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <param name="subscriber"></param>
         private static void handelSubscriber(Container container, Droplets caller, Queue<int> subscriber)
         {
 
@@ -504,51 +472,39 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
         }
 
+        /// <summary>
+        /// Switch for executing models for Droplets
+        /// New models should be added to switch in order to be run correctly
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         private static ArrayList executeModel(Container container, Droplets caller, String model)
         {
             switch (model)
             {
                 case "split":
-                    //var stopwatch = new System.Diagnostics.Stopwatch();
-                    //stopwatch.Start();
-                    //var a = Models.DropletModels.dropletSplit(container, caller);
-                    //stopwatch.Stop();
-                    //splitTime += stopwatch.Elapsed.TotalMilliseconds;
-                    //Console.WriteLine("-.--------------Split time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
                     return Models.DropletSplit.dropletSplit(container, caller); ;
                 case "merge":
-                    //var stopwatch1 = new System.Diagnostics.Stopwatch();
-                    //stopwatch1.Start();
-                    //a = Models.DropletMerge.dropletMerge(container, caller);
-                    //mergeTime += stopwatch1.Elapsed.TotalMilliseconds;
-                    //Console.WriteLine("Merge time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
                     return Models.DropletMerge.dropletMerge(container, caller);
                 case "temperature":
-                    //var stopwatch2 = new System.Diagnostics.Stopwatch();
-                    //stopwatch2.Start();
-                    //a = Models.DropletTemperatureModels.dropletTemperatureChange(container, caller);
-                    //tempTime += stopwatch2.Elapsed.TotalMilliseconds;
-                    //Console.WriteLine("Temp time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
                     return Models.DropletTemperatureModels.dropletTemperatureChange(container, caller); ;
                 case "color":
-                    //var stopwatch3 = new System.Diagnostics.Stopwatch();
-                    //stopwatch3.Start();
-                    //a = Models.DropletColorModels.dropletColorChange(container, caller);
-                    //colorTime += stopwatch3.Elapsed.TotalMilliseconds;
-                    //Console.WriteLine("Color time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
                     return Models.DropletColorModels.dropletColorChange(container, caller);
                 case "makeBubble":
-                    //var stopwatch4 = new System.Diagnostics.Stopwatch();
-                    //stopwatch4.Start();
-                    //a = Models.BubbleModels.makeBubble(container, caller);
-                    //bubbleTime += stopwatch4.Elapsed.TotalMilliseconds;
-                    //Console.WriteLine("Bubble time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
                     return Models.DropletEvaporationModels.makeBubble(container, caller);
             }
             return null;
         }
 
-        /* Switch that reads the action and determines what needs to be calles*/
+
+        /// <summary>
+        /// Switch that reads the action and determines what needs to be calles
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         private static ArrayList executeAction(ActionQueueItem action, Container container)
         {
             String actionName = action.action.actionName;
@@ -562,21 +518,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             return null;
         }
 
-        // this method should be refactored to an api call
-        //private ArrayList executeHeaterAction(ActionQueueItem actionQueueItem, Container container, float lastHeaterCallTime)
-        //{
-        //    // get the electrodes
-        //    DataTypes.Actuators[] actuators = container.actuators;
-        //    // initialize action
-        //    SimulatorAction action = actionQueueItem.action;
-        //    int actuatorId = Models.HelpfullRetreiveFunctions.getIndexOfActuatorByID(action.actionOnID, container);
-            
-        //    // get the subscribers for the electrode flip
-        //    ArrayList subscribers = Models.HeaterActuatorModels.heaterTemperatureCalled(container, (Heater)actuators[actuatorId], action);
-        //    return subscribers;
-        //}
 
-
+        /// <summary>
+        /// Execute changes to electrodes from the action queue
+        /// </summary>
+        /// <param name="actionQueueItem"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         private static ArrayList executeElectrodeAction(ActionQueueItem actionQueueItem, Container container)
         {
             // get the electrodes
@@ -590,12 +538,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             return subscribers;
 
         }
-
-
-        
-        
-
-        
     }
 
     

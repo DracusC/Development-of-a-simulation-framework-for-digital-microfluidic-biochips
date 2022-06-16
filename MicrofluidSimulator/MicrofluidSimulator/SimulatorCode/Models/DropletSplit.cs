@@ -7,6 +7,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class DropletSplit
     {
+        /// <summary>
+        /// Model that decides when to split and splits the droplets
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <returns></returns>
         public static ArrayList dropletSplit(Container container, Droplets caller)
         {
             //split function for the droplet
@@ -98,10 +104,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return subscribers;
 
         }
-
+        /// <summary>
+        /// function that creates the new droplets based on the logic from dropletSplit
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="toSplitToo"></param>
+        /// <param name="origin"></param>
+        /// <returns></returns>
         public static ArrayList splitDroplet(Container container, ArrayList toSplitToo, Droplets origin)
         {
-            // function that creates the new droplets based on the logic from dropletSplit
             List<Droplets> droplets = container.droplets;
             Electrode[] electrodeBoard = container.electrodes;
 
@@ -156,29 +167,6 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             
             return subscribers;
         }
-
-       
-        private static bool allowSplit(Container container, Droplets caller)
-        {
-            Electrode[] electrodeBoard = container.electrodes;
-            int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
-            Electrode dropletElectrode = electrodeBoard[dropletElectrodeIndex];
-
-            float areaOfElectrode = Models.ElectrodeModels.getAreaOfElectrode(dropletElectrode);
-            if (areaOfElectrode * 0.7 < caller.volume)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        
-
-
-
-
-
 
 
 
