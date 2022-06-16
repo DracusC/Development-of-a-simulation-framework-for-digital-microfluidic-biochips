@@ -139,7 +139,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
                                 while ((checkPointX != (tempCheckPointX + tempVecCheckX)) || (checkPointY != (tempCheckPointY + tempVecCheckY)))
                                 {
-                                    //Console.WriteLine("Infinity");
+                                    
                                     if (((currentPointX == checkPointX && currentPointY == checkPointY)
                                     && !neighbours.Contains(electrodeBoard[j].ID) && electrodeBoard[j] != electrode) && !isCorner(electrode, currentPointX, currentPointY))
                                     {
