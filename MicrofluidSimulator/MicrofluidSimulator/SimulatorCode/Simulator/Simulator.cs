@@ -16,17 +16,17 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         /// <param name="container"></param>
         /// <param name="electrodesWithNeighbours"></param>
         /// <param name="generatedActionQueue"></param>
-        public Simulator(Queue<ActionQueueItem> actionQueue, Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours, string generatedActionQueue)
+        public Simulator(Queue<ActionQueueItem> actionQueue, Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours, string generatedActionQueue, string browserLanguage)
         {
 
-            Console.WriteLine("CURRENT DIRECTORY " + Directory.GetCurrentDirectory());
+            
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(container, electrodesWithNeighbours);
 
             if(generatedActionQueue != null)
             {
-                this.actionQueue = ActionQueueGenerator.generateActionQueueFromReader(generatedActionQueue, container);
+                this.actionQueue = ActionQueueGenerator.generateActionQueueFromReader(generatedActionQueue, container, browserLanguage);
             }
             else
             {

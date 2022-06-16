@@ -81,7 +81,7 @@ namespace TestProject
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonStringContainer);
             
 
-            Simulator simulator = new Simulator(null, getContainer, null, jsonStringActions);
+            Simulator simulator = new Simulator(null, getContainer, null, jsonStringActions, "en");
             Assert.That(simulator.container.droplets[0].positionX == 200);
             Assert.That(simulator.container.droplets[0].positionY == 190);
             for(int i = 0; i < 21; i++)
@@ -114,7 +114,7 @@ namespace TestProject
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonStringContainer);
 
 
-            Simulator simulator = new Simulator(null, getContainer, null, jsonStringActions);
+            Simulator simulator = new Simulator(null, getContainer, null, jsonStringActions, "en");
             Assert.That(simulator.container.droplets.Count == 2);
             
             for (int i = 0; i < 20; i++)
