@@ -152,8 +152,7 @@ namespace MicrofluidSimulator.SimulatorCode.View
         public void updateSimulatorContainer(string Type, string JSONString, Simulator.Simulator simulator)
         {
             // [(key -> value)] [ID1 -> 1, "Status" -> 1]
-            Console.WriteLine(Type);
-            Console.WriteLine(JSONString);
+            
 
             int ID;
             int index;
@@ -177,7 +176,6 @@ namespace MicrofluidSimulator.SimulatorCode.View
                     ID = JSONDroplet.ID;
                     index = Models.HelpfullRetreiveFunctions.getIndexOfDropletByID(ID, simulator.container);
 
-                    Console.WriteLine("ID: " + ID + ", index: " + index);
 
                     Droplets droplet = (Droplets)simulator.container.droplets[index];
 
@@ -188,7 +186,6 @@ namespace MicrofluidSimulator.SimulatorCode.View
                     break;
 
                 case ("Group"):
-                    Console.WriteLine(JSONString);
                     GroupDroplets JSONGroupDroplets = Newtonsoft.Json.JsonConvert.DeserializeObject<GroupDroplets>(JSONString);
 
                     List<Droplets> dropletList = new List<Droplets>();
@@ -206,11 +203,11 @@ namespace MicrofluidSimulator.SimulatorCode.View
                     float prevVolume = Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID);
 
                     float deltaVolume = JSONGroupDroplets.volume - prevVolume;
-                    Console.WriteLine("PrevVolume " + prevVolume + " , diff " + deltaVolume + " GID " + JSONGroupDroplets.groupID);
+                    
 
                     Models.DropletUtillityFunctions.updateGroupVolume(simulator.container, JSONGroupDroplets.groupID, deltaVolume);
 
-                    Console.WriteLine("Updated Volume: " + Models.DropletUtillityFunctions.getGroupVolume(simulator.container, JSONGroupDroplets.groupID));
+                    
 
                     break;
             }
