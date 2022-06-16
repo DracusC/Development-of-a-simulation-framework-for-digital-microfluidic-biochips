@@ -17,10 +17,15 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(container, electrodesWithNeighbours);
-            
-            
-            //this.actionQueue = ActionQueueGenerator.generateSimplePathsQueueFromReader(generatedActionQueue, container);
-            this.actionQueue = ActionQueueGenerator.generateTestQueue();
+
+            if(generatedActionQueue != null)
+            {
+                this.actionQueue = ActionQueueGenerator.generateSimplePathsQueueFromReader(generatedActionQueue, container);
+            }
+            else
+            {
+                this.actionQueue = ActionQueueGenerator.generateTestQueue();
+            }
 
 
             this.droplets = container.droplets;

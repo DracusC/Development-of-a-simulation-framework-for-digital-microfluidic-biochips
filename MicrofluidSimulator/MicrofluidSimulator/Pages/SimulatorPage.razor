@@ -295,6 +295,16 @@
     private static MicrofluidSimulator.SimpleVM.SimpleVM? dumbVM;
     private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
 
+    private string[,] configurationArray = new string[9, 2]{{"sample-data/platform640v2.json", "sample-data/SimplePaths.txt"}
+                                                           , {"sample-data/platform640vCenterPath.json", "sample-data/center_path.txt"}
+                                                           , {"sample-data/platform640vCenterPathForVideo.json", "sample-data/center_path_for_video.txt"}
+                                                           , {"sample-data/platform640vColorSorting.json", null}
+                                                           , {"sample-data/platform640vForSplitMergeManual.json", null }
+                                                           , {"sample-data/platform640vForVideo.json", "sample-data/for_video_1.txt"}
+                                                           , {"sample-data/platform640vForVideo2.json", "sample-data/for_video_2.txt"}
+                                                           , {"sample-data/platform640vSplitMerge.json","sample-data/split_merge_1.txt" }
+                                                           , {"sample-data/platform640vThreePaths.json", "sample-data/three_paths.txt"}};
+
     /// <summary>
     /// OnAfterRender is triggered when a render change is happening, we initialize on first render.
     /// </summary>
@@ -302,10 +312,19 @@
     protected override async void OnAfterRender(bool firstRender) {
         if (firstRender) {
 
-            
-            container = await Http.GetFromJsonAsync<Container>("sample-data/platform640vColorSorting.json");
+            int chosenConfiguration = 0;
+            container = await Http.GetFromJsonAsync<Container>(configurationArray[chosenConfiguration,0]);
             electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v2neighbours.json");
-            string actionQueueInstructions = await Http.GetStringAsync("sample-data/center_path_for_video.txt");
+            string actionQueueInstructions;
+            if(configurationArray[chosenConfiguration,1] != null)
+            {
+                actionQueueInstructions = await Http.GetStringAsync(configurationArray[chosenConfiguration,1]);
+            }
+            else
+            {
+                actionQueueInstructions = null;
+            }
+
 
             simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
             dumbVM = new MicrofluidSimulator.SimpleVM.SimpleVM(simulator);
