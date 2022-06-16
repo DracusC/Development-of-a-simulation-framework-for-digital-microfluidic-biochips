@@ -12,7 +12,7 @@ namespace TestProject
     public class Tests
     {
 
-        //static Container container = new Container(null, null, null);
+        
         [SetUp]
         public void Setup()
         {
