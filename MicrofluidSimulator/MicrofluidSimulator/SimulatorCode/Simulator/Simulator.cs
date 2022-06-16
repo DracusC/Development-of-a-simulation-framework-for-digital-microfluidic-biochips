@@ -26,11 +26,11 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
             if(generatedActionQueue != null)
             {
-                this.actionQueue = ActionQueueGenerator.generateSimplePathsQueueFromReader(generatedActionQueue, container);
+                this.actionQueue = ActionQueueGenerator.generateActionQueueFromReader(generatedActionQueue, container);
             }
             else
             {
-                this.actionQueue = ActionQueueGenerator.generateTestQueue();
+                this.actionQueue = ActionQueueGenerator.generateActionQueue();
             }
 
 
