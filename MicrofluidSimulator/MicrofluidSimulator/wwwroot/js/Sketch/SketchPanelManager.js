@@ -10,8 +10,6 @@
  * Declaration of script "global" variables.
  * These variables are used by both the global functions but also by the p5js script.
  */
-let simulator_droplets = []; // Not used
-let simulator_electrodes = []; // Not used
 let lerp_amount = 0;     // Used to interpolate between droplet positions.
 
 
@@ -40,11 +38,8 @@ let sketch = function (p) {
         p.pixelDensity(4);
 
         // Create layers
-        //layer_electrode_id = p.createGraphics(1, 1);
         layer_electrode = p.createGraphics(1, 1);
         console.log("setup");
-
-        //p.frameRate(10);
 
         let saveclose_button_div = p.select("#saveclose_button_div");
         information_panel_manager.saveclose_button_div = saveclose_button_div.elt;
@@ -54,7 +49,6 @@ let sketch = function (p) {
         edit_button.mousePressed(() => {
             information_panel_manager.onEdit();
         });
-        //edit_button.style("visibility", "visible");
 
         let cancel_button = p.select("#cancel_button");
         cancel_button.mousePressed(() => {
@@ -73,7 +67,6 @@ let sketch = function (p) {
      */
     
     p.draw = function () {
-        //console.time("DrawTime");
         if ((gui_broker.play_status && selection_manager.selection_list.draw_droplet_animations.checkbox.checked) || gui_broker.animate) {
             lerp_amount += 0.07; // Maybe make an animation object, or global variables
         }
@@ -241,10 +234,6 @@ let sketch = function (p) {
         p.fill(gui_broker.droplet_groups[groupID][0].color);
         draw_rounded(p, points_vector, 50);
 
-        /*p.fill("black");
-        for (let j = 0; j < gui_broker.droplet_groups[groupID].vertices.length; j++) {
-            p.ellipse(gui_broker.droplet_groups[groupID].vertices[j][0], gui_broker.droplet_groups[groupID].vertices[j][1], 3, 3);
-        }*/
     }
 
     function getGroupVertexPairsForLerp(groupID, prevGroupID) {
@@ -333,9 +322,6 @@ let sketch = function (p) {
         
         if (information_panel_manager.double_clicked) {
             if (p.key <= Object.keys(information_panel_manager.multiple_selection).length) {
-                console.log("inside");
-                //information_panel_manager.selected_element = information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]];
-                console.log(Object.keys(information_panel_manager.multiple_selection)[p.key - 1], information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]]);
 
                 let type = Object.keys(information_panel_manager.multiple_selection)[p.key - 1];
                 let element = information_panel_manager.multiple_selection[Object.keys(information_panel_manager.multiple_selection)[p.key - 1]];
@@ -492,7 +478,7 @@ let sketch = function (p) {
     }
 
     /**
-     * Checks whether a point (x, y) is contained within an electrode.
+     * Checks whether a point (x, y) is contained within an electrode
      * @param {any} electrode
      * @param {any} x
      * @param {any} y
@@ -523,6 +509,12 @@ let sketch = function (p) {
         return result;
     }
 
+    /**
+     * Checks whether a point (x, y) is contained within a polygon
+     * @param {any} vertexes
+     * @param {any} x
+     * @param {any} y
+     */
     function polygon_contains(vertexes, x, y) {
         let i;
         let j;
@@ -541,7 +533,9 @@ let sketch = function (p) {
         return result;
     }
 
-
+    /**
+     * Used to draw the droplet groups 
+     */
     function draw_droplet_groups() {
         // TESTING GROUPED DROPLETS
         for (let i in gui_broker.droplet_groups) {

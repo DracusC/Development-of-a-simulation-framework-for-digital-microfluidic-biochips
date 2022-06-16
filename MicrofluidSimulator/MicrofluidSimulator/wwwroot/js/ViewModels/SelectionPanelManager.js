@@ -15,101 +15,101 @@ let selection_manager = {
             name: "real_time",
             value: "real_time",
             id: "real_time",
-            text: "Real-Time Execution",    // Will be shown in layer panel list
-            element: "insert",              // Reference - get toggled from here
+            text: "Real-Time Execution",// Will be shown in layer panel list
+            element: "insert",          // Reference - get toggled from here
             checkbox: "insert",
             checked: true
-            //layer: "insert"               // Reference - pass to functions
+            //layer: "insert"           // Reference - pass to functions
         },
         draw_droplet_groups: {
             name: "droplet_group_draw_call",
             value: "droplet_group_draw_call",
             id: "draw_droplet_group",
-            text: "Draw Droplet Groups", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
+            text: "Draw Droplet Groups",// Will be shown in layer panel list
+            element: "insert",          // Reference - get toggled from here
             checkbox: "insert",
             checked: true
-            //layer: "insert"         // Reference - pass to functions
+            //layer: "insert"           // Reference - pass to functions
         },
         draw_droplet_animations: {
             name: "draw_droplet_animations",
             value: "draw_droplet_animations",
             id: "draw_droplet_animations",
-            text: "Animations", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
+            text: "Animations",         // Will be shown in layer panel list
+            element: "insert",          // Reference - get toggled from here
             checkbox: "insert",
             checked: true
-            //layer: "insert"         // Reference - pass to functions
+            //layer: "insert"           // Reference - pass to functions
         },
         draw_active_electrodes: {
             name: "draw_active_electrodes",
             value: "draw_active_electrodes",
             id: "draw_active_electrodes",
             text: "Draw Active Electrodes", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
+            element: "insert",              // Reference - get toggled from here
             checkbox: "insert",
             checked: true
-            //layer: "insert"         // Reference - pass to functions
+            //layer: "insert"               // Reference - pass to functions
         },
         draw_actuators: {
             name: "draw_actuators",
             value: "draw_actuators",
             id: "draw_actuators",
-            text: "Draw Actuators", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
+            text: "Draw Actuators",     // Will be shown in layer panel list
+            element: "insert",          // Reference - get toggled from here
             checkbox: "insert",
             checked: true,
-            layer: "insert"         // Reference - pass to functions
+            layer: "insert"             // Reference - pass to functions
         },
         draw_sensors: {
             name: "draw_sensors",
             value: "draw_sensors",
             id: "draw_sensors",
-            text: "Draw Sensors", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
+            text: "Draw Sensors",       // Will be shown in layer panel list
+            element: "insert",          // Reference - get toggled from here
             checkbox: "insert",
             checked: true,
-            layer: "insert"         // Reference - pass to functions
+            layer: "insert"             // Reference - pass to functions
         },
         draw_bubbles: {
             name: "draw_bubbles",
             value: "draw_bubbles",
             id: "draw_bubbles",
-            text: "Draw Bubbles", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
+            text: "Draw Bubbles",       // Will be shown in layer panel list
+            element: "insert",          // Reference - get toggled from here
             checkbox: "insert",
             checked: true
-            //layer: "insert"         // Reference - pass to functions
+            //layer: "insert"           // Reference - pass to functions
         },
         draw_selected_element: {
             name: "draw_selected_element",
             value: "draw_selected_element",
             id: "draw_selected_element",
-            text: "Draw Selected", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
+            text: "Draw Selected",      // Will be shown in layer panel list
+            element: "insert",          // Reference - get toggled from here
             checkbox: "insert",
             checked: true,
-            layer: "insert"         // Reference - pass to functions
+            layer: "insert"             // Reference - pass to functions
         },
         debug_electrode_text: {
             name: "debug_electrode_text",
             value: "debug_electrode_text",
             id: "db_e_text",
-            text: "Electrode IDs", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
+            text: "Electrode IDs",      // Will be shown in layer panel list
+            element: "insert",          // Reference - get toggled from here
             checkbox: "insert",
             checked: false,
-            layer: "insert"         // Reference - pass to functions
+            layer: "insert"             // Reference - pass to functions
         },
         draw_droplets: {
             name: "droplet_draw_call",
             value: "droplet_draw_call",
             id: "draw_droplet",
-            text: "Draw Droplets", // Will be shown in layer panel list
-            element: "insert",      // Reference - get toggled from here
+            text: "Draw Droplets",      // Will be shown in layer panel list
+            element: "insert",          // Reference - get toggled from here
             checkbox: "insert",
             checked: false
-            //layer: "insert"         // Reference - pass to functions
+            //layer: "insert"           // Reference - pass to functions
         }
 
     },
@@ -140,7 +140,7 @@ let selection_manager = {
     draw_selection_list: function (sketch) {
         for (let layer in this.selection_list) {
             if (this.selection_list[layer].hasOwnProperty("layer") && this.selection_list[layer].checkbox.checked) {
-                // Draw
+                // Draw the layer
                 sketch.image(this.selection_list[layer].layer, 0, 0);
             }
         }

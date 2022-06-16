@@ -42,15 +42,6 @@
     padding: 0;
 }
 
-/*#selectionPanel {
-    background-color: lightgrey;
-    width: 200px;
-    height: 23rem;
-    border-style: solid;
-    border-left-style: none;
-    border-width: 2px;
-}*/
-
 #selectionPanel form {
     width: 200px;
     display: flex;

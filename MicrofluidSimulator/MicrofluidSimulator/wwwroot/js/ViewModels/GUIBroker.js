@@ -63,7 +63,6 @@ let gui_broker = {
      * from the droplet data.
      */
     get_droplet_groups: function () {
-        //this.droplet_groups = {};
         let droplet_groups_for_return = {};
 
         for (let i = 0; i < this.droplets.length; i++) {

@@ -22,7 +22,6 @@
 }
 
 
-
 <div id="simulatorGUI">
     <div id="simulatorContainer">
 
@@ -91,16 +90,32 @@
     // Download Modal Code START
     DownloadModal downloadModal;
     public bool ModalOpen { get; set; }
+
+    /// <summary>
+    /// Used to close the download modal
+    /// </summary>
+    /// <param name="accepted"></param>
+    /// <returns></returns>
     private async Task CloseDownloadModal(bool accepted)
     {
         ModalOpen = false;
         StateHasChanged();
     }
+
+    /// <summary>
+    /// Used to open the download modal
+    /// </summary>
     private async void OpenDownloadModal()
     {
         ModalOpen = true;
         StateHasChanged();
     }
+
+    /// <summary>
+    /// Used to submit the download modal
+    /// </summary>
+    /// <param name="accepted"></param>
+    /// <returns></returns>
     private async Task SubmitDownloadModal(bool accepted)
     {
         ModalOpen = false;
@@ -108,6 +123,9 @@
         StateHasChanged();
     }
 
+    /// <summary>
+    /// Download button handler
+    /// </summary>
     private void DownloadDataButton()
     {
         OpenDownloadModal();
@@ -157,6 +175,10 @@
     static decimal timeStepAmount = -1;
     static float actualTimeStepAmount = 0;
 
+    /// <summary>
+    /// Called when the time step input is altered, 
+    /// forced the value to be -1 when less than or equal to 0
+    /// </summary>
     public void onTimeStepChange()
     {
         if(timeStepAmount <= 0)
@@ -169,14 +191,17 @@
     // Get the GUIBroker object reference
     static GUIBroker guibroker = new GUIBroker();
 
-    bool test = true;
-    static Stopwatch stopwatch = new Stopwatch();
-
+    /// <summary>
+    /// Goes to the next time step using gotoTime
+    /// </summary>
     private void NextStep() {
         gotoTime(timeStepAmount);
     }
 
     public static string PlayButtonText { get; set; } = "Play";
+    /// <summary>
+    /// Play button handler
+    /// </summary>
     public void Play() {
         PlayButtonText = PlayButtonText.Equals("Play") ? "Pause" : "Play";
         InvokeAsync(() => StateHasChanged());
@@ -184,14 +209,22 @@
         guibroker.start_simulator_time();
     }
 
+    /// <summary>
+    /// Invokable from JavaScript, used to go to the next simulator action
+    /// </summary>
     [JSInvokable]
     public static void JSSimulatorNextStep() {
         guibroker.start_update_timer();
         simulator.simulatorStep(-1);
-        dumbVM.doApiCall();
+        simpleVM.doApiCall();
         if(PlayButtonText == "Play") { guibroker.animate_once(); }
         guibroker.update_board(simulator.container);
     }
+
+    /// <summary>
+    /// Invokable from JavaScript, used to go delta time forward in the simulation
+    /// </summary>
+    /// <param name="deltaTime"></param>
     [JSInvokable]
     public static void nextStepTime(decimal deltaTime)
     {
@@ -199,10 +232,12 @@
         timeStepAmount = deltaTime;
         gotoTime(timeStepAmount);
         timeStepAmount = tempTimeStep;
-
-        //simulator.simulatorStep(deltaTime);
-        //guibroker.update_board(simulator.container);
     }
+
+    /// <summary>
+    /// Invokable from JavaScript, used to go to a specific time
+    /// </summary>
+    /// <param name="deltaTime"></param>
     [JSInvokable]
     public static void gotoSimulatorTimeStep(decimal deltaTime)
     {
@@ -212,7 +247,7 @@
     }
 
     /// <summary>
-    /// Is used to go to a specific time point in the simulation
+    /// Used to go to a specific time point in the simulation
     /// </summary>
     /// <param name="timeStepAmount"></param>
     public static void gotoTime(decimal timeStepAmount)
@@ -235,11 +270,11 @@
             if(((startSimulatorTime + timeStepAmount) - simulator.container.currentTime) < (simulatorTimeStep - simulator.container.currentTime))
             {
                 simulator.simulatorStep((startSimulatorTime + timeStepAmount) - simulator.container.currentTime);
-                dumbVM.doApiCall();
+                simpleVM.doApiCall();
             } else
             {
                 simulator.simulatorStep(-1);
-                dumbVM.doApiCall();
+                simpleVM.doApiCall();
             }
 
         }
@@ -247,13 +282,15 @@
         if(timeStepAmount <= 0)
         {
             simulator.simulatorStep(-1);
-            dumbVM.doApiCall();
+            simpleVM.doApiCall();
         }
 
         guibroker.update_board(simulator.container);
     }
 
-
+    /// <summary>
+    /// Used to go to the time on the slider
+    /// </summary>
     public void GotoSliderTime()
     {
         Restart();
@@ -275,9 +312,6 @@
         guibroker.restart_board();
     }
 
-
-
-
     /// <summary>
     /// The function updateSimulatorContainer is used to update the simulator elements,
     /// based on edited values from the GUI.
@@ -290,9 +324,16 @@
         guibroker.updateSimulatorContainer(Type, JSONString, simulator);
     }
 
+
+
+
+    /// <summary>
+    /// The following is used to initialize every component in the simulation framework
+    /// </summary>
+    /// 
     private Container? container;
     private static Simulator? simulator;
-    private static MicrofluidSimulator.SimpleVM.SimpleVM? dumbVM;
+    private static MicrofluidSimulator.SimpleVM.SimpleVM? simpleVM;
     private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
     /// <summary>
     /// When choosing what configuration to run, you can set the integer "chosenConfiguration" in the 
@@ -319,7 +360,12 @@
         if (firstRender) {
             // choose the index of the configuration you would like to run
             int chosenConfiguration = 1;
-            container = await Http.GetFromJsonAsync<Container>(configurationArray[chosenConfiguration,0]);
+
+            // Get the language of the current browser
+            var browserLanguage = JSInProcessRuntime.Invoke<String>("get_browser_language");
+
+            // Initializes the program chosen
+            container = await Http.GetFromJsonAsync<Container>(configurationArray[chosenConfiguration, 0]);
             electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/neighbours.json");
             string actionQueueInstructions;
             if(configurationArray[chosenConfiguration,1] != null)
@@ -333,8 +379,9 @@
 
 
             simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions);
-            dumbVM = new MicrofluidSimulator.SimpleVM.SimpleVM(simulator);
+            simpleVM = new MicrofluidSimulator.SimpleVM.SimpleVM(simulator);
 
+            // Setup the GUI Broker on the C# side
             guibroker.set_jsprocess(JSInProcessRuntime);
             guibroker.set_unmarshall(JSUnmarshalledRuntime);
             guibroker.setP5();

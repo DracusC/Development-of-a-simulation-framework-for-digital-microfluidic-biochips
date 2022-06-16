@@ -38,8 +38,8 @@ let information_panel_manager = {
         Electrode: {
             name: "",
             ID: "",
-            electrodeID: "",
-            driverID: "",
+            //electrodeID: "",
+            //driverID: "",
             status: 0,
             positionX: 0,
             positionY: 0,
@@ -373,7 +373,6 @@ let information_panel_manager = {
                 input.readOnly = true;
                 input.classList.add("input_readonly");
 
-                // TODO: Check if the input value is ok!
                 values_to_send[attribute] = input.value;
             }
         }

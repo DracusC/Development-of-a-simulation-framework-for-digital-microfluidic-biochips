@@ -78,11 +78,6 @@ window.change_play_status = (status) => {
  */
 window.initialize_board = (information) => {
 
-    /*
-     * TODO: Check if we can fix initial realtime execution
-     * by giving more information here!
-     */
-
     /* Remove any previous sketch */
     if (gui_broker.sketch_ref != null) {
         gui_broker.sketch_ref.remove();
@@ -96,8 +91,6 @@ window.initialize_board = (information) => {
     gui_controller.showGUI();
     gui_controller.changeBoardName(JSONinformation.platform_name);
     document.querySelector("#edit_button").style.visibility = "visible";
-
-    //document.querySelector("#defaultCanvas0").style.width = "1000px";
 
     selection_manager.initialize_selection_list();
 }
@@ -144,16 +137,6 @@ window.set_simulator_time = (time) => {
  */
 window.download_data = () => {
     gui_controller.download_data();
-    //let jsonData = JSON.stringify(gui_broker.data_to_download);
-
-    ///* Download the data by forcing a click on an anchor element. */
-    //var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonData);
-    //var dlAnchorElem = document.getElementById('downloadAnchorElem');
-    //dlAnchorElem.setAttribute("href", dataStr);
-    //dlAnchorElem.setAttribute("download", "data.json");
-    //dlAnchorElem.click();
-
-    //gui_broker.data_to_download = [];
 }
 
 /**
@@ -163,12 +146,14 @@ window.download_data = () => {
  */
 window.send_download_data = (jsonData) => {
     gui_controller.store_download_data(jsonData);
-    //let obj = JSON.parse(jsonData);
-    //obj.droplet_groups = gui_broker.get_droplet_groups();
-    //gui_broker.data_to_download.push(obj);
 }
 
 /* Make the gui_broker a global object */
 window.gui_broker = gui_broker;
+
+/* Get the language of the browser */
+window.get_browser_language = () => {
+    return navigator.language || navigator.userLanguage;
+}
 
 /* END Global.js */

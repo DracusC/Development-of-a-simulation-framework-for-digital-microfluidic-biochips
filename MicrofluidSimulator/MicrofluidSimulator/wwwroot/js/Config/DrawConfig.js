@@ -36,7 +36,7 @@ let draw_config = {
 
     bubble: {
         backgroundColor: "none",
-        backgroundOpacity: 0, // 0-255
+        backgroundOpacity: 0,   // 0-255
         borderColor: "#000000",
         borderWidth: 1
     }

@@ -10,18 +10,10 @@ using MicrofluidSimulator.SimulatorCode.Simulator;
 namespace MicrofluidSimulator.SimulatorCode.View
 {
 
-    // TODO: Delete GUIInfo class?
-    public class GUIInfo {
-        public bool gui_status { get; set; }
-        public Droplets[] droplets { get; set; }
-        public Electrode[] electrodes { get; set;}
-    }
-
     /// <summary>
     /// The GUIBroker class is used to send and receive data to and from the GUI.
     /// </summary>
     public class GUIBroker {
-
 
         /*
          * JSRuntime is used to call JavaScript code from c#
