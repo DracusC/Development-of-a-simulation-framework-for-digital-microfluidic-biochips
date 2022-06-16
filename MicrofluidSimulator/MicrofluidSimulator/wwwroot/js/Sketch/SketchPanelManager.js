@@ -32,14 +32,11 @@ let sketch = function (p) {
         canvas.mouseClicked(onMouseClicked);
         canvas.doubleClicked(onMouseDoubleClicked);
         
-        console.log(canvas.position());
-
         // Used to get sharper edges in sketch
         p.pixelDensity(4);
 
         // Create layers
         layer_electrode = p.createGraphics(1, 1);
-        console.log("setup");
 
         let saveclose_button_div = p.select("#saveclose_button_div");
         information_panel_manager.saveclose_button_div = saveclose_button_div.elt;
@@ -139,11 +136,11 @@ let sketch = function (p) {
         // Control real-time execution
         if (gui_broker.play_status && (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time) >= gui_broker.board.currentTime) {
 
-            console.log("Ellapsed time: " + ((Date.now() - gui_broker.simulator_time) / 1000) + " seconds\n",
+            /*console.log("Ellapsed time: " + ((Date.now() - gui_broker.simulator_time) / 1000) + " seconds\n",
                         "Actual time: " + (((Date.now() - gui_broker.simulator_time) / 1000) + gui_broker.simulator_prev_time) + "\n",
                         "Previous time: " + gui_broker.simulator_prev_time + "\n",
                         "Time difference: " + (gui_broker.board.currentTime - gui_broker.simulator_prev_time) + "\n",
-                        "Current time: " + gui_broker.board.currentTime);
+                        "Current time: " + gui_broker.board.currentTime);*/
 
             lerp_amount = 1;
             gui_broker.next_simulator_step_time(gui_broker.simulator_time_step);
@@ -690,19 +687,11 @@ let sketch = function (p) {
                 points_vector.push(p.createVector(p.round(points_to_draw[j][0], 2), p.round(points_to_draw[j][1], 2)));
             }
 
-            //console.log(points_vector);
             gui_broker.droplet_groups[current_droplet.group].vertices = points_to_draw;
 
             if (!selection_manager.selection_list.draw_droplet_animations.checkbox.checked) {
                 draw_rounded(p, points_vector, 50);
             }
-
-
-            //p.beginShape();
-            /*for (let j = 0; j < points_to_draw.length; j++) {
-                p.ellipse(points_to_draw[j][0], points_to_draw[j][1],5,5);
-            }*/
-            //p.endShape(p.CLOSE);
 
         }
     }
@@ -754,7 +743,6 @@ let sketch = function (p) {
                 c2.x, c2.y
             )
 
-            //console.log(p1, p2);
         }
         sketch.endShape(sketch.CLOSE);
     }
@@ -855,7 +843,6 @@ let sketch = function (p) {
     function draw_actuators(layer) {
         let actuators = gui_broker.board.actuators;
         actuators.forEach((actuator) => {
-            //console.log(actuator);
             let color = layer.color(draw_config.actuator.backgroundColor);
             color.setAlpha(draw_config.actuator.backgroundOpacity);
             layer.fill(color);
@@ -869,7 +856,6 @@ let sketch = function (p) {
     function draw_sensors(layer) {
         let sensors = gui_broker.board.sensors;
         sensors.forEach((sensor) => {
-            //console.log(actuator);
             let color = layer.color(draw_config.sensor.backgroundColor);
             color.setAlpha(draw_config.sensor.backgroundOpacity);
             layer.fill(color);

@@ -256,10 +256,6 @@
 
         while(simulator.container.currentTime < timeStepAmount + startSimulatorTime)
         {
-            Console.WriteLine(timeStepAmount + startSimulatorTime + " : " + simulator.container.currentTime);
-            Console.WriteLine(simulator.actionQueue.Count);
-
-
 
             decimal simulatorTimeStep = 0;
             if(simulator.actionQueue.Count != 0) {
