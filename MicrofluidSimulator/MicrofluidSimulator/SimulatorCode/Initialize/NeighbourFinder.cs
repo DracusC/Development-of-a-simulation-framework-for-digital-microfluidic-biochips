@@ -306,6 +306,12 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return neighbours;
         }
 
+        /// <summary>
+        /// Greatest common divisor
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         private static int gcd(int x, int y)
         {
             int gcd = 1;
@@ -330,7 +336,13 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return gcd;
         }
 
-
+        /// <summary>
+        /// Checks if a point is a corner of an electrode
+        /// </summary>
+        /// <param name="electrode"></param>
+        /// <param name="currentPointX"></param>
+        /// <param name="currentPointY"></param>
+        /// <returns></returns>
         private static bool isCorner(Electrode electrode, int currentPointX, int currentPointY)
         {
             for (int i = 0; i < electrode.corners.Count; i++)

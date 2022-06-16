@@ -26,6 +26,10 @@ namespace MicrofluidSimulator.SimpleVM
         private bool temperatureSensorCalled;
         private bool heater727Called;
         private bool heater729Called;
+        /// <summary>
+        /// Constructor for the simpleVM taking the simulator as parameter
+        /// </summary>
+        /// <param name="simulator"></param>
         public SimpleVM(Simulator simulator)
         {
             this.simulator = simulator;
@@ -70,7 +74,9 @@ namespace MicrofluidSimulator.SimpleVM
         }
 
 
-        // Main loop
+        /// <summary>
+        /// Main function handling the input from the simulator and updating the action queue dependingly
+        /// </summary>
         public void doApiCall()
         {
             Color red = ColorTranslator.FromHtml("#FF4200");
@@ -145,7 +151,11 @@ namespace MicrofluidSimulator.SimpleVM
             }
 
         }
-
+        /// <summary>
+        /// Intertwine the given action queue at the time stamp with the action queue in the simulator
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="queueToPush"></param>
         private void pushActionsAtTime(decimal time, Queue<ActionQueueItem> queueToPush)
         {
             if (simulator.container.currentTime == time)
@@ -166,7 +176,13 @@ namespace MicrofluidSimulator.SimpleVM
         
 
     
-
+        /// <summary>
+        /// Turn on heater at time with the decired temperature
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="desiredTemperature"></param>
+        /// <param name="heaterID"></param>
+        /// <param name="heaterCalled"></param>
         private void turnOnHeaterAtTime(decimal time, float desiredTemperature, int heaterID, bool heaterCalled)
         {
             decimal currentSimulatorTime = simulator.container.currentTime;
@@ -181,7 +197,12 @@ namespace MicrofluidSimulator.SimpleVM
                 heaterCalled = false;
             }
         }
-
+        /// <summary>
+        /// Read the RGB value of the color sensor at the given time
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="sensorID"></param>
+        /// <returns></returns>
         private int[] readRGBValueOfColorSensorAtTime(decimal time, int sensorID)
         {
             decimal currentSimulatorTime = simulator.container.currentTime;
@@ -197,7 +218,12 @@ namespace MicrofluidSimulator.SimpleVM
             rgbSensorCalled = false;
             return new int[] { -1, -1, -1 };
         }
-
+        /// <summary>
+        /// Reads the temperature of the temperature sensor at the given time
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="sensorID"></param>
+        /// <returns></returns>
         private float readTemperatureOfTemperatureSensorAtTime(decimal time, int sensorID)
         {
             decimal currentSimulatorTime = simulator.container.currentTime;
@@ -215,6 +241,12 @@ namespace MicrofluidSimulator.SimpleVM
             temperatureSensorCalled = false;
             return -1;
         }
+
+        /// <summary>
+        /// All the generate "_" queues are the hard coded action queues used for the droplets of different colour or temperature
+        /// </summary>
+        /// <param name="currentTime"></param>
+        /// <returns></returns>
         private static Queue<ActionQueueItem> generateRedTestQueue(decimal currentTime)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new();
@@ -366,14 +398,6 @@ namespace MicrofluidSimulator.SimpleVM
             return actionQueueInstructions;
         }
 
-        private static ActionQueueItem generateAction(int actionOnID, int actionChange, decimal time)
-        {
-            SimulatorAction action = new SimulatorAction("electrode", actionOnID, actionChange);
-            ActionQueueItem item = new ActionQueueItem(action, time);
-
-            return item;
-
-        }
         private static Queue<ActionQueueItem> generateColdTemperatureTestQueue(decimal currentTime)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
@@ -419,5 +443,21 @@ namespace MicrofluidSimulator.SimpleVM
 
             return actionQueueInstructions;
         }
+        /// <summary>
+        /// Generate action is a helper function to easily generate an action given an id, actionchange and time of execution
+        /// </summary>
+        /// <param name="actionOnID"></param>
+        /// <param name="actionChange"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        private static ActionQueueItem generateAction(int actionOnID, int actionChange, decimal time)
+        {
+            SimulatorAction action = new SimulatorAction("electrode", actionOnID, actionChange);
+            ActionQueueItem item = new ActionQueueItem(action, time);
+
+            return item;
+
+        }
+        
     }
 }

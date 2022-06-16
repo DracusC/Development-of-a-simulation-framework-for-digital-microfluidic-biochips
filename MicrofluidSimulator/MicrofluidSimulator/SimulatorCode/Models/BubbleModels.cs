@@ -17,6 +17,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             List<Bubbles> bubbles = container.bubbles;
             for (int i = 0; i < bubbles.Count; i++)
             {
+                // Merge a bubble into the caller if the merging bubble is marked with toRemove and it is smaller than the caller
                 if (!(bubbles[i].ID == bubble.ID) && (bubbles[i].toRemove == false) && (bubble.sizeX > bubbles[i].sizeX || bubble.sizeX == bubbles[i].sizeX))
                 {
                     
