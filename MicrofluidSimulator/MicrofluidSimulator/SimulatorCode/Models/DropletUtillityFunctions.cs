@@ -5,9 +5,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class DropletUtillityFunctions
     {
+
+        /// <summary>
+        /// get volume of all droplets in a group
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="groupID"></param>
+        /// <returns></returns>
         public static float getGroupVolume(Container container, int groupID)
         {
-            // get volume of all droplets in a group
             List<Droplets> droplets = findGroupMembers(container, groupID);
 
             float volume = 0;
@@ -18,9 +24,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return volume;
         }
 
+        /// <summary>
+        /// Get all droplets that are connected and set their group number to the desired value
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <param name="newGroupID"></param>
         public static void updateGroupNumber(Container container, Droplets caller, int newGroupID)
         {
-            //Get all droplets that are connected and set their group number to the desired value
             ArrayList connectedDroplets = new ArrayList();
             findAllConnectedDroplets(container, caller, connectedDroplets);
             foreach (Droplets droplet in connectedDroplets)
@@ -29,10 +40,16 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
         }
 
+        /// <summary>
+        /// Recursivly find all connected electrodes that are ON, by running through the neigbours of electrodes
+        /// And sum the area for return.
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="electrode"></param>
+        /// <param name="alreadyChecked"></param>
+        /// <returns></returns>
         public static int findAreaOfAllConnectedElectrodes(Container container, Electrode electrode, ArrayList alreadyChecked)
         {
-            //Recursivly find all connected electrodes that are ON, by running through the neigbours of electrodes
-            // And sum the area for return.
             int area = ElectrodeModels.getAreaOfElectrode(electrode);
             Electrode[] electrodeBoard = container.electrodes;
             alreadyChecked.Add(electrode.ID);
@@ -49,10 +66,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return area;
         }
-
+        /// <summary>
+        /// Recursicly find all connected droplets using the neigbours of electrodes
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <param name="members"></param>
         public static void findAllConnectedDroplets(Container container, Droplets caller, ArrayList members)
         {
-            //Recursicly find all connected droplets using the neigbours of electrodes
             
             Electrode[] electrodeBoard = container.electrodes;
             int dropletElectrodeIndex = HelpfullRetreiveFunctions.getIndexOfElectrodeByID(caller.electrodeID, container);
@@ -73,10 +94,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 }
             }
         }
-
+        /// <summary>
+        /// Run through all droplets and return those who have the desired groupID
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="groupID"></param>
+        /// <returns></returns>
         public static List<Droplets> findGroupMembers(Container container, int groupID)
         {
-            //run through all droplets and return those who have the desired groupID
             List<Droplets> groupMembers = new List<Droplets>();
             List<Droplets> droplets = container.droplets;
             foreach (Droplets droplet in droplets)
@@ -90,9 +115,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
         }
 
+        /// <summary>
+        /// Given a group id all droplets in the group gets their respective share of the total volume, based on the size of the electrodes they are on
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="groupID"></param>
+        /// <param name="extraVolume"></param>
         public static void updateGroupVolume(Container container, int groupID, float extraVolume)
         {
-            // given a group id all droplets in the group gets their respective share of the total volume, based on the size of the electrodes they are on
             
             List<Droplets> groupMembers = DropletUtillityFunctions.findGroupMembers(container, groupID);
             Electrode[] electrodeBoard = container.electrodes;
@@ -125,37 +155,61 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
 
         }
-        
+
+        /// <summary>
+        /// Calculate distence from a droplet to an electrode
+        /// </summary>
+        /// <param name="electrodeCenterX"></param>
+        /// <param name="electrodeCenterY"></param>
+        /// <param name="dropletX"></param>
+        /// <param name="dropletY"></param>
+        /// <returns></returns>
         public static double electrodeDistance(int electrodeCenterX, int electrodeCenterY, int dropletX, int dropletY)
         {
-            //Calculate distence fdrom a droplet to an electrode
             double x = Math.Pow(dropletX - electrodeCenterX, 2);
             double y = Math.Pow(dropletY - electrodeCenterY, 2);
 
             return Math.Sqrt(x + y);
         }
-
+        /// <summary>
+        /// Get volume of droplet
+        /// </summary>
+        /// <param name="diameter"></param>
+        /// <returns></returns>
         public static float getVolumeOfDroplet(float diameter)
         {
             float pi = (float)Math.PI;
             return ((float)pi) * ((float)Math.Pow((diameter / 2), 2)) * GlobalVariables.HEIGHT;
         }
-
+        /// <summary>
+        /// Get the diameter of droplet
+        /// </summary>
+        /// <param name="volume"></param>
+        /// <returns></returns>
         public static int getDiameterOfDroplet(float volume)
         {
             float pi = (float)Math.PI;
             return (int)(2 * (float)(Math.Sqrt(volume / (pi * GlobalVariables.HEIGHT))));
         }
+        /// <summary>
+        /// Get the area of a droplet
+        /// </summary>
+        /// <param name="droplet"></param>
+        /// <returns></returns>
         public static float getAreaOfDroplet(Droplets droplet)
         {
             float pi = (float)Math.PI;
             int diam = getDiameterOfDroplet(droplet.volume);
             return (diam / 2) * (diam / 2) * pi;
         }
-
+        /// <summary>
+        /// Function that determines if a droplet overlaps and electrode fully or partially
+        /// </summary>
+        /// <param name="droplet"></param>
+        /// <param name="electrode"></param>
+        /// <returns></returns>
         public static bool dropletOverlapElectrode(Droplets droplet, Electrode electrode)
         {
-            //function that determines if a droplet overlaps and electrode fully or partially
             Point dropletCenter = new Point(droplet.positionX, droplet.positionY);
             double dropletRadius = (double)droplet.sizeX / 2;
             ArrayList points = new ArrayList();
@@ -212,12 +266,21 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return false;
         }
-
+        /// <summary>
+        /// Get the distance between two points
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         private static double distanceBetweenPoints(Point a, Point b)
         {
             return Math.Sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
         }
-
+        /// <summary>
+        /// Get the index of the minimum value in the arraylist
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         private static int getIndexOfMin(ArrayList list)
         {
             int minIndex = 0;
@@ -235,6 +298,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return minIndex;
         }
 
+        /// <summary>
+        /// Update color of all group members to the same color, an weighted average color of all members
+        /// Ïdea for hex color average from https://stackoverflow.com/questions/3722307/is-there-an-easy-way-to-blend-two-system-drawing-color-values
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="group"></param>
+        /// <param name="color"></param>
+        /// <param name="volume"></param>
         public static void updateGroupColor(Container container, int group, Color color, float volume)
         {
             ArrayList groupColors = new ArrayList();
@@ -260,25 +331,27 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             b /= groupColors.Count;
             
             float amount = volume / groupVolume;
-
-            //Console.WriteLine("AMOUNT AND R G B " + amount + ", {" + r + ", " + g + ", " + b + "}");
-            // https://stackoverflow.com/questions/3722307/is-there-an-easy-way-to-blend-two-system-drawing-color-values
+ 
 
             float red = (color.R * amount + r * (1 - amount));
             float green = (color.G * amount + g * (1 - amount));
             float blue = (color.B * amount + b * (1 - amount));
 
 
-            //Console.WriteLine("AMOUNT AND RED GREEN BLUE " + amount + ", {" + red + ", " + green + ", " + blue + "}");
             foreach (Droplets droplet in groupMembers)
             {
-                //Console.WriteLine("DROPLET ID BEFORE COLOR " + droplet.ID + ", " + droplet.color);
                 droplet.color = $"#{(int)red:X2}{(int)green:X2}{(int)blue:X2}";
-                //Console.WriteLine("DROPLET ID AFTER COLOR " + droplet.ID + ", " + droplet.color);
             }
         }
-        // minimum distance from point to line segement
-        //https://www.geeksforgeeks.org/minimum-distance-from-a-point-to-the-line-segment-using-vectors/
+
+        /// <summary>
+        /// Minimum distance from point to line segement
+        /// Implementation mostly from https://www.geeksforgeeks.org/minimum-distance-from-a-point-to-the-line-segment-using-vectors/
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="E"></param>
+        /// <returns></returns>
         static double minDistance(Point A, Point B, Point E)
         {
 

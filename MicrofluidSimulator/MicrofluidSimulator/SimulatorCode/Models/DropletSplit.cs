@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace MicrofluidSimulator.SimulatorCode.Models
 {
-    public class DropletModels
+    public class DropletSplit
     {
         public static ArrayList dropletSplit(Container container, Droplets caller)
         {

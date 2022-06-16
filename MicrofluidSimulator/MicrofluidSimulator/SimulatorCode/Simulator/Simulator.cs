@@ -9,7 +9,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
     public class Simulator
     {
-        
+        /// <summary>
+        /// Constructor for the simulator
+        /// </summary>
+        /// <param name="actionQueue"></param>
+        /// <param name="container"></param>
+        /// <param name="electrodesWithNeighbours"></param>
+        /// <param name="generatedActionQueue"></param>
         public Simulator(Queue<ActionQueueItem> actionQueue, Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours, string generatedActionQueue)
         {
 
@@ -40,6 +46,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
             
         }
 
+        /// <summary>
+        /// Function to restart the simulator reinitializing the container and all values
+        /// </summary>
         public void restartSimulator()
         {
             
@@ -62,7 +71,11 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
         public Container initialContainer { get; set; }
 
-        //Simulator step allows the user to run the simulator for a given time amount
+
+        /// <summary>
+        /// Simulator step allows the GIU to run the simulator for a given time amount 
+        /// </summary>
+        /// <param name="timeStepLength"></param>
         public void simulatorStep(decimal timeStepLength)
         {
             decimal maximumTimeStep = 0.1m;
@@ -105,14 +118,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
             }
 
-            //splitTime = 0;
-            //mergeTime = 0;
-            //tempTime = 0;
-            //colorTime = 0;
-            //bubbleTime = 0;
-
-            //var stopwatchO = new System.Diagnostics.Stopwatch();
-            //stopwatchO.Start();
 
             //Loop that allows the simulator to exectue the models multiple times, until the requested time is reached
             while (targetTime > container.currentTime || executeAStep || mustRunAllModelsOnInputFromGui)
@@ -293,6 +298,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
 
 
+                // Get the subscribed bubles and run their models
                 ArrayList bubbleSubscribers = container.subscribedBubbles;
                 Queue<int> bubbleSubscribersQueue = new Queue<int>();
                 foreach (int subscriber in bubbleSubscribers)
@@ -300,13 +306,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     bubbleSubscribersQueue.Enqueue(subscriber);
                 }
 
-
-
-                //Console.WriteLine("subscriber queue " + subscriberQueue.Count());
                 while (bubbleSubscribersQueue.Count > 0)
                 {
                     int subscriber = bubbleSubscribersQueue.Dequeue();
-                    //Console.WriteLine("SUBSCRIBERS " + subscriber);
                     Bubbles bubble = HelpfullRetreiveFunctions.getBubbleByID(container, subscriber);
 
                     if (bubble != null && bubble.toRemove == false)
@@ -317,17 +319,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 }
 
 
-
-                // merge bubbles
-                //foreach (int bubbleID in container.subscribedBubbles)
-                //{
-                //    Bubbles bubble = HelpfullRetreiveFunctions.getBubbleById(container, bubbleID);
-                //    if (bubble != null && bubble.toRemove == false)
-                //    {
-                //        executeBubbleModel(container, bubble;
-                //    }
-
-                //}
                 ArrayList subscribedBubbles = HelpfullRetreiveFunctions.copyOfSubscribedBubbles(container.subscribedBubbles);
                 foreach (int bubbleID in subscribedBubbles)
                 {
@@ -524,7 +515,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     //stopwatch.Stop();
                     //splitTime += stopwatch.Elapsed.TotalMilliseconds;
                     //Console.WriteLine("-.--------------Split time: " + stopwatch.Elapsed.TotalMilliseconds + " ms");
-                    return Models.DropletModels.dropletSplit(container, caller); ;
+                    return Models.DropletSplit.dropletSplit(container, caller); ;
                 case "merge":
                     //var stopwatch1 = new System.Diagnostics.Stopwatch();
                     //stopwatch1.Start();
