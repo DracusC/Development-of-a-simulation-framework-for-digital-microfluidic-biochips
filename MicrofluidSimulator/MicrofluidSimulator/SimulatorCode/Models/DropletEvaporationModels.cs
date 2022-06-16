@@ -4,6 +4,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class DropletEvaporationModels
     {
+        /// <summary>
+        /// Model for evaporation of droplet into bubbles
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="droplet"></param>
+        /// <returns></returns>
         public static ArrayList makeBubble(Container container, Droplets droplet)
         {
             ArrayList subscribtions = new ArrayList();
@@ -65,7 +71,6 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 droplet.sizeX = DropletUtillityFunctions.getDiameterOfDroplet(droplet.volume);
                 droplet.sizeY = DropletUtillityFunctions.getDiameterOfDroplet(droplet.volume);
 
-                //bubble.subscriptions.Add(droplet.ID);
 
                 // move bubble
                 BubbleModels.moveBubbleAccordingToGroup(container, droplet, bubble);
