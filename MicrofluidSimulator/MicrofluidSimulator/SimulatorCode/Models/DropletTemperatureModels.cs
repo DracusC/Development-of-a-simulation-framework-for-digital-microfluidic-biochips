@@ -5,6 +5,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class DropletTemperatureModels
     {
+
+        
         public static ArrayList dropletTemperatureChange(Container container, Droplets caller)
         {
             ArrayList subscribers = new ArrayList
@@ -27,8 +29,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
 
 
-                // droplet temperature change is right now dependent on the powerstatus of the heater, this should later be changed to be dependent on the heater temperature
-                //float temperatureChange = (container.timeStep * heater.valuePowerStatus) / (mass * hC);
+                
                 caller.temperature += temperatureChange;
                 return subscribers;
             }
@@ -44,9 +45,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 float temperatureChange = heatTransfer / (mass * hC);
                 
 
-
-                // droplet temperature change is right now dependent on the powerstatus of the heater, this should later be changed to be dependent on the heater temperature
-                //float temperatureChange = (container.timeStep * heater.valuePowerStatus) / (mass * hC);
+                
                 caller.temperature += temperatureChange;
 
                 
