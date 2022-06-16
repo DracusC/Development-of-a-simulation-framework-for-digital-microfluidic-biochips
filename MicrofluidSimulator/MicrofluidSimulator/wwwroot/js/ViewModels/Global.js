@@ -53,7 +53,7 @@ window.update_board = (_container_string) => {
     information_panel_manager.dynamic_update();
 
     /* End timer */
-    console.timeEnd("UpdateTimer");
+    //console.timeEnd("UpdateTimer");
 
     /* Update the displayed time in the GUI */
     document.querySelector("#simulatorTime").innerHTML = gui_broker.board.currentTime;
