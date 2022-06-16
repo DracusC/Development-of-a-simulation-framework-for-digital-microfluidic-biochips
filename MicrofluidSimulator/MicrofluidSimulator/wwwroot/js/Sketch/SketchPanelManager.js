@@ -148,7 +148,10 @@ let sketch = function (p) {
 
     }
 
-
+    /**
+     * Finds the groups related to the old group, when a split happens
+     * @param {any} groupID
+     */
     function findGroupSplit(groupID) {
 
         let cur_group = gui_broker.droplet_groups[groupID];
@@ -179,7 +182,12 @@ let sketch = function (p) {
         return new_groups;
     }
 
-
+    /**
+     * Used by the procedural animation to interpolate vertices of groups
+     * @param {any} groupID
+     * @param {any} amount
+     * @param {any} prevGroupID
+     */
     function lerpGroupVertices(groupID, amount, prevGroupID) { // prevGroupID is optional
 
 
@@ -233,6 +241,11 @@ let sketch = function (p) {
 
     }
 
+    /**
+     * Usen by the procedural animation to find the vertex pairs that should be lerped from/to
+     * @param {any} groupID
+     * @param {any} prevGroupID
+     */
     function getGroupVertexPairsForLerp(groupID, prevGroupID) {
         let cur_group = gui_broker.droplet_groups[groupID];
 
@@ -263,6 +276,11 @@ let sketch = function (p) {
 
     }
 
+    /**
+     * Used by the procedural animation to find vertices that should be lerped
+     * @param {any} groupID
+     * @param {any} prevGroupID
+     */
     function getGroupVerticesToLerp(groupID, prevGroupID) {
         let cur_group = gui_broker.droplet_groups[groupID];
 
@@ -275,32 +293,6 @@ let sketch = function (p) {
         let difference = prev_group.vertices.filter(x => !cur_group.vertices.includes(x));
 
         return difference;
-    }
-
-    function getGroupVerticesToLerp2(groupID, prevGroupID) {
-        let cur_group = gui_broker.droplet_groups[groupID];
-
-        if (typeof prevGroupID == "undefined") { prevGroupID = groupID }
-        let prev_group = gui_broker.prev_droplet_groups[prevGroupID];
-
-        if (typeof cur_group == "undefined" || typeof prev_group == "undefined") { return; }
-
-        // Find vertices to lerp
-        let newArray = [];
-
-        for (i in prev_group.vertices) {
-            let min_dist = 9999;
-            for (j in cur_group.vertices) {
-                let dist = p.dist(prev_group.vertices[i][0], prev_group.vertices[i][1], cur_group.vertices[j][0], cur_group.vertices[j][1]);
-                min_dist = p.min(min_dist, dist);
-            }
-
-            if (min_dist > cur_group[0].sizeX / 2) {
-                newArray.push([prev_group.vertices[i][0], prev_group.vertices[i][1]]);
-            }
-        }
-
-        return newArray;
     }
 
 
@@ -340,7 +332,7 @@ let sketch = function (p) {
         information_panel_manager.multiple_selection = null;
 
         // Handle click on droplet group
-        if (selection_manager.selection_list.draw_droplet_groups.checkbox.checked) {
+        if (selection_manager.selection_list.draw_droplet_groups.checkbox.checked || selection_manager.selection_list.draw_droplet_animations.checkbox.checked) {
             for (let i in gui_broker.droplet_groups) {
                 if (polygon_contains(gui_broker.droplet_groups[i].vertices, p.mouseX, p.mouseY)) {
                     information_panel_manager.selected_element = information_panel_manager.information_filter("Group", gui_broker.droplet_groups[i], i);
@@ -408,6 +400,9 @@ let sketch = function (p) {
         }
     }
 
+    /**
+     * Event handler for double click 
+     */
     function onMouseDoubleClicked() {
 
 
@@ -534,21 +529,20 @@ let sketch = function (p) {
      * Used to draw the droplet groups 
      */
     function draw_droplet_groups() {
-        // TESTING GROUPED DROPLETS
+        
         for (let i in gui_broker.droplet_groups) {
             let check_size = gui_broker.electrodes[0].sizeX / 2;
             let current_droplet = gui_broker.droplet_groups[i][0];
             let current_droplet_point = [current_droplet.positionX - check_size, current_droplet.positionY - check_size];
             let concave_point = null;
 
-            //let draw_size = current_droplet.sizeX / 2;
             let droplet_draw_point = [current_droplet.positionX - current_droplet.sizeX / 2, current_droplet.positionY - current_droplet.sizeX / 2];
 
             // Change so case where theres no path from current point is valid
             let points_to_draw = [];
 
             while (JSON.stringify(points_to_draw).indexOf(JSON.stringify(droplet_draw_point)) == -1) {
-                //for (let ab = 0; ab < 4; ab++) {
+                
                 let top_left = null
                 let top_right = null;
                 let bottom_left = null;
@@ -780,7 +774,7 @@ let sketch = function (p) {
 
     /* Call to draw active electrodes */
     function draw_active_electrodes() {
-        /* TODO: Maybe send information of which electrode is active from the simulator */
+        
         for (let i = 0; i < gui_broker.electrodes.length; i++) {
             let electrode = gui_broker.electrodes[i];
 
@@ -808,7 +802,6 @@ let sketch = function (p) {
             layer_electrode.stroke(draw_config.electrode.borderColor);
             layer_electrode.strokeWeight(draw_config.electrode.borderWidth);
             layer_electrode.fill(draw_config.electrode.backgroundColor);
-            //if (electrode.status != 0) { layer_electrode_shape.fill("red"); }
 
             // Check the electrode shape
             if (electrode.shape == 1) {
@@ -819,7 +812,13 @@ let sketch = function (p) {
         }
     }
 
-    /* Call to draw polygonal shaped electrode shapes */
+
+    /**
+     * Call to draw polygonal shaped electrode shapes
+     * @param {any} posX
+     * @param {any} posY
+     * @param {any} corners
+     */
     function draw_polygon_electrode_shapes(posX, posY, corners) {
         layer_electrode.beginShape();
         for (let i = 0; i < corners.length; i++) {

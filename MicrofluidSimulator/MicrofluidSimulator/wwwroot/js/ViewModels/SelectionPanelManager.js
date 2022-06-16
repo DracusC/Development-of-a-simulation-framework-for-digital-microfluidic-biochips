@@ -105,7 +105,7 @@ let selection_manager = {
             name: "droplet_draw_call",
             value: "droplet_draw_call",
             id: "draw_droplet",
-            text: "Draw Droplets",      // Will be shown in layer panel list
+            text: "Draw Single Droplets",      // Will be shown in layer panel list
             element: "insert",          // Reference - get toggled from here
             checkbox: "insert",
             checked: false
