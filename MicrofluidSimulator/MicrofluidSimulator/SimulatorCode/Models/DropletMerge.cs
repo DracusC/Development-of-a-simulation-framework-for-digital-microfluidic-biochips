@@ -9,6 +9,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     /// </summary>
     public class DropletMerge
     {
+        /// <summary>
+        /// Model that decides when to merge and peform the merge
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <returns></returns>
         public static ArrayList dropletMerge(Container container, Droplets caller)
         {
             int callerID = caller.ID;
@@ -214,7 +220,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             subscribers.Add(callerID);
             return subscribers;
         }
-
+        /// <summary>
+        /// Function used to merge small droplets into big droplets
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <param name="otherDroplet"></param>
         private static void absorbDropletAndUpdateVariables(Container container, Droplets caller, Droplets otherDroplet)
         {
 

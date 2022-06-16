@@ -5,7 +5,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class HeaterActuatorModels
     {
-        
+        /// <summary>
+        /// Model for changing the temprature of the heater actuator
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="heater"></param>
+        /// <returns></returns>
         public static ArrayList heaterTemperatureChange(Container container, Heater heater)
         {
             heater.SetPowerStatus();

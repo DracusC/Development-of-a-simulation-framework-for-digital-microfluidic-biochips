@@ -4,11 +4,16 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class HelpfullRetreiveFunctions
     {
-        /* Function that is used when a id of an electrode is known and the index 
-         * in the electrode array i needed
-         * It first tries the id as index, if this dosent work it does a binary search*/
 
-        //droplet retreive functions
+
+        /// <summary>
+        /// Function that is used when a id of an electrode is known and the index 
+        /// in the electrode array i needed
+        /// It first tries the id as index, if this dosent work it does a binary search
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static int getIndexOfDropletByID(int ID, Container container)
         {
             List<Droplets> droplets = container.droplets;
@@ -24,6 +29,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return -1;
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="caller"></param>
+        /// <returns></returns>
         public static float getMassOfDropletGivenSubstance(Droplets caller)
         {
             switch (caller.substance_name)
@@ -35,7 +46,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return -1;
         }
-
+        /// <summary>
+        /// Makes a complete copy of the action queue
+        /// </summary>
+        /// <param name="actionQueue"></param>
+        /// <returns></returns>
         public static Queue<ActionQueueItem>? createDeepCopyOfActionQueue(Queue<ActionQueueItem> actionQueue)
         {
             Queue<ActionQueueItem> copyOfQueue = new Queue<ActionQueueItem>();
@@ -94,6 +109,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return false;
 
         }
+        /// <summary>
+        /// Get a a droplet located on a sensor returns the droplet or NULL if there is no droplet
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="sensor"></param>
+        /// <returns></returns>
         public static Droplets getDropletOnSensor(Container container, Sensors sensor)
         {
             foreach (Droplets droplet in container.droplets)
@@ -130,7 +151,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return null;
         }
-
+        /// <summary>
+        /// Creates a complete copy of the color queue
+        /// </summary>
+        /// <param name="colorQueue"></param>
+        /// <returns></returns>
         public static Queue<string> createDeepCopyOfColorQueue(Queue<string> colorQueue)
         {
             Queue<string> copyOfQueue = new Queue<string>();
@@ -144,6 +169,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         }
 
         //bubble retreive functions
+        /// <summary>
+        /// Get the diameter of the bubbles
+        /// </summary>
+        /// <param name="volumeFromDroplet"></param>
+        /// <returns></returns>
         public static double getDiameterOfBubble(double volumeFromDroplet)
         {
             double airDensity = 0.0012F;
@@ -151,6 +181,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             double radius = Math.Pow((3 * volume / (4 * Math.PI)), (1.0 / 3.0));
             return radius*2;
         }
+        /// <summary>
+        /// Get a bubbles in the bubble list based on the bubbles ID
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="bubbleID"></param>
+        /// <returns></returns>
         public static Bubbles getBubbleByID(Container container, int bubbleID)
         {
             foreach (Bubbles bubble in container.bubbles)
@@ -163,7 +199,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return null;
 
         }
-
+        /// <summary>
+        /// Creates a copy of the subscribed bubbles arraylist
+        /// </summary>
+        /// <param name="subscribedBubbles"></param>
+        /// <returns></returns>
         public static ArrayList copyOfSubscribedBubbles(ArrayList subscribedBubbles)
         {
             ArrayList copyOfSubscribedBubbles = new ArrayList();
@@ -175,6 +215,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         }
 
         //actuator retreive functions
+
+        /// <summary>
+        /// Get the actuator on a droplets position
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
+        /// <param name="actuatorType"></param>
+        /// <returns></returns>
         public static Actuators getActuatorOnDroplet(Container container, Droplets caller, string actuatorType)
         {
             

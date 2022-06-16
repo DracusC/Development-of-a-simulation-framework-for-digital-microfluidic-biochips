@@ -3,20 +3,31 @@ using MicrofluidSimulator.SimulatorCode.DataTypes;
 namespace MicrofluidSimulator.SimulatorCode.Models
 
 {
+    /// <summary>
+    /// Models and utlity functions for electrodes
+    /// </summary>
     public class ElectrodeModels
     {
+        /// <summary>
+        /// Models that switrches a electrode on or off
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="electrode"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public static ArrayList electrodeOnOff(Container container, Electrode electrode, SimulatorAction action)
         {
-            // electrode on/off
+
             electrode.status = action.actionChange;
-            //if (action.ActionChange != 0)
-            //{
-                // give back the subscribers of the electrode
-                return electrode.subscriptions;
-            //}
-            //ArrayList empty = new ArrayList();
-            //return empty;
+
+            return electrode.subscriptions;
         }
+        /// <summary>
+        /// Function to check if a electrode contains a droplet, retunrs the droplet or NULL if there is none
+        /// </summary>
+        /// <param name="Caller"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static Droplets electrodeHasDroplet(Electrode Caller, Container container)
         {
             List<Droplets> droplets = container.droplets;
@@ -29,6 +40,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return null;
         }
+        /// <summary>
+        /// Function to find the center of a electrode
+        /// For non square electrodes takes the avaerage of all coordinates as center
+        /// </summary>
+        /// <param name="electrode"></param>
+        /// <returns></returns>
         public static int[] getCenterOfElectrode(Electrode electrode)
         {
             int[] centre = new int[2];
@@ -46,7 +63,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return centre;
 
         }
-
+        /// <summary>
+        /// Function that gives the area of an electrode
+        /// </summary>
+        /// <param name="electrode"></param>
+        /// <returns></returns>
         public static int getAreaOfElectrode(Electrode electrode)
         {
             if(electrode.shape == 0)
@@ -58,7 +79,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 return (int) getAreaOfIrregularShapedElectrode(electrode);
             }
         }
-
+        /// <summary>
+        /// Function used for getAreaOfElectrode if the droplet is not a rectangle
+        /// </summary>
+        /// <param name="electrode"></param>
+        /// <returns></returns>
         private static float getAreaOfIrregularShapedElectrode(Electrode electrode)
         {
             
