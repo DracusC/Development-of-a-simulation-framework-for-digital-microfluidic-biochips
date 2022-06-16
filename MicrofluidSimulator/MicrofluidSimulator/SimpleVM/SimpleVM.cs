@@ -1,5 +1,5 @@
 ﻿/*
- * This is a dumb version of the virtual machine, it is used for testing purposes,
+ * This is a simple version of the virtual machine, it is used for testing purposes,
  * since we do not have access to the actual virtual machine.
  */
 using System.Drawing;

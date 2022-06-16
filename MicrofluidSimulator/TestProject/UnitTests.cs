@@ -12,14 +12,16 @@ namespace TestProject
     public class Tests
     {
 
-        //static Container container = new Container(null, null, null);
+        
         [SetUp]
         public void Setup()
         {
 
         }
 
-
+        /// <summary>
+        /// Test to check neighbour finder works correctly
+        /// </summary>
         [Test]
         public void TestNeighbouringRectangularElectrodes()
         {
@@ -34,6 +36,9 @@ namespace TestProject
             Assert.That(neighbours, Has.Exactly(1).EqualTo(33));
         }
 
+        /// <summary>
+        /// Test to check if subscriptions are initialized correctly
+        /// </summary>
         [Test]
         public void TestSubscriptionInitialization()
         {
@@ -47,6 +52,9 @@ namespace TestProject
             
         }
 
+        /// <summary>
+        /// Testing that the groups are correct after initialization
+        /// </summary>
         [Test]
         public void TestDropletGroupsInitialization()
         {
@@ -58,7 +66,10 @@ namespace TestProject
             Assert.That(container.droplets[0].group == container.droplets[7].group);
         }
 
-       [Test]
+        /// <summary>
+        /// Test position of droplets after moving them with center path
+        /// </summary>
+        [Test]
         public void TestDropletMovement()
         {
             
@@ -86,6 +97,10 @@ namespace TestProject
             Assert.That(simulator.container.droplets[0].positionX == 360);
             Assert.That(simulator.container.droplets[0].positionY == 190);
         }
+
+        /// <summary>
+        /// Test split and merge functionality by moving two droplets into eachother and away from eachother
+        /// </summary>
 
         [Test]
         public void TestSplitMerge()
