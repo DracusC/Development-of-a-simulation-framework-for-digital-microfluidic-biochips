@@ -20,6 +20,12 @@ namespace MicrofluidSimulator.SimpleVM
             heater.SetTargetTemperature(desiredValue);
             return 0;
         }
+        /// <summary>
+        /// Function that returns the color read by a sensor if the sensor is of type "RGB_color"
+        /// </summary>
+        /// <param name="sensorID"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static int[] getColorOfSensorWithID(int sensorID, Container container)
         {
             ColorSensor colorSensor = (ColorSensor)HelpfullRetreiveFunctions.getSensorByID(container, sensorID);
@@ -41,7 +47,12 @@ namespace MicrofluidSimulator.SimpleVM
                 return colorSensor.GetColor();
             }
         }
-
+        /// <summary>
+        /// Function that returns the temperature read by a sensor if the sensor is of type "temperature"
+        /// </summary>
+        /// <param name="sensorID"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static float getTemperatureOfSensorWithID(int sensorID, Container container)
         {
             // -1 might not be the best option for a return value, reconsider
