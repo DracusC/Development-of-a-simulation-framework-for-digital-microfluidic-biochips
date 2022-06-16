@@ -10,6 +10,11 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 {
     public class NeighbourFinder
     {
+        /// <summary>
+        /// Function for finding neigbors of electrodes
+        /// </summary>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static Container findNeighbours(Container container)
         {
             for (int i = 0; i < container.electrodes.Length; i++)
@@ -26,13 +31,6 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                     container.electrodes[i].neighbours = findNeighboursByElectrodePolygon(container.electrodes, container.electrodes[i]);
                 }
 
-
-
-
-
-
-
-
             }
             string electrodesWithNeighbours = JsonConvert.SerializeObject(container.electrodes);
             Console.WriteLine(electrodesWithNeighbours);
@@ -41,7 +39,12 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return container;
         }
 
-
+        /// <summary>
+        /// Function for finding neigbors of a electrodes of a non rectagular shape
+        /// </summary>
+        /// <param name="electrodeBoard"></param>
+        /// <param name="electrode"></param>
+        /// <returns></returns>
         private static ArrayList findNeighboursByElectrodePolygon(Electrode[] electrodeBoard, Electrode electrode)
         {
             ArrayList neighbours = electrode.neighbours;
@@ -169,7 +172,12 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         }
 
 
-
+        /// <summary>
+        /// Function to find neigbors of electrodes of a rectangular shape
+        /// </summary>
+        /// <param name="electrodeBoard"></param>
+        /// <param name="electrode"></param>
+        /// <returns></returns>
         private static ArrayList findNeighboursByElectrode(Electrode[] electrodeBoard, Electrode electrode)
         {
 
@@ -321,6 +329,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
             return gcd;
         }
+
 
         private static bool isCorner(Electrode electrode, int currentPointX, int currentPointY)
         {

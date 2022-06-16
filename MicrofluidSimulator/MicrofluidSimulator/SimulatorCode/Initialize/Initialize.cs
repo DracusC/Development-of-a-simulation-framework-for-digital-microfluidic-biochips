@@ -13,7 +13,12 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         {
 
         }
-
+        /// <summary>
+        /// Initialization function for intializing the data in the container
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="electrodesWithNeighbours"></param>
+        /// <returns></returns>
         public Container initialize(Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours)
         {
 
@@ -51,7 +56,11 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             initializeSubscriptions(initialContainer);
             return initialContainer;
         }
-
+        /// <summary>
+        /// Function to initialize the bubbles
+        /// </summary>
+        /// <param name="bubbles"></param>
+        /// <returns></returns>
         private List<Bubbles> initializeBubbles(List<Bubbles> bubbles)
         {
             List<Bubbles> initialBubbles = new List<Bubbles>();
@@ -62,13 +71,22 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return initialBubbles;
            
         }
-
+        /// <summary>
+        /// Function to initializing the information
+        /// </summary>
+        /// <param name="informationInput"></param>
+        /// <returns></returns>
         private Information initializeInformation(Information informationInput)
         {
             Information information = new Information(informationInput.platform_name, informationInput.platform_type, informationInput.platform_ID, informationInput.sizeX, informationInput.sizeY);
             return information;
         }
-
+        /// <summary>
+        /// Funciton to initialize the sensor
+        /// </summary>
+        /// <param name="sensors"></param>
+        /// <param name="electrodeBoard"></param>
+        /// <returns></returns>
         private Sensors[] initializeSensors(Sensors[] sensors, Electrode[] electrodeBoard)
         {
             Sensors[] sensorsInitial = new DataTypes.Sensors[sensors.Length];
@@ -97,7 +115,11 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             }
             return sensorsInitial;
         }
-
+        /// <summary>
+        /// Function to initialize the actuators
+        /// </summary>
+        /// <param name="actuators"></param>
+        /// <returns></returns>
         private DataTypes.Actuators[] initializeActuators(Actuators[] actuators)
         {
             
@@ -124,10 +146,12 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             return actuatorsInitial;
 
         }
-
-        
-
-
+        /// <summary>
+        /// Function to initialize the electrode board
+        /// </summary>
+        /// <param name="electrodes"></param>
+        /// <param name="electrodesWithNeighbours"></param>
+        /// <returns></returns>
         private Electrode[] initializeBoard(Electrode[] electrodes, ElectrodesWithNeighbours[] electrodesWithNeighbours)
         {
 
@@ -144,14 +168,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
                         electrodes[i].neighbours.Add(electrodesWithNeighbours[i].Neighbours[j]);
                     }
                     
-                    
-
                 }
-                
-
-
-
-
 
             }
 
@@ -159,7 +176,11 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
 
         }
-
+        /// <summary>
+        /// Funtion for initializing the droplets
+        /// </summary>
+        /// <param name="droplets"></param>
+        /// <returns></returns>
         private List<Droplets> initializeDroplets(List<Droplets> droplets)
         {
             List<Droplets> dropletsArray = new List<Droplets>();
@@ -175,24 +196,21 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         }
 
         
-
+        /// <summary>
+        /// Function for intializing all subscribtions of all droplets
+        /// </summary>
+        /// <param name="container"></param>
         private void initializeSubscriptions(Container container)
         {
             List<Droplets> droplets = container.droplets;
             foreach (Droplets droplet in droplets)
             {
                 SubscriptionModels.dropletSubscriptions(container, droplet);
-                foreach(int sub in droplet.subscriptions)
-                {
-                    Console.WriteLine("droplet subs id: " + droplet.ID + " subs: " + sub);
-                }
+
                 
             }
 
 
         }
-
-       
-
     }
 }
