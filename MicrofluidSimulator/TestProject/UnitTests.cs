@@ -26,7 +26,7 @@ namespace TestProject
         public void TestNeighbouringRectangularElectrodes()
         {
 
-            StreamReader r = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/platform640v2.json");
+            StreamReader r = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/configurations-paths-original/platform640v2.json");
             string jsonString = r.ReadToEnd();
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonString);
             Initialize init = new Initialize();
@@ -42,7 +42,7 @@ namespace TestProject
         [Test]
         public void TestSubscriptionInitialization()
         {
-            StreamReader r = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/platform640v2.json");
+            StreamReader r = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/configurations-paths-original/platform640v2.json");
             string jsonString = r.ReadToEnd();
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonString);
             Initialize init = new Initialize();
@@ -58,7 +58,7 @@ namespace TestProject
         [Test]
         public void TestDropletGroupsInitialization()
         {
-            StreamReader r = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/platform640v2.json");
+            StreamReader r = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/configurations-paths-original/platform640v2.json");
             string jsonString = r.ReadToEnd();
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonString);
             Initialize init = new Initialize();
@@ -74,14 +74,14 @@ namespace TestProject
         {
             
             
-            StreamReader rContainer = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/platform640vCenterPath.json");
-            StreamReader rActions = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/center_path.txt");
+            StreamReader rContainer = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/configurations-paths-from-luca/platform640vCenterPath.json");
+            StreamReader rActions = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/configurations-paths-from-luca/center_path.txt");
             string jsonStringContainer = rContainer.ReadToEnd();
             string jsonStringActions = rActions.ReadToEnd();
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonStringContainer);
             
 
-            Simulator simulator = new Simulator(null, getContainer, null, jsonStringActions, "en");
+            Simulator simulator = new Simulator(null, getContainer, null, jsonStringActions, "en-US");
             Assert.That(simulator.container.droplets[0].positionX == 200);
             Assert.That(simulator.container.droplets[0].positionY == 190);
             for(int i = 0; i < 21; i++)
@@ -107,14 +107,14 @@ namespace TestProject
         {
 
 
-            StreamReader rContainer = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/platform640vSplitMerge.json");
-            StreamReader rActions = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/split_merge_1.txt");
+            StreamReader rContainer = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/configurations-paths-from-luca/platform640vSplitMerge.json");
+            StreamReader rActions = new StreamReader("../../../../MicrofluidSimulator/wwwroot/sample-data/configurations-paths-from-luca/split_merge.txt");
             string jsonStringContainer = rContainer.ReadToEnd();
             string jsonStringActions = rActions.ReadToEnd();
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonStringContainer);
 
 
-            Simulator simulator = new Simulator(null, getContainer, null, jsonStringActions, "en");
+            Simulator simulator = new Simulator(null, getContainer, null, jsonStringActions, "en-US");
             Assert.That(simulator.container.droplets.Count == 2);
             
             for (int i = 0; i < 20; i++)
