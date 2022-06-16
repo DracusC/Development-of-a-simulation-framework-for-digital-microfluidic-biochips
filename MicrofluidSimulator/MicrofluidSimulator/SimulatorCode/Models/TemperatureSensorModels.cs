@@ -4,7 +4,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
     public class TemperatureSensorModels
     {
 
-
+        /// <summary>
+        /// Model of the temperature sensor detecting the temperature
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="sensor"></param>
+        /// <returns></returns>
         public static float temperatureSensor(Container container, Sensors sensor)
         {
             Droplets droplet = HelpfullRetreiveFunctions.getDropletOnSensor(container, sensor);

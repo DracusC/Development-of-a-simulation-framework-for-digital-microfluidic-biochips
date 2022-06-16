@@ -4,6 +4,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class ColorSensorModels
     {
+        /// <summary>
+        /// Model for the color sensor detecting the color 
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="sensor"></param>
+        /// <returns></returns>
         public static int[] colorSensor(Container container, Sensors sensor)
         {
             Droplets droplet = HelpfullRetreiveFunctions.getDropletOnSensor(container, sensor);

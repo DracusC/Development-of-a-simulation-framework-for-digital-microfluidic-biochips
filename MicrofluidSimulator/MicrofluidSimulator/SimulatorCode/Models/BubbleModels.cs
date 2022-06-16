@@ -4,7 +4,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class BubbleModels
     {
-        
+        /// <summary>
+        /// Model for merging bubbles
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="bubble"></param>
+        /// <returns></returns>
         public static ArrayList bubbleMerge(Container container, Bubbles bubble)
         {
             ArrayList subscribers = new ArrayList();
@@ -42,7 +47,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             return subscribers;
             
         }
-
+        /// <summary>
+        /// Function to check if a bubble is on a droplet
+        /// </summary>
+        /// <param name="droplet"></param>
+        /// <param name="bubble"></param>
+        /// <returns></returns>
         public static bool bubbleIsOnDroplet(Droplets droplet, Bubbles bubble)
         {
 
@@ -68,6 +78,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
             
         }
+        /// <summary>
+        /// Model to move a bubble
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="bubble"></param>
+        /// <returns></returns>
         public static ArrayList moveBubble(Container container, Bubbles bubble)
         {
             ArrayList subscribers = new ArrayList();
@@ -84,7 +100,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             
 
         }
-
+        /// <summary>
+        /// Move a bubble acording to a group of droplets
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="droplet"></param>
+        /// <param name="bubble"></param>
         public static void moveBubbleAccordingToGroup(Container container, Droplets droplet, Bubbles bubble)
         {
             
@@ -117,7 +138,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             
         }
-
+        /// <summary>
+        /// Function to move a bubble away from a droplet
+        /// </summary>
+        /// <param name="droplet"></param>
+        /// <param name="bubble"></param>
         public static void moveBubbleFromDroplet(Droplets droplet, Bubbles bubble)
         {
             double vecVX = bubble.positionX - droplet.positionX;
@@ -151,15 +176,8 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 bubble.positionX = droplet.positionX + (int)vecUX;
                 bubble.positionY = droplet.positionY + (int)vecUY;
 
-
-
-
-
             }
         }
-
-        
-
         
     }
 }

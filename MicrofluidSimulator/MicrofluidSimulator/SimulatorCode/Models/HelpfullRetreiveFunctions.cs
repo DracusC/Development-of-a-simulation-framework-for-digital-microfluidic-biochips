@@ -248,9 +248,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return null;
         }
+        /// <summary>
+        /// Get the index of an actuator in the actuator array based on its ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static int getIndexOfActuatorByID(int ID, Container container)
         {
-
+            //tries to check the with the id as index since this often is the case else does a binary search
             Actuators[] actuators = container.actuators;
 
             if (actuators[ID].ID == ID)
@@ -260,6 +266,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
             return binarySearchActuators(ID, container);
         }
+        /// <summary>
+        /// Get an actuar based on ID, return the actuator or NULL if it does not exist
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="actuatorID"></param>
+        /// <returns></returns>
         public static Actuators getActuatorByID(Container container, int actuatorID)
         {
             foreach (Actuators actuator in container.actuators)
@@ -271,7 +283,13 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return null;
         }
-
+        /// <summary>
+        /// This is used for getIndexOfActuatorByID
+        /// Get the index of an actuator in the actuator array based on its ID -1 if it does not exist
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static int binarySearchActuators(int ID, Container container)
         {
             Actuators[] actuators = container.actuators;
@@ -298,6 +316,14 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         }
 
         //electrode retreive functions
+        /// <summary>
+        /// Gets the index of an electrode in the electrod list based on ID
+        /// This is used for translating the boardconfiguration json into our data representation removing the need for driver id
+        /// </summary>
+        /// <param name="electrodeId"></param>
+        /// <param name="driverId"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static int getIdOfElectrodByElectrodID(int electrodeId, int driverId, Container container)
         {
             Electrode[] electrodes = container.electrodes;
@@ -311,10 +337,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return -1;
         }
-
+        /// <summary>
+        /// Gets the index of a electrode in the electrode array based on the index, returns -1 if it does not exist
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static int getIndexOfElectrodeByID(int ID, Container container)
         {
-
+            // tries to use the id as index if it is not the correct does binary search
             Electrode[] electrodes = container.electrodes;
             
                 if (electrodes[ID].ID == ID)
@@ -324,19 +355,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 
             return binarySearchElectrode(ID, container);
         }
-        public static int getIDofElectrodeByPosition(int positionX, int positionY, Electrode[] electrodeBoard)
-        {
-
-            for (int i = 0; i < electrodeBoard.Length; i++)
-            {
-                Electrode electrode = electrodeBoard[i];
-                if (electrode.positionX <= positionX && electrode.positionX + electrode.sizeX >= positionX && electrode.positionY <= positionY && electrode.positionY + electrode.sizeY >= electrode.positionY)
-                {
-                    return electrodeBoard[i].ID;
-                }
-            }
-            return -1;
-        }
+        /// <summary>
+        /// Binary searches for the index of a electrode based on ID used for getIndexOfElectrodeByID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static int binarySearchElectrode(int ID, Container container)
         {
             Electrode[] electrodes = container.electrodes;
@@ -361,8 +385,31 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return -1;
         }
+        /// <summary>
+        /// Function to find the electrode based on a bord postion
+        /// </summary>
+        /// <param name="positionX"></param>
+        /// <param name="positionY"></param>
+        /// <param name="electrodeBoard"></param>
+        /// <returns></returns>
+        public static int getIDofElectrodeByPosition(int positionX, int positionY, Electrode[] electrodeBoard)
+        {
 
-        //function to copy the initial container, used for restarting the simulator
+            for (int i = 0; i < electrodeBoard.Length; i++)
+            {
+                Electrode electrode = electrodeBoard[i];
+                if (electrode.positionX <= positionX && electrode.positionX + electrode.sizeX >= positionX && electrode.positionY <= positionY && electrode.positionY + electrode.sizeY >= electrode.positionY)
+                {
+                    return electrodeBoard[i].ID;
+                }
+            }
+            return -1;
+        }
+        /// <summary>
+        /// function to copy the initial container, used for restarting the simulator
+        /// </summary>
+        /// <param name="container"></param>
+        /// <returns></returns>
         public static Container createCopyAndResetContainer(Container container)
         {
             
@@ -385,14 +432,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
 
 
-            Console.WriteLine("CONTAINER DROPLETS COUNT " + container.droplets.Count);
             int j = 0;
             foreach (Droplets droplet in container.droplets)
             {
                 droplets.Add(new Droplets(droplet.name, droplet.ID, droplet.substance_name, droplet.positionX, droplet.positionY, droplet.sizeX, droplet.sizeY, droplet.color, droplet.temperature, droplet.volume, droplet.electrodeID, droplet.group, 0));
                 j++;
             }
-            Console.WriteLine("THERE IS THIS MANY DROPLETS AFTER COPY" + j);
 
             
             
@@ -466,6 +511,12 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         }
 
         //sensor retreive functions
+        /// <summary>
+        /// Gets a sensor by ID return NULL if there is no sensor with the requested ID
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="sensorID"></param>
+        /// <returns></returns>
         public static Sensors getSensorByID(Container container, int sensorID)
         {
             foreach (Sensors sensor in container.sensors)

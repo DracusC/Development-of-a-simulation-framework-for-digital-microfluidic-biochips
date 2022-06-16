@@ -5,6 +5,11 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 {
     public class SubscriptionModels
     {
+        /// <summary>
+        /// Model to initialize/update subscribtions of a droplet
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="caller"></param>
         public static void dropletSubscriptions(Container container, Droplets caller)
         {
             // Gets the needed data out of the container
@@ -35,7 +40,13 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
 
         }
-
+        /// <summary>
+        /// Function used to subscribe a droplet to electrodes, this is used in the dropletSubscriptions
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="droplet"></param>
+        /// <param name="electrode"></param>
+        /// <param name="alreadyChecked"></param>
         private static void makeNewSubscribtions(Container container, Droplets droplet, Electrode electrode, ArrayList alreadyChecked)
         {
             //Recursive function that runs through the elctrodes that have the droplet overlappin them until all have been found
@@ -104,7 +115,3 @@ namespace MicrofluidSimulator.SimulatorCode.Models
 
     }
 }
-
-
-
-// LOL
