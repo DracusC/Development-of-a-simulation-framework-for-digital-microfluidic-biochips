@@ -294,16 +294,22 @@
     private static Simulator? simulator;
     private static MicrofluidSimulator.SimpleVM.SimpleVM? dumbVM;
     private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
-
-    private string[,] configurationArray = new string[9, 2]{{"sample-data/platform640v2.json", "sample-data/SimplePaths.txt"}
-                                                           , {"sample-data/platform640vCenterPath.json", "sample-data/center_path.txt"}
-                                                           , {"sample-data/platform640vCenterPathForVideo.json", "sample-data/center_path_for_video.txt"}
-                                                           , {"sample-data/platform640vColorSorting.json", null}
-                                                           , {"sample-data/platform640vForSplitMergeManual.json", null }
-                                                           , {"sample-data/platform640vForVideo.json", "sample-data/for_video_1.txt"}
-                                                           , {"sample-data/platform640vForVideo2.json", "sample-data/for_video_2.txt"}
-                                                           , {"sample-data/platform640vSplitMerge.json","sample-data/split_merge_1.txt" }
-                                                           , {"sample-data/platform640vThreePaths.json", "sample-data/three_paths.txt"}};
+    /// <summary>
+    /// When choosing what configuration to run, you can set the integer "chosenConfiguration" in the 
+    /// function "OnAfterRender" to one of the following indexes:
+    /// 0) platform640v2 with the SimplePaths given by Luca
+    /// 1) platform640vCenterPath is a single droplet moving across the board
+    /// 2) platform640vCenterPathForVideo is similar to center path, but the droplet is further up on the board
+    /// 3) platform640vColorSorting uses the sensor and the virtual machine to sort droplets of different colours
+    /// 4) platform640vSplitMerge is a test case where two droplets are merged and split multiple times
+    /// 5) platform640vThreePaths is a test case where three droplets are moved around on the board
+    /// </summary>
+    private string[,] configurationArray = new string[6, 2]{{"sample-data/configurations-paths-original/platform640v2.json", "sample-data/configurations-paths-original/SimplePaths.txt"}
+                                                           , {"sample-data/configurations-paths-from-luca/platform640vCenterPath.json", "sample-data/configurations-paths-from-luca/center_path.txt"}
+                                                           , {"sample-data/configurations-paths-for-videos/platform640vCenterPathForVideo.json", "sample-data/configurations-paths-for-videos/center_path_for_video.txt"}
+                                                           , {"sample-data/configurations-paths-for-videos/platform640vColorSorting.json", null}
+                                                           , {"sample-data/configurations-paths-from-luca/platform640vSplitMerge.json","sample-data/configurations-paths-from-luca/split_merge.txt" }
+                                                           , {"sample-data/configurations-paths-from-luca/platform640vThreePaths.json", "sample-data/configurations-paths-from-luca/three_paths.txt"}};
 
     /// <summary>
     /// OnAfterRender is triggered when a render change is happening, we initialize on first render.
@@ -311,10 +317,10 @@
     /// <param name="firstRender"></param>
     protected override async void OnAfterRender(bool firstRender) {
         if (firstRender) {
-
-            int chosenConfiguration = 0;
+            // choose the index of the configuration you would like to run
+            int chosenConfiguration = 1;
             container = await Http.GetFromJsonAsync<Container>(configurationArray[chosenConfiguration,0]);
-            electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/platform640v2neighbours.json");
+            electrodesWithNeighbours = await Http.GetFromJsonAsync<MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]>("sample-data/neighbours.json");
             string actionQueueInstructions;
             if(configurationArray[chosenConfiguration,1] != null)
             {

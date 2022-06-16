@@ -93,7 +93,7 @@ namespace MicrofluidSimulator.SimpleVM
            
             if ((simulator.container.currentTime*100) % 496 == 0 && simulator.container.currentTime != 0 && copyOfColorQueue.Count > 0)
             {
-               
+                Console.WriteLine("EVERYTHING SATISFIED");
                 Droplets newDroplet = new Droplets("test droplet", (int)simulator.container.currentTime, "h20", 700, 190, 22, 22, copyOfColorQueue.Dequeue(),
                 20, 380, 318, (int)simulator.container.currentTime, 0);
 
