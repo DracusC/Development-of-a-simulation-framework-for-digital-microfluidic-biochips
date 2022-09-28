@@ -92,17 +92,18 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         public static Queue<ActionQueueItem> generateActionQueueFromReader(string generatedActionQueue, Container container, string browserLanguage)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
-
+            Console.WriteLine(browserLanguage);
             string firstLine = generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)[0];
             string[] firstWords = firstLine.Split(' ');
             double timeToSubtract;
-            if (!browserLanguage.Equals("en"))
+            if (browserLanguage.Equals("en") || browserLanguage.Equals("en-US"))
             {
-                timeToSubtract = Convert.ToDouble(firstWords[4].Replace(".", ","));
+                timeToSubtract = Convert.ToDouble(firstWords[4]);
+                
             }
             else
             {
-                timeToSubtract = Convert.ToDouble(firstWords[4]);
+                timeToSubtract = Convert.ToDouble(firstWords[4].Replace(".", ","));
             }
  
 

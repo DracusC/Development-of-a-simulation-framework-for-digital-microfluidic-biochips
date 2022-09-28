@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 # Mac files
 .DS_Store
+MicrofluidSimulator/MicrofluidSimulator/Properties/ServiceDependencies/MicrofluidicSimulator - Web Deploy/profile.arm.json
