@@ -92,14 +92,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         public static Queue<ActionQueueItem> generateActionQueueFromReader(string generatedActionQueue, Container container, string browserLanguage)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();
-            Console.WriteLine(browserLanguage);
+            
             string firstLine = generatedActionQueue.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)[0];
             string[] firstWords = firstLine.Split(' ');
             double timeToSubtract;
             if (browserLanguage.Equals("en") || browserLanguage.Equals("en-US"))
             {
                 timeToSubtract = Convert.ToDouble(firstWords[4]);
-                
             }
             else
             {
@@ -122,16 +121,16 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[8]), container);
                         SimulatorAction action = new SimulatorAction("electrode", electrodeId, 1);
                         ActionQueueItem item;
-                        if (!browserLanguage.Equals("en"))
-                        {
-                            item = new ActionQueueItem(action, (decimal)((Convert.ToDouble(words[4].Replace(".", ",")) - timeToSubtract) * 0.001));
-                        }
-                        else
+                        if (browserLanguage.Equals("en") || browserLanguage.Equals("en-US"))
                         {
                             item = new ActionQueueItem(action, (decimal)((Convert.ToDouble(words[4]) - timeToSubtract) * 0.001));
                         }
+                        else
+                        {
+                            item = new ActionQueueItem(action, (decimal)((Convert.ToDouble(words[4].Replace(".", ",")) - timeToSubtract) * 0.001));
+                            
+                        }
                         
-
                         actionQueueInstructions.Enqueue(item);
                     }
                     else if (words[7].Equals("clrel"))
@@ -140,15 +139,14 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                         int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[8]), container);
                         SimulatorAction action = new SimulatorAction("electrode", electrodeId, 0);
                         ActionQueueItem item;
-                        if (!browserLanguage.Equals("en"))
-                        {
-                            item = new ActionQueueItem(action, (decimal)((Convert.ToDouble(words[4].Replace(".", ",")) - timeToSubtract) * 0.001));
-                        }
-                        else
+                        if (browserLanguage.Equals("en") || browserLanguage.Equals("en-US"))
                         {
                             item = new ActionQueueItem(action, (decimal)((Convert.ToDouble(words[4]) - timeToSubtract) * 0.001));
                         }
-
+                        else
+                        {
+                            item = new ActionQueueItem(action, (decimal)((Convert.ToDouble(words[4].Replace(".", ",")) - timeToSubtract) * 0.001));
+                        }
 
                         actionQueueInstructions.Enqueue(item);
                     }
