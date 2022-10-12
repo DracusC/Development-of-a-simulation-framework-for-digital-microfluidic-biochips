@@ -1,0 +1,26 @@
+# Application example. Merge and mix D1 and D2.
+
+# Program
+.text
+def count 0
+def max_count 1
+
+merge_mix_D1_D2:
+  LI count 0;
+  LI max_count 5;
+loop:
+  BEQ loop_end count max_count;
+  CLRELI 78;
+  SETELI 69;
+  TICK;
+  [...]
+  CLRELI 87;
+  SETELI 78;
+  TICK;
+  ADDI count count 1;
+  JI loop;
+loop_end:
+  CLRELI 78;
+  SETELI 69;
+  TSTOP;
+  TICK;

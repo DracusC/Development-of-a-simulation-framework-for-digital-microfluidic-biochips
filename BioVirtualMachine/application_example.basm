@@ -1,0 +1,125 @@
+# Application example. Move, merge, and mix D1 and D2.
+
+# Program
+.text
+def cnt 0
+def max_cnt 1
+
+start:
+  TSTART move_D1;
+  TSTART move_D2;
+  BARR 0 3;
+  TSTART merge_mix_D1_D2;
+  TICK;
+  TSTOP;
+  TICK;
+
+move_D1:
+  SETELI 47;
+  TICK;
+  CLRELI 47;
+  SETELI 48;
+  TICK;
+  CLRELI 48;
+  SETELI 49;
+  TICK;
+  CLRELI 49;
+  SETELI 50;
+  TICK;
+  CLRELI 50;
+  SETELI 51;
+  TICK;
+  CLRELI 51;
+  SETELI 60;
+  TICK;
+  CLRELI 60;
+  SETELI 69;
+  BARR 0 3;
+  TSTOP;
+  TICK;
+
+move_D2:
+  SETELI 11;
+  TICK;
+  CLRELI 11;
+  SETELI 12;
+  TICK;
+  CLRELI 12;
+  SETELI 13;
+  TICK;
+  CLRELI 13;
+  SETELI 14;
+  TICK;
+  CLRELI 14;
+  SETELI 15;
+  TICK;
+  CLRELI 15;
+  SETELI 16;
+  TICK;
+  CLRELI 16;
+  SETELI 17;
+  TICK;
+  CLRELI 17;
+  SETELI 26;
+  TICK;
+  CLRELI 26;
+  SETELI 35;
+  TICK;
+  CLRELI 35;
+  SETELI 44;
+  TICK;
+  CLRELI 44;
+  SETELI 53;
+  TICK;
+  CLRELI 53;
+  SETELI 62;
+  TICK;
+  CLRELI 62;
+  SETELI 71;
+  BARR 0 3;
+  TSTOP;
+  TICK;
+
+merge_mix_D1_D2:
+  LI cnt 0;
+  LI max_cnt 5;
+loop:
+  BEQ loop_end cnt max_cnt;
+  CLRELI 78;
+  SETELI 69;
+  TICK;
+  CLRELI 69;
+  SETELI 70;
+  TICK;
+  CLRELI 70;
+  SETELI 71;
+  TICK;
+  CLRELI 71;
+  SETELI 80;
+  TICK;
+  CLRELI 80;
+  SETELI 89;
+  TICK;
+  CLRELI 89;
+  SETELI 88;
+  TICK;
+  CLRELI 88;
+  SETELI 87;
+  TICK;
+  CLRELI 87;
+  SETELI 78;
+  TICK;
+  ADDI cnt cnt 1;
+  JI loop;
+loop_end:
+  CLRELI 78;
+  SETELI 69;
+  TSTOP;
+  TICK;
+
+# Bio-Virtual-Machine configuration
+.configuration
+data_memory_size -1
+private_data_memory_start_address 1000
+debug_log_data_types_for_print_formatting true
+debug_keep_all_private_data_memories true

@@ -1,0 +1,36 @@
+# Test of the Bio Virtual Machine ISA
+
+.configuration
+data_memory_size -1
+private_data_memory_start_address 1000
+debug_log_data_types_for_print_formatting true
+debug_keep_all_private_data_memories true
+
+.data
+def int_base_addr 0
+
+int_zero: int int_base_addr+0 0
+int_a_var: int int_base_addr+1 1000
+int_b_var: int int_base_addr+2 499
+
+real_var: real int_base_addr+3 1/4
+
+.text
+# Testing ALU
+def int_res_base_addr 10
+test_alu:
+  add int_res_base_addr+0 int_a_var int_b_var;
+  sub int_res_base_addr+1 int_a_var int_b_var;
+  mult int_res_base_addr+2 int_a_var int_b_var;
+  div int_res_base_addr+3 int_a_var int_b_var;
+  addi int_res_base_addr+4 int_a_var 1;
+  subi int_res_base_addr+5 int_a_var 1;
+
+  and int_res_base_addr+6 int_a_var int_b_var;
+  or int_res_base_addr+7 int_a_var int_b_var;
+  xor int_res_base_addr+8 int_a_var int_b_var;
+  not int_res_base_addr+9 int_a_var;
+
+end:
+  tstop;
+  tick;
