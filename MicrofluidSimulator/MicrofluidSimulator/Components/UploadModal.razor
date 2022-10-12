@@ -1,0 +1,94 @@
+﻿@* Adapted from https://www.puresourcecode.com/dotnet/blazor/modal-dialog-component-for-blazor/ *@
+
+@using MicrofluidSimulator.SimulatorCode
+@using MicrofluidSimulator.SimulatorCode.View
+@using System.Dynamic
+
+
+
+<div class="modal fade show" id="myModal" style="display:block; background-color: rgba(10,10,10,.8);"
+     aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Data Download</h4>
+                <button type="button" class="btn-close" @onclick="ModalCancel"></button>
+            </div>
+            <div class="modal-body">
+                <p>Upload a protocol to be run on the simulator framework.</p>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick=@ModalSubmit>Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<bool> OnClose { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnSubmit { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnOpen { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Text { get; set; }
+
+    public decimal TimeStart { get; set; }
+    public decimal TimeEnd { get; set; }
+    public decimal TimeStep { get; set; }
+
+
+    private Task ModalCancel()
+    {
+        return OnClose.InvokeAsync(false);
+    }
+    private Task ModalSubmit()
+    {
+        if (TimeEnd < TimeStart) TimeEnd = TimeStart;
+        return OnSubmit.InvokeAsync(false);
+    }
+
+    public async void ModalOpen()
+    {
+
+    }
+
+    private void onInputChangeStart()
+    {   
+
+        if(TimeStart > TimeEnd)
+        {
+            TimeEnd = TimeStart;
+        }
+
+        if(TimeStart < 0)
+        {
+            TimeStart = 0;
+        }
+        StateHasChanged();
+    }
+
+    private void onInputChangeEnd()
+    {
+
+        if(TimeEnd < TimeStart)
+        {
+            TimeEnd = TimeStart;
+        }
+
+
+        if(TimeEnd < 0)
+        {
+            TimeEnd = 0;
+        }
+        StateHasChanged();
+    }
+}
