@@ -118,7 +118,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     if (words[7].Equals("setel"))
                     {
 
-                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[8]), container);
+                        int electrodeId = HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[8]), container);
                         SimulatorAction action = new SimulatorAction("electrode", electrodeId, 1);
                         ActionQueueItem item;
                         if (browserLanguage.Equals("en") || browserLanguage.Equals("en-US"))
@@ -136,7 +136,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     else if (words[7].Equals("clrel"))
                     {
 
-                        int electrodeId = Models.HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[8]), container);
+                        int electrodeId = HelpfullRetreiveFunctions.getIdOfElectrodByElectrodID(Int32.Parse(words[i]), Int32.Parse(words[8]), container);
                         SimulatorAction action = new SimulatorAction("electrode", electrodeId, 0);
                         ActionQueueItem item;
                         if (browserLanguage.Equals("en") || browserLanguage.Equals("en-US"))
