@@ -235,6 +235,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                             executeAStep = true;
                         }
+
                     }
                 }
                 else
@@ -242,6 +243,9 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     //there are no actions on the queue'
 
                     //get subscribers to delta time, this is often all droplets
+
+                    Console.WriteLine("yo we here? at the time ");
+
                     container.timeStep = targetTime - container.currentTime;
                     subscribers = container.subscribedDroplets;
                     mustRunAllModels = false;
@@ -253,7 +257,16 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                 //check if we step a too large time amount, if it is set it to the maximum amount
                 if (container.timeStep > maximumTimeStep)
                 {
-                    container.timeStep = maximumTimeStep;
+
+                    if (container.timeStep / 10m > maximumTimeStep)
+                    {
+                        container.timeStep = container.timeStep / 10m;
+                    }
+                    else
+                    {
+                        container.timeStep = maximumTimeStep;
+                    }
+
                 }
 
  

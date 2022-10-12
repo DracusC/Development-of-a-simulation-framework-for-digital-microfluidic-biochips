@@ -252,34 +252,41 @@
     /// <param name="timeStepAmount"></param>
     public static void gotoTime(decimal timeStepAmount)
     {
-        decimal startSimulatorTime = simulator.container.currentTime;
+        //decimal startSimulatorTime = simulator.container.currentTime;
 
-        while(simulator.container.currentTime < timeStepAmount + startSimulatorTime)
-        {
+        //while(simulator.container.currentTime < timeStepAmount + startSimulatorTime)
+        //{
 
-            decimal simulatorTimeStep = 0;
-            if(simulator.actionQueue.Count != 0) {
-                simulatorTimeStep = simulator.actionQueue.Peek().time;
-            }
+        //    decimal simulatorTimeStep = 0;
+        //    if(simulator.actionQueue.Count != 0) {
+        //        simulatorTimeStep = simulator.actionQueue.Peek().time;
+        //    }
 
 
-            if(((startSimulatorTime + timeStepAmount) - simulator.container.currentTime) < (simulatorTimeStep - simulator.container.currentTime))
-            {
-                simulator.simulatorStep((startSimulatorTime + timeStepAmount) - simulator.container.currentTime);
-                simpleVM.doApiCall();
-            } else
-            {
-                simulator.simulatorStep(-1);
-                simpleVM.doApiCall();
-            }
+        //    if(((startSimulatorTime + timeStepAmount) - simulator.container.currentTime) < (simulatorTimeStep - simulator.container.currentTime))
+        //    {
+        //        simulator.simulatorStep((startSimulatorTime + timeStepAmount) - simulator.container.currentTime);
+        //        simpleVM.doApiCall();
+        //    } else
+        //    {
+        //        simulator.simulatorStep(-1);
+        //        simpleVM.doApiCall();
+        //    }
 
-        }
+        //}
 
         if(timeStepAmount <= 0)
         {
             simulator.simulatorStep(-1);
             simpleVM.doApiCall();
         }
+        else
+        {     
+            simulator.simulatorStep(timeStepAmount);
+            simpleVM.doApiCall();
+        }
+
+
 
         guibroker.update_board(simulator.container);
     }
