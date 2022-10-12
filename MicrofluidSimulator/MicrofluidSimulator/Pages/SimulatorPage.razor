@@ -42,6 +42,7 @@
                     <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
                     <button class="btn btn-primary" @onclick="Restart">Restart</button>
                     <button id="" class="btn btn-primary" @onclick="DownloadDataButton">Download</button>
+                    <button id="" class="btn btn-primary" @onclick="DownloadDataButton">Upload</button>
                 </div>
                 <div>
                     <span>TimeStep amount:</span>
@@ -119,7 +120,7 @@
     private async Task SubmitDownloadModal(bool accepted)
     {
         ModalOpen = false;
-        DownloadData(downloadModal.Time, downloadModal.TimeStep);
+        DownloadData(downloadModal.TimeStart, downloadModal.TimeEnd, downloadModal.TimeStep);
         StateHasChanged();
     }
 
@@ -135,20 +136,22 @@
     /// Download simulation data
     /// </summary>
     [JSInvokable]
-    public static void DownloadData(decimal endTime, decimal timeStep)
+    public static void DownloadData(decimal startTime, decimal endTime, decimal timeStep)
     {
         // Get the current time
         decimal timeBeforeDownload = simulator.container.currentTime;
 
-        if(timeStep <= 0 && timeStep != -1)
-        {
+        /*if(timeStep <= 0 && timeStep != -1)
+            {
             timeStep = 0.1m;
-        }
+        }*/
 
         // Restart simulation
         Restart();
 
         // Run the simulation and send the simulation data
+        simulator.simulatorStep(startTime);
+
         while(simulator.container.currentTime <= endTime)
         {
             string jsonStringForDownload = Utf8Json.JsonSerializer.ToJsonString(simulator.container);
@@ -214,6 +217,7 @@
     /// </summary>
     [JSInvokable]
     public static void JSSimulatorNextStep() {
+        if(simulator == null || simpleVM == null) return;
         guibroker.start_update_timer();
         simulator.simulatorStep(-1);
         simpleVM.doApiCall();
@@ -241,6 +245,7 @@
     [JSInvokable]
     public static void gotoSimulatorTimeStep(decimal deltaTime)
     {
+        if (simulator == null) return;
         simulator.restartSimulator();
         simulator.simulatorStep(deltaTime);
         guibroker.update_board(simulator.container);
@@ -252,29 +257,6 @@
     /// <param name="timeStepAmount"></param>
     public static void gotoTime(decimal timeStepAmount)
     {
-        //decimal startSimulatorTime = simulator.container.currentTime;
-
-        //while(simulator.container.currentTime < timeStepAmount + startSimulatorTime)
-        //{
-
-        //    decimal simulatorTimeStep = 0;
-        //    if(simulator.actionQueue.Count != 0) {
-        //        simulatorTimeStep = simulator.actionQueue.Peek().time;
-        //    }
-
-
-        //    if(((startSimulatorTime + timeStepAmount) - simulator.container.currentTime) < (simulatorTimeStep - simulator.container.currentTime))
-        //    {
-        //        simulator.simulatorStep((startSimulatorTime + timeStepAmount) - simulator.container.currentTime);
-        //        simpleVM.doApiCall();
-        //    } else
-        //    {
-        //        simulator.simulatorStep(-1);
-        //        simpleVM.doApiCall();
-        //    }
-
-        //}
-
         if(timeStepAmount <= 0)
         {
             simulator.simulatorStep(-1);
@@ -285,8 +267,6 @@
             simulator.simulatorStep(timeStepAmount);
             simpleVM.doApiCall();
         }
-
-
 
         guibroker.update_board(simulator.container);
     }

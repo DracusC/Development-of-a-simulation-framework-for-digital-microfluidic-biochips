@@ -15,14 +15,18 @@
                 <button type="button" class="btn-close" @onclick="ModalCancel"></button>
             </div>
             <div class="modal-body">
-                <p>Input a time (float value) in seconds, which is the end time of the simulation data, that will be downloaded, and a time step, which is the simulation call frequency.</p>
+                <p>Input a start and end time (float value) in seconds, and a time step, which is the simulation call frequency. Start time must not be less than end time!</p>
+                <div>
+                    Input start time:
+                    <RadzenNumeric @bind-Value="TimeStart" TValue="decimal" Step="0.1" Placeholder="Input a time (float)" Min="0" Change="onInputChangeStart" ></RadzenNumeric>
+                </div>
                 <div>
                     Input end time:
-                    <RadzenNumeric @bind-Value="Time" TValue="decimal" Step="0.1" Placeholder="Input a time (float)" Min="0" Change="onInputChange" ></RadzenNumeric>
+                    <RadzenNumeric @bind-Value="TimeEnd" TValue="decimal" Step="0.1" Placeholder="Input a time (float)" Min="0" Change="onInputChangeEnd" ></RadzenNumeric>
                 </div>
                 <div>
                     Input time step:
-                    <RadzenNumeric @bind-Value="TimeStep" TValue="decimal" Step="0.1" Placeholder="Input a time step (float)" Min="0" Change="onInputChange" ></RadzenNumeric>
+                    <RadzenNumeric @bind-Value="TimeStep" TValue="decimal" Step="0.1" Placeholder="Input a time step (float)" Min="0" ></RadzenNumeric>
                 </div>
             </div>
             <div class="modal-footer">
@@ -48,7 +52,8 @@
     [Parameter]
     public string Text { get; set; }
 
-    public decimal Time { get; set; }
+    public decimal TimeStart { get; set; }
+    public decimal TimeEnd { get; set; }
     public decimal TimeStep { get; set; }
 
 
@@ -58,6 +63,7 @@
     }
     private Task ModalSubmit()
     {
+        if (TimeEnd < TimeStart) TimeEnd = TimeStart;
         return OnSubmit.InvokeAsync(false);
     }
 
@@ -66,11 +72,34 @@
 
     }
 
-    private void onInputChange()
-    {
-        if(Time < 0)
+    private void onInputChangeStart()
+    {   
+
+        if(TimeStart > TimeEnd)
         {
-            Time = 0;
+            TimeEnd = TimeStart;
         }
+
+        if(TimeStart < 0)
+        {
+            TimeStart = 0;
+        }
+        StateHasChanged();
+    }
+
+    private void onInputChangeEnd()
+    {
+
+        if(TimeEnd < TimeStart)
+        {
+            TimeEnd = TimeStart;
+        }
+
+
+        if(TimeEnd < 0)
+        {
+            TimeEnd = 0;
+        }
+        StateHasChanged();
     }
 }
