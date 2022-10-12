@@ -16,10 +16,15 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         /// <param name="container"></param>
         /// <param name="electrodesWithNeighbours"></param>
         /// <param name="generatedActionQueue"></param>
+        /// 
+
+        double deltaTimeAsymptote;
+        double deltaTimeGrowth;
         public Simulator(Queue<ActionQueueItem> actionQueue, Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours, string generatedActionQueue, string browserLanguage)
         {
 
-            
+            deltaTimeAsymptote = 6.37;
+            deltaTimeGrowth = 63.69;
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();
             container = init.initialize(container, electrodesWithNeighbours);
@@ -54,6 +59,17 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         /// <summary>
         /// Function to restart the simulator reinitializing the container and all values
         /// </summary>
+        /// 
+        public void setDeltaAsymptote(double x)
+        {
+            deltaTimeAsymptote = x / (Math.PI / 2);
+            
+        }
+        public void setDeltaGrowth(double x)
+        {
+            deltaTimeGrowth = 1 / (Math.Tan(1 / (deltaTimeAsymptote / x)));
+        }
+
         public void restartSimulator()
         {
             
@@ -121,8 +137,23 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
                     targetTime = container.currentTime + 1;
                     executeAStep = false;
                 }
-            }
 
+
+            }
+            maximumTimeStep = (decimal)((Math.Atan((double)(targetTime - container.currentTime) / deltaTimeGrowth)) * deltaTimeAsymptote);
+            //if (actionQueue.Count > 0)
+            //{
+
+            //    //Console.WriteLine("asymot con: " + container.deltaTimeAsymptote + " and growth con " + container.deltaTimeGrowth);
+            //    //Console.WriteLine("asymot: " + asymptote + " and growth " + growth);
+            //    ActionQueueItem actionPeekForTime = actionQueue.Peek();
+            //    maximumTimeStep = (decimal)((Math.Atan((double)(actionPeekForTime.time - container.currentTime) / deltaTimeGrowth)) * deltaTimeAsymptote);
+            //} else 
+            //{
+            //    //double asymptote = container.deltaTimeAsymptote / (Math.PI / 2);
+            //    //double growth = 1 / (Math.Tan(1 / (asymptote / container.deltaTimeGrowth)));
+                
+            //}
 
             //Loop that allows the simulator to exectue the models multiple times, until the requested time is reached
             while (targetTime > container.currentTime || executeAStep || mustRunAllModelsOnInputFromGui)
@@ -244,8 +275,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
                     //get subscribers to delta time, this is often all droplets
 
-                    Console.WriteLine("yo we here? at the time ");
-
                     container.timeStep = targetTime - container.currentTime;
                     subscribers = container.subscribedDroplets;
                     mustRunAllModels = false;
@@ -255,20 +284,21 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
 
                 //check if we step a too large time amount, if it is set it to the maximum amount
+                
                 if (container.timeStep > maximumTimeStep)
                 {
 
-                    if (container.timeStep / 10m > maximumTimeStep)
-                    {
-                        container.timeStep = container.timeStep / 10m;
-                    }
-                    else
-                    {
+                    //if (container.timeStep / 10m > maximumTimeStep)
+                    //{
+                    //    container.timeStep = (decimal) ((Math.Atan( (double) container.timeStep / 63.66)) * 6.47);
+                    //}
+                    //else
+                    //{
                         container.timeStep = maximumTimeStep;
-                    }
+                    //}
 
                 }
-
+                //Console.WriteLine("Timestep = " + container.timeStep + " and current time is :" + container.currentTime);
  
                 
 
