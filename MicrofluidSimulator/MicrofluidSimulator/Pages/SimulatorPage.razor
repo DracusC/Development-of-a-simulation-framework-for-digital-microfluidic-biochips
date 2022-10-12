@@ -17,8 +17,12 @@
 @using System.Net
 
 
-@if(ModalOpen){
+@if(DownloadModalOpen){
     <DownloadModal  @ref=downloadModal Title="Information editor" Text = "INSERT" OnClose="@CloseDownloadModal" OnSubmit="@SubmitDownloadModal"/>
+}
+
+@if(UploadModalOpen){
+    <UploadModal  @ref=uploadModal Title="Information editor" Text = "INSERT" OnClose="@CloseUploadModal" OnSubmit="@SubmitUploadModal"/>
 }
 
 
@@ -42,7 +46,7 @@
                     <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
                     <button class="btn btn-primary" @onclick="Restart">Restart</button>
                     <button id="" class="btn btn-primary" @onclick="DownloadDataButton">Download</button>
-                    <button id="" class="btn btn-primary" @onclick="DownloadDataButton">Upload</button>
+                    <button id="" class="btn btn-primary" @onclick="UploadDataButton">Upload</button>
                 </div>
                 <div>
                     <span>TimeStep amount:</span>
@@ -87,10 +91,9 @@
 
 @code {
 
-
     // Download Modal Code START
     DownloadModal downloadModal;
-    public bool ModalOpen { get; set; }
+    public bool DownloadModalOpen { get; set; }
 
     /// <summary>
     /// Used to close the download modal
@@ -99,7 +102,7 @@
     /// <returns></returns>
     private async Task CloseDownloadModal(bool accepted)
     {
-        ModalOpen = false;
+        DownloadModalOpen = false;
         StateHasChanged();
     }
 
@@ -108,7 +111,7 @@
     /// </summary>
     private async void OpenDownloadModal()
     {
-        ModalOpen = true;
+        DownloadModalOpen = true;
         StateHasChanged();
     }
 
@@ -119,7 +122,7 @@
     /// <returns></returns>
     private async Task SubmitDownloadModal(bool accepted)
     {
-        ModalOpen = false;
+        DownloadModalOpen = false;
         DownloadData(downloadModal.TimeStart, downloadModal.TimeEnd, downloadModal.TimeStep);
         StateHasChanged();
     }
@@ -168,11 +171,39 @@
         Restart();
         gotoSimulatorTimeStep(timeBeforeDownload);
     }
-
     // Download Modal Code END
 
 
+    // Upload Modal Code Start
+    UploadModal uploadModal;
+    public bool UploadModalOpen { get; set; }
 
+    private async Task CloseUploadModal(bool accepted)
+    {
+        UploadModalOpen = false;
+        StateHasChanged();
+    }
+
+    private async void OpenUploadModal()
+    {
+        UploadModalOpen = true;
+        StateHasChanged();
+    }
+
+    private async Task SubmitUploadModal(bool accepted)
+    {
+        UploadModalOpen = false;
+        //DownloadData(downloadModal.TimeStart, downloadModal.TimeEnd, downloadModal.TimeStep);
+        StateHasChanged();
+    }
+
+    private void UploadDataButton()
+    {
+        OpenUploadModal();
+    }
+
+
+    // Upload Modal Code End
 
     int sliderValue = 0;
     static decimal timeStepAmount = -1;
