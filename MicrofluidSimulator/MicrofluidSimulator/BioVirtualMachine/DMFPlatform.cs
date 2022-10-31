@@ -16,7 +16,7 @@ namespace BioVirtualMachine
         Simulator simulator;
         public DMFPlatform(Simulator simulator)
         {
-            this.time = 0;
+            this.time = 1;
             this.simulator = simulator;
         }
 
@@ -24,8 +24,6 @@ namespace BioVirtualMachine
         {
             Console.WriteLine("Waiting for DMF Platform.");
             
-            System.Threading.Thread.Sleep(500); // Simulates backpressure from board for debug purposes.
-            this.time = this.time + 1;
         }
 
 
@@ -51,7 +49,7 @@ namespace BioVirtualMachine
                 answer += "Electrodes to set: ";
                 foreach (int electrode in electrodesToSet)
                 {
-                    actionQueueInstructions.Enqueue(ActionQueueGenerator.generateAction(electrode, 0, this.time));
+                    actionQueueInstructions.Enqueue(ActionQueueGenerator.generateAction(electrode, 1, this.time));
 
                     answer += '\n' + electrode.ToString();
                 }

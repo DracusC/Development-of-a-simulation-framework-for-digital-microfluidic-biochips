@@ -17,7 +17,7 @@
             </div>
             <div class="modal-body">
                 <p>Upload a protocol to be run on the simulator framework.</p>
-                <InputFile OnChange="@LoadFiles" multiple />
+                <InputFile OnChange="@LoadFiles" multiple accept=".basm"/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" @onclick=@ModalSubmit>Submit</button>
@@ -48,7 +48,7 @@
 
     private async void LoadFiles(InputFileChangeEventArgs e)
     {
-        string path = "./uploaded_file.txt";
+        string path = "./uploaded_file.basm";
         Console.WriteLine(e.File.Name);
 
         await using FileStream fs = new(path, FileMode.Create, FileAccess.ReadWrite);
