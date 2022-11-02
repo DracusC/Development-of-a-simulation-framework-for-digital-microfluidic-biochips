@@ -3,6 +3,7 @@
 @using MicrofluidSimulator.SimulatorCode
 @using MicrofluidSimulator.SimulatorCode.View
 @using System.Dynamic
+@using System.Text
 
 
 
@@ -16,7 +17,7 @@
             </div>
             <div class="modal-body">
                 <p>Upload a protocol to be run on the simulator framework.</p>
-                <input type="file" name="file"/>
+                <InputFile OnChange="@LoadFiles" multiple accept=".basm"/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" @onclick=@ModalSubmit>Submit</button>
@@ -41,10 +42,39 @@
     [Parameter]
     public string Text { get; set; }
 
-    public decimal TimeStart { get; set; }
-    public decimal TimeEnd { get; set; }
-    public decimal TimeStep { get; set; }
+    public string File1 { get; set; }
 
+    //public File UploadFile;
+
+    private async void LoadFiles(InputFileChangeEventArgs e)
+    {
+        string path = "./uploaded_file.basm";
+        Console.WriteLine(e.File.Name);
+
+        await using FileStream fs = new(path, FileMode.Create, FileAccess.ReadWrite);
+        await e.File.OpenReadStream().CopyToAsync(fs);
+        fs.Close();
+
+        //Console.WriteLine(fs.Name);
+
+
+        /*StreamReader inFileStream = new StreamReader(fs);
+        string line;
+        uint lineNumber = 1;
+        while ((line = inFileStream.ReadLine()) != null)
+        {
+            Console.WriteLine(line);
+            lineNumber++;
+        }
+
+        Console.WriteLine(fs.Length);*/
+        Console.WriteLine("Done");
+    }
+
+    private void OnFileChange(EventArgs Event)
+    {
+        Console.WriteLine(Event);
+    }
 
     private Task ModalCancel()
     {
@@ -52,43 +82,11 @@
     }
     private Task ModalSubmit()
     {
-        if (TimeEnd < TimeStart) TimeEnd = TimeStart;
         return OnSubmit.InvokeAsync(false);
     }
 
     public async void ModalOpen()
     {
 
-    }
-
-    private void onInputChangeStart()
-    {   
-
-        if(TimeStart > TimeEnd)
-        {
-            TimeEnd = TimeStart;
-        }
-
-        if(TimeStart < 0)
-        {
-            TimeStart = 0;
-        }
-        StateHasChanged();
-    }
-
-    private void onInputChangeEnd()
-    {
-
-        if(TimeEnd < TimeStart)
-        {
-            TimeEnd = TimeStart;
-        }
-
-
-        if(TimeEnd < 0)
-        {
-            TimeEnd = 0;
-        }
-        StateHasChanged();
     }
 }

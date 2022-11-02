@@ -13,7 +13,7 @@
 @using System.Text.Json
 @using System.Text
 @using System.Reflection
-
+@using BioVirtualMachine
 @using System.Net
 
 
@@ -199,8 +199,12 @@
 
     private async Task SubmitUploadModal(bool accepted)
     {
+        string recompiled_file_path = "./recompiled_file.basm";
+        string uploaded_file_path = "./uploaded_file.basm";
+
+        bioVM = new BioVM(recompiled_file_path, uploaded_file_path, simulator);
+
         UploadModalOpen = false;
-        //DownloadData(downloadModal.TimeStart, downloadModal.TimeEnd, downloadModal.TimeStep);
         StateHasChanged();
     }
 
@@ -329,6 +333,10 @@
     /// <param name="timeStepAmount"></param>
     public static void gotoTime(decimal timeStepAmount)
     {
+        if(simulator.actionQueue.Count == 0 && bioVM != null) {
+            bioVM.step();
+        }
+
         if(timeStepAmount <= 0)
         {
             simulator.simulatorStep(-1);
@@ -365,6 +373,7 @@
         simulator.restartSimulator();
         guibroker.update_board(simulator.container);
         guibroker.restart_board();
+        bioVM.init();
     }
 
     /// <summary>
@@ -388,6 +397,7 @@
     /// 
     private Container? container;
     private static Simulator? simulator;
+    private static BioVM? bioVM;
     private static MicrofluidSimulator.SimpleVM.SimpleVM? simpleVM;
     private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
     /// <summary>
@@ -433,8 +443,9 @@
             }
 
 
-            simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions, browserLanguage);
+            simulator = new Simulator(container, electrodesWithNeighbours, browserLanguage);
             simpleVM = new MicrofluidSimulator.SimpleVM.SimpleVM(simulator);
+
 
             // Setup the GUI Broker on the C# side
             guibroker.set_jsprocess(JSInProcessRuntime);

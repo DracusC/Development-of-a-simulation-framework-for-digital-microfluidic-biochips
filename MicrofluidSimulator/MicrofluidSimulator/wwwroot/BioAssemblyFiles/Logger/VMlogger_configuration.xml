@@ -1,0 +1,21 @@
+<logger>
+  <console>
+    <enabled value="true"/>
+    <logDEBUG value="true"/>
+    <logINFO value="true"/>
+    <logWARNING value="true"/>
+    <logERROR value="true"/>
+    <logFATAL value="true"/>
+    <logTRACE value="true"/>
+  </console>
+  <file>
+    <enabled value="true"/>
+    <logDEBUG value="true"/>
+    <logINFO value="true"/>
+    <logWARNING value="true"/>
+    <logERROR value="true"/>
+    <logFATAL value="true"/>
+    <logTRACE value="true"/>
+    <filePath value="./../../logfile.log"/>
+  </file>
+</logger>
