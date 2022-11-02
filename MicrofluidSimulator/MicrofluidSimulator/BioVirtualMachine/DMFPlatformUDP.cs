@@ -123,5 +123,10 @@ namespace BioVirtualMachine
         {
             throw new NotImplementedException();
         }
+
+        public void SetTickSize(decimal tickSize)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

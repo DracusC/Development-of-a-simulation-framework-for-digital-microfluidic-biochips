@@ -50,7 +50,7 @@
                     <button class="btn btn-primary" @onclick="Restart">Restart</button>
                     <button id="" class="btn btn-primary" @onclick="DownloadDataButton">Download</button>
                     <button id="" class="btn btn-primary" @onclick="UploadDataButton">Upload</button>
-                    <button id="" class="btn btn-primary" @onclick="ChangeMaxTimeStep">Edit Max Time Step</button>
+                    <button id="" class="btn btn-primary" @onclick="ChangeMaxTimeStep">Edit Max Time Step and tick size</button>
                 </div>
                 <div>
                     <span>TimeStep amount:</span>
@@ -236,6 +236,11 @@
         EditMaxTimeModalOpen = false;
         simulator.setDeltaAsymptote(editMaxTimeModal.Asymptote);
         simulator.setDeltaAsymptote(editMaxTimeModal.Growth);
+        if(bioVM != null)
+        {
+            bioVM.UpdateEngineTickSize(editMaxTimeModal.TickSize);
+        }
+
         //DownloadData(downloadModal.TimeStart, downloadModal.TimeEnd, downloadModal.TimeStep);
         StateHasChanged();
     }

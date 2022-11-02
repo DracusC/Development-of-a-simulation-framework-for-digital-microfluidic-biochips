@@ -320,6 +320,11 @@ namespace BioVirtualMachine
             executeTable[instruction.GetOpcode()].Invoke(context, instruction);
         }
 
+        public void UpdateTickSize(decimal timeUpdate)
+        {
+            dMFPlatform.SetTickSize(timeUpdate);
+        }
+
     }
 
     public class BioVirtualMachineException : Exception
@@ -328,4 +333,6 @@ namespace BioVirtualMachine
         {
         }
     }
+
+
 }

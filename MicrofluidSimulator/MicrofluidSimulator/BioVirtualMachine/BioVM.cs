@@ -55,5 +55,10 @@ namespace MicrofluidSimulator.BioVirtualMachine
         {
             return bioVMEngine.Execute();
         }
+
+        public void UpdateEngineTickSize(decimal tickSize)
+        {
+            bioVMEngine.UpdateTickSize(tickSize);
+        }
     }
 }

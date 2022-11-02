@@ -26,7 +26,10 @@ namespace BioVirtualMachine
             
         }
 
-
+        public void SetTickSize(decimal timeUpdate)
+        {
+            this.time = timeUpdate/1000;
+        }
         public void UpdateElectrodes(List<int> electrodesToClear, List<int> electrodesToSet)
         {
             Queue<ActionQueueItem> actionQueueInstructions = new Queue<ActionQueueItem>();

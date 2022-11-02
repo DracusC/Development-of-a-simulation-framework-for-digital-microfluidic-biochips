@@ -52,5 +52,7 @@ namespace BioVirtualMachine
          /// <param name="devicesToAsyncRead"></param>
          /// <param name="devicesToAsyncWrite"></param>
          void AsynchronousReadWriteDevices(ref Dictionary<int, int> devicesToAsyncRead, Dictionary<int, int> devicesToAsyncWrite);
+
+         void SetTickSize(decimal tickSize);
     }
 }
