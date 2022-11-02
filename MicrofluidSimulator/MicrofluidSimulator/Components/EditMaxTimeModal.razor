@@ -1,0 +1,87 @@
+﻿@* Adapted from https://www.puresourcecode.com/dotnet/blazor/modal-dialog-component-for-blazor/ *@
+
+@using MicrofluidSimulator.SimulatorCode
+@using MicrofluidSimulator.SimulatorCode.View
+@using System.Dynamic
+
+
+
+<div class="modal fade show" id="myModal" style="display:block; background-color: rgba(10,10,10,.8);"
+     aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit maximum time step</h4>
+                <button type="button" class="btn-close" @onclick="ModalCancel"></button>
+            </div>
+            <div class="modal-body">
+                <p>Input a maximum timestep the asymptote and a growth rate, the timestep at time betwenn actions of 1 second</p>
+                <div>
+                    Input an asymptote:
+                    <RadzenNumeric @bind-Value="Asymptote" TValue="double" Step="0.1" Placeholder="Input a asymptote" Min="0" Change="onInputChangeAsymptote" ></RadzenNumeric>
+                </div>
+                <div>
+                    Input a growth:
+                    <RadzenNumeric @bind-Value="Growth" TValue="double" Step="0.1" Placeholder="Input a growth" Min="0" Change="onInputChangeGrowth" ></RadzenNumeric>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick=@ModalSubmit>Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<bool> OnClose { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnSubmit { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnOpen { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Text { get; set; }
+
+    public double Asymptote { get; set; }
+    public double Growth { get; set;  }
+
+    private Task ModalCancel()
+    {
+        return OnClose.InvokeAsync(false);
+    }
+    private Task ModalSubmit()
+    {
+        return OnSubmit.InvokeAsync(false);
+    }
+
+    public async void ModalOpen()
+    {
+
+    }
+
+    private void onInputChangeAsymptote()
+    {   
+        if(Asymptote <= 0)
+        {
+            Asymptote = 10;
+        }
+
+
+        StateHasChanged();
+    }
+
+    private void onInputChangeGrowth()
+    {
+        if(Growth <= 0)
+        {
+            Growth = 0.1;
+        }
+        StateHasChanged();
+    }
+}
