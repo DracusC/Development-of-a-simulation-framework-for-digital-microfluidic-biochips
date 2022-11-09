@@ -203,6 +203,7 @@
         string uploaded_file_path = "./uploaded_file.basm";
 
         bioVM = new BioVM(recompiled_file_path, uploaded_file_path, simulator);
+        bioVM.UpdateEngineTickSize(TickSize);
 
         UploadModalOpen = false;
         StateHasChanged();
@@ -243,7 +244,7 @@
         TickSize = settingsModal.TickSize;
 
         simulator.setDeltaAsymptote(settingsModal.Asymptote);
-        simulator.setDeltaAsymptote(settingsModal.Growth);
+        simulator.setDeltaGrowth(settingsModal.Growth);
         if(bioVM != null)
         {
             bioVM.UpdateEngineTickSize(settingsModal.TickSize);

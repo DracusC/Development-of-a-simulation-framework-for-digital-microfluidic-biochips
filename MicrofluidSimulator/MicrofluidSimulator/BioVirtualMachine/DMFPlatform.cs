@@ -23,7 +23,7 @@ namespace BioVirtualMachine
         public void WaitForDMFPlatform()
         {
             Console.WriteLine("Waiting for DMF Platform.");
-            
+            Console.WriteLine(this.time);
         }
 
         public void SetTickSize(decimal timeUpdate)
@@ -53,6 +53,7 @@ namespace BioVirtualMachine
                 foreach (int electrode in electrodesToSet)
                 {
                     actionQueueInstructions.Enqueue(ActionQueueGenerator.generateAction(electrode, 1, this.time));
+                    Console.WriteLine(this.time);
 
                     answer += '\n' + electrode.ToString();
                 }
