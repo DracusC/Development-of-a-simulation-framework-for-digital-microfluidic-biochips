@@ -146,7 +146,7 @@
     /// Download simulation data
     /// </summary>
     [JSInvokable]
-    public static void DownloadData(decimal startTime, decimal endTime, decimal timeStep)
+    public void DownloadData(decimal startTime, decimal endTime, decimal timeStep)
     {
         // Get the current time
         decimal timeBeforeDownload = simulator.container.currentTime;
@@ -353,9 +353,15 @@
             simpleVM.doApiCall();
         }
         else
-        {     
-            simulator.simulatorStep(timeStepAmount);
-            simpleVM.doApiCall();
+        {
+            while(simulator.container.currentTime < timeStepAmount)
+            {
+                if(simulator.actionQueue.Count == 0 && bioVM != null) {
+                    bioVM.step();
+                }
+                simulator.simulatorStep(-1);
+                simpleVM.doApiCall();
+            }
         }
 
         guibroker.update_board(simulator.container);
@@ -378,12 +384,13 @@
     /// <summary>
     /// Restarts the simulation
     /// </summary>
-    public static void Restart()
+    public void Restart()
     {
         simulator.restartSimulator();
         guibroker.update_board(simulator.container);
         guibroker.restart_board();
         bioVM.init();
+        bioVM.UpdateEngineTickSize(TickSize);
     }
 
     /// <summary>
