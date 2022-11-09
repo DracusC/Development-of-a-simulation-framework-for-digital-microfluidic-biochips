@@ -22,7 +22,7 @@
                 </div>
                 <div>
                     Input a growth (s):
-                    <RadzenNumeric @bind-Value="Growth" TValue="double" Step="0.1" Placeholder="Input a growth" Min="0" Change="onInputChangeGrowth" ></RadzenNumeric>
+                    <RadzenNumeric @bind-Value="Growth" TValue="double" Step="0.1" Placeholder="Input a growth" Min="0" Change="onInputChangeGrowth"></RadzenNumeric>
                 </div>
                 <div>
                     Input a tick size (ms):
@@ -52,9 +52,12 @@
     [Parameter]
     public string Text { get; set; }
 
+    [Parameter]
     public double Asymptote { get; set; }
-    public double Growth { get; set;  }
-    public decimal TickSize { get; set;  }
+    [Parameter]
+    public double Growth { get; set; }
+    [Parameter]
+    public decimal TickSize { get; set; }
 
     private Task ModalCancel()
     {
@@ -70,7 +73,7 @@
 
     public async void ModalOpen()
     {
-
+        
     }
 
     private void onInputChangeAsymptote()

@@ -26,7 +26,7 @@
 }
 
 @if(SettingsModalOpen){
-    <SettingsModal  @ref=settingsModal Title="Information editor" Text = "INSERT" OnClose="@CloseSettingsModal" OnSubmit="@SubmitSettingsModal"/>
+    <SettingsModal  @ref=settingsModal Title="Information editor" Text = "INSERT" OnClose="@CloseSettingsModal" OnSubmit="@SubmitSettingsModal" Asymptote="Asymptote" Growth="Growth" TickSize="TickSize"/>
 }
 
 <div id="simulatorGUI">
@@ -217,6 +217,10 @@
 
     // Settings Modal Code Start
     SettingsModal settingsModal;
+    private double Asymptote { get; set; } = 10;
+    private double Growth { get; set; } = 0.1;
+    private decimal TickSize { get; set; } = 100;
+
     public bool SettingsModalOpen { get; set; }
 
     private async Task CloseSettingsModal(bool accepted)
@@ -234,6 +238,10 @@
     private async Task SubmitSettingsModal(bool accepted)
     {
         SettingsModalOpen = false;
+        Asymptote = settingsModal.Asymptote;
+        Growth = settingsModal.Growth;
+        TickSize = settingsModal.TickSize;
+
         simulator.setDeltaAsymptote(settingsModal.Asymptote);
         simulator.setDeltaAsymptote(settingsModal.Growth);
         if(bioVM != null)
@@ -248,7 +256,6 @@
     private void SettingsButton()
     {
         OpenSettingsModal();
-        Console.WriteLine("pressed submit");
     }
     // Settings Modal Code End
 
