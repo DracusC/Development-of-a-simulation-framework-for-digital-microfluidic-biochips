@@ -45,12 +45,12 @@
         <div id="controlPanel">
             <div id="button_div">
                 <div>
-                    <button id="nextStep" class="btn btn-primary" @onclick="NextStep">Next Step</button>
-                    <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
-                    <button class="btn btn-primary" @onclick="Restart">Restart</button>
-                    <button id="" class="btn btn-primary" @onclick="DownloadDataButton">Download</button>
+                    <button id="nextStep" class="btn btn-primary" disabled=@DisableButtons @onclick ="NextStep">Next Step</button>
+                    <button class="btn btn-primary" disabled=@DisableButtons @onclick="Play">@PlayButtonText</button>
+                    <button class="btn btn-primary" disabled=@DisableButtons @onclick="Restart">Restart</button>
+                    <button id="" class="btn btn-primary" disabled=@DisableButtons @onclick="DownloadDataButton">Download</button>
                     <button id="" class="btn btn-primary" @onclick="UploadDataButton">Upload</button>
-                    <button id="" class="btn btn-primary" @onclick="ChangeMaxTimeStep">Edit Max Time Step and tick size</button>
+                    <button id="" class="btn btn-primary" disabled=@DisableButtons @onclick="ChangeMaxTimeStep">Edit Max Time Step and tick size</button>
                 </div>
                 <div>
                     <span>TimeStep amount:</span>
@@ -59,7 +59,7 @@
             </div>
             <div id="slider_div">
                 <RadzenSlider id="time_slider" @bind-Value=@sliderValue TValue="int" Min="0" Max=@GlobalVariables.maxSliderValue></RadzenSlider>
-                <button class="btn btn-primary" @onclick="GotoSliderTime">Goto Time: @sliderValue</button>
+                <button class="btn btn-primary" disabled=@DisableButtons @onclick="GotoSliderTime">Goto Time: @sliderValue</button>
             </div>
         </div>
         
@@ -94,7 +94,7 @@
 
 
 @code {
-
+    bool DisableButtons = true;
     // Download Modal Code START
     DownloadModal downloadModal;
     public bool DownloadModalOpen { get; set; }
@@ -205,6 +205,7 @@
         bioVM = new BioVM(recompiled_file_path, uploaded_file_path, simulator);
 
         UploadModalOpen = false;
+        DisableButtons = false;
         StateHasChanged();
     }
 
