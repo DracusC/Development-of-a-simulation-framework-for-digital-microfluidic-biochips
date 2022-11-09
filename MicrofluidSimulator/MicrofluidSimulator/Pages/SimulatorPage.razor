@@ -25,8 +25,8 @@
     <UploadModal  @ref=uploadModal Title="Information editor" Text = "INSERT" OnClose="@CloseUploadModal" OnSubmit="@SubmitUploadModal"/>
 }
 
-@if(EditMaxTimeModalOpen){
-    <EditMaxTimeModal  @ref=editMaxTimeModal Title="Information editor" Text = "INSERT" OnClose="@CloseEditMaxTimeModal" OnSubmit="@SubmitEditMaxTimeModal"/>
+@if(SettingsModalOpen){
+    <SettingsModal  @ref=settingsModal Title="Information editor" Text = "INSERT" OnClose="@CloseSettingsModal" OnSubmit="@SubmitSettingsModal" Asymptote="Asymptote" Growth="Growth" TickSize="TickSize"/>
 }
 
 <div id="simulatorGUI">
@@ -50,7 +50,7 @@
                     <button class="btn btn-primary" disabled=@DisableButtons @onclick="Restart">Restart</button>
                     <button id="" class="btn btn-primary" disabled=@DisableButtons @onclick="DownloadDataButton">Download</button>
                     <button id="" class="btn btn-primary" @onclick="UploadDataButton">Upload</button>
-                    <button id="" class="btn btn-primary" disabled=@DisableButtons @onclick="ChangeMaxTimeStep">Edit Max Time Step and tick size</button>
+                    <button id="" class="btn btn-primary" @onclick="SettingsButton">Settings</button>
                 </div>
                 <div>
                     <span>TimeStep amount:</span>
@@ -203,6 +203,7 @@
         string uploaded_file_path = "./uploaded_file.basm";
 
         bioVM = new BioVM(recompiled_file_path, uploaded_file_path, simulator);
+        bioVM.UpdateEngineTickSize(TickSize);
 
         UploadModalOpen = false;
         DisableButtons = false;
@@ -216,45 +217,49 @@
 
 
 
-    // Upload Modal Code Start
-    EditMaxTimeModal editMaxTimeModal;
-    public bool EditMaxTimeModalOpen { get; set; }
+    // Settings Modal Code Start
+    SettingsModal settingsModal;
+    private double Asymptote { get; set; } = 10;
+    private double Growth { get; set; } = 0.1;
+    private decimal TickSize { get; set; } = 100;
 
-    private async Task CloseEditMaxTimeModal(bool accepted)
+    public bool SettingsModalOpen { get; set; }
+
+    private async Task CloseSettingsModal(bool accepted)
     {
-        EditMaxTimeModalOpen = false;
+        SettingsModalOpen = false;
         StateHasChanged();
     }
 
-    private async void OpenEditMaxTimeModal()
+    private async void OpenSettingsModal()
     {
-        EditMaxTimeModalOpen = true;
+        SettingsModalOpen = true;
         StateHasChanged();
     }
 
-    private async Task SubmitEditMaxTimeModal(bool accepted)
+    private async Task SubmitSettingsModal(bool accepted)
     {
-        EditMaxTimeModalOpen = false;
-        simulator.setDeltaAsymptote(editMaxTimeModal.Asymptote);
-        simulator.setDeltaAsymptote(editMaxTimeModal.Growth);
+        SettingsModalOpen = false;
+        Asymptote = settingsModal.Asymptote;
+        Growth = settingsModal.Growth;
+        TickSize = settingsModal.TickSize;
+
+        simulator.setDeltaAsymptote(settingsModal.Asymptote);
+        simulator.setDeltaGrowth(settingsModal.Growth);
         if(bioVM != null)
         {
-            bioVM.UpdateEngineTickSize(editMaxTimeModal.TickSize);
+            bioVM.UpdateEngineTickSize(settingsModal.TickSize);
         }
 
         //DownloadData(downloadModal.TimeStart, downloadModal.TimeEnd, downloadModal.TimeStep);
         StateHasChanged();
     }
 
-
-    private void ChangeMaxTimeStep()
+    private void SettingsButton()
     {
-        OpenEditMaxTimeModal();
-        Console.WriteLine("pressed submit");
+        OpenSettingsModal();
     }
-
-
-    // Upload Modal Code End
+    // Settings Modal Code End
 
     int sliderValue = 0;
     static decimal timeStepAmount = -1;
