@@ -56,7 +56,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         public Simulator(Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours, string browserLanguage)
         {
             deltaTimeAsymptote = 6.37;
-            deltaTimeGrowth = 63.69;
+            deltaTimeGrowth = 6.32;
 
             //Initialize all data, board of electrodes, droplets etc.
             Initialize.Initialize init = new Initialize.Initialize();

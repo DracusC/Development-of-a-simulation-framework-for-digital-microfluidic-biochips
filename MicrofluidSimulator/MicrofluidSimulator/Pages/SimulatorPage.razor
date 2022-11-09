@@ -199,6 +199,18 @@
 
     private async Task SubmitUploadModal(bool accepted)
     {
+        /* Setup Board Configuration */
+        //container = await Http.GetFromJsonAsync<Container>("uploaded_configuration_file.json");
+        string jsonText = File.ReadAllText("./uploaded_configuration_file.json");
+        container = JsonSerializer.Deserialize<Container>(jsonText);
+
+        simulator = new Simulator(container, electrodesWithNeighbours, browserLanguage);
+
+        guibroker.update_board(simulator.container);
+        Console.WriteLine(JsonSerializer.Serialize(container.information));
+        //guibroker.initialize_board(container.information);
+
+        /* Setup BioVM */
         string recompiled_file_path = "./recompiled_file.basm";
         string uploaded_file_path = "./uploaded_file.basm";
 
@@ -220,7 +232,7 @@
     // Settings Modal Code Start
     SettingsModal settingsModal;
     private double Asymptote { get; set; } = 10;
-    private double Growth { get; set; } = 0.1;
+    private double Growth { get; set; } = 1;
     private decimal TickSize { get; set; } = 100;
 
     public bool SettingsModalOpen { get; set; }
@@ -300,19 +312,6 @@
     }
 
     /// <summary>
-    /// Invokable from JavaScript, used to go to the next simulator action
-    /// </summary>
-    [JSInvokable]
-    public static void JSSimulatorNextStep() {
-        if(simulator == null || simpleVM == null) return;
-        guibroker.start_update_timer();
-        simulator.simulatorStep(-1);
-        simpleVM.doApiCall();
-        if(PlayButtonText == "Play") { guibroker.animate_once(); }
-        guibroker.update_board(simulator.container);
-    }
-
-    /// <summary>
     /// Invokable from JavaScript, used to go delta time forward in the simulation
     /// </summary>
     /// <param name="deltaTime"></param>
@@ -355,7 +354,8 @@
         }
         else
         {
-            while(simulator.container.currentTime < timeStepAmount)
+            decimal targetTime = simulator.container.currentTime + timeStepAmount;
+            while(simulator.container.currentTime < targetTime)
             {
                 if(simulator.actionQueue.Count == 0 && bioVM != null) {
                     bioVM.step();
@@ -412,7 +412,8 @@
     /// <summary>
     /// The following is used to initialize every component in the simulation framework
     /// </summary>
-    /// 
+    ///
+    string browserLanguage;
     private Container? container;
     private static Simulator? simulator;
     private static BioVM? bioVM;
@@ -428,7 +429,7 @@
     /// 4) platform640vSplitMerge is a test case where two droplets are merged and split multiple times
     /// 5) platform640vThreePaths is a test case where three droplets are moved around on the board
     /// </summary>
-    private string[,] configurationArray = new string[6, 2]{{"sample-data/configurations-paths-original/platform640v2.json", "sample-data/configurations-paths-original/SimplePaths.txt"}
+    private string[,] configurationArray = new string[6, 2]{{"sample-data/configurations-paths-original/platformDefault.json", "sample-data/configurations-paths-original/SimplePaths.txt"}
                                                            , {"sample-data/configurations-paths-from-luca/platform640vCenterPath.json", "sample-data/configurations-paths-from-luca/center_path.txt"}
                                                            , {"sample-data/configurations-paths-for-videos/platform640vCenterPathForVideo.json", "sample-data/configurations-paths-for-videos/center_path_for_video.txt"}
                                                            , {"sample-data/configurations-paths-for-videos/platform640vColorSorting.json", null}
@@ -442,10 +443,10 @@
     protected override async void OnAfterRender(bool firstRender) {
         if (firstRender) {
             // choose the index of the configuration you would like to run
-            int chosenConfiguration = 1;
+            int chosenConfiguration = 0;
 
             // Get the language of the current browser
-            var browserLanguage = JSInProcessRuntime.Invoke<String>("get_browser_language");
+            browserLanguage = JSInProcessRuntime.Invoke<String>("get_browser_language");
 
             // Initializes the program chosen
             container = await Http.GetFromJsonAsync<Container>(configurationArray[chosenConfiguration, 0]);

@@ -6,7 +6,6 @@
 @using System.Text
 
 
-
 <div class="modal fade show" id="myModal" style="display:block; background-color: rgba(10,10,10,.8);"
      aria-modal="true" role="dialog">
     <div class="modal-dialog">
@@ -16,12 +15,15 @@
                 <button type="button" class="btn-close" @onclick="ModalCancel"></button>
             </div>
             <div class="modal-body">
-                <p>Upload a protocol to be run on the simulator framework.</p>
-                <InputFile OnChange="@LoadFiles" multiple accept=".basm"/>
+                <p>Upload configuration file (json):</p>
+                <InputFile name="Configuration" OnChange="@LoadConfiguration" accept=".json"/>
+                <p>Upload protocol file (basm):</p>
+                <InputFile name="Protocol" OnChange="@LoadProtocol" accept=".basm"/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" @onclick=@ModalSubmit>Submit</button>
             </div>
+
         </div>
     </div>
 </div>
@@ -46,28 +48,25 @@
 
     //public File UploadFile;
 
-    private async void LoadFiles(InputFileChangeEventArgs e)
+    private async void LoadConfiguration(InputFileChangeEventArgs e)
     {
-        string path = "./uploaded_file.basm";
-        Console.WriteLine(e.File.Name);
+        string path = "./uploaded_configuration_file.json";
 
         await using FileStream fs = new(path, FileMode.Create, FileAccess.ReadWrite);
         await e.File.OpenReadStream().CopyToAsync(fs);
         fs.Close();
 
-        //Console.WriteLine(fs.Name);
+        Console.WriteLine("Done");
+    }
 
+    private async void LoadProtocol(InputFileChangeEventArgs e)
+    {
+        string path = "./uploaded_file.basm";
 
-        /*StreamReader inFileStream = new StreamReader(fs);
-        string line;
-        uint lineNumber = 1;
-        while ((line = inFileStream.ReadLine()) != null)
-        {
-            Console.WriteLine(line);
-            lineNumber++;
-        }
+        await using FileStream fs = new(path, FileMode.Create, FileAccess.ReadWrite);
+        await e.File.OpenReadStream().CopyToAsync(fs);
+        fs.Close();
 
-        Console.WriteLine(fs.Length);*/
         Console.WriteLine("Done");
     }
 
