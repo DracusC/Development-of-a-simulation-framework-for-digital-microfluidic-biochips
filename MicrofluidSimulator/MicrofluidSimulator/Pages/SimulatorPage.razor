@@ -13,7 +13,7 @@
 @using System.Text.Json
 @using System.Text
 @using System.Reflection
-
+@using BioVirtualMachine
 @using System.Net
 
 
@@ -25,6 +25,9 @@
     <UploadModal  @ref=uploadModal Title="Information editor" Text = "INSERT" OnClose="@CloseUploadModal" OnSubmit="@SubmitUploadModal"/>
 }
 
+@if(SettingsModalOpen){
+    <SettingsModal  @ref=settingsModal Title="Information editor" Text = "INSERT" OnClose="@CloseSettingsModal" OnSubmit="@SubmitSettingsModal" Asymptote="Asymptote" Growth="Growth" TickSize="TickSize"/>
+}
 
 <div id="simulatorGUI">
     <div id="simulatorContainer">
@@ -42,11 +45,12 @@
         <div id="controlPanel">
             <div id="button_div">
                 <div>
-                    <button id="nextStep" class="btn btn-primary" @onclick="NextStep">Next Step</button>
-                    <button class="btn btn-primary" @onclick="Play">@PlayButtonText</button>
-                    <button class="btn btn-primary" @onclick="Restart">Restart</button>
-                    <button id="" class="btn btn-primary" @onclick="DownloadDataButton">Download</button>
+                    <button id="nextStep" class="btn btn-primary" disabled=@DisableButtons @onclick ="NextStep">Next Step</button>
+                    <button class="btn btn-primary" disabled=@DisableButtons @onclick="Play">@PlayButtonText</button>
+                    <button class="btn btn-primary" disabled=@DisableButtons @onclick="Restart">Restart</button>
+                    <button id="" class="btn btn-primary" disabled=@DisableButtons @onclick="DownloadDataButton">Download</button>
                     <button id="" class="btn btn-primary" @onclick="UploadDataButton">Upload</button>
+                    <button id="" class="btn btn-primary" @onclick="SettingsButton">Settings</button>
                 </div>
                 <div>
                     <span>TimeStep amount:</span>
@@ -55,7 +59,7 @@
             </div>
             <div id="slider_div">
                 <RadzenSlider id="time_slider" @bind-Value=@sliderValue TValue="int" Min="0" Max=@GlobalVariables.maxSliderValue></RadzenSlider>
-                <button class="btn btn-primary" @onclick="GotoSliderTime">Goto Time: @sliderValue</button>
+                <button class="btn btn-primary" disabled=@DisableButtons @onclick="GotoSliderTime">Goto Time: @sliderValue</button>
             </div>
         </div>
         
@@ -90,7 +94,7 @@
 
 
 @code {
-
+    bool DisableButtons = true;
     // Download Modal Code START
     DownloadModal downloadModal;
     public bool DownloadModalOpen { get; set; }
@@ -135,11 +139,14 @@
         OpenDownloadModal();
     }
 
+
+
+
     /// <summary>
     /// Download simulation data
     /// </summary>
     [JSInvokable]
-    public static void DownloadData(decimal startTime, decimal endTime, decimal timeStep)
+    public void DownloadData(decimal startTime, decimal endTime, decimal timeStep)
     {
         // Get the current time
         decimal timeBeforeDownload = simulator.container.currentTime;
@@ -192,8 +199,26 @@
 
     private async Task SubmitUploadModal(bool accepted)
     {
+        /* Setup Board Configuration */
+        //container = await Http.GetFromJsonAsync<Container>("uploaded_configuration_file.json");
+        string jsonText = File.ReadAllText("./uploaded_configuration_file.json");
+        container = JsonSerializer.Deserialize<Container>(jsonText);
+
+        simulator = new Simulator(container, electrodesWithNeighbours, browserLanguage);
+
+        guibroker.update_board(simulator.container);
+        Console.WriteLine(JsonSerializer.Serialize(container.information));
+        //guibroker.initialize_board(container.information);
+
+        /* Setup BioVM */
+        string recompiled_file_path = "./recompiled_file.basm";
+        string uploaded_file_path = "./uploaded_file.basm";
+
+        bioVM = new BioVM(recompiled_file_path, uploaded_file_path, simulator);
+        bioVM.UpdateEngineTickSize(TickSize);
+
         UploadModalOpen = false;
-        //DownloadData(downloadModal.TimeStart, downloadModal.TimeEnd, downloadModal.TimeStep);
+        DisableButtons = false;
         StateHasChanged();
     }
 
@@ -203,7 +228,50 @@
     }
 
 
-    // Upload Modal Code End
+
+    // Settings Modal Code Start
+    SettingsModal settingsModal;
+    private double Asymptote { get; set; } = 10;
+    private double Growth { get; set; } = 1;
+    private decimal TickSize { get; set; } = 100;
+
+    public bool SettingsModalOpen { get; set; }
+
+    private async Task CloseSettingsModal(bool accepted)
+    {
+        SettingsModalOpen = false;
+        StateHasChanged();
+    }
+
+    private async void OpenSettingsModal()
+    {
+        SettingsModalOpen = true;
+        StateHasChanged();
+    }
+
+    private async Task SubmitSettingsModal(bool accepted)
+    {
+        SettingsModalOpen = false;
+        Asymptote = settingsModal.Asymptote;
+        Growth = settingsModal.Growth;
+        TickSize = settingsModal.TickSize;
+
+        simulator.setDeltaAsymptote(settingsModal.Asymptote);
+        simulator.setDeltaGrowth(settingsModal.Growth);
+        if(bioVM != null)
+        {
+            bioVM.UpdateEngineTickSize(settingsModal.TickSize);
+        }
+
+        //DownloadData(downloadModal.TimeStart, downloadModal.TimeEnd, downloadModal.TimeStep);
+        StateHasChanged();
+    }
+
+    private void SettingsButton()
+    {
+        OpenSettingsModal();
+    }
+    // Settings Modal Code End
 
     int sliderValue = 0;
     static decimal timeStepAmount = -1;
@@ -244,19 +312,6 @@
     }
 
     /// <summary>
-    /// Invokable from JavaScript, used to go to the next simulator action
-    /// </summary>
-    [JSInvokable]
-    public static void JSSimulatorNextStep() {
-        if(simulator == null || simpleVM == null) return;
-        guibroker.start_update_timer();
-        simulator.simulatorStep(-1);
-        simpleVM.doApiCall();
-        if(PlayButtonText == "Play") { guibroker.animate_once(); }
-        guibroker.update_board(simulator.container);
-    }
-
-    /// <summary>
     /// Invokable from JavaScript, used to go delta time forward in the simulation
     /// </summary>
     /// <param name="deltaTime"></param>
@@ -288,15 +343,26 @@
     /// <param name="timeStepAmount"></param>
     public static void gotoTime(decimal timeStepAmount)
     {
+        if(simulator.actionQueue.Count == 0 && bioVM != null) {
+            bioVM.step();
+        }
+
         if(timeStepAmount <= 0)
         {
             simulator.simulatorStep(-1);
             simpleVM.doApiCall();
         }
         else
-        {     
-            simulator.simulatorStep(timeStepAmount);
-            simpleVM.doApiCall();
+        {
+            decimal targetTime = simulator.container.currentTime + timeStepAmount;
+            while(simulator.container.currentTime < targetTime)
+            {
+                if(simulator.actionQueue.Count == 0 && bioVM != null) {
+                    bioVM.step();
+                }
+                simulator.simulatorStep(-1);
+                simpleVM.doApiCall();
+            }
         }
 
         guibroker.update_board(simulator.container);
@@ -319,11 +385,13 @@
     /// <summary>
     /// Restarts the simulation
     /// </summary>
-    public static void Restart()
+    public void Restart()
     {
         simulator.restartSimulator();
         guibroker.update_board(simulator.container);
         guibroker.restart_board();
+        bioVM.init();
+        bioVM.UpdateEngineTickSize(TickSize);
     }
 
     /// <summary>
@@ -344,9 +412,11 @@
     /// <summary>
     /// The following is used to initialize every component in the simulation framework
     /// </summary>
-    /// 
+    ///
+    string browserLanguage;
     private Container? container;
     private static Simulator? simulator;
+    private static BioVM? bioVM;
     private static MicrofluidSimulator.SimpleVM.SimpleVM? simpleVM;
     private MicrofluidSimulator.SimulatorCode.DataTypes.ElectrodesWithNeighbours[]? electrodesWithNeighbours;
     /// <summary>
@@ -359,7 +429,7 @@
     /// 4) platform640vSplitMerge is a test case where two droplets are merged and split multiple times
     /// 5) platform640vThreePaths is a test case where three droplets are moved around on the board
     /// </summary>
-    private string[,] configurationArray = new string[6, 2]{{"sample-data/configurations-paths-original/platform640v2.json", "sample-data/configurations-paths-original/SimplePaths.txt"}
+    private string[,] configurationArray = new string[6, 2]{{"sample-data/configurations-paths-original/platformDefault.json", "sample-data/configurations-paths-original/SimplePaths.txt"}
                                                            , {"sample-data/configurations-paths-from-luca/platform640vCenterPath.json", "sample-data/configurations-paths-from-luca/center_path.txt"}
                                                            , {"sample-data/configurations-paths-for-videos/platform640vCenterPathForVideo.json", "sample-data/configurations-paths-for-videos/center_path_for_video.txt"}
                                                            , {"sample-data/configurations-paths-for-videos/platform640vColorSorting.json", null}
@@ -373,10 +443,10 @@
     protected override async void OnAfterRender(bool firstRender) {
         if (firstRender) {
             // choose the index of the configuration you would like to run
-            int chosenConfiguration = 1;
+            int chosenConfiguration = 0;
 
             // Get the language of the current browser
-            var browserLanguage = JSInProcessRuntime.Invoke<String>("get_browser_language");
+            browserLanguage = JSInProcessRuntime.Invoke<String>("get_browser_language");
 
             // Initializes the program chosen
             container = await Http.GetFromJsonAsync<Container>(configurationArray[chosenConfiguration, 0]);
@@ -392,8 +462,9 @@
             }
 
 
-            simulator = new Simulator(null, container, electrodesWithNeighbours, actionQueueInstructions, browserLanguage);
+            simulator = new Simulator(container, electrodesWithNeighbours, browserLanguage);
             simpleVM = new MicrofluidSimulator.SimpleVM.SimpleVM(simulator);
+
 
             // Setup the GUI Broker on the C# side
             guibroker.set_jsprocess(JSInProcessRuntime);

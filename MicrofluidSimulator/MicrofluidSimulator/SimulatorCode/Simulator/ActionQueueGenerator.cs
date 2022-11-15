@@ -74,7 +74,7 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         /// <param name="actionChange"></param>
         /// <param name="time"></param>
         /// <returns></returns>
-        private static ActionQueueItem generateAction(int actionOnID, int actionChange, decimal time)
+        public static ActionQueueItem generateAction(int actionOnID, int actionChange, decimal time)
         {
             SimulatorAction action = new SimulatorAction("electrode", actionOnID, actionChange);
             ActionQueueItem item = new ActionQueueItem(action, time);

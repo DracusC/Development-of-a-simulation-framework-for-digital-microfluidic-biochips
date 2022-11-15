@@ -22,7 +22,6 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
         double deltaTimeGrowth;
         public Simulator(Queue<ActionQueueItem> actionQueue, Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours, string generatedActionQueue, string browserLanguage)
         {
-
             deltaTimeAsymptote = 6.37;
             deltaTimeGrowth = 63.69;
             //Initialize all data, board of electrodes, droplets etc.
@@ -52,8 +51,25 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
 
             simulatorStep(-2);
-            
-            
+        }
+
+        public Simulator(Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours, string browserLanguage)
+        {
+            deltaTimeAsymptote = 6.37;
+            deltaTimeGrowth = 6.32;
+
+            //Initialize all data, board of electrodes, droplets etc.
+            Initialize.Initialize init = new Initialize.Initialize();
+            container = init.initialize(container, electrodesWithNeighbours);
+
+            this.droplets = container.droplets;
+            Electrode[] electrodeBoard = container.electrodes;
+            this.actionQueue = new Queue<ActionQueueItem>();
+            this.container = container;
+
+            this.initialActionQueue = HelpfullRetreiveFunctions.createDeepCopyOfActionQueue(this.actionQueue);
+            this.initialContainer = HelpfullRetreiveFunctions.createCopyAndResetContainer(container);
+            simulatorStep(-2);
         }
 
         /// <summary>

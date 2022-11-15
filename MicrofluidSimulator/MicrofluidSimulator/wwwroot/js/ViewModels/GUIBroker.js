@@ -24,7 +24,8 @@ let gui_broker = {
      * and send the corrosponding data.
      */
     next_simulator_step: () => {
-        DotNet.invokeMethod('MicrofluidSimulator', 'JSSimulatorNextStep');
+        //DotNet.invokeMethod('MicrofluidSimulator', 'JSSimulatorNextStep');
+        DotNet.invokeMethod('MicrofluidSimulator', 'nextStepTime', -1);
     },
 
     /**

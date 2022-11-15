@@ -1,0 +1,110 @@
+﻿@* Adapted from https://www.puresourcecode.com/dotnet/blazor/modal-dialog-component-for-blazor/ *@
+
+@using MicrofluidSimulator.SimulatorCode
+@using MicrofluidSimulator.SimulatorCode.View
+@using System.Dynamic
+
+
+
+<div class="modal fade show" id="myModal" style="display:block; background-color: rgba(10,10,10,.8);"
+     aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit maximum time step</h4>
+                <button type="button" class="btn-close" @onclick="ModalCancel"></button>
+            </div>
+            <div class="modal-body">
+                <p>Input a maximum timestep the asymptote, a growth rate, and the ticksize. The timestep is the time between execution at a stepsize of 1 second. The asymptote is the maximum xecution step size. And the ticksize is the time between actions in the BioVM</p>
+                <div>
+                    Input an asymptote (s):
+                    <RadzenNumeric @bind-Value="Asymptote" TValue="double" Step="0.1" Placeholder="Input a asymptote" Min="0" Change="onInputChangeAsymptote" ></RadzenNumeric>
+                </div>
+                <div>
+                    Input a growth (s):
+                    <RadzenNumeric @bind-Value="Growth" TValue="double" Step="0.1" Placeholder="Input a growth" Min="0" Change="onInputChangeGrowth"></RadzenNumeric>
+                </div>
+                <div>
+                    Input a tick size (ms):
+                    <RadzenNumeric @bind-Value="TickSize"  TValue="decimal" Step="0.1" Placeholder="Input a tick size" Min="0" Change="onInputChangeTickSize" ></RadzenNumeric>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick=@ModalSubmit>Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<bool> OnClose { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnSubmit { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnOpen { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public double Asymptote { get; set; }
+    [Parameter]
+    public double Growth { get; set; }
+    [Parameter]
+    public decimal TickSize { get; set; }
+
+    private Task ModalCancel()
+    {
+        return OnClose.InvokeAsync(false);
+    }
+    private Task ModalSubmit()
+    {
+        onInputChangeGrowth();
+        onInputChangeAsymptote();
+        onInputChangeTickSize();
+        return OnSubmit.InvokeAsync(false);
+    }
+
+    public async void ModalOpen()
+    {
+        
+    }
+
+    private void onInputChangeAsymptote()
+    {   
+        if(Asymptote <= 0)
+        {
+            Asymptote = 10;
+        }
+
+
+        StateHasChanged();
+    }
+
+
+    private void onInputChangeGrowth()
+    {
+        if(Growth <= 0)
+        {
+            Growth = 0.1;
+        }
+        StateHasChanged();
+    }
+
+    private void onInputChangeTickSize()
+    {   
+        if(TickSize <= 0)
+        {
+            TickSize = 100;
+        }
+
+
+        StateHasChanged();
+    }
+}

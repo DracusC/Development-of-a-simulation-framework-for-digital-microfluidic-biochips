@@ -3,7 +3,7 @@
 @using MicrofluidSimulator.SimulatorCode
 @using MicrofluidSimulator.SimulatorCode.View
 @using System.Dynamic
-
+@using System.Text
 
 
 <div class="modal fade show" id="myModal" style="display:block; background-color: rgba(10,10,10,.8);"
@@ -15,12 +15,15 @@
                 <button type="button" class="btn-close" @onclick="ModalCancel"></button>
             </div>
             <div class="modal-body">
-                <p>Upload a protocol to be run on the simulator framework.</p>
-                
+                <p>Upload configuration file (json):</p>
+                <InputFile name="Configuration" OnChange="@LoadConfiguration" accept=".json"/>
+                <p>Upload protocol file (basm):</p>
+                <InputFile name="Protocol" OnChange="@LoadProtocol" accept=".basm"/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" @onclick=@ModalSubmit>Submit</button>
             </div>
+
         </div>
     </div>
 </div>
@@ -41,10 +44,36 @@
     [Parameter]
     public string Text { get; set; }
 
-    public decimal TimeStart { get; set; }
-    public decimal TimeEnd { get; set; }
-    public decimal TimeStep { get; set; }
+    public string File1 { get; set; }
 
+    //public File UploadFile;
+
+    private async void LoadConfiguration(InputFileChangeEventArgs e)
+    {
+        string path = "./uploaded_configuration_file.json";
+
+        await using FileStream fs = new(path, FileMode.Create, FileAccess.ReadWrite);
+        await e.File.OpenReadStream().CopyToAsync(fs);
+        fs.Close();
+
+        Console.WriteLine("Done");
+    }
+
+    private async void LoadProtocol(InputFileChangeEventArgs e)
+    {
+        string path = "./uploaded_file.basm";
+
+        await using FileStream fs = new(path, FileMode.Create, FileAccess.ReadWrite);
+        await e.File.OpenReadStream().CopyToAsync(fs);
+        fs.Close();
+
+        Console.WriteLine("Done");
+    }
+
+    private void OnFileChange(EventArgs Event)
+    {
+        Console.WriteLine(Event);
+    }
 
     private Task ModalCancel()
     {
@@ -52,43 +81,11 @@
     }
     private Task ModalSubmit()
     {
-        if (TimeEnd < TimeStart) TimeEnd = TimeStart;
         return OnSubmit.InvokeAsync(false);
     }
 
     public async void ModalOpen()
     {
 
-    }
-
-    private void onInputChangeStart()
-    {   
-
-        if(TimeStart > TimeEnd)
-        {
-            TimeEnd = TimeStart;
-        }
-
-        if(TimeStart < 0)
-        {
-            TimeStart = 0;
-        }
-        StateHasChanged();
-    }
-
-    private void onInputChangeEnd()
-    {
-
-        if(TimeEnd < TimeStart)
-        {
-            TimeEnd = TimeStart;
-        }
-
-
-        if(TimeEnd < 0)
-        {
-            TimeEnd = 0;
-        }
-        StateHasChanged();
     }
 }
