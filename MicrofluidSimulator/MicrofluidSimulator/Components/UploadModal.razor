@@ -46,17 +46,17 @@
 
     public string File1 { get; set; }
 
-    //public File UploadFile;
+    private bool configurationUploaded { get; set; }
+    private bool protocolUploaded { get; set;  }
 
     private async void LoadConfiguration(InputFileChangeEventArgs e)
     {
+        Console.WriteLine(e.File);
         string path = "./uploaded_configuration_file.json";
 
         await using FileStream fs = new(path, FileMode.Create, FileAccess.ReadWrite);
         await e.File.OpenReadStream().CopyToAsync(fs);
         fs.Close();
-
-        Console.WriteLine("Done");
     }
 
     private async void LoadProtocol(InputFileChangeEventArgs e)
@@ -66,8 +66,6 @@
         await using FileStream fs = new(path, FileMode.Create, FileAccess.ReadWrite);
         await e.File.OpenReadStream().CopyToAsync(fs);
         fs.Close();
-
-        Console.WriteLine("Done");
     }
 
     private void OnFileChange(EventArgs Event)
@@ -81,7 +79,7 @@
     }
     private Task ModalSubmit()
     {
-        return OnSubmit.InvokeAsync(false);
+       return OnSubmit.InvokeAsync(false);
     }
 
     public async void ModalOpen()

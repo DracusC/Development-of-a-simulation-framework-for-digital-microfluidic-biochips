@@ -193,6 +193,18 @@
 
     private async void OpenUploadModal()
     {
+        if(File.Exists("./uploaded_configuration_file.json"))
+        {
+            Console.WriteLine("Deleted conf");
+            File.Delete("./uploaded_configuration_file.json");
+        }
+
+        if(File.Exists("./uploaded_file.basm"))
+        {
+            Console.WriteLine("Deleted prot");
+            File.Delete("./uploaded_file.basm");
+        }
+
         UploadModalOpen = true;
         StateHasChanged();
     }
@@ -200,15 +212,16 @@
     private async Task SubmitUploadModal(bool accepted)
     {
         /* Setup Board Configuration */
-        //container = await Http.GetFromJsonAsync<Container>("uploaded_configuration_file.json");
         string jsonText = File.ReadAllText("./uploaded_configuration_file.json");
         container = JsonSerializer.Deserialize<Container>(jsonText);
 
         simulator = new Simulator(container, electrodesWithNeighbours, browserLanguage);
 
+        guibroker.set_jsprocess(JSInProcessRuntime);
+        guibroker.set_unmarshall(JSUnmarshalledRuntime);
+        guibroker.setP5();
         guibroker.update_board(simulator.container);
-        Console.WriteLine(JsonSerializer.Serialize(container.information));
-        //guibroker.initialize_board(container.information);
+        guibroker.initialize_board(container.information);
 
         /* Setup BioVM */
         string recompiled_file_path = "./recompiled_file.basm";
@@ -226,8 +239,6 @@
     {
         OpenUploadModal();
     }
-
-
 
     // Settings Modal Code Start
     SettingsModal settingsModal;
@@ -262,8 +273,6 @@
         {
             bioVM.UpdateEngineTickSize(settingsModal.TickSize);
         }
-
-        //DownloadData(downloadModal.TimeStart, downloadModal.TimeEnd, downloadModal.TimeStep);
         StateHasChanged();
     }
 
