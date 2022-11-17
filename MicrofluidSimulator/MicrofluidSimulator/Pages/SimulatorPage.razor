@@ -193,18 +193,6 @@
 
     private async void OpenUploadModal()
     {
-        if(File.Exists("./uploaded_configuration_file.json"))
-        {
-            Console.WriteLine("Deleted conf");
-            File.Delete("./uploaded_configuration_file.json");
-        }
-
-        if(File.Exists("./uploaded_file.basm"))
-        {
-            Console.WriteLine("Deleted prot");
-            File.Delete("./uploaded_file.basm");
-        }
-
         UploadModalOpen = true;
         StateHasChanged();
     }
@@ -212,26 +200,43 @@
     private async Task SubmitUploadModal(bool accepted)
     {
         /* Setup Board Configuration */
-        string jsonText = File.ReadAllText("./uploaded_configuration_file.json");
-        container = JsonSerializer.Deserialize<Container>(jsonText);
+        string ConfigurationFilePath = "./uploaded_configuration_file.json";
+        if (File.Exists(ConfigurationFilePath))
+        {
+            var jsons = new JsonSerializerOptions();
 
-        simulator = new Simulator(container, electrodesWithNeighbours, browserLanguage);
+            var jsonSerializerSettings = new Newtonsoft.Json.JsonSerializerSettings();
+            jsonSerializerSettings.MissingMemberHandling = Newtonsoft.Json.MissingMemberHandling.Ignore;
 
-        guibroker.set_jsprocess(JSInProcessRuntime);
-        guibroker.set_unmarshall(JSUnmarshalledRuntime);
-        guibroker.setP5();
-        guibroker.update_board(simulator.container);
-        guibroker.initialize_board(container.information);
+            string jsonText = File.ReadAllText("./uploaded_configuration_file.json");
+            //container = JsonSerializer.Deserialize<Container>(jsonText);
+            //container = Utf8Json.JsonSerializer.Deserialize<Container>(jsonText);
+            container = Newtonsoft.Json.JsonConvert.DeserializeObject<Container>(jsonText);
+           
+
+            simulator = new Simulator(container, electrodesWithNeighbours, browserLanguage);
+
+            guibroker.set_jsprocess(JSInProcessRuntime);
+            guibroker.set_unmarshall(JSUnmarshalledRuntime);
+            guibroker.setP5();
+            guibroker.update_board(simulator.container);
+            guibroker.initialize_board(container.information);
+        }
 
         /* Setup BioVM */
-        string recompiled_file_path = "./recompiled_file.basm";
-        string uploaded_file_path = "./uploaded_file.basm";
+        string UploadedFilePath = "./uploaded_file.basm";
+        if (File.Exists(UploadedFilePath))
+        {
+            string recompiled_file_path = "./recompiled_file.basm";
+            string uploaded_file_path = "./uploaded_file.basm";
 
-        bioVM = new BioVM(recompiled_file_path, uploaded_file_path, simulator);
-        bioVM.UpdateEngineTickSize(TickSize);
+            bioVM = new BioVM(recompiled_file_path, uploaded_file_path, simulator);
+            bioVM.UpdateEngineTickSize(TickSize);
+        }
 
         UploadModalOpen = false;
         DisableButtons = false;
+        
         StateHasChanged();
     }
 
