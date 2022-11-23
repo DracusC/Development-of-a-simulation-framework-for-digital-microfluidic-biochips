@@ -1,2 +1,46 @@
-# Development-of-a-simulation-framework-for-digital-microfluidic-biochips
-In our research group, we currently work on the software, firmware, and hardware development related to digital microfluidic biochips. Digital microfluidic biochips allow the execution of biological and chemical protocols on a chip-scaled device delivering cost and performance advantages over the traditional benchtop wet lab processes. Computer-based simulation can benefit such systems by allowing a user to test biochemical protocols before running the real experiments. In addition, the simulator can also be used to assist users during protocol execution. The project consists of developing a simulation engine for the digital microfluidic platform currently under development at DTU Compute. The project tackles three main aspects of the simulator: (1) the simulation engine, (2) the graphical user interface, and (3) the mathematical models (analytical or stochastic) capturing physical and biochemical behaviors. Overall, the simulator should have the capability to simulate the behavior of the biochip and of the droplets using interacting models for the droplets and for biochip actuators and sensing elements. The development of entry-level models such as droplet volume, vicinity interaction, temperature gradients, etc. is part of the project. In addition, the simulator should support future plug-in of more refined behavioral models and offer handles for in-droplet reaction kinetics simulation. The simulator graphical user interface presents the simulation state to the user and manages the user interaction during simulation. The entire solution should be able to be integrated with the existing framework. A comparison between the simulated and the real behavior of a protocol running on the biochip can be used as the main evaluation metric of the simulator. This project targets a group of three students
+# A Logic-Based Physical Simulation Framework for Digital Microfluidic Biochips
+
+![Simulator](Assets/Images/SimulatorMainPictureDMF.png)
+
+
+# Overview
+The simulation framework is a logic-based physical framework, and consists of the following core components:
+
+- **Simulation Engine** the main driver, responsible for executing commands and controlling the simulation.
+
+- **Graphical User Interface** displays the simulated board and information of the simualtion.
+
+- **Simulation models** used to peform simulation specefic calculations.
+
+- **BioVM** controls the datastream of commands sent to, and executed by the simulation engine.
+
+
+# Running the simulation framework
+
+## Production
+The newest production build is hosted on a publically available [webpage](https://microfluidicsimulator.azurewebsites.net), and can be run by uploading a configuration and protocol. Example configurations and protocols can be found in the ``Assets/Sample Data`` folder.
+
+
+## Local
+To run the local version of the simulation framework, you first need to clone the source code from GitHub, using
+```
+git clone git@github.com:DracusC/Development-of-a-simulation-framework-for-digital-microfluidic-biochips.git
+```
+Once the solution is opened in Visual Studio,  you can run it using the UI or by hitting ```Ctrl + F5```.
+
+# Testing and further development
+If you intend to contribute to the project, either by fixing bugs or contributing new features, you need to fork the project using
+```
+git clone https://github.com/yourname/Development-of-a-simulation-framework-for-digital-microfluidic-biochips.git
+```
+Once you have a proposed update for the project, then open a pull request and supply a short description of the changes you have made.
+
+```Further deveoplment has to be carried out on the forked project so that pull request can be made.```
+
+The simulator allows for interchangeability to the 4 components mentioned in the [Overview](#Overview) section. To change behavior of the droplets in the Simulator, models can be changed, removed or added. A short guide on changing models can be found in the [Thesis](Assets/Documents/DMFb_SimulationFramework_Thesis.pdf), section 7.
+
+# Documentation
+A thesis decribing the development and features of the simulator can be found [here](Assets/Documents/DMFb_SimulationFramework_Thesis.pdf).
+
+# License
+The Simulation Framework is licensed under the MIT liscense, read more [here](LICENSE.md).

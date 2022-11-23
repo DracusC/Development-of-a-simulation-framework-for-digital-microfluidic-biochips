@@ -1,0 +1,332 @@
+# DEMO 2: Heater 1 drop + switch
+
+.data
+# Location zero holds zero
+DEF zero_addr 0
+zero: INT zero_addr 0
+
+# This is the path for the path
+DEF path1_addr 10
+path1Addr: INT path1_addr+0 100
+INT path1_addr+1 132
+INT path1_addr+2 164
+INT path1_addr+3 196
+INT path1_addr+4 228
+INT path1_addr+5 260
+INT path1_addr+6 292
+INT path1_addr+7 324
+INT path1_addr+8 356
+INT path1_addr+9 388
+INT path1_addr+10 420
+INT path1_addr+11 452
+INT path1_addr+12 484
+path1End: INT path1_addr+13 516
+
+DEF path2_addr 30
+path2Addr: INT path2_addr+0 104
+INT path2_addr+1 136
+INT path2_addr+2 168
+INT path2_addr+3 200
+INT path2_addr+4 232
+INT path2_addr+5 264
+INT path2_addr+6 296
+INT path2_addr+7 328
+INT path2_addr+8 360
+INT path2_addr+9 392
+INT path2_addr+10 424
+INT path2_addr+11 456
+INT path2_addr+12 488
+path2End: INT path2_addr+13 520
+
+DEF path3_addr 50
+path3Addr: INT path3_addr+0 108
+INT path3_addr+1 109
+INT path3_addr+2 110
+INT path3_addr+3 111
+INT path3_addr+4 112
+INT path3_addr+5 144
+INT path3_addr+6 176
+INT path3_addr+7 208
+INT path3_addr+8 240
+INT path3_addr+9 239
+INT path3_addr+10 238
+INT path3_addr+11 237
+INT path3_addr+12 236
+INT path3_addr+13 204
+INT path3_addr+14 172
+path3End: INT path3_addr+15 140
+
+DEF path4_addr 70
+path4Addr: INT path4_addr+0 396
+INT path4_addr+1 397
+INT path4_addr+2 398
+INT path4_addr+3 399
+INT path4_addr+4 400
+INT path4_addr+5 432
+INT path4_addr+6 464
+INT path4_addr+7 496
+INT path4_addr+8 528
+INT path4_addr+9 527
+INT path4_addr+10 526
+INT path4_addr+11 525
+INT path4_addr+12 524
+INT path4_addr+13 492
+INT path4_addr+14 460
+path4End: INT path4_addr+15 428
+
+DEF path5_addr 90
+path5Addr: INT path5_addr+0 116
+INT path5_addr+1 117
+INT path5_addr+2 118
+INT path5_addr+3 119
+INT path5_addr+4 120
+INT path5_addr+5 121
+INT path5_addr+6 122
+INT path5_addr+7 123
+INT path5_addr+8 124
+INT path5_addr+9 125
+INT path5_addr+10 157
+INT path5_addr+11 189
+INT path5_addr+12 221
+INT path5_addr+13 253
+INT path5_addr+14 285
+INT path5_addr+15 317
+INT path5_addr+16 349
+INT path5_addr+17 381
+INT path5_addr+18 413
+INT path5_addr+19 445
+INT path5_addr+20 477
+INT path5_addr+21 509
+INT path5_addr+22 541
+INT path5_addr+23 540
+INT path5_addr+24 539
+INT path5_addr+25 538
+INT path5_addr+26 537
+INT path5_addr+27 536
+INT path5_addr+28 535
+INT path5_addr+29 534
+INT path5_addr+30 533
+INT path5_addr+31 532
+INT path5_addr+32 500
+INT path5_addr+33 468
+INT path5_addr+34 436
+INT path5_addr+35 404
+INT path5_addr+36 372
+INT path5_addr+37 340
+INT path5_addr+38 308
+INT path5_addr+39 276
+INT path5_addr+40 244
+INT path5_addr+41 212
+INT path5_addr+42 180
+path5End: INT path5_addr+43 148
+
+# Program
+.text
+###############################
+# Main task dispatching subtasks
+###############################
+DEF pathAddrStart 1
+DEF pathAddrStop 2
+DEF actualTemperature 3
+DEF desiredTemperatureMin 4
+DEF desiredTemperatureMax 5
+DEF desiredTemperature 6
+DEF pathWait 7
+DEF pathBack 8
+DEF pathOffset 9
+DEF tmp 2000
+
+main:
+  SETEL path1Addr;
+  SETEL path2End;
+  SETEL path3Addr;
+  SETEL path4Addr;
+  SETEL path5Addr;
+  SETEL path5Addr+15;
+  SETEL path5Addr+30;
+  TICK;
+
+main_continue:
+  LI pathAddrStart path1Addr;
+  LI pathAddrStop path1End;
+  LI pathWait 14;
+  LI pathBack 1;
+  LI pathOffset 0;
+  TSTART path_init;
+  TICK;
+  TICK;
+  LI pathAddrStart path2End;
+  LI pathAddrStop path2Addr;
+  LI pathWait 12;
+  LI pathBack 1;
+  LI pathOffset 0;
+  TSTART path_init;
+  TICK;
+  TICK;
+  LI pathAddrStart path3Addr;
+  LI pathAddrStop path3End;
+  LI pathWait 10;
+  LI pathBack 0;
+  LI pathOffset 0;
+  TSTART path_init;
+  TICK;
+  TICK;
+  LI pathAddrStart path4Addr;
+  LI pathAddrStop path4End;
+  LI pathWait 8;
+  LI pathBack 0;
+  LI pathOffset 0;
+  TSTART path_init;
+  TICK;
+  TICK;
+  LI pathAddrStart path5Addr;
+  LI pathAddrStop path5End;
+  LI pathWait 4;
+  LI pathBack 0;
+  LI pathOffset 0;
+  TSTART path_init;
+  TICK;
+  TICK;
+  LI pathAddrStart path5Addr;
+  LI pathAddrStop path5End;
+  LI pathWait 2;
+  LI pathBack 0;
+  LI pathOffset 15;
+  TSTART path_init;
+  TICK;
+  TICK;
+  LI pathAddrStart path5Addr;
+  LI pathAddrStop path5End;
+  LI pathWait 0;
+  LI pathBack 0;
+  LI pathOffset 30;
+  TSTART path_init;
+  TSTOP;
+  TICK;
+  TICK;
+
+###############################
+# Task for moving on a path back and forth
+###############################
+DEF pathElecToSet 1000
+DEF pathElecToSetPtr 1001
+DEF pathAddrCurrent 1002
+DEF pathAddrEnd 1003
+DEF pathElecToClear 1004
+DEF pathForwardFlag 1005
+DEF heatDelayCount 1006
+DEF coolDelayCount 1007
+DEF pathTmp 1008
+DEF pathNAddr 1009
+DEF pathNEnd 1010
+DEF pathNWait 1011
+DEF pathNBack 1012
+DEF pathNOffset 1013
+
+
+path_init:
+  ADDI pathNAddr pathAddrStart 0; #Copy
+  ADDI pathNEnd pathAddrStop 0; #Copy
+  ADDI pathNWait pathWait 0; #Copy
+  ADDI pathNBack pathBack 0; #Copy
+  ADDI pathNOffset pathOffset 0; #Copy
+path_init_wait:
+  BEQ path_init_continue pathNWait zero;
+  SUBI pathNWait pathNWait 1;
+  TICK;
+  JI path_init_wait;
+path_init_continue:
+
+path_repeat:
+  LI pathElecToSetPtr pathElecToSet;
+  ADD pathAddrCurrent pathNAddr pathNOffset; #Copy + offset
+
+  BGE path_init_forward pathNEnd pathNAddr;
+  JI path_init_backward;
+
+path_init_forward:
+  LI pathForwardFlag 1;
+  ADDI pathAddrEnd pathNEnd 1; #Copy
+  MOVE pathElecToSetPtr pathAddrCurrent;
+  JI path_start;
+
+path_init_backward:
+  LI pathForwardFlag 0;
+  SUBI pathAddrEnd pathNEnd 1; #Copy
+  MOVE pathElecToSetPtr pathAddrCurrent;
+  JI path_start;
+
+path_start:
+  # Setting first electrode
+  #SETEL pathElecToSet;
+  #TICK;
+  ADDI pathElecToClear pathElecToSet 0; #Copy
+  BEQ path_start_backward pathForwardFlag zero;
+
+path_start_forward:
+  ADDI pathAddrCurrent pathAddrCurrent 1;
+  MOVE pathElecToSetPtr pathAddrCurrent;
+  JI path_loop;
+
+path_start_backward:
+  SUBI pathAddrCurrent pathAddrCurrent 1;
+  MOVE pathElecToSetPtr pathAddrCurrent;
+  JI path_loop;
+
+path_loop:
+  SETEL pathElecToSet;
+  TICK;
+  CLREL pathElecToClear;
+  TICK;
+
+  ADDI pathElecToClear pathElecToSet 0; #Copy
+  BEQ path_loop_backward pathForwardFlag zero;
+
+path_loop_forward:
+  ADDI pathAddrCurrent pathAddrCurrent 1;
+  JI path_loop_continue;
+
+path_loop_backward:  
+  SUBI pathAddrCurrent pathAddrCurrent 1;
+  JI path_loop_continue;
+
+path_loop_continue:
+  MOVE pathElecToSetPtr pathAddrCurrent;
+
+  BEQ path_end pathAddrCurrent pathAddrEnd;
+  JI path_loop;
+
+path_end:
+  BEQ path_end_backward pathForwardFlag zero;
+
+path_end_forward:
+  JI path_end_continue;
+
+path_end_backward:  
+  JI path_end_continue;
+
+path_end_continue:
+  BEQ path_end_continue_no_inversion pathNBack zero;
+  ADDI pathTmp pathNAddr 0;
+  ADDI pathNAddr pathNEnd 0;
+  ADDI pathNEnd pathTmp 0;
+  LI pathNOffset 0;
+  JI path_repeat;
+
+path_end_continue_no_inversion:
+  MOVE pathElecToSetPtr pathNAddr;
+  SETEL pathElecToSet;
+  TICK;
+  CLREL pathElecToClear;
+  TICK;
+  LI pathNOffset 0;
+  JI path_repeat;
+
+
+# Bio-Virtual-Machine configuration
+.configuration
+data_memory_size -1
+private_data_memory_start_address 1000
+debug_log_data_types_for_print_formatting true
+debug_keep_all_private_data_memories false
+
