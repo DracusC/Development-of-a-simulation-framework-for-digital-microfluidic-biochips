@@ -30,8 +30,8 @@ namespace TestProject
             string jsonString = r.ReadToEnd();
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonString);
             Initialize init = new Initialize();
-            Container container = init.initialize(getContainer, null);
-            int[] neighbours = container.electrodes[0].neighbours.ToArray(typeof(int)) as int[];
+            Container container = init.initialize(getContainer);
+            int[] neighbours = container.electrodes[0].neighbours.ToArray() as int[];
             Assert.That(neighbours, Has.Exactly(1).EqualTo(2));
             Assert.That(neighbours, Has.Exactly(1).EqualTo(33));
         }
@@ -46,7 +46,7 @@ namespace TestProject
             string jsonString = r.ReadToEnd();
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonString);
             Initialize init = new Initialize();
-            Container container = init.initialize(getContainer, null);
+            Container container = init.initialize(getContainer);
             int[] subscribers = container.electrodes[107].subscriptions.ToArray(typeof(int)) as int[];
             Assert.That(subscribers, Has.Exactly(1).EqualTo(1));
             
@@ -62,7 +62,7 @@ namespace TestProject
             string jsonString = r.ReadToEnd();
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonString);
             Initialize init = new Initialize();
-            Container container = init.initialize(getContainer, null);
+            Container container = init.initialize(getContainer);
             Assert.That(container.droplets[0].group == container.droplets[7].group);
         }
 
@@ -81,7 +81,7 @@ namespace TestProject
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonStringContainer);
             
 
-            Simulator simulator = new Simulator(null, getContainer, null, jsonStringActions, "en-US");
+            Simulator simulator = new Simulator(getContainer, jsonStringActions, "en-US");
             Assert.That(simulator.container.droplets[0].positionX == 200);
             Assert.That(simulator.container.droplets[0].positionY == 190);
             for(int i = 0; i < 21; i++)
@@ -114,7 +114,7 @@ namespace TestProject
             Container getContainer = JsonSerializer.Deserialize<Container>(jsonStringContainer);
 
 
-            Simulator simulator = new Simulator(null, getContainer, null, jsonStringActions, "en-US");
+            Simulator simulator = new Simulator(getContainer, jsonStringActions, "en-US");
             Assert.That(simulator.container.droplets.Count == 2);
             
             for (int i = 0; i < 20; i++)

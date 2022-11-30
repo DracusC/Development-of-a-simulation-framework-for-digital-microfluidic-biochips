@@ -3002,7 +3002,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 168, 199, 201, 232 ]
@@ -3017,7 +3017,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 169, 200, 202, 233 ]
@@ -3032,7 +3032,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 170, 201, 203, 234 ]
@@ -3047,7 +3047,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 171, 202, 204, 235 ]
@@ -3092,7 +3092,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 174, 205, 207, 238 ]
@@ -3107,7 +3107,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 175, 206, 208, 239 ]
@@ -3137,7 +3137,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 177, 208, 210, 241 ]
@@ -3152,7 +3152,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 178, 209, 211, 242 ]
@@ -3182,7 +3182,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 180, 211, 213, 244 ]
@@ -3197,7 +3197,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 181, 212, 214, 245 ]
@@ -3212,7 +3212,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 182, 213, 215, 246 ]
@@ -3227,7 +3227,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 183, 214, 216, 247 ]
@@ -3242,7 +3242,7 @@
       "positionY": 120,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 184, 215, 217, 248 ]
@@ -3482,7 +3482,7 @@
       "positionY": 140,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 200, 231, 233, 264 ]
@@ -3542,7 +3542,7 @@
       "positionY": 140,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 204, 235, 237, 268 ]
@@ -3572,7 +3572,7 @@
       "positionY": 140,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 206, 237, 239, 270 ]
@@ -3602,7 +3602,7 @@
       "positionY": 140,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 208, 239, 241, 272 ]
@@ -3632,7 +3632,7 @@
       "positionY": 140,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 210, 241, 243, 274 ]
@@ -3662,7 +3662,7 @@
       "positionY": 140,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 212, 243, 245, 276 ]
@@ -3962,7 +3962,7 @@
       "positionY": 160,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 232, 263, 265, 296 ]
@@ -4022,7 +4022,7 @@
       "positionY": 160,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 236, 267, 269, 300 ]
@@ -4052,7 +4052,7 @@
       "positionY": 160,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 238, 269, 271, 302 ]
@@ -4112,7 +4112,7 @@
       "positionY": 160,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 242, 273, 275, 306 ]
@@ -4142,7 +4142,7 @@
       "positionY": 160,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 244, 275, 277, 308 ]
@@ -4442,7 +4442,7 @@
       "positionY": 180,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 264, 295, 297, 328 ]
@@ -4502,7 +4502,7 @@
       "positionY": 180,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 268, 299, 301, 332 ]
@@ -4532,7 +4532,7 @@
       "positionY": 180,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 270, 301, 303, 334 ]
@@ -4592,7 +4592,7 @@
       "positionY": 180,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 274, 305, 307, 338 ]
@@ -4622,7 +4622,7 @@
       "positionY": 180,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 276, 307, 309, 340 ]
@@ -4637,7 +4637,7 @@
       "positionY": 180,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 277, 308, 310, 341 ]
@@ -4652,7 +4652,7 @@
       "positionY": 180,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 278, 309, 311, 342 ]
@@ -4667,7 +4667,7 @@
       "positionY": 180,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 279, 310, 312, 343 ]
@@ -4922,7 +4922,7 @@
       "positionY": 200,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 296, 327, 329, 360 ]
@@ -4982,7 +4982,7 @@
       "positionY": 200,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 300, 331, 333, 364 ]
@@ -5012,7 +5012,7 @@
       "positionY": 200,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 302, 333, 335, 366 ]
@@ -5072,7 +5072,7 @@
       "positionY": 200,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 306, 337, 339, 370 ]
@@ -5102,7 +5102,7 @@
       "positionY": 200,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 308, 339, 341, 372 ]
@@ -5402,7 +5402,7 @@
       "positionY": 220,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 328, 359, 361, 392 ]
@@ -5462,7 +5462,7 @@
       "positionY": 220,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 332, 363, 365, 396 ]
@@ -5492,7 +5492,7 @@
       "positionY": 220,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 334, 365, 367, 398 ]
@@ -5552,7 +5552,7 @@
       "positionY": 220,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 338, 369, 371, 402 ]
@@ -5582,7 +5582,7 @@
       "positionY": 220,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 340, 371, 373, 404 ]
@@ -5882,7 +5882,7 @@
       "positionY": 240,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 360, 391, 393, 424 ]
@@ -5897,7 +5897,7 @@
       "positionY": 240,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 361, 392, 394, 425 ]
@@ -5912,7 +5912,7 @@
       "positionY": 240,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 362, 393, 395, 426 ]
@@ -5927,7 +5927,7 @@
       "positionY": 240,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 363, 394, 396, 427 ]
@@ -5972,7 +5972,7 @@
       "positionY": 240,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 366, 397, 399, 430 ]
@@ -6032,7 +6032,7 @@
       "positionY": 240,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 370, 401, 403, 434 ]
@@ -6062,7 +6062,7 @@
       "positionY": 240,
       "sizeX": 20,
       "sizeY": 20,
-      "status": 1,
+      "status": 0,
       "corners": [],
       "subscriptions": [],
       "neighbours": [ 372, 403, 405, 436 ]

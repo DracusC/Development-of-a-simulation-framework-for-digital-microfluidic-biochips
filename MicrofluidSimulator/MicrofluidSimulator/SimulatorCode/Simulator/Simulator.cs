@@ -20,7 +20,13 @@ namespace MicrofluidSimulator.SimulatorCode.Simulator
 
         double deltaTimeAsymptote;
         double deltaTimeGrowth;
-        public Simulator(Queue<ActionQueueItem> actionQueue, Container container, string generatedActionQueue, string browserLanguage)
+        /// <summary>
+        /// This constructor is used for unit testing
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="generatedActionQueue"></param>
+        /// <param name="browserLanguage"></param>
+        public Simulator(Container container, string generatedActionQueue, string browserLanguage)
         {
             deltaTimeAsymptote = 6.37;
             deltaTimeGrowth = 63.69;
