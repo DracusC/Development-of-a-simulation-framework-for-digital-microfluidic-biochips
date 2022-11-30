@@ -29,7 +29,7 @@ namespace MicrofluidSimulator.SimulatorCode
 
             // additional additions
             this.subscriptions = new ArrayList();
-            this.neighbours = new ArrayList();
+            this.neighbours = new List<int>();
         }
 
         public string name { get; set; }
@@ -44,7 +44,7 @@ namespace MicrofluidSimulator.SimulatorCode
         public int status { get; set; }
         public List<List<int>> corners { get; set; }
         public ArrayList subscriptions { get; set; }
-        public ArrayList neighbours { get; set; }
+        public List<int> neighbours { get; set; }
 
        
     }

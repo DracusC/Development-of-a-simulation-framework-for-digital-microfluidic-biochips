@@ -33,7 +33,7 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
 
             }
             string electrodesWithNeighbours = JsonConvert.SerializeObject(container.electrodes);
-            Console.WriteLine(electrodesWithNeighbours);
+            //Console.WriteLine(electrodesWithNeighbours);
 
 
             return container;
@@ -45,9 +45,9 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         /// <param name="electrodeBoard"></param>
         /// <param name="electrode"></param>
         /// <returns></returns>
-        private static ArrayList findNeighboursByElectrodePolygon(Electrode[] electrodeBoard, Electrode electrode)
+        private static List<int> findNeighboursByElectrodePolygon(Electrode[] electrodeBoard, Electrode electrode)
         {
-            ArrayList neighbours = electrode.neighbours;
+            List<int> neighbours = electrode.neighbours;
 
 
             int currentPointX = electrode.corners[0][0] + electrode.positionX;
@@ -178,11 +178,11 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         /// <param name="electrodeBoard"></param>
         /// <param name="electrode"></param>
         /// <returns></returns>
-        private static ArrayList findNeighboursByElectrode(Electrode[] electrodeBoard, Electrode electrode)
+        private static List<int> findNeighboursByElectrode(Electrode[] electrodeBoard, Electrode electrode)
         {
 
             // initialize neighbour array
-            ArrayList neighbours = electrode.neighbours;
+            List<int> neighbours = electrode.neighbours;
 
 
 

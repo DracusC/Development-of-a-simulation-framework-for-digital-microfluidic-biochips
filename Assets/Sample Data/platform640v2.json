@@ -18,7 +18,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 2, 33 ]
     },
     {
       "name": "arrel2",
@@ -31,7 +33,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 1, 3, 34 ]
     },
     {
       "name": "arrel3",
@@ -44,7 +48,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 2, 4, 35 ]
     },
     {
       "name": "arrel4",
@@ -57,7 +63,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 3, 5, 36 ]
     },
     {
       "name": "arrel5",
@@ -70,7 +78,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 4, 6, 37 ]
     },
     {
       "name": "arrel6",
@@ -83,7 +93,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 5, 7, 38 ]
     },
     {
       "name": "arrel7",
@@ -96,7 +108,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 6, 8, 39 ]
     },
     {
       "name": "arrel8",
@@ -109,7 +123,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 7, 9, 40 ]
     },
     {
       "name": "arrel9",
@@ -122,7 +138,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 8, 10, 41 ]
     },
     {
       "name": "arrel10",
@@ -135,7 +153,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 9, 11, 42 ]
     },
     {
       "name": "arrel11",
@@ -148,7 +168,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 10, 12, 43 ]
     },
     {
       "name": "arrel12",
@@ -161,7 +183,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 11, 13, 44 ]
     },
     {
       "name": "arrel13",
@@ -174,7 +198,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 12, 14, 45 ]
     },
     {
       "name": "arrel14",
@@ -187,7 +213,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 13, 15, 46 ]
     },
     {
       "name": "arrel15",
@@ -200,7 +228,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 14, 16, 47 ]
     },
     {
       "name": "arrel16",
@@ -213,7 +243,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 15, 17, 48 ]
     },
     {
       "name": "arrel17",
@@ -226,7 +258,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 16, 18, 49 ]
     },
     {
       "name": "arrel18",
@@ -239,7 +273,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 17, 19, 50 ]
     },
     {
       "name": "arrel19",
@@ -252,7 +288,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 18, 20, 51 ]
     },
     {
       "name": "arrel20",
@@ -265,7 +303,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 19, 21, 52 ]
     },
     {
       "name": "arrel21",
@@ -278,7 +318,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 20, 22, 53 ]
     },
     {
       "name": "arrel22",
@@ -291,7 +333,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 21, 23, 54 ]
     },
     {
       "name": "arrel23",
@@ -304,7 +348,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 22, 24, 55 ]
     },
     {
       "name": "arrel24",
@@ -317,7 +363,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 23, 25, 56 ]
     },
     {
       "name": "arrel25",
@@ -330,7 +378,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 24, 26, 57 ]
     },
     {
       "name": "arrel26",
@@ -343,7 +393,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 25, 27, 58 ]
     },
     {
       "name": "arrel27",
@@ -356,7 +408,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 26, 28, 59 ]
     },
     {
       "name": "arrel28",
@@ -369,7 +423,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 27, 29, 60 ]
     },
     {
       "name": "arrel29",
@@ -382,7 +438,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 28, 30, 61 ]
     },
     {
       "name": "arrel30",
@@ -395,7 +453,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 29, 31, 62 ]
     },
     {
       "name": "arrel31",
@@ -408,7 +468,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 30, 32, 63 ]
     },
     {
       "name": "arrel32",
@@ -421,7 +483,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 31, 64 ]
     },
     {
       "name": "arrel33",
@@ -434,7 +498,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 1, 34, 65 ]
     },
     {
       "name": "arrel34",
@@ -447,7 +513,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 2, 33, 35, 66 ]
     },
     {
       "name": "arrel35",
@@ -460,7 +528,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 3, 34, 36, 67 ]
     },
     {
       "name": "arrel36",
@@ -473,7 +543,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 4, 35, 37, 68 ]
     },
     {
       "name": "arrel37",
@@ -486,7 +558,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 5, 36, 38, 69 ]
     },
     {
       "name": "arrel38",
@@ -499,7 +573,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 6, 37, 39, 70 ]
     },
     {
       "name": "arrel39",
@@ -512,7 +588,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 7, 38, 40, 71 ]
     },
     {
       "name": "arrel40",
@@ -525,7 +603,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 8, 39, 41, 72 ]
     },
     {
       "name": "arrel41",
@@ -538,7 +618,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 9, 40, 42, 73 ]
     },
     {
       "name": "arrel42",
@@ -551,7 +633,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 10, 41, 43, 74 ]
     },
     {
       "name": "arrel43",
@@ -564,7 +648,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 11, 42, 44, 75 ]
     },
     {
       "name": "arrel44",
@@ -577,7 +663,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 12, 43, 45, 76 ]
     },
     {
       "name": "arrel45",
@@ -590,7 +678,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 13, 44, 46, 77 ]
     },
     {
       "name": "arrel46",
@@ -603,7 +693,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 14, 45, 47, 78 ]
     },
     {
       "name": "arrel47",
@@ -616,7 +708,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 15, 46, 48, 79 ]
     },
     {
       "name": "arrel48",
@@ -629,7 +723,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 16, 47, 49, 80 ]
     },
     {
       "name": "arrel49",
@@ -642,7 +738,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 17, 48, 50, 81 ]
     },
     {
       "name": "arrel50",
@@ -655,7 +753,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 18, 49, 51, 82 ]
     },
     {
       "name": "arrel51",
@@ -668,7 +768,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 19, 50, 52, 83 ]
     },
     {
       "name": "arrel52",
@@ -681,7 +783,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 20, 51, 53, 84 ]
     },
     {
       "name": "arrel53",
@@ -694,7 +798,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 21, 52, 54, 85 ]
     },
     {
       "name": "arrel54",
@@ -707,7 +813,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 22, 53, 55, 86 ]
     },
     {
       "name": "arrel55",
@@ -720,7 +828,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 23, 54, 56, 87 ]
     },
     {
       "name": "arrel56",
@@ -733,7 +843,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 24, 55, 57, 88 ]
     },
     {
       "name": "arrel57",
@@ -746,7 +858,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 25, 56, 58, 89 ]
     },
     {
       "name": "arrel58",
@@ -759,7 +873,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 26, 57, 59, 90 ]
     },
     {
       "name": "arrel59",
@@ -772,7 +888,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 27, 58, 60, 91 ]
     },
     {
       "name": "arrel60",
@@ -785,7 +903,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 28, 59, 61, 92 ]
     },
     {
       "name": "arrel61",
@@ -798,7 +918,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 29, 60, 62, 93 ]
     },
     {
       "name": "arrel62",
@@ -811,7 +933,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 30, 61, 63, 94 ]
     },
     {
       "name": "arrel63",
@@ -824,7 +948,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 31, 62, 64, 95 ]
     },
     {
       "name": "arrel64",
@@ -837,7 +963,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 32, 63, 96 ]
     },
     {
       "name": "arrel65",
@@ -850,7 +978,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 33, 66, 97, 645 ]
     },
     {
       "name": "arrel66",
@@ -863,7 +993,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 34, 65, 67, 98 ]
     },
     {
       "name": "arrel67",
@@ -876,7 +1008,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 35, 66, 68, 99 ]
     },
     {
       "name": "arrel68",
@@ -889,7 +1023,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 36, 67, 69, 100 ]
     },
     {
       "name": "arrel69",
@@ -902,7 +1038,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 37, 68, 70, 101 ]
     },
     {
       "name": "arrel70",
@@ -915,7 +1053,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 38, 69, 71, 102 ]
     },
     {
       "name": "arrel71",
@@ -928,7 +1068,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 39, 70, 72, 103 ]
     },
     {
       "name": "arrel72",
@@ -941,7 +1083,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 40, 71, 73, 104 ]
     },
     {
       "name": "arrel73",
@@ -954,7 +1098,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 41, 72, 74, 105 ]
     },
     {
       "name": "arrel74",
@@ -967,7 +1113,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 42, 73, 75, 106 ]
     },
     {
       "name": "arrel75",
@@ -980,7 +1128,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 43, 74, 76, 107 ]
     },
     {
       "name": "arrel76",
@@ -993,7 +1143,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 44, 75, 77, 108 ]
     },
     {
       "name": "arrel77",
@@ -1006,7 +1158,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 45, 76, 78, 109 ]
     },
     {
       "name": "arrel78",
@@ -1019,7 +1173,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 46, 77, 79, 110 ]
     },
     {
       "name": "arrel79",
@@ -1032,7 +1188,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 47, 78, 80, 111 ]
     },
     {
       "name": "arrel80",
@@ -1045,7 +1203,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 48, 79, 81, 112 ]
     },
     {
       "name": "arrel81",
@@ -1058,7 +1218,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 49, 80, 82, 113 ]
     },
     {
       "name": "arrel82",
@@ -1071,7 +1233,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 50, 81, 83, 114 ]
     },
     {
       "name": "arrel83",
@@ -1084,7 +1248,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 51, 82, 84, 115 ]
     },
     {
       "name": "arrel84",
@@ -1097,7 +1263,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 52, 83, 85, 116 ]
     },
     {
       "name": "arrel85",
@@ -1110,7 +1278,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 53, 84, 86, 117 ]
     },
     {
       "name": "arrel86",
@@ -1123,7 +1293,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 54, 85, 87, 118 ]
     },
     {
       "name": "arrel87",
@@ -1136,7 +1308,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 55, 86, 88, 119 ]
     },
     {
       "name": "arrel88",
@@ -1149,7 +1323,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 56, 87, 89, 120 ]
     },
     {
       "name": "arrel89",
@@ -1162,7 +1338,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 57, 88, 90, 121 ]
     },
     {
       "name": "arrel90",
@@ -1175,7 +1353,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 58, 89, 91, 122 ]
     },
     {
       "name": "arrel91",
@@ -1188,7 +1368,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 59, 90, 92, 123 ]
     },
     {
       "name": "arrel92",
@@ -1201,7 +1383,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 60, 91, 93, 124 ]
     },
     {
       "name": "arrel93",
@@ -1214,7 +1398,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 61, 92, 94, 125 ]
     },
     {
       "name": "arrel94",
@@ -1227,7 +1413,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 62, 93, 95, 126 ]
     },
     {
       "name": "arrel95",
@@ -1240,7 +1428,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 63, 94, 96, 127 ]
     },
     {
       "name": "arrel96",
@@ -1253,7 +1443,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 64, 95, 128, 687 ]
     },
     {
       "name": "arrel97",
@@ -1266,7 +1458,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 65, 98, 129 ]
     },
     {
       "name": "arrel98",
@@ -1279,7 +1473,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 66, 97, 99, 130 ]
     },
     {
       "name": "arrel99",
@@ -1292,7 +1488,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 67, 98, 100, 131 ]
     },
     {
       "name": "arrel100",
@@ -1305,7 +1503,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 68, 99, 101, 132 ]
     },
     {
       "name": "arrel101",
@@ -1318,7 +1518,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 69, 100, 102, 133 ]
     },
     {
       "name": "arrel102",
@@ -1331,7 +1533,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 70, 101, 103, 134 ]
     },
     {
       "name": "arrel103",
@@ -1344,7 +1548,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 71, 102, 104, 135 ]
     },
     {
       "name": "arrel104",
@@ -1357,7 +1563,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 72, 103, 105, 136 ]
     },
     {
       "name": "arrel105",
@@ -1370,7 +1578,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 73, 104, 106, 137 ]
     },
     {
       "name": "arrel106",
@@ -1383,7 +1593,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 74, 105, 107, 138 ]
     },
     {
       "name": "arrel107",
@@ -1396,7 +1608,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 75, 106, 108, 139 ]
     },
     {
       "name": "arrel108",
@@ -1409,7 +1623,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 76, 107, 109, 140 ]
     },
     {
       "name": "arrel109",
@@ -1422,7 +1638,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 77, 108, 110, 141 ]
     },
     {
       "name": "arrel110",
@@ -1435,7 +1653,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 78, 109, 111, 142 ]
     },
     {
       "name": "arrel111",
@@ -1448,7 +1668,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 79, 110, 112, 143 ]
     },
     {
       "name": "arrel112",
@@ -1461,7 +1683,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 80, 111, 113, 144 ]
     },
     {
       "name": "arrel113",
@@ -1474,7 +1698,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 81, 112, 114, 145 ]
     },
     {
       "name": "arrel114",
@@ -1487,7 +1713,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 82, 113, 115, 146 ]
     },
     {
       "name": "arrel115",
@@ -1500,7 +1728,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 83, 114, 116, 147 ]
     },
     {
       "name": "arrel116",
@@ -1513,7 +1743,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 84, 115, 117, 148 ]
     },
     {
       "name": "arrel117",
@@ -1526,7 +1758,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 85, 116, 118, 149 ]
     },
     {
       "name": "arrel118",
@@ -1539,7 +1773,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 86, 117, 119, 150 ]
     },
     {
       "name": "arrel119",
@@ -1552,7 +1788,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 87, 118, 120, 151 ]
     },
     {
       "name": "arrel120",
@@ -1565,7 +1803,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 88, 119, 121, 152 ]
     },
     {
       "name": "arrel121",
@@ -1578,7 +1818,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 89, 120, 122, 153 ]
     },
     {
       "name": "arrel122",
@@ -1591,7 +1833,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 90, 121, 123, 154 ]
     },
     {
       "name": "arrel123",
@@ -1604,7 +1848,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 91, 122, 124, 155 ]
     },
     {
       "name": "arrel124",
@@ -1617,7 +1863,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 92, 123, 125, 156 ]
     },
     {
       "name": "arrel125",
@@ -1630,7 +1878,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 93, 124, 126, 157 ]
     },
     {
       "name": "arrel126",
@@ -1643,7 +1893,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 94, 125, 127, 158 ]
     },
     {
       "name": "arrel127",
@@ -1656,7 +1908,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 95, 126, 128, 159 ]
     },
     {
       "name": "arrel128",
@@ -1669,7 +1923,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 96, 127, 160 ]
     },
     {
       "name": "arrel129",
@@ -1682,7 +1938,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 97, 130, 161 ]
     },
     {
       "name": "arrel130",
@@ -1695,7 +1953,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 98, 129, 131, 162 ]
     },
     {
       "name": "arrel131",
@@ -1708,7 +1968,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 99, 130, 132, 163 ]
     },
     {
       "name": "arrel132",
@@ -1721,7 +1983,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 100, 131, 133, 164 ]
     },
     {
       "name": "arrel133",
@@ -1734,7 +1998,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 101, 132, 134, 165 ]
     },
     {
       "name": "arrel134",
@@ -1747,7 +2013,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 102, 133, 135, 166 ]
     },
     {
       "name": "arrel135",
@@ -1760,7 +2028,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 103, 134, 136, 167 ]
     },
     {
       "name": "arrel136",
@@ -1773,7 +2043,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 104, 135, 137, 168 ]
     },
     {
       "name": "arrel137",
@@ -1786,7 +2058,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 105, 136, 138, 169 ]
     },
     {
       "name": "arrel138",
@@ -1799,7 +2073,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 106, 137, 139, 170 ]
     },
     {
       "name": "arrel139",
@@ -1812,7 +2088,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 107, 138, 140, 171 ]
     },
     {
       "name": "arrel140",
@@ -1825,7 +2103,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 108, 139, 141, 172 ]
     },
     {
       "name": "arrel141",
@@ -1838,7 +2118,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 109, 140, 142, 173 ]
     },
     {
       "name": "arrel142",
@@ -1851,7 +2133,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 110, 141, 143, 174 ]
     },
     {
       "name": "arrel143",
@@ -1864,7 +2148,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 111, 142, 144, 175 ]
     },
     {
       "name": "arrel144",
@@ -1877,7 +2163,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 112, 143, 145, 176 ]
     },
     {
       "name": "arrel145",
@@ -1890,7 +2178,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 113, 144, 146, 177 ]
     },
     {
       "name": "arrel146",
@@ -1903,7 +2193,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 114, 145, 147, 178 ]
     },
     {
       "name": "arrel147",
@@ -1916,7 +2208,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 115, 146, 148, 179 ]
     },
     {
       "name": "arrel148",
@@ -1929,7 +2223,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 116, 147, 149, 180 ]
     },
     {
       "name": "arrel149",
@@ -1942,7 +2238,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 117, 148, 150, 181 ]
     },
     {
       "name": "arrel150",
@@ -1955,7 +2253,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 118, 149, 151, 182 ]
     },
     {
       "name": "arrel151",
@@ -1968,7 +2268,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 119, 150, 152, 183 ]
     },
     {
       "name": "arrel152",
@@ -1981,7 +2283,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 120, 151, 153, 184 ]
     },
     {
       "name": "arrel153",
@@ -1994,7 +2298,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 121, 152, 154, 185 ]
     },
     {
       "name": "arrel154",
@@ -2007,7 +2313,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 122, 153, 155, 186 ]
     },
     {
       "name": "arrel155",
@@ -2020,7 +2328,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 123, 154, 156, 187 ]
     },
     {
       "name": "arrel156",
@@ -2033,7 +2343,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 124, 155, 157, 188 ]
     },
     {
       "name": "arrel157",
@@ -2046,7 +2358,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 125, 156, 158, 189 ]
     },
     {
       "name": "arrel158",
@@ -2059,7 +2373,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 126, 157, 159, 190 ]
     },
     {
       "name": "arrel159",
@@ -2072,7 +2388,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 127, 158, 160, 191 ]
     },
     {
       "name": "arrel160",
@@ -2085,7 +2403,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 128, 159, 192 ]
     },
     {
       "name": "arrel161",
@@ -2098,7 +2418,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 129, 162, 193 ]
     },
     {
       "name": "arrel162",
@@ -2111,7 +2433,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 130, 161, 163, 194 ]
     },
     {
       "name": "arrel163",
@@ -2124,7 +2448,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 131, 162, 164, 195 ]
     },
     {
       "name": "arrel164",
@@ -2137,7 +2463,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 132, 163, 165, 196 ]
     },
     {
       "name": "arrel165",
@@ -2150,7 +2478,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 133, 164, 166, 197 ]
     },
     {
       "name": "arrel166",
@@ -2163,7 +2493,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 134, 165, 167, 198 ]
     },
     {
       "name": "arrel167",
@@ -2176,7 +2508,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 135, 166, 168, 199 ]
     },
     {
       "name": "arrel168",
@@ -2189,7 +2523,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 136, 167, 169, 200 ]
     },
     {
       "name": "arrel169",
@@ -2202,7 +2538,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 137, 168, 170, 201 ]
     },
     {
       "name": "arrel170",
@@ -2215,7 +2553,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 138, 169, 171, 202 ]
     },
     {
       "name": "arrel171",
@@ -2228,7 +2568,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 139, 170, 172, 203 ]
     },
     {
       "name": "arrel172",
@@ -2241,7 +2583,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 140, 171, 173, 204 ]
     },
     {
       "name": "arrel173",
@@ -2254,7 +2598,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 141, 172, 174, 205 ]
     },
     {
       "name": "arrel174",
@@ -2267,7 +2613,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 142, 173, 175, 206 ]
     },
     {
       "name": "arrel175",
@@ -2280,7 +2628,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 143, 174, 176, 207 ]
     },
     {
       "name": "arrel176",
@@ -2293,7 +2643,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 144, 175, 177, 208 ]
     },
     {
       "name": "arrel177",
@@ -2306,7 +2658,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 145, 176, 178, 209 ]
     },
     {
       "name": "arrel178",
@@ -2319,7 +2673,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 146, 177, 179, 210 ]
     },
     {
       "name": "arrel179",
@@ -2332,7 +2688,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 147, 178, 180, 211 ]
     },
     {
       "name": "arrel180",
@@ -2345,7 +2703,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 148, 179, 181, 212 ]
     },
     {
       "name": "arrel181",
@@ -2358,7 +2718,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 149, 180, 182, 213 ]
     },
     {
       "name": "arrel182",
@@ -2371,7 +2733,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 150, 181, 183, 214 ]
     },
     {
       "name": "arrel183",
@@ -2384,7 +2748,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 151, 182, 184, 215 ]
     },
     {
       "name": "arrel184",
@@ -2397,7 +2763,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 152, 183, 185, 216 ]
     },
     {
       "name": "arrel185",
@@ -2410,7 +2778,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 153, 184, 186, 217 ]
     },
     {
       "name": "arrel186",
@@ -2423,7 +2793,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 154, 185, 187, 218 ]
     },
     {
       "name": "arrel187",
@@ -2436,7 +2808,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 155, 186, 188, 219 ]
     },
     {
       "name": "arrel188",
@@ -2449,7 +2823,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 156, 187, 189, 220 ]
     },
     {
       "name": "arrel189",
@@ -2462,7 +2838,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 157, 188, 190, 221 ]
     },
     {
       "name": "arrel190",
@@ -2475,7 +2853,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 158, 189, 191, 222 ]
     },
     {
       "name": "arrel191",
@@ -2488,7 +2868,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 159, 190, 192, 223 ]
     },
     {
       "name": "arrel192",
@@ -2501,7 +2883,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 160, 191, 224 ]
     },
     {
       "name": "arrel193",
@@ -2514,7 +2898,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 161, 194, 225, 651 ]
     },
     {
       "name": "arrel194",
@@ -2527,7 +2913,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 162, 193, 195, 226 ]
     },
     {
       "name": "arrel195",
@@ -2540,7 +2928,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 163, 194, 196, 227 ]
     },
     {
       "name": "arrel196",
@@ -2553,7 +2943,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 164, 195, 197, 228 ]
     },
     {
       "name": "arrel197",
@@ -2566,7 +2958,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 165, 196, 198, 229 ]
     },
     {
       "name": "arrel198",
@@ -2579,7 +2973,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 166, 197, 199, 230 ]
     },
     {
       "name": "arrel199",
@@ -2592,7 +2988,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 167, 198, 200, 231 ]
     },
     {
       "name": "arrel200",
@@ -2605,7 +3003,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 168, 199, 201, 232 ]
     },
     {
       "name": "arrel201",
@@ -2618,7 +3018,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 169, 200, 202, 233 ]
     },
     {
       "name": "arrel202",
@@ -2631,7 +3033,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 170, 201, 203, 234 ]
     },
     {
       "name": "arrel203",
@@ -2644,7 +3048,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 171, 202, 204, 235 ]
     },
     {
       "name": "arrel204",
@@ -2657,7 +3063,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 172, 203, 205, 236 ]
     },
     {
       "name": "arrel205",
@@ -2670,7 +3078,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 173, 204, 206, 237 ]
     },
     {
       "name": "arrel206",
@@ -2683,7 +3093,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 174, 205, 207, 238 ]
     },
     {
       "name": "arrel207",
@@ -2696,7 +3108,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 175, 206, 208, 239 ]
     },
     {
       "name": "arrel208",
@@ -2709,7 +3123,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 176, 207, 209, 240 ]
     },
     {
       "name": "arrel209",
@@ -2722,7 +3138,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 177, 208, 210, 241 ]
     },
     {
       "name": "arrel210",
@@ -2735,7 +3153,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 178, 209, 211, 242 ]
     },
     {
       "name": "arrel211",
@@ -2748,7 +3168,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 179, 210, 212, 243 ]
     },
     {
       "name": "arrel212",
@@ -2761,7 +3183,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 180, 211, 213, 244 ]
     },
     {
       "name": "arrel213",
@@ -2774,7 +3198,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 181, 212, 214, 245 ]
     },
     {
       "name": "arrel214",
@@ -2787,7 +3213,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 182, 213, 215, 246 ]
     },
     {
       "name": "arrel215",
@@ -2800,7 +3228,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 183, 214, 216, 247 ]
     },
     {
       "name": "arrel216",
@@ -2813,7 +3243,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 184, 215, 217, 248 ]
     },
     {
       "name": "arrel217",
@@ -2826,7 +3258,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 185, 216, 218, 249 ]
     },
     {
       "name": "arrel218",
@@ -2839,7 +3273,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 186, 217, 219, 250 ]
     },
     {
       "name": "arrel219",
@@ -2852,7 +3288,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 187, 218, 220, 251 ]
     },
     {
       "name": "arrel220",
@@ -2865,7 +3303,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 188, 219, 221, 252 ]
     },
     {
       "name": "arrel221",
@@ -2878,7 +3318,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 189, 220, 222, 253 ]
     },
     {
       "name": "arrel222",
@@ -2891,7 +3333,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 190, 221, 223, 254 ]
     },
     {
       "name": "arrel223",
@@ -2904,7 +3348,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 191, 222, 224, 255 ]
     },
     {
       "name": "arrel224",
@@ -2917,7 +3363,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 192, 223, 256, 693 ]
     },
     {
       "name": "arrel225",
@@ -2930,7 +3378,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 193, 226, 257 ]
     },
     {
       "name": "arrel226",
@@ -2943,7 +3393,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 194, 225, 227, 258 ]
     },
     {
       "name": "arrel227",
@@ -2956,7 +3408,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 195, 226, 228, 259 ]
     },
     {
       "name": "arrel228",
@@ -2969,7 +3423,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 196, 227, 229, 260 ]
     },
     {
       "name": "arrel229",
@@ -2982,7 +3438,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 197, 228, 230, 261 ]
     },
     {
       "name": "arrel230",
@@ -2995,7 +3453,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 198, 229, 231, 262 ]
     },
     {
       "name": "arrel231",
@@ -3008,7 +3468,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 199, 230, 232, 263 ]
     },
     {
       "name": "arrel232",
@@ -3021,7 +3483,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 200, 231, 233, 264 ]
     },
     {
       "name": "arrel233",
@@ -3034,7 +3498,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 201, 232, 234, 265 ]
     },
     {
       "name": "arrel234",
@@ -3047,7 +3513,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 202, 233, 235, 266 ]
     },
     {
       "name": "arrel235",
@@ -3060,7 +3528,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 203, 234, 236, 267 ]
     },
     {
       "name": "arrel236",
@@ -3073,7 +3543,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 204, 235, 237, 268 ]
     },
     {
       "name": "arrel237",
@@ -3086,7 +3558,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 205, 236, 238, 269 ]
     },
     {
       "name": "arrel238",
@@ -3099,7 +3573,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 206, 237, 239, 270 ]
     },
     {
       "name": "arrel239",
@@ -3112,7 +3588,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 207, 238, 240, 271 ]
     },
     {
       "name": "arrel240",
@@ -3125,7 +3603,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 208, 239, 241, 272 ]
     },
     {
       "name": "arrel241",
@@ -3138,7 +3618,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 209, 240, 242, 273 ]
     },
     {
       "name": "arrel242",
@@ -3151,7 +3633,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 210, 241, 243, 274 ]
     },
     {
       "name": "arrel243",
@@ -3164,7 +3648,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 211, 242, 244, 275 ]
     },
     {
       "name": "arrel244",
@@ -3177,7 +3663,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 212, 243, 245, 276 ]
     },
     {
       "name": "arrel245",
@@ -3190,7 +3678,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 213, 244, 246, 277 ]
     },
     {
       "name": "arrel246",
@@ -3203,7 +3693,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 214, 245, 247, 278 ]
     },
     {
       "name": "arrel247",
@@ -3216,7 +3708,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 215, 246, 248, 279 ]
     },
     {
       "name": "arrel248",
@@ -3229,7 +3723,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 216, 247, 249, 280 ]
     },
     {
       "name": "arrel249",
@@ -3242,7 +3738,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 217, 248, 250, 281 ]
     },
     {
       "name": "arrel250",
@@ -3255,7 +3753,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 218, 249, 251, 282 ]
     },
     {
       "name": "arrel251",
@@ -3268,7 +3768,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 219, 250, 252, 283 ]
     },
     {
       "name": "arrel252",
@@ -3281,7 +3783,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 220, 251, 253, 284 ]
     },
     {
       "name": "arrel253",
@@ -3294,7 +3798,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 221, 252, 254, 285 ]
     },
     {
       "name": "arrel254",
@@ -3307,7 +3813,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 222, 253, 255, 286 ]
     },
     {
       "name": "arrel255",
@@ -3320,7 +3828,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 223, 254, 256, 287 ]
     },
     {
       "name": "arrel256",
@@ -3333,7 +3843,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 224, 255, 288 ]
     },
     {
       "name": "arrel257",
@@ -3346,7 +3858,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 225, 258, 289 ]
     },
     {
       "name": "arrel258",
@@ -3359,7 +3873,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 226, 257, 259, 290 ]
     },
     {
       "name": "arrel259",
@@ -3372,7 +3888,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 227, 258, 260, 291 ]
     },
     {
       "name": "arrel260",
@@ -3385,7 +3903,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 228, 259, 261, 292 ]
     },
     {
       "name": "arrel261",
@@ -3398,7 +3918,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 229, 260, 262, 293 ]
     },
     {
       "name": "arrel262",
@@ -3411,7 +3933,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 230, 261, 263, 294 ]
     },
     {
       "name": "arrel263",
@@ -3424,7 +3948,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 231, 262, 264, 295 ]
     },
     {
       "name": "arrel264",
@@ -3437,7 +3963,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 232, 263, 265, 296 ]
     },
     {
       "name": "arrel265",
@@ -3450,7 +3978,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 233, 264, 266, 297 ]
     },
     {
       "name": "arrel266",
@@ -3463,7 +3993,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 234, 265, 267, 298 ]
     },
     {
       "name": "arrel267",
@@ -3476,7 +4008,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 235, 266, 268, 299 ]
     },
     {
       "name": "arrel268",
@@ -3489,7 +4023,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 236, 267, 269, 300 ]
     },
     {
       "name": "arrel269",
@@ -3502,7 +4038,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 237, 268, 270, 301 ]
     },
     {
       "name": "arrel270",
@@ -3515,7 +4053,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 238, 269, 271, 302 ]
     },
     {
       "name": "arrel271",
@@ -3528,7 +4068,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 239, 270, 272, 303 ]
     },
     {
       "name": "arrel272",
@@ -3541,7 +4083,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 240, 271, 273, 304 ]
     },
     {
       "name": "arrel273",
@@ -3554,7 +4098,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 241, 272, 274, 305 ]
     },
     {
       "name": "arrel274",
@@ -3567,7 +4113,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 242, 273, 275, 306 ]
     },
     {
       "name": "arrel275",
@@ -3580,7 +4128,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 243, 274, 276, 307 ]
     },
     {
       "name": "arrel276",
@@ -3593,7 +4143,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 244, 275, 277, 308 ]
     },
     {
       "name": "arrel277",
@@ -3606,7 +4158,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 245, 276, 278, 309 ]
     },
     {
       "name": "arrel278",
@@ -3619,7 +4173,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 246, 277, 279, 310 ]
     },
     {
       "name": "arrel279",
@@ -3632,7 +4188,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 247, 278, 280, 311 ]
     },
     {
       "name": "arrel280",
@@ -3645,7 +4203,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 248, 279, 281, 312 ]
     },
     {
       "name": "arrel281",
@@ -3658,7 +4218,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 249, 280, 282, 313 ]
     },
     {
       "name": "arrel282",
@@ -3671,7 +4233,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 250, 281, 283, 314 ]
     },
     {
       "name": "arrel283",
@@ -3684,7 +4248,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 251, 282, 284, 315 ]
     },
     {
       "name": "arrel284",
@@ -3697,7 +4263,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 252, 283, 285, 316 ]
     },
     {
       "name": "arrel285",
@@ -3710,7 +4278,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 253, 284, 286, 317 ]
     },
     {
       "name": "arrel286",
@@ -3723,7 +4293,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 254, 285, 287, 318 ]
     },
     {
       "name": "arrel287",
@@ -3736,7 +4308,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 255, 286, 288, 319 ]
     },
     {
       "name": "arrel288",
@@ -3749,7 +4323,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 256, 287, 320 ]
     },
     {
       "name": "arrel289",
@@ -3762,7 +4338,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 257, 290, 321, 655, 658 ]
     },
     {
       "name": "arrel290",
@@ -3775,7 +4353,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 258, 289, 291, 322 ]
     },
     {
       "name": "arrel291",
@@ -3788,7 +4368,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 259, 290, 292, 323 ]
     },
     {
       "name": "arrel292",
@@ -3801,7 +4383,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 260, 291, 293, 324 ]
     },
     {
       "name": "arrel293",
@@ -3814,7 +4398,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 261, 292, 294, 325 ]
     },
     {
       "name": "arrel294",
@@ -3827,7 +4413,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 262, 293, 295, 326 ]
     },
     {
       "name": "arrel295",
@@ -3840,7 +4428,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 263, 294, 296, 327 ]
     },
     {
       "name": "arrel296",
@@ -3853,7 +4443,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 264, 295, 297, 328 ]
     },
     {
       "name": "arrel297",
@@ -3866,7 +4458,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 265, 296, 298, 329 ]
     },
     {
       "name": "arrel298",
@@ -3879,7 +4473,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 266, 297, 299, 330 ]
     },
     {
       "name": "arrel299",
@@ -3892,7 +4488,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 267, 298, 300, 331 ]
     },
     {
       "name": "arrel300",
@@ -3905,7 +4503,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 268, 299, 301, 332 ]
     },
     {
       "name": "arrel301",
@@ -3918,7 +4518,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 269, 300, 302, 333 ]
     },
     {
       "name": "arrel302",
@@ -3931,7 +4533,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 270, 301, 303, 334 ]
     },
     {
       "name": "arrel303",
@@ -3944,7 +4548,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 271, 302, 304, 335 ]
     },
     {
       "name": "arrel304",
@@ -3957,7 +4563,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 272, 303, 305, 336 ]
     },
     {
       "name": "arrel305",
@@ -3970,7 +4578,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 273, 304, 306, 337 ]
     },
     {
       "name": "arrel306",
@@ -3983,7 +4593,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 274, 305, 307, 338 ]
     },
     {
       "name": "arrel307",
@@ -3996,7 +4608,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 275, 306, 308, 339 ]
     },
     {
       "name": "arrel308",
@@ -4009,7 +4623,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 276, 307, 309, 340 ]
     },
     {
       "name": "arrel309",
@@ -4022,7 +4638,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 277, 308, 310, 341 ]
     },
     {
       "name": "arrel310",
@@ -4035,7 +4653,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 278, 309, 311, 342 ]
     },
     {
       "name": "arrel311",
@@ -4048,7 +4668,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 279, 310, 312, 343 ]
     },
     {
       "name": "arrel312",
@@ -4061,7 +4683,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 280, 311, 313, 344 ]
     },
     {
       "name": "arrel313",
@@ -4074,7 +4698,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 281, 312, 314, 345 ]
     },
     {
       "name": "arrel314",
@@ -4087,7 +4713,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 282, 313, 315, 346 ]
     },
     {
       "name": "arrel315",
@@ -4100,7 +4728,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 283, 314, 316, 347 ]
     },
     {
       "name": "arrel316",
@@ -4113,7 +4743,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 284, 315, 317, 348 ]
     },
     {
       "name": "arrel317",
@@ -4126,7 +4758,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 285, 316, 318, 349 ]
     },
     {
       "name": "arrel318",
@@ -4139,7 +4773,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 286, 317, 319, 350 ]
     },
     {
       "name": "arrel319",
@@ -4152,7 +4788,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 287, 318, 320, 351 ]
     },
     {
       "name": "arrel320",
@@ -4165,7 +4803,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 288, 319, 352, 703, 705 ]
     },
     {
       "name": "arrel321",
@@ -4178,7 +4818,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 289, 322, 353, 661, 663 ]
     },
     {
       "name": "arrel322",
@@ -4191,7 +4833,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 290, 321, 323, 354 ]
     },
     {
       "name": "arrel323",
@@ -4204,7 +4848,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 291, 322, 324, 355 ]
     },
     {
       "name": "arrel324",
@@ -4217,7 +4863,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 292, 323, 325, 356 ]
     },
     {
       "name": "arrel325",
@@ -4230,7 +4878,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 293, 324, 326, 357 ]
     },
     {
       "name": "arrel326",
@@ -4243,7 +4893,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 294, 325, 327, 358 ]
     },
     {
       "name": "arrel327",
@@ -4256,7 +4908,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 295, 326, 328, 359 ]
     },
     {
       "name": "arrel328",
@@ -4269,7 +4923,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 296, 327, 329, 360 ]
     },
     {
       "name": "arrel329",
@@ -4282,7 +4938,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 297, 328, 330, 361 ]
     },
     {
       "name": "arrel330",
@@ -4295,7 +4953,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 298, 329, 331, 362 ]
     },
     {
       "name": "arrel331",
@@ -4308,7 +4968,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 299, 330, 332, 363 ]
     },
     {
       "name": "arrel332",
@@ -4321,7 +4983,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 300, 331, 333, 364 ]
     },
     {
       "name": "arrel333",
@@ -4334,7 +4998,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 301, 332, 334, 365 ]
     },
     {
       "name": "arrel334",
@@ -4347,7 +5013,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 302, 333, 335, 366 ]
     },
     {
       "name": "arrel335",
@@ -4360,7 +5028,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 303, 334, 336, 367 ]
     },
     {
       "name": "arrel336",
@@ -4373,7 +5043,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 304, 335, 337, 368 ]
     },
     {
       "name": "arrel337",
@@ -4386,7 +5058,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 305, 336, 338, 369 ]
     },
     {
       "name": "arrel338",
@@ -4399,7 +5073,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 306, 337, 339, 370 ]
     },
     {
       "name": "arrel339",
@@ -4412,7 +5088,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 307, 338, 340, 371 ]
     },
     {
       "name": "arrel340",
@@ -4425,7 +5103,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 308, 339, 341, 372 ]
     },
     {
       "name": "arrel341",
@@ -4438,7 +5118,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 309, 340, 342, 373 ]
     },
     {
       "name": "arrel342",
@@ -4451,7 +5133,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 310, 341, 343, 374 ]
     },
     {
       "name": "arrel343",
@@ -4464,7 +5148,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 311, 342, 344, 375 ]
     },
     {
       "name": "arrel344",
@@ -4477,7 +5163,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 312, 343, 345, 376 ]
     },
     {
       "name": "arrel345",
@@ -4490,7 +5178,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 313, 344, 346, 377 ]
     },
     {
       "name": "arrel346",
@@ -4503,7 +5193,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 314, 345, 347, 378 ]
     },
     {
       "name": "arrel347",
@@ -4516,7 +5208,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 315, 346, 348, 379 ]
     },
     {
       "name": "arrel348",
@@ -4529,7 +5223,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 316, 347, 349, 380 ]
     },
     {
       "name": "arrel349",
@@ -4542,7 +5238,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 317, 348, 350, 381 ]
     },
     {
       "name": "arrel350",
@@ -4555,7 +5253,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 318, 349, 351, 382 ]
     },
     {
       "name": "arrel351",
@@ -4568,7 +5268,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 319, 350, 352, 383 ]
     },
     {
       "name": "arrel352",
@@ -4581,7 +5283,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 320, 351, 384, 697, 700 ]
     },
     {
       "name": "arrel353",
@@ -4594,7 +5298,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 321, 354, 385 ]
     },
     {
       "name": "arrel354",
@@ -4607,7 +5313,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 322, 353, 355, 386 ]
     },
     {
       "name": "arrel355",
@@ -4620,7 +5328,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 323, 354, 356, 387 ]
     },
     {
       "name": "arrel356",
@@ -4633,7 +5343,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 324, 355, 357, 388 ]
     },
     {
       "name": "arrel357",
@@ -4646,7 +5358,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 325, 356, 358, 389 ]
     },
     {
       "name": "arrel358",
@@ -4659,7 +5373,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 326, 357, 359, 390 ]
     },
     {
       "name": "arrel359",
@@ -4672,7 +5388,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 327, 358, 360, 391 ]
     },
     {
       "name": "arrel360",
@@ -4685,7 +5403,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 328, 359, 361, 392 ]
     },
     {
       "name": "arrel361",
@@ -4698,7 +5418,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 329, 360, 362, 393 ]
     },
     {
       "name": "arrel362",
@@ -4711,7 +5433,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 330, 361, 363, 394 ]
     },
     {
       "name": "arrel363",
@@ -4724,7 +5448,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 331, 362, 364, 395 ]
     },
     {
       "name": "arrel364",
@@ -4737,7 +5463,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 332, 363, 365, 396 ]
     },
     {
       "name": "arrel365",
@@ -4750,7 +5478,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 333, 364, 366, 397 ]
     },
     {
       "name": "arrel366",
@@ -4763,7 +5493,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 334, 365, 367, 398 ]
     },
     {
       "name": "arrel367",
@@ -4776,7 +5508,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 335, 366, 368, 399 ]
     },
     {
       "name": "arrel368",
@@ -4789,7 +5523,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 336, 367, 369, 400 ]
     },
     {
       "name": "arrel369",
@@ -4802,7 +5538,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 337, 368, 370, 401 ]
     },
     {
       "name": "arrel370",
@@ -4815,7 +5553,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 338, 369, 371, 402 ]
     },
     {
       "name": "arrel371",
@@ -4828,7 +5568,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 339, 370, 372, 403 ]
     },
     {
       "name": "arrel372",
@@ -4841,7 +5583,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 340, 371, 373, 404 ]
     },
     {
       "name": "arrel373",
@@ -4854,7 +5598,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 341, 372, 374, 405 ]
     },
     {
       "name": "arrel374",
@@ -4867,7 +5613,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 342, 373, 375, 406 ]
     },
     {
       "name": "arrel375",
@@ -4880,7 +5628,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 343, 374, 376, 407 ]
     },
     {
       "name": "arrel376",
@@ -4893,7 +5643,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 344, 375, 377, 408 ]
     },
     {
       "name": "arrel377",
@@ -4906,7 +5658,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 345, 376, 378, 409 ]
     },
     {
       "name": "arrel378",
@@ -4919,7 +5673,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 346, 377, 379, 410 ]
     },
     {
       "name": "arrel379",
@@ -4932,7 +5688,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 347, 378, 380, 411 ]
     },
     {
       "name": "arrel380",
@@ -4945,7 +5703,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 348, 379, 381, 412 ]
     },
     {
       "name": "arrel381",
@@ -4958,7 +5718,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 349, 380, 382, 413 ]
     },
     {
       "name": "arrel382",
@@ -4971,7 +5733,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 350, 381, 383, 414 ]
     },
     {
       "name": "arrel383",
@@ -4984,7 +5748,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 351, 382, 384, 415 ]
     },
     {
       "name": "arrel384",
@@ -4997,7 +5763,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 352, 383, 416 ]
     },
     {
       "name": "arrel385",
@@ -5010,7 +5778,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 353, 386, 417 ]
     },
     {
       "name": "arrel386",
@@ -5023,7 +5793,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 354, 385, 387, 418 ]
     },
     {
       "name": "arrel387",
@@ -5036,7 +5808,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 355, 386, 388, 419 ]
     },
     {
       "name": "arrel388",
@@ -5049,7 +5823,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 356, 387, 389, 420 ]
     },
     {
       "name": "arrel389",
@@ -5062,7 +5838,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 357, 388, 390, 421 ]
     },
     {
       "name": "arrel390",
@@ -5075,7 +5853,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 358, 389, 391, 422 ]
     },
     {
       "name": "arrel391",
@@ -5088,7 +5868,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 359, 390, 392, 423 ]
     },
     {
       "name": "arrel392",
@@ -5101,7 +5883,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 360, 391, 393, 424 ]
     },
     {
       "name": "arrel393",
@@ -5114,7 +5898,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 361, 392, 394, 425 ]
     },
     {
       "name": "arrel394",
@@ -5127,7 +5913,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 362, 393, 395, 426 ]
     },
     {
       "name": "arrel395",
@@ -5140,7 +5928,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 363, 394, 396, 427 ]
     },
     {
       "name": "arrel396",
@@ -5153,7 +5943,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 364, 395, 397, 428 ]
     },
     {
       "name": "arrel397",
@@ -5166,7 +5958,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 365, 396, 398, 429 ]
     },
     {
       "name": "arrel398",
@@ -5179,7 +5973,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 366, 397, 399, 430 ]
     },
     {
       "name": "arrel399",
@@ -5192,7 +5988,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 367, 398, 400, 431 ]
     },
     {
       "name": "arrel400",
@@ -5205,7 +6003,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 368, 399, 401, 432 ]
     },
     {
       "name": "arrel401",
@@ -5218,7 +6018,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 369, 400, 402, 433 ]
     },
     {
       "name": "arrel402",
@@ -5231,7 +6033,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 370, 401, 403, 434 ]
     },
     {
       "name": "arrel403",
@@ -5244,7 +6048,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 371, 402, 404, 435 ]
     },
     {
       "name": "arrel404",
@@ -5257,7 +6063,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 372, 403, 405, 436 ]
     },
     {
       "name": "arrel405",
@@ -5270,7 +6078,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 373, 404, 406, 437 ]
     },
     {
       "name": "arrel406",
@@ -5283,7 +6093,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 374, 405, 407, 438 ]
     },
     {
       "name": "arrel407",
@@ -5296,7 +6108,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 375, 406, 408, 439 ]
     },
     {
       "name": "arrel408",
@@ -5309,7 +6123,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 376, 407, 409, 440 ]
     },
     {
       "name": "arrel409",
@@ -5322,7 +6138,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 377, 408, 410, 441 ]
     },
     {
       "name": "arrel410",
@@ -5335,7 +6153,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 378, 409, 411, 442 ]
     },
     {
       "name": "arrel411",
@@ -5348,7 +6168,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 379, 410, 412, 443 ]
     },
     {
       "name": "arrel412",
@@ -5361,7 +6183,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 380, 411, 413, 444 ]
     },
     {
       "name": "arrel413",
@@ -5374,7 +6198,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 381, 412, 414, 445 ]
     },
     {
       "name": "arrel414",
@@ -5387,7 +6213,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 382, 413, 415, 446 ]
     },
     {
       "name": "arrel415",
@@ -5400,7 +6228,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 383, 414, 416, 447 ]
     },
     {
       "name": "arrel416",
@@ -5413,7 +6243,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 384, 415, 448 ]
     },
     {
       "name": "arrel417",
@@ -5426,7 +6258,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 385, 418, 449, 669 ]
     },
     {
       "name": "arrel418",
@@ -5439,7 +6273,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 386, 417, 419, 450 ]
     },
     {
       "name": "arrel419",
@@ -5452,7 +6288,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 387, 418, 420, 451 ]
     },
     {
       "name": "arrel420",
@@ -5465,7 +6303,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 388, 419, 421, 452 ]
     },
     {
       "name": "arrel421",
@@ -5478,7 +6318,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 389, 420, 422, 453 ]
     },
     {
       "name": "arrel422",
@@ -5491,7 +6333,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 390, 421, 423, 454 ]
     },
     {
       "name": "arrel423",
@@ -5504,7 +6348,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 391, 422, 424, 455 ]
     },
     {
       "name": "arrel424",
@@ -5517,7 +6363,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 392, 423, 425, 456 ]
     },
     {
       "name": "arrel425",
@@ -5530,7 +6378,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 393, 424, 426, 457 ]
     },
     {
       "name": "arrel426",
@@ -5543,7 +6393,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 394, 425, 427, 458 ]
     },
     {
       "name": "arrel427",
@@ -5556,7 +6408,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 395, 426, 428, 459 ]
     },
     {
       "name": "arrel428",
@@ -5569,7 +6423,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 396, 427, 429, 460 ]
     },
     {
       "name": "arrel429",
@@ -5582,7 +6438,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 397, 428, 430, 461 ]
     },
     {
       "name": "arrel430",
@@ -5595,7 +6453,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 398, 429, 431, 462 ]
     },
     {
       "name": "arrel431",
@@ -5608,7 +6468,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 399, 430, 432, 463 ]
     },
     {
       "name": "arrel432",
@@ -5621,7 +6483,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 400, 431, 433, 464 ]
     },
     {
       "name": "arrel433",
@@ -5634,7 +6498,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 401, 432, 434, 465 ]
     },
     {
       "name": "arrel434",
@@ -5647,7 +6513,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 402, 433, 435, 466 ]
     },
     {
       "name": "arrel435",
@@ -5660,7 +6528,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 403, 434, 436, 467 ]
     },
     {
       "name": "arrel436",
@@ -5673,7 +6543,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 404, 435, 437, 468 ]
     },
     {
       "name": "arrel437",
@@ -5686,7 +6558,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 405, 436, 438, 469 ]
     },
     {
       "name": "arrel438",
@@ -5699,7 +6573,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 406, 437, 439, 470 ]
     },
     {
       "name": "arrel439",
@@ -5712,7 +6588,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 407, 438, 440, 471 ]
     },
     {
       "name": "arrel440",
@@ -5725,7 +6603,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 408, 439, 441, 472 ]
     },
     {
       "name": "arrel441",
@@ -5738,7 +6618,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 409, 440, 442, 473 ]
     },
     {
       "name": "arrel442",
@@ -5751,7 +6633,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 410, 441, 443, 474 ]
     },
     {
       "name": "arrel443",
@@ -5764,7 +6648,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 411, 442, 444, 475 ]
     },
     {
       "name": "arrel444",
@@ -5777,7 +6663,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 412, 443, 445, 476 ]
     },
     {
       "name": "arrel445",
@@ -5790,7 +6678,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 413, 444, 446, 477 ]
     },
     {
       "name": "arrel446",
@@ -5803,7 +6693,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 414, 445, 447, 478 ]
     },
     {
       "name": "arrel447",
@@ -5816,7 +6708,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 415, 446, 448, 479 ]
     },
     {
       "name": "arrel448",
@@ -5829,7 +6723,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 416, 447, 480, 711 ]
     },
     {
       "name": "arrel449",
@@ -5842,7 +6738,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 417, 450, 481 ]
     },
     {
       "name": "arrel450",
@@ -5855,7 +6753,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 418, 449, 451, 482 ]
     },
     {
       "name": "arrel451",
@@ -5868,7 +6768,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 419, 450, 452, 483 ]
     },
     {
       "name": "arrel452",
@@ -5881,7 +6783,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 420, 451, 453, 484 ]
     },
     {
       "name": "arrel453",
@@ -5894,7 +6798,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 421, 452, 454, 485 ]
     },
     {
       "name": "arrel454",
@@ -5907,7 +6813,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 422, 453, 455, 486 ]
     },
     {
       "name": "arrel455",
@@ -5920,7 +6828,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 423, 454, 456, 487 ]
     },
     {
       "name": "arrel456",
@@ -5933,7 +6843,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 424, 455, 457, 488 ]
     },
     {
       "name": "arrel457",
@@ -5946,7 +6858,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 425, 456, 458, 489 ]
     },
     {
       "name": "arrel458",
@@ -5959,7 +6873,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 426, 457, 459, 490 ]
     },
     {
       "name": "arrel459",
@@ -5972,7 +6888,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 427, 458, 460, 491 ]
     },
     {
       "name": "arrel460",
@@ -5985,7 +6903,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 428, 459, 461, 492 ]
     },
     {
       "name": "arrel461",
@@ -5998,7 +6918,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 429, 460, 462, 493 ]
     },
     {
       "name": "arrel462",
@@ -6011,7 +6933,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 430, 461, 463, 494 ]
     },
     {
       "name": "arrel463",
@@ -6024,7 +6948,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 431, 462, 464, 495 ]
     },
     {
       "name": "arrel464",
@@ -6037,7 +6963,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 432, 463, 465, 496 ]
     },
     {
       "name": "arrel465",
@@ -6050,7 +6978,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 433, 464, 466, 497 ]
     },
     {
       "name": "arrel466",
@@ -6063,7 +6993,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 434, 465, 467, 498 ]
     },
     {
       "name": "arrel467",
@@ -6076,7 +7008,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 435, 466, 468, 499 ]
     },
     {
       "name": "arrel468",
@@ -6089,7 +7023,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 436, 467, 469, 500 ]
     },
     {
       "name": "arrel469",
@@ -6102,7 +7038,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 437, 468, 470, 501 ]
     },
     {
       "name": "arrel470",
@@ -6115,7 +7053,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 438, 469, 471, 502 ]
     },
     {
       "name": "arrel471",
@@ -6128,7 +7068,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 439, 470, 472, 503 ]
     },
     {
       "name": "arrel472",
@@ -6141,7 +7083,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 440, 471, 473, 504 ]
     },
     {
       "name": "arrel473",
@@ -6154,7 +7098,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 441, 472, 474, 505 ]
     },
     {
       "name": "arrel474",
@@ -6167,7 +7113,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 442, 473, 475, 506 ]
     },
     {
       "name": "arrel475",
@@ -6180,7 +7128,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 443, 474, 476, 507 ]
     },
     {
       "name": "arrel476",
@@ -6193,7 +7143,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 444, 475, 477, 508 ]
     },
     {
       "name": "arrel477",
@@ -6206,7 +7158,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 445, 476, 478, 509 ]
     },
     {
       "name": "arrel478",
@@ -6219,7 +7173,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 446, 477, 479, 510 ]
     },
     {
       "name": "arrel479",
@@ -6232,7 +7188,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 447, 478, 480, 511 ]
     },
     {
       "name": "arrel480",
@@ -6245,7 +7203,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 448, 479, 512 ]
     },
     {
       "name": "arrel481",
@@ -6258,7 +7218,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 449, 482, 513 ]
     },
     {
       "name": "arrel482",
@@ -6271,7 +7233,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 450, 481, 483, 514 ]
     },
     {
       "name": "arrel483",
@@ -6284,7 +7248,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 451, 482, 484, 515 ]
     },
     {
       "name": "arrel484",
@@ -6297,7 +7263,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 452, 483, 485, 516 ]
     },
     {
       "name": "arrel485",
@@ -6310,7 +7278,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 453, 484, 486, 517 ]
     },
     {
       "name": "arrel486",
@@ -6323,7 +7293,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 454, 485, 487, 518 ]
     },
     {
       "name": "arrel487",
@@ -6336,7 +7308,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 455, 486, 488, 519 ]
     },
     {
       "name": "arrel488",
@@ -6349,7 +7323,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 456, 487, 489, 520 ]
     },
     {
       "name": "arrel489",
@@ -6362,7 +7338,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 457, 488, 490, 521 ]
     },
     {
       "name": "arrel490",
@@ -6375,7 +7353,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 458, 489, 491, 522 ]
     },
     {
       "name": "arrel491",
@@ -6388,7 +7368,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 459, 490, 492, 523 ]
     },
     {
       "name": "arrel492",
@@ -6401,7 +7383,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 460, 491, 493, 524 ]
     },
     {
       "name": "arrel493",
@@ -6414,7 +7398,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 461, 492, 494, 525 ]
     },
     {
       "name": "arrel494",
@@ -6427,7 +7413,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 462, 493, 495, 526 ]
     },
     {
       "name": "arrel495",
@@ -6440,7 +7428,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 463, 494, 496, 527 ]
     },
     {
       "name": "arrel496",
@@ -6453,7 +7443,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 464, 495, 497, 528 ]
     },
     {
       "name": "arrel497",
@@ -6466,7 +7458,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 465, 496, 498, 529 ]
     },
     {
       "name": "arrel498",
@@ -6479,7 +7473,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 466, 497, 499, 530 ]
     },
     {
       "name": "arrel499",
@@ -6492,7 +7488,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 467, 498, 500, 531 ]
     },
     {
       "name": "arrel500",
@@ -6505,7 +7503,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 468, 499, 501, 532 ]
     },
     {
       "name": "arrel501",
@@ -6518,7 +7518,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 469, 500, 502, 533 ]
     },
     {
       "name": "arrel502",
@@ -6531,7 +7533,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 470, 501, 503, 534 ]
     },
     {
       "name": "arrel503",
@@ -6544,7 +7548,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 471, 502, 504, 535 ]
     },
     {
       "name": "arrel504",
@@ -6557,7 +7563,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 472, 503, 505, 536 ]
     },
     {
       "name": "arrel505",
@@ -6570,7 +7578,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 473, 504, 506, 537 ]
     },
     {
       "name": "arrel506",
@@ -6583,7 +7593,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 474, 505, 507, 538 ]
     },
     {
       "name": "arrel507",
@@ -6596,7 +7608,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 475, 506, 508, 539 ]
     },
     {
       "name": "arrel508",
@@ -6609,7 +7623,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 476, 507, 509, 540 ]
     },
     {
       "name": "arrel509",
@@ -6622,7 +7638,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 477, 508, 510, 541 ]
     },
     {
       "name": "arrel510",
@@ -6635,7 +7653,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 478, 509, 511, 542 ]
     },
     {
       "name": "arrel511",
@@ -6648,7 +7668,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 479, 510, 512, 543 ]
     },
     {
       "name": "arrel512",
@@ -6661,7 +7683,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 480, 511, 544 ]
     },
     {
       "name": "arrel513",
@@ -6674,7 +7698,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 481, 514, 545 ]
     },
     {
       "name": "arrel514",
@@ -6687,7 +7713,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 482, 513, 515, 546 ]
     },
     {
       "name": "arrel515",
@@ -6700,7 +7728,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 483, 514, 516, 547 ]
     },
     {
       "name": "arrel516",
@@ -6713,7 +7743,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 484, 515, 517, 548 ]
     },
     {
       "name": "arrel517",
@@ -6726,7 +7758,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 485, 516, 518, 549 ]
     },
     {
       "name": "arrel518",
@@ -6739,7 +7773,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 486, 517, 519, 550 ]
     },
     {
       "name": "arrel519",
@@ -6752,7 +7788,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 487, 518, 520, 551 ]
     },
     {
       "name": "arrel520",
@@ -6765,7 +7803,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 488, 519, 521, 552 ]
     },
     {
       "name": "arrel521",
@@ -6778,7 +7818,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 489, 520, 522, 553 ]
     },
     {
       "name": "arrel522",
@@ -6791,7 +7833,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 490, 521, 523, 554 ]
     },
     {
       "name": "arrel523",
@@ -6804,7 +7848,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 491, 522, 524, 555 ]
     },
     {
       "name": "arrel524",
@@ -6817,7 +7863,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 492, 523, 525, 556 ]
     },
     {
       "name": "arrel525",
@@ -6830,7 +7878,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 493, 524, 526, 557 ]
     },
     {
       "name": "arrel526",
@@ -6843,7 +7893,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 494, 525, 527, 558 ]
     },
     {
       "name": "arrel527",
@@ -6856,7 +7908,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 495, 526, 528, 559 ]
     },
     {
       "name": "arrel528",
@@ -6869,7 +7923,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 496, 527, 529, 560 ]
     },
     {
       "name": "arrel529",
@@ -6882,7 +7938,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 497, 528, 530, 561 ]
     },
     {
       "name": "arrel530",
@@ -6895,7 +7953,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 498, 529, 531, 562 ]
     },
     {
       "name": "arrel531",
@@ -6908,7 +7968,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 499, 530, 532, 563 ]
     },
     {
       "name": "arrel532",
@@ -6921,7 +7983,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 500, 531, 533, 564 ]
     },
     {
       "name": "arrel533",
@@ -6934,7 +7998,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 501, 532, 534, 565 ]
     },
     {
       "name": "arrel534",
@@ -6947,7 +8013,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 502, 533, 535, 566 ]
     },
     {
       "name": "arrel535",
@@ -6960,7 +8028,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 503, 534, 536, 567 ]
     },
     {
       "name": "arrel536",
@@ -6973,7 +8043,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 504, 535, 537, 568 ]
     },
     {
       "name": "arrel537",
@@ -6986,7 +8058,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 505, 536, 538, 569 ]
     },
     {
       "name": "arrel538",
@@ -6999,7 +8073,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 506, 537, 539, 570 ]
     },
     {
       "name": "arrel539",
@@ -7012,7 +8088,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 507, 538, 540, 571 ]
     },
     {
       "name": "arrel540",
@@ -7025,7 +8103,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 508, 539, 541, 572 ]
     },
     {
       "name": "arrel541",
@@ -7038,7 +8118,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 509, 540, 542, 573 ]
     },
     {
       "name": "arrel542",
@@ -7051,7 +8133,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 510, 541, 543, 574 ]
     },
     {
       "name": "arrel543",
@@ -7064,7 +8148,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 511, 542, 544, 575 ]
     },
     {
       "name": "arrel544",
@@ -7077,7 +8163,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 512, 543, 576 ]
     },
     {
       "name": "arrel545",
@@ -7090,7 +8178,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 513, 546, 577, 680 ]
     },
     {
       "name": "arrel546",
@@ -7103,7 +8193,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 514, 545, 547, 578 ]
     },
     {
       "name": "arrel547",
@@ -7116,7 +8208,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 515, 546, 548, 579 ]
     },
     {
       "name": "arrel548",
@@ -7129,7 +8223,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 516, 547, 549, 580 ]
     },
     {
       "name": "arrel549",
@@ -7142,7 +8238,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 517, 548, 550, 581 ]
     },
     {
       "name": "arrel550",
@@ -7155,7 +8253,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 518, 549, 551, 582 ]
     },
     {
       "name": "arrel551",
@@ -7168,7 +8268,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 519, 550, 552, 583 ]
     },
     {
       "name": "arrel552",
@@ -7181,7 +8283,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 520, 551, 553, 584 ]
     },
     {
       "name": "arrel553",
@@ -7194,7 +8298,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 521, 552, 554, 585 ]
     },
     {
       "name": "arrel554",
@@ -7207,7 +8313,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 522, 553, 555, 586 ]
     },
     {
       "name": "arrel555",
@@ -7220,7 +8328,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 523, 554, 556, 587 ]
     },
     {
       "name": "arrel556",
@@ -7233,7 +8343,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 524, 555, 557, 588 ]
     },
     {
       "name": "arrel557",
@@ -7246,7 +8358,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 525, 556, 558, 589 ]
     },
     {
       "name": "arrel558",
@@ -7259,7 +8373,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 526, 557, 559, 590 ]
     },
     {
       "name": "arrel559",
@@ -7272,7 +8388,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 527, 558, 560, 591 ]
     },
     {
       "name": "arrel560",
@@ -7285,7 +8403,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 528, 559, 561, 592 ]
     },
     {
       "name": "arrel561",
@@ -7298,7 +8418,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 529, 560, 562, 593 ]
     },
     {
       "name": "arrel562",
@@ -7311,7 +8433,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 530, 561, 563, 594 ]
     },
     {
       "name": "arrel563",
@@ -7324,7 +8448,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 531, 562, 564, 595 ]
     },
     {
       "name": "arrel564",
@@ -7337,7 +8463,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 532, 563, 565, 596 ]
     },
     {
       "name": "arrel565",
@@ -7350,7 +8478,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 533, 564, 566, 597 ]
     },
     {
       "name": "arrel566",
@@ -7363,7 +8493,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 534, 565, 567, 598 ]
     },
     {
       "name": "arrel567",
@@ -7376,7 +8508,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 535, 566, 568, 599 ]
     },
     {
       "name": "arrel568",
@@ -7389,7 +8523,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 536, 567, 569, 600 ]
     },
     {
       "name": "arrel569",
@@ -7402,7 +8538,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 537, 568, 570, 601 ]
     },
     {
       "name": "arrel570",
@@ -7415,7 +8553,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 538, 569, 571, 602 ]
     },
     {
       "name": "arrel571",
@@ -7428,7 +8568,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 539, 570, 572, 603 ]
     },
     {
       "name": "arrel572",
@@ -7441,7 +8583,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 540, 571, 573, 604 ]
     },
     {
       "name": "arrel573",
@@ -7454,7 +8598,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 541, 572, 574, 605 ]
     },
     {
       "name": "arrel574",
@@ -7467,7 +8613,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 542, 573, 575, 606 ]
     },
     {
       "name": "arrel575",
@@ -7480,7 +8628,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 543, 574, 576, 607 ]
     },
     {
       "name": "arrel576",
@@ -7493,7 +8643,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 544, 575, 608, 722 ]
     },
     {
       "name": "arrel577",
@@ -7506,7 +8658,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 545, 578, 609 ]
     },
     {
       "name": "arrel578",
@@ -7519,7 +8673,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 546, 577, 579, 610 ]
     },
     {
       "name": "arrel579",
@@ -7532,7 +8688,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 547, 578, 580, 611 ]
     },
     {
       "name": "arrel580",
@@ -7545,7 +8703,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 548, 579, 581, 612 ]
     },
     {
       "name": "arrel581",
@@ -7558,7 +8718,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 549, 580, 582, 613 ]
     },
     {
       "name": "arrel582",
@@ -7571,7 +8733,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 550, 581, 583, 614 ]
     },
     {
       "name": "arrel583",
@@ -7584,7 +8748,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 551, 582, 584, 615 ]
     },
     {
       "name": "arrel584",
@@ -7597,7 +8763,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 552, 583, 585, 616 ]
     },
     {
       "name": "arrel585",
@@ -7610,7 +8778,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 553, 584, 586, 617 ]
     },
     {
       "name": "arrel586",
@@ -7623,7 +8793,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 554, 585, 587, 618 ]
     },
     {
       "name": "arrel587",
@@ -7636,7 +8808,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 555, 586, 588, 619 ]
     },
     {
       "name": "arrel588",
@@ -7649,7 +8823,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 556, 587, 589, 620 ]
     },
     {
       "name": "arrel589",
@@ -7662,7 +8838,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 557, 588, 590, 621 ]
     },
     {
       "name": "arrel590",
@@ -7675,7 +8853,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 558, 589, 591, 622 ]
     },
     {
       "name": "arrel591",
@@ -7688,7 +8868,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 559, 590, 592, 623 ]
     },
     {
       "name": "arrel592",
@@ -7701,7 +8883,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 560, 591, 593, 624 ]
     },
     {
       "name": "arrel593",
@@ -7714,7 +8898,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 561, 592, 594, 625 ]
     },
     {
       "name": "arrel594",
@@ -7727,7 +8913,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 562, 593, 595, 626 ]
     },
     {
       "name": "arrel595",
@@ -7740,7 +8928,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 563, 594, 596, 627 ]
     },
     {
       "name": "arrel596",
@@ -7753,7 +8943,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 564, 595, 597, 628 ]
     },
     {
       "name": "arrel597",
@@ -7766,7 +8958,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 565, 596, 598, 629 ]
     },
     {
       "name": "arrel598",
@@ -7779,7 +8973,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 566, 597, 599, 630 ]
     },
     {
       "name": "arrel599",
@@ -7792,7 +8988,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 567, 598, 600, 631 ]
     },
     {
       "name": "arrel600",
@@ -7805,7 +9003,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 568, 599, 601, 632 ]
     },
     {
       "name": "arrel601",
@@ -7818,7 +9018,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 569, 600, 602, 633 ]
     },
     {
       "name": "arrel602",
@@ -7831,7 +9033,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 570, 601, 603, 634 ]
     },
     {
       "name": "arrel603",
@@ -7844,7 +9048,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 571, 602, 604, 635 ]
     },
     {
       "name": "arrel604",
@@ -7857,7 +9063,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 572, 603, 605, 636 ]
     },
     {
       "name": "arrel605",
@@ -7870,7 +9078,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 573, 604, 606, 637 ]
     },
     {
       "name": "arrel606",
@@ -7883,7 +9093,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 574, 605, 607, 638 ]
     },
     {
       "name": "arrel607",
@@ -7896,7 +9108,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 575, 606, 608, 639 ]
     },
     {
       "name": "arrel608",
@@ -7909,7 +9123,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 576, 607, 640 ]
     },
     {
       "name": "arrel609",
@@ -7922,7 +9138,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 577, 610 ]
     },
     {
       "name": "arrel610",
@@ -7935,7 +9153,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 578, 609, 611 ]
     },
     {
       "name": "arrel611",
@@ -7948,7 +9168,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 579, 610, 612 ]
     },
     {
       "name": "arrel612",
@@ -7961,7 +9183,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 580, 611, 613 ]
     },
     {
       "name": "arrel613",
@@ -7974,7 +9198,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 581, 612, 614 ]
     },
     {
       "name": "arrel614",
@@ -7987,7 +9213,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 582, 613, 615 ]
     },
     {
       "name": "arrel615",
@@ -8000,7 +9228,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 583, 614, 616 ]
     },
     {
       "name": "arrel616",
@@ -8013,7 +9243,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 584, 615, 617 ]
     },
     {
       "name": "arrel617",
@@ -8026,7 +9258,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 585, 616, 618 ]
     },
     {
       "name": "arrel618",
@@ -8039,7 +9273,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 586, 617, 619 ]
     },
     {
       "name": "arrel619",
@@ -8052,7 +9288,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 587, 618, 620 ]
     },
     {
       "name": "arrel620",
@@ -8065,7 +9303,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 588, 619, 621 ]
     },
     {
       "name": "arrel621",
@@ -8078,7 +9318,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 589, 620, 622 ]
     },
     {
       "name": "arrel622",
@@ -8091,7 +9333,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 590, 621, 623 ]
     },
     {
       "name": "arrel623",
@@ -8104,7 +9348,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 591, 622, 624 ]
     },
     {
       "name": "arrel624",
@@ -8117,7 +9363,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 592, 623, 625 ]
     },
     {
       "name": "arrel625",
@@ -8130,7 +9378,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 593, 624, 626 ]
     },
     {
       "name": "arrel626",
@@ -8143,7 +9393,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 594, 625, 627 ]
     },
     {
       "name": "arrel627",
@@ -8156,7 +9408,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 595, 626, 628 ]
     },
     {
       "name": "arrel628",
@@ -8169,7 +9423,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 596, 627, 629 ]
     },
     {
       "name": "arrel629",
@@ -8182,7 +9438,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 597, 628, 630 ]
     },
     {
       "name": "arrel630",
@@ -8195,7 +9453,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 598, 629, 631 ]
     },
     {
       "name": "arrel631",
@@ -8208,7 +9468,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 599, 630, 632 ]
     },
     {
       "name": "arrel632",
@@ -8221,7 +9483,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 600, 631, 633 ]
     },
     {
       "name": "arrel633",
@@ -8234,7 +9498,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 601, 632, 634 ]
     },
     {
       "name": "arrel634",
@@ -8247,7 +9513,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 602, 633, 635 ]
     },
     {
       "name": "arrel635",
@@ -8260,7 +9528,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 603, 634, 636 ]
     },
     {
       "name": "arrel636",
@@ -8273,7 +9543,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 604, 635, 637 ]
     },
     {
       "name": "arrel637",
@@ -8286,7 +9558,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 605, 636, 638 ]
     },
     {
       "name": "arrel638",
@@ -8299,7 +9573,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 606, 637, 639 ]
     },
     {
       "name": "arrel639",
@@ -8312,7 +9588,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 607, 638, 640 ]
     },
     {
       "name": "arrel640",
@@ -8325,7 +9603,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 608, 639 ]
     },
     {
       "name": "res1el641",
@@ -8339,39 +9619,17 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          60,
-          0
-        ],
-        [
-          60,
-          20
-        ],
-        [
-          50,
-          20
-        ],
-        [
-          50,
-          40
-        ],
-        [
-          60,
-          40
-        ],
-        [
-          60,
-          60
-        ],
-        [
-          0,
-          60
-        ]
-      ]
+        [ 0, 0 ],
+        [ 60, 0 ],
+        [ 60, 20 ],
+        [ 50, 20 ],
+        [ 50, 40 ],
+        [ 60, 40 ],
+        [ 60, 60 ],
+        [ 0, 60 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 642, 643, 646 ]
     },
     {
       "name": "res1el642",
@@ -8384,7 +9642,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 641, 643, 644 ]
     },
     {
       "name": "res1el643",
@@ -8397,7 +9657,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 641, 642, 644, 646 ]
     },
     {
       "name": "res1el644",
@@ -8410,7 +9672,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 642, 643, 645, 646 ]
     },
     {
       "name": "res1el645",
@@ -8423,7 +9687,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 65, 644 ]
     },
     {
       "name": "res1el646",
@@ -8436,7 +9702,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 641, 643, 644 ]
     },
     {
       "name": "res2el647",
@@ -8450,39 +9718,17 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          60,
-          0
-        ],
-        [
-          60,
-          20
-        ],
-        [
-          40,
-          20
-        ],
-        [
-          40,
-          40
-        ],
-        [
-          60,
-          40
-        ],
-        [
-          60,
-          60
-        ],
-        [
-          0,
-          60
-        ]
-      ]
+        [ 0, 0 ],
+        [ 60, 0 ],
+        [ 60, 20 ],
+        [ 40, 20 ],
+        [ 40, 40 ],
+        [ 60, 40 ],
+        [ 60, 60 ],
+        [ 0, 60 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 648, 649, 652 ]
     },
     {
       "name": "res2el648",
@@ -8495,7 +9741,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 647, 649, 650 ]
     },
     {
       "name": "res2el649",
@@ -8508,7 +9756,9 @@
       "sizeX": 30,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 647, 648, 650, 652 ]
     },
     {
       "name": "res2el650",
@@ -8521,7 +9771,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 648, 649, 651, 652 ]
     },
     {
       "name": "res2el651",
@@ -8534,7 +9786,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 193, 650 ]
     },
     {
       "name": "res2el652",
@@ -8547,7 +9801,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 647, 649, 650 ]
     },
     {
       "name": "res3el653",
@@ -8561,39 +9817,17 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          60,
-          0
-        ],
-        [
-          60,
-          20
-        ],
-        [
-          50,
-          20
-        ],
-        [
-          50,
-          40
-        ],
-        [
-          60,
-          40
-        ],
-        [
-          60,
-          60
-        ],
-        [
-          0,
-          60
-        ]
-      ]
+        [ 0, 0 ],
+        [ 60, 0 ],
+        [ 60, 20 ],
+        [ 50, 20 ],
+        [ 50, 40 ],
+        [ 60, 40 ],
+        [ 60, 60 ],
+        [ 0, 60 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 654, 656, 659, 662 ]
     },
     {
       "name": "res3el654",
@@ -8606,7 +9840,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 653, 656, 657 ]
     },
     {
       "name": "res3el655",
@@ -8619,7 +9855,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 289, 658 ]
     },
     {
       "name": "res3el656",
@@ -8632,7 +9870,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 653, 654, 657, 659 ]
     },
     {
       "name": "res3el657",
@@ -8645,7 +9885,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 654, 656, 658, 660 ]
     },
     {
       "name": "res3el658",
@@ -8658,7 +9900,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 289, 655, 657, 661 ]
     },
     {
       "name": "res3el659",
@@ -8671,7 +9915,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 653, 656, 660, 662 ]
     },
     {
       "name": "res3el660",
@@ -8684,7 +9930,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 657, 659, 661, 662 ]
     },
     {
       "name": "res3el661",
@@ -8697,7 +9945,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 321, 658, 660, 663 ]
     },
     {
       "name": "res3el662",
@@ -8710,7 +9960,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 653, 659, 660 ]
     },
     {
       "name": "res3el663",
@@ -8723,7 +9975,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 321, 661 ]
     },
     {
       "name": "res4el664",
@@ -8737,31 +9991,15 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          60,
-          0
-        ],
-        [
-          40,
-          20
-        ],
-        [
-          40,
-          40
-        ],
-        [
-          60,
-          60
-        ],
-        [
-          0,
-          60
-        ]
-      ]
+        [ 0, 0 ],
+        [ 60, 0 ],
+        [ 40, 20 ],
+        [ 40, 40 ],
+        [ 60, 60 ],
+        [ 0, 60 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 665, 667, 670 ]
     },
     {
       "name": "res4el665",
@@ -8775,19 +10013,12 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          20
-        ],
-        [
-          -20,
-          20
-        ]
-      ]
+        [ 0, 0 ],
+        [ 0, 20 ],
+        [ -20, 20 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 666, 667, 664 ]
     },
     {
       "name": "res4el666",
@@ -8800,7 +10031,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 665, 667, 668 ]
     },
     {
       "name": "res4el667",
@@ -8813,7 +10046,9 @@
       "sizeX": 30,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 664, 665, 666, 668, 671, 670 ]
     },
     {
       "name": "res4el668",
@@ -8826,7 +10061,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 666, 667, 669, 671 ]
     },
     {
       "name": "res4el669",
@@ -8839,7 +10076,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 417, 668 ]
     },
     {
       "name": "res4el670",
@@ -8853,19 +10092,12 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          20
-        ],
-        [
-          -20,
-          0
-        ]
-      ]
+        [ 0, 0 ],
+        [ 0, 20 ],
+        [ -20, 0 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 671, 664, 667 ]
     },
     {
       "name": "res4el671",
@@ -8878,7 +10110,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 670, 667, 668 ]
     },
     {
       "name": "res5el672",
@@ -8892,31 +10126,15 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          60,
-          0
-        ],
-        [
-          40,
-          20
-        ],
-        [
-          40,
-          40
-        ],
-        [
-          60,
-          60
-        ],
-        [
-          0,
-          60
-        ]
-      ]
+        [ 0, 0 ],
+        [ 60, 0 ],
+        [ 40, 20 ],
+        [ 40, 40 ],
+        [ 60, 60 ],
+        [ 0, 60 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 673, 675, 681 ]
     },
     {
       "name": "res5el673",
@@ -8930,19 +10148,12 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          20
-        ],
-        [
-          -20,
-          20
-        ]
-      ]
+        [ 0, 0 ],
+        [ 0, 20 ],
+        [ -20, 20 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 674, 676, 675, 672 ]
     },
     {
       "name": "res5el674",
@@ -8955,7 +10166,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 673, 677, 678 ]
     },
     {
       "name": "res5el675",
@@ -8968,7 +10181,9 @@
       "sizeX": 10,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 672, 673, 676, 681 ]
     },
     {
       "name": "res5el676",
@@ -8981,7 +10196,9 @@
       "sizeX": 10,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 673, 675, 677, 681 ]
     },
     {
       "name": "res5el677",
@@ -8994,7 +10211,9 @@
       "sizeX": 10,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 674, 676, 678, 682 ]
     },
     {
       "name": "res5el678",
@@ -9007,7 +10226,9 @@
       "sizeX": 10,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 674, 677, 679, 682 ]
     },
     {
       "name": "res5el679",
@@ -9020,7 +10241,9 @@
       "sizeX": 10,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 678, 680 ]
     },
     {
       "name": "res5el680",
@@ -9033,7 +10256,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 545, 679 ]
     },
     {
       "name": "res5el681",
@@ -9047,19 +10272,12 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          20
-        ],
-        [
-          -20,
-          0
-        ]
-      ]
+        [ 0, 0 ],
+        [ 0, 20 ],
+        [ -20, 0 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 682, 672, 675, 676 ]
     },
     {
       "name": "res5el682",
@@ -9072,7 +10290,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 681, 677, 678 ]
     },
     {
       "name": "res6el683",
@@ -9086,39 +10306,17 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          -60,
-          0
-        ],
-        [
-          -60,
-          20
-        ],
-        [
-          -50,
-          20
-        ],
-        [
-          -50,
-          40
-        ],
-        [
-          -60,
-          40
-        ],
-        [
-          -60,
-          60
-        ],
-        [
-          0,
-          60
-        ]
-      ]
+        [ 0, 0 ],
+        [ -60, 0 ],
+        [ -60, 20 ],
+        [ -50, 20 ],
+        [ -50, 40 ],
+        [ -60, 40 ],
+        [ -60, 60 ],
+        [ 0, 60 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 688, 685, 684 ]
     },
     {
       "name": "res6el684",
@@ -9131,7 +10329,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 683, 685, 686 ]
     },
     {
       "name": "res6el685",
@@ -9144,7 +10344,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 683, 684, 686, 688 ]
     },
     {
       "name": "res6el686",
@@ -9157,7 +10359,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 684, 685, 687, 688 ]
     },
     {
       "name": "res6el687",
@@ -9170,7 +10374,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 96, 686 ]
     },
     {
       "name": "res6el688",
@@ -9183,7 +10389,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 683, 685, 686 ]
     },
     {
       "name": "res7el689",
@@ -9197,39 +10405,17 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          -60,
-          0
-        ],
-        [
-          -60,
-          20
-        ],
-        [
-          -40,
-          20
-        ],
-        [
-          -40,
-          40
-        ],
-        [
-          -60,
-          40
-        ],
-        [
-          -60,
-          60
-        ],
-        [
-          0,
-          60
-        ]
-      ]
+        [ 0, 0 ],
+        [ -60, 0 ],
+        [ -60, 20 ],
+        [ -40, 20 ],
+        [ -40, 40 ],
+        [ -60, 40 ],
+        [ -60, 60 ],
+        [ 0, 60 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 694, 691, 690 ]
     },
     {
       "name": "res7el690",
@@ -9242,7 +10428,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 689, 691, 692 ]
     },
     {
       "name": "res7el691",
@@ -9255,7 +10443,9 @@
       "sizeX": 30,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 689, 690, 692, 694 ]
     },
     {
       "name": "res7el692",
@@ -9268,7 +10458,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 690, 691, 693, 694 ]
     },
     {
       "name": "res7el693",
@@ -9281,7 +10473,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 224, 692 ]
     },
     {
       "name": "res7el694",
@@ -9294,7 +10488,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 689, 691, 692 ]
     },
     {
       "name": "res8el695",
@@ -9308,39 +10504,17 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          -60,
-          0
-        ],
-        [
-          -60,
-          20
-        ],
-        [
-          -50,
-          20
-        ],
-        [
-          -50,
-          40
-        ],
-        [
-          -60,
-          40
-        ],
-        [
-          -60,
-          60
-        ],
-        [
-          0,
-          60
-        ]
-      ]
+        [ 0, 0 ],
+        [ -60, 0 ],
+        [ -60, 20 ],
+        [ -50, 20 ],
+        [ -50, 40 ],
+        [ -60, 40 ],
+        [ -60, 60 ],
+        [ 0, 60 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 704, 701, 698, 696 ]
     },
     {
       "name": "res8el696",
@@ -9353,7 +10527,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 695, 698, 699 ]
     },
     {
       "name": "res8el697",
@@ -9366,7 +10542,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 352, 700 ]
     },
     {
       "name": "res8el698",
@@ -9379,7 +10557,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 695, 696, 699, 701 ]
     },
     {
       "name": "res8el699",
@@ -9392,7 +10572,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 696, 698, 700, 702 ]
     },
     {
       "name": "res8el700",
@@ -9405,7 +10587,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 352, 697, 699, 703 ]
     },
     {
       "name": "res8el701",
@@ -9418,7 +10602,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 695, 698, 702, 704 ]
     },
     {
       "name": "res8el702",
@@ -9431,7 +10617,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 699, 701, 703, 704 ]
     },
     {
       "name": "res8el703",
@@ -9444,7 +10632,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 320, 700, 702, 705 ]
     },
     {
       "name": "res8el704",
@@ -9457,7 +10647,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 695, 701, 702 ]
     },
     {
       "name": "res8el705",
@@ -9470,7 +10662,9 @@
       "sizeX": 20,
       "sizeY": 10,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 320, 703 ]
     },
     {
       "name": "res9el706",
@@ -9484,31 +10678,15 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          -60,
-          0
-        ],
-        [
-          -40,
-          20
-        ],
-        [
-          -40,
-          40
-        ],
-        [
-          -60,
-          60
-        ],
-        [
-          0,
-          60
-        ]
-      ]
+        [ 0, 0 ],
+        [ -60, 0 ],
+        [ -40, 20 ],
+        [ -40, 40 ],
+        [ -60, 60 ],
+        [ 0, 60 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 712, 709, 707 ]
     },
     {
       "name": "res9el707",
@@ -9522,19 +10700,12 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          20
-        ],
-        [
-          20,
-          0
-        ]
-      ]
+        [ 0, 0 ],
+        [ 0, 20 ],
+        [ 20, 0 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 708, 706, 709 ]
     },
     {
       "name": "res9el708",
@@ -9547,7 +10718,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 707, 709, 710 ]
     },
     {
       "name": "res9el709",
@@ -9560,7 +10733,9 @@
       "sizeX": 30,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 706, 707, 708, 710, 713, 712 ]
     },
     {
       "name": "res9el710",
@@ -9573,7 +10748,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 708, 709, 711, 713 ]
     },
     {
       "name": "res9el711",
@@ -9586,7 +10763,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 448, 710 ]
     },
     {
       "name": "res9el712",
@@ -9600,19 +10779,12 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          20
-        ],
-        [
-          20,
-          20
-        ]
-      ]
+        [ 0, 0 ],
+        [ 0, 20 ],
+        [ 20, 20 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 713, 709, 706 ]
     },
     {
       "name": "res9el713",
@@ -9625,7 +10797,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 712, 709, 710 ]
     },
     {
       "name": "res10el714",
@@ -9639,31 +10813,15 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          -60,
-          0
-        ],
-        [
-          -40,
-          20
-        ],
-        [
-          -40,
-          40
-        ],
-        [
-          -60,
-          60
-        ],
-        [
-          0,
-          60
-        ]
-      ]
+        [ 0, 0 ],
+        [ -60, 0 ],
+        [ -40, 20 ],
+        [ -40, 40 ],
+        [ -60, 60 ],
+        [ 0, 60 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 723, 717, 715 ]
     },
     {
       "name": "res10el715",
@@ -9677,19 +10835,12 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          20
-        ],
-        [
-          20,
-          0
-        ]
-      ]
+        [ 0, 0 ],
+        [ 0, 20 ],
+        [ 20, 0 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 716, 714, 717, 718 ]
     },
     {
       "name": "res10el716",
@@ -9702,7 +10853,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 715, 719, 720 ]
     },
     {
       "name": "res10el717",
@@ -9715,7 +10868,9 @@
       "sizeX": 10,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 714, 715, 718, 723 ]
     },
     {
       "name": "res10el718",
@@ -9728,7 +10883,9 @@
       "sizeX": 10,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 715, 717, 719, 723 ]
     },
     {
       "name": "res10el719",
@@ -9741,7 +10898,9 @@
       "sizeX": 10,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 716, 718, 720, 724 ]
     },
     {
       "name": "res10el720",
@@ -9754,7 +10913,9 @@
       "sizeX": 10,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 716, 719, 721, 724 ]
     },
     {
       "name": "res10el721",
@@ -9767,7 +10928,9 @@
       "sizeX": 10,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 720, 722 ]
     },
     {
       "name": "res10el722",
@@ -9780,7 +10943,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 576, 721 ]
     },
     {
       "name": "res10el723",
@@ -9794,19 +10959,12 @@
       "sizeY": -1,
       "status": 0,
       "corners": [
-        [
-          0,
-          0
-        ],
-        [
-          0,
-          20
-        ],
-        [
-          20,
-          20
-        ]
-      ]
+        [ 0, 0 ],
+        [ 0, 20 ],
+        [ 20, 20 ]
+      ],
+      "subscriptions": [],
+      "neighbours": [ 724, 718, 717, 714 ]
     },
     {
       "name": "res10el724",
@@ -9819,7 +10977,9 @@
       "sizeX": 20,
       "sizeY": 20,
       "status": 0,
-      "corners": []
+      "corners": [],
+      "subscriptions": [],
+      "neighbours": [ 723, 719, 720 ]
     }
   ],
   "actuators": [

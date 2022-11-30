@@ -19,11 +19,11 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
         /// <param name="container"></param>
         /// <param name="electrodesWithNeighbours"></param>
         /// <returns></returns>
-        public Container initialize(Container container, ElectrodesWithNeighbours[] electrodesWithNeighbours)
+        public Container initialize(Container container)
         {
 
-
-            Electrode[] electrodeBoard = initializeBoard(container.electrodes, electrodesWithNeighbours);
+            Electrode[] electrodeBoard = container.electrodes;
+            //Electrode[] electrodeBoard = initializeBoard(container.electrodes, electrodesWithNeighbours);
             List<Droplets> droplets = initializeDroplets(container.droplets);
             List<Bubbles> bubbles = initializeBubbles(container.bubbles);
             Actuators[] actuatorsInitial = initializeActuators(container.actuators);
@@ -42,7 +42,23 @@ namespace MicrofluidSimulator.SimulatorCode.Initialize
             {
                 initialContainer.subscribedBubbles.Add(bubble.ID);
             }
-            if (electrodesWithNeighbours == null)
+            //if (electrodesWithNeighbours == null)
+            //{
+            //    NeighbourFinder neighbourFinder = new NeighbourFinder();
+            //    NeighbourFinder.findNeighbours(initialContainer);
+            //}
+
+            // Boolean to see if neighbourfinder is needed
+            bool runNeighbourfinder = false;
+            foreach (Electrode electrode in container.electrodes)
+            {
+                if(electrode.neighbours.Count == 0)
+                {
+                    runNeighbourfinder = true;
+                    break;
+                }
+            }
+            if (runNeighbourfinder)
             {
                 NeighbourFinder neighbourFinder = new NeighbourFinder();
                 NeighbourFinder.findNeighbours(initialContainer);
