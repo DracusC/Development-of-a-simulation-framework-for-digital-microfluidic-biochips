@@ -21,7 +21,12 @@
                 <InputFile name="Protocol" OnChange="@LoadProtocol" accept=".basm"/>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @onclick=@ModalSubmit>Submit</button>
+                @if(!submitted) {
+                    <button type="button" class="btn btn-primary" @onclick=@Submit>Submit</button>
+                } else
+                {
+                    <p>Loading simulation...</p>
+                }
             </div>
 
         </div>
@@ -47,7 +52,8 @@
     public string File1 { get; set; }
 
     private bool configurationUploaded { get; set; }
-    private bool protocolUploaded { get; set;  }
+    private bool protocolUploaded { get; set; }
+    private bool submitted { get; set; } = false;
 
     private async void LoadConfiguration(InputFileChangeEventArgs e)
     {
@@ -77,9 +83,18 @@
     {
         return OnClose.InvokeAsync(false);
     }
+
+    private async void Submit()
+    {
+        submitted = true;
+        StateHasChanged();
+        await Task.Delay(100);
+        ModalSubmit();
+    }
+
     private Task ModalSubmit()
     {
-       return OnSubmit.InvokeAsync(false);
+        return OnSubmit.InvokeAsync(false);
     }
 
     public async void ModalOpen()
