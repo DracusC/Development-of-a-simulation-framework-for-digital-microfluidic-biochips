@@ -180,7 +180,6 @@
     }
     // Download Modal Code END
 
-
     // Upload Modal Code Start
     UploadModal uploadModal;
     public bool UploadModalOpen { get; set; }
@@ -212,7 +211,6 @@
             //container = JsonSerializer.Deserialize<Container>(jsonText);
             //container = Utf8Json.JsonSerializer.Deserialize<Container>(jsonText);
             container = Newtonsoft.Json.JsonConvert.DeserializeObject<Container>(jsonText);
-           
 
             simulator = new Simulator(container, electrodesWithNeighbours, browserLanguage);
 
