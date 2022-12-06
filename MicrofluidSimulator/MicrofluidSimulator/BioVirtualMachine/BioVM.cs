@@ -19,10 +19,8 @@ namespace MicrofluidSimulator.BioVirtualMachine
 
             FileStream programFileUser = new FileStream(uploaded_file_path, FileMode.Open, FileAccess.Read); // Uploaded
             programFile = new FileStream(recompiled_file_path, FileMode.Create, FileAccess.Write); // Recompiled
-            Assembler assembler = new Assembler();
-            Console.WriteLine("before");
+            Assembler assembler = new Assembler();     
             assembler.Translate(ref programFileUser, ref programFile);
-            Console.WriteLine("after");
             programFileUser.Close();
             programFile.Close();
 
@@ -47,8 +45,6 @@ namespace MicrofluidSimulator.BioVirtualMachine
 
             bioVMEngine = new Engine(vMConfiguration, instructionMemory, dataMemory, dMFPlatform);
 
-            //while (bioVMEngine.Execute()) {; }
-            Console.WriteLine("BioVM init done");
         }
 
         public bool step()
