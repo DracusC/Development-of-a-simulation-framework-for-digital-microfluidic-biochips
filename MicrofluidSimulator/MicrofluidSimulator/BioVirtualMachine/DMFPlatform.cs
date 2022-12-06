@@ -99,55 +99,70 @@ namespace BioVirtualMachine
             
             if (devicesToAsyncRead.Count != 0)
             {
-                
-                const int RGBSensorID = 725;
-                int[] colorArray = DeviceUtilityFunctions.getColorOfSensorWithID(RGBSensorID, simulator.container);
-                int red = colorArray[0];
-                int green = colorArray[1];
-                int blue = colorArray[2];
+
+
                 string answer = "";
-                answer += "Asynchronous read to device: ";
                 foreach (KeyValuePair<int, int> device in devicesToAsyncRead)
                 {
-                    
                     int deviceAddress = device.Key;
+                    switch (deviceAddress)
+                    {
+                        case 725:
+                            int[] colorArray = DeviceUtilityFunctions.getColorOfSensorWithID(deviceAddress, simulator.container);
+                            int red = colorArray[0];
+                            int green = colorArray[1];
+                            int blue = colorArray[2];
+
+                            if (red >= 200 && green >= 200 && blue >= 200)
+                            {
+                                //No color
+                                devicesToAsyncRead[deviceAddress] = 0;
+                            }
+                            else if (red <= 20 && green <= 20 && blue <= 20)
+                            {
+                                //Black
+                                devicesToAsyncRead[deviceAddress] = 4;
+                            }
+                            else if (red >= green && red >= blue)
+                            {
+                                //Red
+                                devicesToAsyncRead[deviceAddress] = 1;
+                            }
+                            else if (green >= red && green >= blue)
+                            {
+                                //Green
+                                devicesToAsyncRead[deviceAddress] = 2;
+                            }
+                            else if (blue >= red && blue >= green)
+                            {
+                                //Blue
+                                devicesToAsyncRead[deviceAddress] = 3;
+                            }
+                            else
+                            {
+                                //Not reachable
+                                devicesToAsyncRead[deviceAddress] = 4;
+                            }
+                            break;
+                        case 900:
+                            Console.WriteLine("TemperatureSensor");
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    
+                    answer += "Asynchronous read to device: ";
+
+                    
                     //int readData = 100; // Must be read from device
                     //readData = device.Value; // Must be read from device
                     //readData = red;
                     //devicesToAsyncRead[deviceAddress] = readData;
                     
 
-                    if (red >= 200 && green >= 200 && blue >= 200)
-                    {
-                        //No color
-                        devicesToAsyncRead[RGBSensorID] = 0;
-                    }
-                    else if (red <= 20 && green <= 20 && blue <= 20)
-                    {
-                        //Black
-                        devicesToAsyncRead[RGBSensorID] = 4;
-                    }
-                    else if (red >= green && red >= blue)
-                    {
-                        //Red
-                        devicesToAsyncRead[RGBSensorID] = 1;
-                    }
-                    else if (green >= red && green >= blue)
-                    {
-                        //Green
-                        devicesToAsyncRead[RGBSensorID] = 2;
-                    }
-                    else if (blue >= red && blue >= green)
-                    {
-                        //Blue
-                        devicesToAsyncRead[RGBSensorID] = 3;
-                    }
-                    else
-                    {
-                        //Not reachable
-                        devicesToAsyncRead[RGBSensorID] = 4;
-                    }
-                    answer += '\n' + String.Format("Device address: {0}, Read data: {1}", deviceAddress, devicesToAsyncRead[RGBSensorID]);
+                    
+                    answer += '\n' + String.Format("Device address: {0}, Read data: {1}", deviceAddress, devicesToAsyncRead[deviceAddress]);
                 }
                 Console.WriteLine(answer);
             }
