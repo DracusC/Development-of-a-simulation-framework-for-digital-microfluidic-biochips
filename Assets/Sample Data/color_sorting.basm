@@ -1,0 +1,258 @@
+# DEMO 1: Sorting the drops (4 colours)
+
+.data
+# Location zero holds zero
+DEF zero_addr 0
+zero: INT zero_addr 0
+# This is the path for the belt
+DEF belt_addr 10
+beltAddr: INT belt_addr+0 318
+INT belt_addr+1 317
+INT belt_addr+2 316
+INT belt_addr+3 315
+INT belt_addr+4 314
+INT belt_addr+5 313
+INT belt_addr+6 312
+INT belt_addr+7 311
+INT belt_addr+8 310
+INT belt_addr+9 309
+INT belt_addr+10 308
+INT belt_addr+11 307
+INT belt_addr+12 306
+INT belt_addr+13 305
+INT belt_addr+14 304
+INT belt_addr+15 303
+INT belt_addr+16 302
+INT belt_addr+17 301
+INT belt_addr+18 300
+INT belt_addr+19 299
+beltEnd: INT belt_addr+20 298
+
+# This is the path for color 1
+DEF col1_addr belt_addr+20
+col1Addr: INT col1_addr+0 298
+INT col1_addr+1 297
+INT col1_addr+2 296
+INT col1_addr+3 295
+INT col1_addr+4 294
+INT col1_addr+5 293
+INT col1_addr+6 261
+INT col1_addr+7 229
+INT col1_addr+8 197
+INT col1_addr+9 165
+col1End: INT col1_addr+10 133
+
+# This is the path for color 3
+DEF col3_addr col1_addr+11
+col3Addr: INT col3_addr+0 298
+INT col3_addr+1 297
+INT col3_addr+2 296
+INT col3_addr+3 295
+INT col3_addr+4 294
+INT col3_addr+5 293
+INT col3_addr+6 325
+INT col3_addr+7 357
+INT col3_addr+8 389
+INT col3_addr+9 421
+INT col3_addr+10 453
+col3End: INT col3_addr+11 485
+
+# This is the path for color 2
+DEF col2_addr col3_addr+12
+col2Addr: INT col2_addr+0 298
+INT col2_addr+1 266
+INT col2_addr+2 234
+INT col2_addr+3 202
+INT col2_addr+4 170
+INT col2_addr+5 138
+INT col2_addr+6 139
+INT col2_addr+7 140
+INT col2_addr+8 141
+INT col2_addr+9 142
+col2End: INT col2_addr+10 143
+
+# This is the path for color 4
+DEF col4_addr col2_addr+11
+col4Addr: INT col4_addr+0 298
+INT col4_addr+1 330
+INT col4_addr+2 362
+INT col4_addr+3 394
+INT col4_addr+4 426
+INT col4_addr+5 458
+INT col4_addr+6 490
+INT col4_addr+7 491
+INT col4_addr+8 492
+INT col4_addr+9 493
+INT col4_addr+10 494
+col4End: INT col4_addr+11 495
+
+# Program
+.text
+###############################
+# Main task dispatching subtasks equally spaced (set by beltSpacing: nr. of electrodes)
+###############################
+DEF mainDelayCount 1000
+DEF beltSpacing 8
+
+main:
+  LI mainDelayCount 2*beltSpacing+1;
+  TSTART belt_init;
+  TICK;
+main_wait:
+  BEQ main mainDelayCount zero;
+  SUBI mainDelayCount mainDelayCount 1;
+  TICK;
+  JI main_wait;
+
+###############################
+# Task moving the belt
+###############################
+DEF beltElecToSet 1000 
+DEF beltElecToSetPtr 1001
+DEF beltAddrCurrent 1002
+DEF beltAddrEnd 1003
+DEF beltElecToClear 1004
+DEF RGBSensorID 725
+DEF detectedColor 1010
+DEF col1Value 1011
+DEF col2Value 1012
+DEF col3Value 1013
+DEF col4Value 1014
+
+belt_init:
+  LI col1Value 1;
+  LI col2Value 2;
+  LI col3Value 3;
+  LI col4Value 4;
+  LI beltAddrCurrent beltAddr;
+  LI beltElecToSetPtr beltElecToSet;
+  LI beltAddrEnd beltEnd+1;
+  MOVE beltElecToSetPtr beltAddrCurrent;
+
+  # Setting first electrode
+  SETEL beltElecToSet;
+  TICK;
+  ADDI beltElecToClear beltElecToSet 0; #Copy
+  ADDI beltAddrCurrent beltAddrCurrent 1;
+  MOVE beltElecToSetPtr beltAddrCurrent;
+
+belt_start:
+  SETEL beltElecToSet;
+  TICK;
+  CLREL beltElecToClear;
+  TICK;
+
+  ADDI beltElecToClear beltElecToSet 0; #Copy
+  ADDI beltAddrCurrent beltAddrCurrent 1;
+  MOVE beltElecToSetPtr beltAddrCurrent;
+
+  BEQ belt_test beltAddrCurrent beltAddrEnd;
+  JI belt_start;
+
+belt_test:
+  # Wait for the sensor to sense
+  # Add here as many ticks as needed
+  TICK;
+  TICK;
+  TICK;
+  TICK;
+  TICK;
+  TICK;
+  ADEVRD RGBSensorID detectedColor;
+  ADEVEX;
+  BEQ start_col1 detectedColor col1Value;
+  BEQ start_col2 detectedColor col2Value;
+  BEQ start_col3 detectedColor col3Value;
+  BEQ start_col4 detectedColor col4Value;
+  CLREL beltElecToClear;
+  TICK;
+belt_end:
+  TSTOP;
+  TICK;
+  TICK;
+start_col1:
+  LI colAddrStart col1Addr;
+  LI colAddrStop col1End+1;
+  TSTART color_init;
+  TICK;
+  JI belt_end;
+start_col2:
+  LI colAddrStart col2Addr;
+  LI colAddrStop col2End+1;
+  TSTART color_init;
+  TICK;
+  JI belt_end;
+start_col3:
+  LI colAddrStart col3Addr;
+  LI colAddrStop col3End+1;
+  TSTART color_init;
+  TICK;
+  JI belt_end;
+start_col4:
+  LI colAddrStart col4Addr;
+  LI colAddrStop col4End+1;
+  TSTART color_init;
+  TICK;
+  JI belt_end;
+
+DEF colAddrStart 5
+DEF colAddrStop 6
+
+###############################
+# Task for moving to color 1
+###############################
+DEF colorElecToSet 1005 
+DEF colorElecToSetPtr 1006
+DEF colorAddrCurrent 1007
+DEF colorAddrEnd 1008
+DEF colorElecToClear 1009
+
+color_init:
+  ADDI colorAddrCurrent colAddrStart 0; #Copy
+  LI colorElecToSetPtr colorElecToSet;
+  ADDI colorAddrEnd colAddrStop 0; #Copy
+  MOVE colorElecToSetPtr colorAddrCurrent;
+
+  # Setting first electrode
+  SETEL colorElecToSet;
+  TICK;
+  ADDI colorElecToClear colorElecToSet 0; #Copy
+  ADDI colorAddrCurrent colorAddrCurrent 1;
+  MOVE colorElecToSetPtr colorAddrCurrent;
+
+color_start:
+  SETEL colorElecToSet;
+  TICK;
+  CLREL colorElecToClear;
+  TICK;
+
+  ADDI colorElecToClear colorElecToSet 0; #Copy
+  ADDI colorAddrCurrent colorAddrCurrent 1;
+  MOVE colorElecToSetPtr colorAddrCurrent;
+
+  BGE color_end colorAddrCurrent colorAddrEnd;
+  JI color_start;
+
+color_end:
+  # Clearing last electrode
+  #CLREL colorElecToClear;
+  TSTOP;
+  TICK;
+  TICK;
+
+
+# Bio-Virtual-Machine configuration
+.configuration
+data_memory_size -1
+private_data_memory_start_address 1000
+debug_log_data_types_for_print_formatting true
+debug_keep_all_private_data_memories false
+
+
+
+
+
+
+
+
+

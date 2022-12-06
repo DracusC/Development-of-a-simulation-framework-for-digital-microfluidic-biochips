@@ -97,7 +97,7 @@ namespace MicrofluidSimulator.SimpleVM
                 copyOfColorQueue = HelpfullRetreiveFunctions.createDeepCopyOfColorQueue(this.colorQueue);
             }
            
-            if ((simulator.container.currentTime*100) % 496 == 0 && simulator.container.currentTime != 0 && copyOfColorQueue.Count > 0)
+            if ((simulator.container.currentTime*100) % 496 == 0 && simulator.container.currentTime != 0)
             {
                 Droplets newDroplet = new Droplets("test droplet", (int)simulator.container.currentTime, "h20", 700, 190, 22, 22, copyOfColorQueue.Dequeue(),
                 20, 380, 318, (int)simulator.container.currentTime, 0);
@@ -188,7 +188,7 @@ namespace MicrofluidSimulator.SimpleVM
             if (currentSimulatorTime >= time && heaterCalled == false)
             {
                 heaterCalled = true;
-                SimpleVMUtilityFunctions.setActuatorTargetTemperature(heaterID, desiredTemperature, simulator.container);
+                DeviceUtilityFunctions.setActuatorTargetTemperature(heaterID, desiredTemperature, simulator.container);
             }
             else if (currentSimulatorTime < time)
             {
@@ -207,7 +207,7 @@ namespace MicrofluidSimulator.SimpleVM
             decimal currentSimulatorTime = simulator.container.currentTime;
             if (currentSimulatorTime == time && rgbSensorCalled == false)
             {
-                int[] colorArray = SimpleVMUtilityFunctions.getColorOfSensorWithID(sensorID, simulator.container);
+                int[] colorArray = DeviceUtilityFunctions.getColorOfSensorWithID(sensorID, simulator.container);
                 if (!Enumerable.SequenceEqual(colorArray, new int[] { -1, -1, -1 }) && !Enumerable.SequenceEqual(colorArray, new int[] { 0, 0, 0 }))
                 {
                     rgbSensorCalled = true;
@@ -228,7 +228,7 @@ namespace MicrofluidSimulator.SimpleVM
             decimal currentSimulatorTime = simulator.container.currentTime;
             if (currentSimulatorTime == time && temperatureSensorCalled == false)
             {
-                float temperature = SimpleVMUtilityFunctions.getTemperatureOfSensorWithID(sensorID, simulator.container);
+                float temperature = DeviceUtilityFunctions.getTemperatureOfSensorWithID(sensorID, simulator.container);
                 if (temperature != -1 && temperature != 20)
                 {
                     

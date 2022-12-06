@@ -18,7 +18,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                 if (droplet == null)
                 {
 
-                    return new int[] { -1, -1, -1 };
+                    return new int[] { 255, 255, 255 };
                 }
                 else
                 {
@@ -26,7 +26,7 @@ namespace MicrofluidSimulator.SimulatorCode.Models
                     return new int[] { color.R, color.G, color.B };
                 }
             }
-            return new int[] { -1, -1, -1 };
+            return new int[] { 255, 255, 255 };
         }
     }
 }

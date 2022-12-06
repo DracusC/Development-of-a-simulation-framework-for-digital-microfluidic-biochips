@@ -2,9 +2,9 @@
 using MicrofluidSimulator.SimulatorCode.DataTypes;
 using MicrofluidSimulator.SimulatorCode.Models;
 
-namespace MicrofluidSimulator.SimpleVM
+namespace MicrofluidSimulator.SimulatorCode.Models
 {
-    public class SimpleVMUtilityFunctions
+    public class DeviceUtilityFunctions
     {
         /// <summary>
         /// Utility functions for simpleVM
