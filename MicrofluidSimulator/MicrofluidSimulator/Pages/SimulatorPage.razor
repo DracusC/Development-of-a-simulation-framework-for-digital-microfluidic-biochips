@@ -447,11 +447,54 @@
         simulator.actionQueue = ActionQueueModels.pushActionQueueToOriginalActionQueue(simulator.actionQueue, queue);
     }
 
+    private async Task HandleWebsocketReturn()
+    {
+        var result = await WebSocketService.ReceiveMessageAsync();
+
+
+        if (result is ActionQueueItem actionQueueItem)
+        {
+            Console.WriteLine($"Received Action: {actionQueueItem}");
+            Queue<ActionQueueItem> queue = new Queue<ActionQueueItem>();
+            queue.Enqueue(actionQueueItem);
+                
+            addToSimulatorQueue(queue);
+
+        }
+        else if (result is WebSocketService.SensorRequest sensorRequest)
+        {
+            Console.WriteLine($"Received Sensor Request: {sensorRequest}");
+            Sensors sensor = HelpfullRetreiveFunctions.getSensorByID(simulator.container, sensorRequest.ID);
+            
+            if (sensor == null)
+            {
+                await WebSocketService.SendMessageAsync("NO DATA");
+            }
+            else
+            {
+                Console.WriteLine($"Received a request for some data: {sensor}");
+                if (sensor.type == "RGB_color")
+                {
+                    int[] colorArray = DeviceUtilityFunctions.getColorOfSensorWithID(sensor.ID, simulator.container);
+                    Console.WriteLine($"COLOR IS: {colorArray.ToString()}");
+                }
+                await WebSocketService.SendMessageAsync(Utf8Json.JsonSerializer.ToJsonString(sensor));
+            }
+        }
+    }
+
     private async void WebSocketListen()
     {
+
         while (true)
         {
-            ActionQueueItem result = await WebSocketService.ReceiveActionQueueItemAsync();
+            await HandleWebsocketReturn();
+        }
+
+        while (true)
+        {
+            var result = await WebSocketService.ReceiveActionQueueItemAsync();
+
 
             Queue<ActionQueueItem> queue = new Queue<ActionQueueItem>();
             queue.Enqueue(result);
@@ -504,16 +547,19 @@
             guibroker.initialize_board(container.information);
 
 
-            
-            await ConnectToWebSocket();
 
-            ActionQueueItem result = await WebSocketService.ReceiveActionQueueItemAsync();
-            Queue<ActionQueueItem> queue = new Queue<ActionQueueItem>();
-            queue.Enqueue(result);
-            addToSimulatorQueue(queue);
-            
+            // ActionQueueItem result = await WebSocketService.ReceiveActionQueueItemAsync();
+            // Queue<ActionQueueItem> queue = new Queue<ActionQueueItem>();
+            // queue.Enqueue(result);
+            // addToSimulatorQueue(queue);
+            await ConnectToWebSocket();
+            Console.WriteLine("1");
+            await HandleWebsocketReturn();
+            Console.WriteLine("2");
             Play();
+            Console.WriteLine("3");
             WebSocketListen();
+            Console.WriteLine("4");
 
 
 

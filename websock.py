@@ -6,21 +6,35 @@ import threading
 
 # Initialize the starting action
 action = {
-    "action": {
-        "actionName": "electrode",
-        "actionOnID": 100,  # Start with ID 100
-        "actionChange": 1
-    },
-    "time": 0.5
+    "Type": "action",
+    "Data": {
+        "action": {
+            "actionName": "electrode",
+            "actionOnID": 100,  # Start with ID 100
+            "actionChange": 1
+        },
+        "time": 0.5
+    }
 }
 
 actionClear = {
-    "action": {
-        "actionName": "electrode",
-        "actionOnID": 100,  # Start with ID 100
-        "actionChange": 0
-    },
-    "time": 1.5
+    "Type": "action",
+    "Data": {
+        "action": {
+            "actionName": "electrode",
+            "actionOnID": 100,  # Start with ID 100
+            "actionChange": 0
+        },
+        "time": 1.5
+    }
+}
+
+
+sensorRequest = {
+    "Type": "sensor_request",
+    "Data": {
+        "ID": 725
+    }
 }
 
 # List to keep track of connected clients
@@ -33,23 +47,23 @@ def get_key():
 def update_action_id(key):
     """Update the actionOnID based on the arrow key pressed."""
     global action
-    current_id = action["action"]["actionOnID"]
+    current_id = action["Data"]["action"]["actionOnID"]
 
     # Handle arrow keys (which are two bytes in msvcrt)
     if key == b'\xe0':  # First byte of special keys
         key = msvcrt.getch()  # Read second byte
         if key == b'H':  # Arrow Up
             if current_id > 32:
-                action["action"]["actionOnID"] -= 32
+                action["Data"]["action"]["actionOnID"] -= 32
         elif key == b'P':  # Arrow Down
             if current_id <= 512:
-                action["action"]["actionOnID"] += 32
+                action["Data"]["action"]["actionOnID"] += 32
         elif key == b'M':  # Arrow Right
             if current_id % 32 != 0:
-                action["action"]["actionOnID"] += 1
+                action["Data"]["action"]["actionOnID"] += 1
         elif key == b'K':  # Arrow Left
             if current_id % 32 != 1:
-                action["action"]["actionOnID"] -= 1
+                action["Data"]["action"]["actionOnID"] -= 1
 
     # Handle quit case
     elif key == b'q':  # Quit if 'q' is pressed
@@ -65,7 +79,12 @@ def handle_keypresses(loop):
             break
         
         # Send a message to all connected clients
-        asyncio.run_coroutine_threadsafe(send_message_to_clients(), loop)
+        if key != b'\r':  # Don't send action on Enter key
+            asyncio.run_coroutine_threadsafe(send_action_to_clients(), loop)
+            print("Sending action")
+        elif key == b'\r':  # Enter key
+            asyncio.run_coroutine_threadsafe(send_sensor_request_to_clients(), loop)
+            print("Enter key pressed, sending sensor request.")
 
 async def echo(websocket, path):
     # Register the client
@@ -79,7 +98,7 @@ async def echo(websocket, path):
         # Unregister the client
         connected_clients.remove(websocket)
 
-async def send_message_to_clients():
+async def send_action_to_clients():
     for client in connected_clients:
         if client.open:
             json_action = json.dumps(action)
@@ -87,11 +106,18 @@ async def send_message_to_clients():
             await client.send(json_action)
 
             #clear
-            actionClear["action"]["actionOnID"] = action["action"]["actionOnID"]
+            actionClear["Data"]["action"]["actionOnID"] = action["Data"]["action"]["actionOnID"]
 
             json_actionClear = json.dumps(actionClear)
             print(f"Sending action: {json_actionClear}")
             await client.send(json_actionClear)
+
+async def send_sensor_request_to_clients():
+    for client in connected_clients:
+        if client.open:
+            json_request = json.dumps(sensorRequest)
+            print(f"Sending sensor request: {sensorRequest}")
+            await client.send(json_request)
 
 async def main():
     # Start the WebSocket server

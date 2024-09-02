@@ -40,5 +40,13 @@
         public int valueGreen { get; set; }
         public int valueBlue { get; set; }
         public float valueTemperature { get; set; }
+
+        public override string ToString()
+        {
+            return $"Sensors: {{ name: \"{name}\", type: \"{type}\", ID: {ID}, sensorID: {sensorID}, " +
+                   $"positionX: {positionX}, positionY: {positionY}, sizeX: {sizeX}, sizeY: {sizeY}, " +
+                   $"electrodeID: {electrodeID}, valueRed: {valueRed}, valueGreen: {valueGreen}, " +
+                   $"valueBlue: {valueBlue}, valueTemperature: {valueTemperature} }}";
+        }
     }
 }
