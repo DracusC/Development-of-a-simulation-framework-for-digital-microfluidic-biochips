@@ -155,7 +155,7 @@ namespace MicrofluidSimulator.SimpleVM
         /// </summary>
         /// <param name="time"></param>
         /// <param name="queueToPush"></param>
-        private void pushActionsAtTime(decimal time, Queue<ActionQueueItem> queueToPush)
+        public void pushActionsAtTime(decimal time, Queue<ActionQueueItem> queueToPush)
         {
             if (simulator.container.currentTime == time)
             {

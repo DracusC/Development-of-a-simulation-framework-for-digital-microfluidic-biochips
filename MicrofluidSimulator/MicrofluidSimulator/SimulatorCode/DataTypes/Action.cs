@@ -15,5 +15,10 @@
         public string actionName { get; set; }
         public int actionOnID { get; set; }
         public int actionChange { get; set; }
+
+        public override string ToString()
+        {
+            return $"SimulatorAction: {{ actionName: \"{actionName}\", actionOnID: {actionOnID}, actionChange: {actionChange} }}";
+        }
     }
 }

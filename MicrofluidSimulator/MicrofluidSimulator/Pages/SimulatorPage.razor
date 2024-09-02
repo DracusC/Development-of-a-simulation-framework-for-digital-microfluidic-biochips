@@ -8,6 +8,8 @@
 @inject IJSInProcessRuntime JSInProcessRuntime
 @inject IJSUnmarshalledRuntime JSUnmarshalledRuntime
 @inject HttpClient Http
+@inject WebSocketService WebSocketService
+
 @using MicrofluidSimulator.SimulatorCode.View
 @using System.Diagnostics
 @using System.Text.Json
@@ -15,6 +17,8 @@
 @using System.Reflection
 @using BioVirtualMachine
 @using System.Net
+@using MicrofluidSimulator.Services.Websocket
+@using MicrofluidSimulator.SimulatorCode.Models
 
 
 @if(DownloadModalOpen){
@@ -362,7 +366,7 @@
         if(timeStepAmount <= 0)
         {
             simulator.simulatorStep(-1);
-            simpleVM.doApiCall();
+            // simpleVM.doApiCall();
         }
         else
         {
@@ -373,7 +377,7 @@
                     bioVM.step();
                 }
                 simulator.simulatorStep(-1);
-                simpleVM.doApiCall();
+                // simpleVM.doApiCall();
             }
         }
 
@@ -418,7 +422,43 @@
         guibroker.updateSimulatorContainer(Type, JSONString, simulator);
     }
 
+    private async Task ConnectToWebSocket()
+    {
+        var uri = new Uri("ws://localhost:8765"); // Replace with your WebSocket URI
+        await WebSocketService.ConnectAsync(uri);
+    }
 
+    private async Task SendMessage()
+    {
+        await WebSocketService.SendMessageAsync("Hello, WebSocket!");
+    }
+
+
+    private void addToSimulatorQueue(Queue<ActionQueueItem> queue)
+    {
+        foreach (ActionQueueItem item in queue)
+        {
+            item.time += simulator.container.currentTime;
+            item.time = (decimal)Math.Round((Decimal)item.time, 3, MidpointRounding.AwayFromZero);
+
+            Console.WriteLine(item.ToString());
+        }
+
+        simulator.actionQueue = ActionQueueModels.pushActionQueueToOriginalActionQueue(simulator.actionQueue, queue);
+    }
+
+    private async void WebSocketListen()
+    {
+        while (true)
+        {
+            ActionQueueItem result = await WebSocketService.ReceiveActionQueueItemAsync();
+
+            Queue<ActionQueueItem> queue = new Queue<ActionQueueItem>();
+            queue.Enqueue(result);
+
+            addToSimulatorQueue(queue);
+        }
+    }
 
 
     /// <summary>
@@ -462,6 +502,26 @@
             guibroker.start_update_timer();
             guibroker.update_board(simulator.container);
             guibroker.initialize_board(container.information);
+
+
+            
+            await ConnectToWebSocket();
+
+            ActionQueueItem result = await WebSocketService.ReceiveActionQueueItemAsync();
+            Queue<ActionQueueItem> queue = new Queue<ActionQueueItem>();
+            queue.Enqueue(result);
+            addToSimulatorQueue(queue);
+            
+            Play();
+            WebSocketListen();
+
+
+
+            // Play();
+
+            // simpleVM.pushActionsAtTime(1, queue);
+            
+
         }
     }
 }

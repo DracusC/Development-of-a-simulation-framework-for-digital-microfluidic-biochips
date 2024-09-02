@@ -12,5 +12,10 @@
 
         public DataTypes.SimulatorAction action { get; set; }
         public decimal time { get; set; }
+
+        public override string ToString()
+        {
+            return $"ActionQueueItem: {{ action: {action.ToString()}, time: {time} }}";
+        }
     }
 }
