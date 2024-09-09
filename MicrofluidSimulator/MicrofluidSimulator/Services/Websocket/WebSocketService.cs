@@ -31,6 +31,42 @@ public class WebSocketService : IAsyncDisposable
         }
     }
 
+    //public class Point
+    //{
+    //    public Point(int x, int y)
+    //    {
+    //        X = x;
+    //        Y = y;
+    //    }
+
+    //    public int X { get; set; }
+    //    public int Y { get; set; }
+    //}
+
+    //public class Droplet
+    //{
+    //    public Droplet(string name)
+    //    {
+    //        Name = name;
+    //    }
+    //    public string Name { get; set; }
+    //}
+
+    //public void Move(Droplet d, Point p)
+    //{
+
+    //}
+
+    //public void Test()
+    //{
+    //    Droplet wrong = new Droplet("point");
+
+    //    Droplet d = new Droplet("alex");
+    //    Move(d, new Point(10, 10));
+
+    //    Move(d, wrong);
+    //}
+
 
     public async Task<object> ReceiveMessageAsync()
     {
@@ -55,7 +91,7 @@ public class WebSocketService : IAsyncDisposable
                 switch (baseMessage.Type)
                 {
                     case "action":
-                        var actionData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<ActionQueueItem>>(serializedObj);
+                        var actionData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<Queue<ActionQueueItem>>>(serializedObj);
                         return actionData.Data;
 
                     case "sensor_request":

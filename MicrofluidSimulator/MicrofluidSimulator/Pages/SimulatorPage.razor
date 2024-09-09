@@ -424,25 +424,20 @@
 
     private async Task ConnectToWebSocket()
     {
-        var uri = new Uri("ws://localhost:8765"); // Replace with your WebSocket URI
+        var uri = new Uri("ws://localhost:5000/ws/"); // Replace with your WebSocket URI
         await WebSocketService.ConnectAsync(uri);
-    }
-
-    private async Task SendMessage()
-    {
-        await WebSocketService.SendMessageAsync("Hello, WebSocket!");
     }
 
 
     private void addToSimulatorQueue(Queue<ActionQueueItem> queue)
     {
-        foreach (ActionQueueItem item in queue)
-        {
-            item.time += simulator.container.currentTime;
-            item.time = (decimal)Math.Round((Decimal)item.time, 3, MidpointRounding.AwayFromZero);
+        // foreach (ActionQueueItem item in queue)
+        // {
+        //     item.time += simulator.container.currentTime;
+        //     item.time = (decimal)Math.Round((Decimal)item.time, 3, MidpointRounding.AwayFromZero);
 
-            Console.WriteLine(item.ToString());
-        }
+        //     // Console.WriteLine(item.ToString());
+        // }
 
         simulator.actionQueue = ActionQueueModels.pushActionQueueToOriginalActionQueue(simulator.actionQueue, queue);
     }
@@ -452,13 +447,10 @@
         var result = await WebSocketService.ReceiveMessageAsync();
 
 
-        if (result is ActionQueueItem actionQueueItem)
+        if (result is Queue<ActionQueueItem> actionQueue)
         {
-            Console.WriteLine($"Received Action: {actionQueueItem}");
-            Queue<ActionQueueItem> queue = new Queue<ActionQueueItem>();
-            queue.Enqueue(actionQueueItem);
-                
-            addToSimulatorQueue(queue);
+            Console.WriteLine($"Received Action Queue");
+            addToSimulatorQueue(actionQueue);
 
         }
         else if (result is WebSocketService.SensorRequest sensorRequest)
@@ -485,21 +477,9 @@
 
     private async void WebSocketListen()
     {
-
         while (true)
         {
             await HandleWebsocketReturn();
-        }
-
-        while (true)
-        {
-            var result = await WebSocketService.ReceiveActionQueueItemAsync();
-
-
-            Queue<ActionQueueItem> queue = new Queue<ActionQueueItem>();
-            queue.Enqueue(result);
-
-            addToSimulatorQueue(queue);
         }
     }
 
