@@ -18,18 +18,28 @@ public class WebSocketService : IAsyncDisposable
 
     public class WebSocketMessage<T>
     {
+        public WebSocketMessage(Guid requestId, string type, T data)
+        {
+            RequestId = requestId;
+            Type = type;
+            Data = data;
+        }
+
+        public Guid RequestId { get; set; }
         public string? Type { get; set; }
         public T? Data { get; set; }
     }
 
     public class SensorRequest
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
+        public decimal Time { get; set; }
         public override string ToString()
         {
-            return $"SensorRequest: {{ SensorId: {ID} }}";
+            return $"SensorRequest: {{ SensorId: {Id} }}";
         }
     }
+
 
     //public class Point
     //{
@@ -84,21 +94,19 @@ public class WebSocketService : IAsyncDisposable
             {
                 var serializedObj = Encoding.UTF8.GetString(buffer, 0, result.Count);
 
-                Console.WriteLine($"Received {serializedObj}");
-
                 var baseMessage = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<object>>(serializedObj);
 
                 switch (baseMessage.Type)
                 {
                     case "action":
                         var actionData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<Queue<ActionQueueItem>>>(serializedObj);
-                        return actionData.Data;
+                        return actionData;
 
                     case "sensor_request":
                         //var sensorRequestMessage = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<SensorRequest>>(serializedObj);
                         //return sensorRequestMessage.Data;
                         var sensorData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<SensorRequest>>(serializedObj);
-                        return sensorData.Data;
+                        return sensorData;
 
 
                     default:

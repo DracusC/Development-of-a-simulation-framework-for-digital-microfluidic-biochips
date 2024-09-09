@@ -519,22 +519,15 @@ namespace MicrofluidSimulator.SimulatorCode.Models
         /// <returns></returns>
         public static Sensors? getSensorByID(Container container, int sensorID)
         {
-            Console.WriteLine($"We are looking fro sensor {sensorID}");
             foreach (Sensors sensor in container.sensors)
             {
-                Console.WriteLine($"Sensor: {sensor}");
                 if (sensor.ID.Equals(sensorID))
                 {
-                    Console.WriteLine($"We found sensor {sensor}");
                     return sensor;
                 }
             }
             return null;
         }
-
-
-
-
     }
 
 }

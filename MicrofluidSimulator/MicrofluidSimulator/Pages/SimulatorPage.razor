@@ -447,31 +447,83 @@
         var result = await WebSocketService.ReceiveMessageAsync();
 
 
-        if (result is Queue<ActionQueueItem> actionQueue)
+        if (result is WebSocketService.WebSocketMessage<Queue<ActionQueueItem>> actionQueue)
         {
-            Console.WriteLine($"Received Action Queue");
-            addToSimulatorQueue(actionQueue);
+            addToSimulatorQueue(actionQueue.Data);
 
         }
-        else if (result is WebSocketService.SensorRequest sensorRequest)
+        else if (result is WebSocketService.WebSocketMessage<WebSocketService.SensorRequest> sensorRequestMessage)
         {
-            Console.WriteLine($"Received Sensor Request: {sensorRequest}");
-            Sensors sensor = HelpfullRetreiveFunctions.getSensorByID(simulator.container, sensorRequest.ID);
-            
-            if (sensor == null)
+            _ = Task.Run(async () =>
             {
-                await WebSocketService.SendMessageAsync("NO DATA");
-            }
-            else
+                await HandleSensorRequestResponse(sensorRequestMessage);
+            });
+
+        }
+    }
+
+    // private async Task HandleSensorRequestResponse(WebSocketService.WebSocketMessage<WebSocketService.SensorRequest> sensorRequestMessage)
+    // {
+    //     var sensorRequest = sensorRequestMessage.Data;
+    //     var time = sensorRequest.Time;
+
+    //     while (time > simulator.container.currentTime) { Console.WriteLine($"Simulator time is {simulator.container.currentTime}"); }
+
+    //     Console.WriteLine($"WE PASSED THE TARGET TIME: {time} sim time {simulator.container.currentTime}");
+
+    //     Sensors sensor = HelpfullRetreiveFunctions.getSensorByIDv2(simulator.container, sensorRequest.Id);
+
+    //     if (sensor == null)
+    //     {
+    //         await WebSocketService.SendMessageAsync($"Error: No sensor with an ID of {sensorRequest.Id}");
+    //     }
+    //     else
+    //     {
+    //         Console.WriteLine($"Request had id: {sensorRequestMessage.RequestId}");
+
+    //         WebSocketService.WebSocketMessage<Sensors> response = new WebSocketService.WebSocketMessage<Sensors>(sensorRequestMessage.RequestId, "sensor_response", sensor);
+
+    //         await WebSocketService.SendMessageAsync(Utf8Json.JsonSerializer.ToJsonString(response));
+    //     }
+    // }
+
+    private async Task HandleSensorRequestResponse(WebSocketService.WebSocketMessage<WebSocketService.SensorRequest> sensorRequestMessage)
+    {
+        var sensorRequest = sensorRequestMessage.Data;
+        var targetTime = sensorRequest.Time;
+
+        while (simulator.container.currentTime < targetTime)
+        {
+            await Task.Delay(100);
+            // Console.WriteLine($"Simulator time is {simulator.container.currentTime}, waiting for {targetTime}");
+        }
+
+        Sensors sensor = HelpfullRetreiveFunctions.getSensorByID(simulator.container, sensorRequest.Id);
+
+        if (sensor == null)
+        {
+            await WebSocketService.SendMessageAsync($"Error: No sensor with an ID of {sensorRequest.Id}");
+        }
+        else
+        {
+
+            switch (sensor.type)
             {
-                Console.WriteLine($"Received a request for some data: {sensor}");
-                if (sensor.type == "RGB_color")
-                {
-                    int[] colorArray = DeviceUtilityFunctions.getColorOfSensorWithID(sensor.ID, simulator.container);
-                    Console.WriteLine($"COLOR IS: {colorArray.ToString()}");
-                }
-                await WebSocketService.SendMessageAsync(Utf8Json.JsonSerializer.ToJsonString(sensor));
+                case("RGB_color"):
+                    ColorSensorModels.colorSensor(simulator.container, sensor);
+                    DeviceUtilityFunctions.getColorOfSensorWithID(sensor.ID, simulator.container);
+                    break;
+                case("temperature"):
+                    TemperatureSensorModels.temperatureSensor(simulator.container, sensor);
+                    DeviceUtilityFunctions.getTemperatureOfSensorWithID(sensor.ID, simulator.container);
+                    break;
             }
+
+            WebSocketService.WebSocketMessage<Sensors> response =
+                new WebSocketService.WebSocketMessage<Sensors>(
+                    sensorRequestMessage.RequestId, "sensor_response", sensor);
+
+            await WebSocketService.SendMessageAsync(Utf8Json.JsonSerializer.ToJsonString(response));
         }
     }
 
@@ -533,13 +585,9 @@
             // queue.Enqueue(result);
             // addToSimulatorQueue(queue);
             await ConnectToWebSocket();
-            Console.WriteLine("1");
             await HandleWebsocketReturn();
-            Console.WriteLine("2");
             Play();
-            Console.WriteLine("3");
             WebSocketListen();
-            Console.WriteLine("4");
 
 
 
