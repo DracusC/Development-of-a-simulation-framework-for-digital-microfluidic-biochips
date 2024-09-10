@@ -80,7 +80,8 @@ public class WebSocketService : IAsyncDisposable
 
     public async Task<object> ReceiveMessageAsync()
     {
-        var buffer = new byte[1024 * 4];
+        var buffer = new byte[1024 * 32];
+        var messageBuilder = new StringBuilder();
 
         while (_webSocket.State == WebSocketState.Open)
         {
@@ -92,31 +93,36 @@ public class WebSocketService : IAsyncDisposable
             }
             else
             {
-                var serializedObj = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                var chunk = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                Console.WriteLine(chunk);
+                messageBuilder.Append(chunk);
 
-                var baseMessage = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<object>>(serializedObj);
-
-                switch (baseMessage.Type)
+                if (result.EndOfMessage)
                 {
-                    case "action":
-                        var actionData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<Queue<ActionQueueItem>>>(serializedObj);
-                        return actionData;
+                    string fullMessage = messageBuilder.ToString();
 
-                    case "sensor_request":
-                        //var sensorRequestMessage = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<SensorRequest>>(serializedObj);
-                        //return sensorRequestMessage.Data;
-                        var sensorData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<SensorRequest>>(serializedObj);
-                        return sensorData;
+                    var baseMessage = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<object>>(fullMessage);
 
+                    switch (baseMessage.Type)
+                    {
+                        case "action":
+                            var actionData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<Queue<ActionQueueItem>>>(fullMessage);
+                            return actionData;
 
-                    default:
-                        throw new InvalidOperationException("Unknown message type received.");
+                        case "sensor_request":
+                            var sensorData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<SensorRequest>>(fullMessage);
+                            return sensorData;
+
+                        default:
+                            throw new InvalidOperationException("Unknown message type received.");
+                    }
                 }
             }
         }
 
         return null;
     }
+
 
 
     public async Task<ActionQueueItem> ReceiveActionQueueItemAsync()
