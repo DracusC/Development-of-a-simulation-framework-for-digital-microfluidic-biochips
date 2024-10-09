@@ -71,8 +71,6 @@ public class WebSocketService : IAsyncDisposable
         var buffer = new byte[1024 * 32];
         var messageBuilder = new StringBuilder();
 
-        var watch = System.Diagnostics.Stopwatch.StartNew();
-
         while (_webSocket.State == WebSocketState.Open)
         {
             var result = await _webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
@@ -96,10 +94,6 @@ public class WebSocketService : IAsyncDisposable
                     {
                         case "action":
                             var actionData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<Queue<ActionQueueItem>>>(fullMessage);
-                            
-                            watch.Stop();
-                            var elapsedMs = watch.ElapsedMilliseconds;
-                            Console.WriteLine($"Processing of action data took: {elapsedMs}");
 
                             return actionData;
 
@@ -112,24 +106,20 @@ public class WebSocketService : IAsyncDisposable
 
                             //Console.WriteLine($"Time: {sensorData.Data.Time}, Sensor ID: {sensorId}, Request Argument: {requestArgument}");
 
-                            watch.Stop();
-                            elapsedMs = watch.ElapsedMilliseconds;
-                            Console.WriteLine($"Processing of sensor data took: {elapsedMs}");
-
                             return sensorData;
 
                         case "actuator_request":
                             var actuatorData = System.Text.Json.JsonSerializer.Deserialize<WebSocketMessage<RequestWrapper<ActuatorDto>>>(fullMessage);
                             //Console.WriteLine($"We received an actuator request! For actuator with id: {actuatorData.Data.Data.ActuatorId}");
 
-                            watch.Stop();
-                            elapsedMs = watch.ElapsedMilliseconds;
-                            Console.WriteLine($"Processing of actuator data took: {elapsedMs}");
-
                             return actuatorData;
 
+                        case "time_request":
+                            var timeData = System.Text.Json.JsonSerializer.Deserialize<WebSocketMessage<int>>(fullMessage);
+                            return timeData;
+
                         default:
-                            throw new InvalidOperationException("Unknown message type received.");
+                            throw new InvalidOperationException($"Unknown message type received: {baseMessage.Type}");
                     }
                 }
             }

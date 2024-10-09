@@ -525,7 +525,13 @@
                     await HandleActuatorRequestResponse(actuatorRequestMessage);
                 });
             }
+            else if (result is WebSocketService.WebSocketMessage<int> timeRequestMessage)
+            {
+                Console.WriteLine("We got a time request!");
+                await HandleTimeRequestResponse(timeRequestMessage);
+            }
 
+            Console.WriteLine(result.ToString());
 
         }
         catch (Exception ex)
@@ -533,6 +539,17 @@
             Console.WriteLine($"Error in HandleWebsocketReturn: {ex.Message}");
             throw; // Re-throw the exception to be handled by WebSocketListen
         }
+    }
+
+    private async Task HandleTimeRequestResponse(WebSocketService.WebSocketMessage<int> timeRequestMessage)
+    {
+        if (timeRequestMessage.Type != "time_request") throw new Exception("Unexpected time request type...");
+
+        WebSocketService.WebSocketMessage<decimal> response =
+            new WebSocketService.WebSocketMessage<decimal>(
+                timeRequestMessage.RequestId, "time_response", simulator.container.currentTime);
+
+        await WebSocketService.SendMessageAsync(Utf8Json.JsonSerializer.ToJsonString(response));
     }
 
     private async Task HandleActuatorRequestResponse(WebSocketService.WebSocketMessage<WebSocketService.RequestWrapper<WebSocketService.ActuatorDto>> actuatorRequestMessage)
