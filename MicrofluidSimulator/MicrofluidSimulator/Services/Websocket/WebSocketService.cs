@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net.WebSockets;
 using System.Text;
+using System.Text.Json.Serialization;
 using MicrofluidSimulator.SimulatorCode.DataTypes;
+using Newtonsoft.Json;
 
 namespace MicrofluidSimulator.Services.Websocket;
 public class WebSocketService : IAsyncDisposable
@@ -30,51 +32,37 @@ public class WebSocketService : IAsyncDisposable
         public T? Data { get; set; }
     }
 
-    public class SensorRequest
+    public class SensorRequestData
     {
-        public int Id { get; set; }
+        [JsonPropertyName("sensorId")]
+        public int SensorId { get; set; }
+
+        [JsonPropertyName("requestArgument")]
+        public string RequestArgument { get; set; }
+    }
+    public class RequestWrapper<T>
+    {
         public decimal Time { get; set; }
-        public override string ToString()
-        {
-            return $"SensorRequest: {{ SensorId: {Id} }}";
-        }
+        public T Data { get; set; }
     }
 
+    public class ActuatorDto
+    {
+        [JsonPropertyName("actuatorId")]
+        public int ActuatorId { get; set; }
 
-    //public class Point
+        [JsonPropertyName("arguments")]
+        public Dictionary<string, double> Arguments { get; set; }
+    }
+
+    //public class SensorRequest
     //{
-    //    public Point(int x, int y)
+    //    public int Id { get; set; }
+    //    public decimal Time { get; set; }
+    //    public override string ToString()
     //    {
-    //        X = x;
-    //        Y = y;
+    //        return $"SensorRequest: {{ SensorId: {Id} }}";
     //    }
-
-    //    public int X { get; set; }
-    //    public int Y { get; set; }
-    //}
-
-    //public class Droplet
-    //{
-    //    public Droplet(string name)
-    //    {
-    //        Name = name;
-    //    }
-    //    public string Name { get; set; }
-    //}
-
-    //public void Move(Droplet d, Point p)
-    //{
-
-    //}
-
-    //public void Test()
-    //{
-    //    Droplet wrong = new Droplet("point");
-
-    //    Droplet d = new Droplet("alex");
-    //    Move(d, new Point(10, 10));
-
-    //    Move(d, wrong);
     //}
 
 
@@ -82,6 +70,8 @@ public class WebSocketService : IAsyncDisposable
     {
         var buffer = new byte[1024 * 32];
         var messageBuilder = new StringBuilder();
+
+        var watch = System.Diagnostics.Stopwatch.StartNew();
 
         while (_webSocket.State == WebSocketState.Open)
         {
@@ -94,7 +84,6 @@ public class WebSocketService : IAsyncDisposable
             else
             {
                 var chunk = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                Console.WriteLine(chunk);
                 messageBuilder.Append(chunk);
 
                 if (result.EndOfMessage)
@@ -107,11 +96,37 @@ public class WebSocketService : IAsyncDisposable
                     {
                         case "action":
                             var actionData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<Queue<ActionQueueItem>>>(fullMessage);
+                            
+                            watch.Stop();
+                            var elapsedMs = watch.ElapsedMilliseconds;
+                            Console.WriteLine($"Processing of action data took: {elapsedMs}");
+
                             return actionData;
 
                         case "sensor_request":
-                            var sensorData = Utf8Json.JsonSerializer.Deserialize<WebSocketMessage<SensorRequest>>(fullMessage);
+                            var sensorData = System.Text.Json.JsonSerializer.Deserialize<WebSocketMessage<RequestWrapper<SensorRequestData>>>(fullMessage);
+
+                            // Access the sensorId and requestArgument
+                            int sensorId = sensorData.Data.Data.SensorId;
+                            string requestArgument = sensorData.Data.Data.RequestArgument;
+
+                            //Console.WriteLine($"Time: {sensorData.Data.Time}, Sensor ID: {sensorId}, Request Argument: {requestArgument}");
+
+                            watch.Stop();
+                            elapsedMs = watch.ElapsedMilliseconds;
+                            Console.WriteLine($"Processing of sensor data took: {elapsedMs}");
+
                             return sensorData;
+
+                        case "actuator_request":
+                            var actuatorData = System.Text.Json.JsonSerializer.Deserialize<WebSocketMessage<RequestWrapper<ActuatorDto>>>(fullMessage);
+                            //Console.WriteLine($"We received an actuator request! For actuator with id: {actuatorData.Data.Data.ActuatorId}");
+
+                            watch.Stop();
+                            elapsedMs = watch.ElapsedMilliseconds;
+                            Console.WriteLine($"Processing of actuator data took: {elapsedMs}");
+
+                            return actuatorData;
 
                         default:
                             throw new InvalidOperationException("Unknown message type received.");

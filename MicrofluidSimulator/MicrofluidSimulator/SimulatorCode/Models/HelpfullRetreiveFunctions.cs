@@ -528,6 +528,30 @@ namespace MicrofluidSimulator.SimulatorCode.Models
             }
             return null;
         }
+
+        public static Sensors? getSensorBySensorId(Container container, int sensorID)
+        {
+            foreach (Sensors sensor in container.sensors)
+            {
+                if (sensor.sensorID.Equals(sensorID))
+                {
+                    return sensor;
+                }
+            }
+            return null;
+        }
+
+        public static Actuators? getActuatorByActuatorId(Container container, int actuatorID)
+        {
+            foreach (Actuators actuator in container.actuators)
+            {
+                if (actuator.actuatorID.Equals(actuatorID))
+                {
+                    return actuator;
+                }
+            }
+            return null;
+        }
     }
 
 }

@@ -17,8 +17,10 @@
 @using System.Reflection
 @using BioVirtualMachine
 @using System.Net
+@using System.Net.Http.Headers
 @using MicrofluidSimulator.Services.Websocket
 @using MicrofluidSimulator.SimulatorCode.Models
+
 
 
 @if(DownloadModalOpen){
@@ -490,14 +492,6 @@
 
     private void addToSimulatorQueue(Queue<ActionQueueItem> queue)
     {
-        // foreach (ActionQueueItem item in queue)
-        // {
-        //     item.time += simulator.container.currentTime;
-        //     item.time = (decimal)Math.Round((Decimal)item.time, 3, MidpointRounding.AwayFromZero);
-
-        //     // Console.WriteLine(item.ToString());
-        // }
-
         simulator.actionQueue = ActionQueueModels.pushActionQueueToOriginalActionQueue(simulator.actionQueue, queue);
     }
 
@@ -509,16 +503,29 @@
 
             if (result is WebSocketService.WebSocketMessage<Queue<ActionQueueItem>> actionQueue)
             {
+                foreach (var item in actionQueue.Data)
+                {
+                    Console.WriteLine(item);
+                }
+
                 addToSimulatorQueue(actionQueue.Data);
+                Playv2();
             }
-            else if (result is WebSocketService.WebSocketMessage<WebSocketService.SensorRequest> sensorRequestMessage)
+            else if (result is WebSocketService.WebSocketMessage<WebSocketService.RequestWrapper<WebSocketService.SensorRequestData>> sensorRequestMessage)
             {
                 _ = Task.Run(async () =>
                 {
                     await HandleSensorRequestResponse(sensorRequestMessage);
                 });
-            } 
-            Playv2();
+            }
+            else if (result is WebSocketService.WebSocketMessage<WebSocketService.RequestWrapper<WebSocketService.ActuatorDto>> actuatorRequestMessage)
+            {
+                _ = Task.Run(async () =>
+                {
+                    await HandleActuatorRequestResponse(actuatorRequestMessage);
+                });
+            }
+
 
         }
         catch (Exception ex)
@@ -528,8 +535,53 @@
         }
     }
 
+    private async Task HandleActuatorRequestResponse(WebSocketService.WebSocketMessage<WebSocketService.RequestWrapper<WebSocketService.ActuatorDto>> actuatorRequestMessage)
+    {
+        var actuatorRequest = actuatorRequestMessage.Data;
+        var targetTime = actuatorRequest.Time;
 
-    private async Task HandleSensorRequestResponse(WebSocketService.WebSocketMessage<WebSocketService.SensorRequest> sensorRequestMessage)
+        while (simulator.container.currentTime < targetTime)
+        {
+            await Task.Delay(100);
+        }
+
+        Actuators actuator = HelpfullRetreiveFunctions.getActuatorByActuatorId(simulator.container, actuatorRequest.Data.ActuatorId);
+
+        if (actuator == null)
+        {
+            WebSocketService.WebSocketMessage<int> errorResponse =
+                new WebSocketService.WebSocketMessage<int>(
+                    actuatorRequestMessage.RequestId, "error", 404);
+
+            await WebSocketService.SendMessageAsync(Utf8Json.JsonSerializer.ToJsonString(errorResponse));
+        }
+        else
+        {
+            foreach (var kvp in actuatorRequest.Data.Arguments)
+            {
+                switch (kvp.Key)
+                {
+                    case("temperature"):
+                        DeviceUtilityFunctions.setActuatorTargetTemperature(actuator.ID, (float) kvp.Value, simulator.container);
+                        break;
+
+
+                    default:
+                        Console.WriteLine($"We dont know what to do with actuator argument: {kvp.Value}");
+                        break;
+                }
+            }
+        }
+
+        WebSocketService.WebSocketMessage<int> response =
+            new WebSocketService.WebSocketMessage<int>(
+                actuatorRequestMessage.RequestId, "actuator_response", 200);
+
+        await WebSocketService.SendMessageAsync(Utf8Json.JsonSerializer.ToJsonString(response));
+    }
+
+
+    private async Task HandleSensorRequestResponse(WebSocketService.WebSocketMessage<WebSocketService.RequestWrapper<WebSocketService.SensorRequestData>> sensorRequestMessage)
     {
         var sensorRequest = sensorRequestMessage.Data;
         var targetTime = sensorRequest.Time;
@@ -537,18 +589,20 @@
         while (simulator.container.currentTime < targetTime)
         {
             await Task.Delay(100);
-            // Console.WriteLine($"Simulator time is {simulator.container.currentTime}, waiting for {targetTime}");
         }
 
-        Sensors sensor = HelpfullRetreiveFunctions.getSensorByID(simulator.container, sensorRequest.Id);
+        Sensors sensor = HelpfullRetreiveFunctions.getSensorBySensorId(simulator.container, sensorRequest.Data.SensorId);
 
         if (sensor == null)
         {
-            await WebSocketService.SendMessageAsync($"Error: No sensor with an ID of {sensorRequest.Id}");
+            WebSocketService.WebSocketMessage<int> errorResponse =
+                new WebSocketService.WebSocketMessage<int>(
+                    sensorRequestMessage.RequestId, "error", 404);
+
+            await WebSocketService.SendMessageAsync(Utf8Json.JsonSerializer.ToJsonString(errorResponse));
         }
         else
         {
-
             switch (sensor.type)
             {
                 case("RGB_color"):
