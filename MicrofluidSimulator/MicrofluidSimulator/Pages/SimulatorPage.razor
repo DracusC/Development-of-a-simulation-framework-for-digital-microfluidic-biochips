@@ -508,6 +508,11 @@
                     Console.WriteLine(item);
                 }
 
+                if (actionQueue.Data.Last().time < simulator.container.currentTime)
+                {
+                    Restart();
+                }
+
                 addToSimulatorQueue(actionQueue.Data);
                 Playv2();
             }
